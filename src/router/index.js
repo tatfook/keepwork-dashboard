@@ -81,6 +81,29 @@ export const asyncRouterMap = [
   },
 
   {
+    path: '/lesson',
+    component: Layout,
+    meta: {
+      title: 'Lesson',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'teacher_cdkeys',
+        component: () => import('@/views/lesson/teacher_cdkey/index'),
+        name: 'Teacher CDKeys',
+        meta: { title: 'Teacher CDKeys' }
+      },
+      {
+        path: 'teacher_cdkeys_temp',
+        component: () => import('@/views/lesson/teacher_cdkey/index'),
+        name: 'Teacher CDKeys 2',
+        meta: { title: 'Teacher CDKeys temp' }
+      }
+    ]
+  },
+
+  {
     path: '/nested',
     component: Layout,
     redirect: '/nested/menu1',

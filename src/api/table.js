@@ -1,4 +1,6 @@
-import request from '@/utils/request'
+import createService from '@/utils/request'
+
+const request = createService()
 
 export function getList(params) {
   return request({
