@@ -19,13 +19,13 @@ export default function createService(baseUrl, timeout) {
       return config
     },
     error => {
-    // Do something with request error
+      // Do something with request error
       console.log(error) // for debug
       Promise.reject(error)
     }
   )
 
-  // respone拦截器
+  // response拦截器
   service.interceptors.response.use(
     response => {
       const res = response.data
