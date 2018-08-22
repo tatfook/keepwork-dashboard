@@ -16,6 +16,11 @@
       </el-table-column>
     </el-table>
 
+    <div class="pagination-container">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
+
     <el-dialog title="生成邀请码" :visible.sync="dialogFormVisible">
       <el-input v-model="count" placeholder="Please input" style='width:400px;'></el-input>
       <div slot="footer" class="dialog-footer">
@@ -38,11 +43,7 @@ export default {
       total: null,
       listQuery: {
         page: 1,
-        limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        per_page: 20
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -61,14 +62,23 @@ export default {
     }
   },
   async created() {
-    this.fetchData()
+    this.getList()
   },
   methods: {
-    async fetchData() {
+    async getList() {
       this.listLoading = true
-      const res = await getTeacherCDKeys()
-      this.list = res.data
+      const res = await getTeacherCDKeys(this.listQuery)
+      this.list = res.rows
+      this.total = res.count
       this.listLoading = false
+    },
+    handleSizeChange(val) {
+      this.listQuery.per_page = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val
+      this.getList()
     },
     handleCreate() {
       this.dialogFormVisible = true
@@ -76,10 +86,11 @@ export default {
     async createData() {
       this.downloadLoading = true
       const list = await generateTeacherCDKeys(this.count)
+      debugger
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['key']
         const filterVal = ['key']
-        const data = this.formatJson(filterVal, list.data)
+        const data = this.formatJson(filterVal, list)
         excel.export_json_to_excel({
           header: tHeader,
           data,
@@ -88,6 +99,7 @@ export default {
         })
         this.downloadLoading = false
         this.dialogFormVisible = false
+        this.handleCurrentChange(1)
       })
     },
     formatJson(filterVal, jsonData) {

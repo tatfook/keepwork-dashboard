@@ -4,6 +4,6 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  BASE_API: '"https://easy-mock.com/mock/5950a2419adc231f356a6636/vue-admin"',
-  LESSON_API: '"http://easymock-node.keepwork.com/mock/5b596b61c0a3ad0022b14b12"',
+  BASE_API: '"https://stage.keepwork.com/api/wiki/models"',
+  LESSON_API: '"https://api-stage.keepwork.com/lesson/v0"',
 })
