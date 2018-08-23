@@ -64,6 +64,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/lesson/subject/index'),
         name: 'Subjects',
         meta: { title: 'Subjects' }
+      },
+      {
+        path: 'skills',
+        component: () => import('@/views/lesson/skill/index'),
+        name: 'Skills',
+        meta: { title: 'Skills' }
       }
     ]
   },
