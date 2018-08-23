@@ -15,7 +15,7 @@
       <el-table v-if="!listLoading" :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%">
         <el-table-column align="center" v-for="col in showableAttrs" :key="col.name" :label="col.name" :width="col.width">
           <template slot-scope="scope">
-            <span> {{colFilter(col, scope.row[col.name])}} </span>
+            <span> {{colFilter(col, rowValue(scope.row, col.name))}} </span>
           </template>
         </el-table-column>
 
@@ -37,14 +37,14 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :rules="attrRules" ref="dataForm" :model="temp" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
-        <el-form-item v-for="attr in editableAttrs" :key="attr.name" :label="attr.name">
-          <el-input v-if="attrType(attr, 'input')" v-model="temp['attr.name']"></el-input>
-          <el-select v-else-if="attrType(attr, 'select')" v-model="temp['attr.name']" filterable >
+        <el-form-item v-for="attr in editableAttrs" :key="attr.name" :label="attr.name" :prop="attr.name">
+          <el-input v-if="attrType(attr, 'input')" v-model="temp[attr.name]"></el-input>
+          <el-select v-else-if="attrType(attr, 'select')" v-model="temp[attr.name]" filterable >
             <el-option v-for="item in attr.options" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
           </el-select>
-          <el-date-picker v-else-if="attrType(attr, 'time')" v-model="temp['attr.name']" type="datetime"></el-date-picker>
-          <el-rate v-else-if="attrType(attr, 'rate')" style="margin-top:8px;" v-model="temp['attr.name']" :colors="attr.colors" :max='attr.max'></el-rate>
+          <el-date-picker v-else-if="attrType(attr, 'time')" v-model="temp[attr.name]" type="datetime"></el-date-picker>
+          <el-rate v-else-if="attrType(attr, 'rate')" style="margin-top:8px;" v-model="temp[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -169,6 +169,9 @@ export default {
       const attrType = attr.type || 'input'
       return attrType === type
     },
+    rowValue(row, key) {
+      return _.get(row, key)
+    },
     colFilter(col, value) {
       if (value === null) return value
       if (col.filter) return col.filter(value)
@@ -230,7 +233,7 @@ export default {
       this.getList()
     },
     resetTemp() {
-      this.temp = { ...this.editableAttrs }
+      this.temp = {}
     },
     handleCreate() {
       this.resetTemp()
@@ -269,9 +272,9 @@ export default {
     async updateData() {
       const valid = await this.$refs['dataForm'].validate()
       if (valid) {
-        const tempData = Object.assign({}, this.temp)
+        const tempData = _.cloneDeep(this.temp)
         try {
-          await this.api.update(tempData)()
+          await this.api.update(tempData)
           for (const v of this.list) {
             if (v.id === tempData.id) {
               const index = this.list.indexOf(v)
@@ -370,7 +373,7 @@ export default {
           rules[attr.name] = [
             {
               required: true,
-              message: attr.requiredMessage || `$attr.name is required`,
+              message: attr.requiredMessage || `${attr.name} is required`,
               trigger: attr.requiredTrigger || 'change'
             }
           ]
