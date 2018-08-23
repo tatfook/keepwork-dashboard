@@ -280,7 +280,7 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = this.exportAttrs
+        const tHeader = this.exportAttrs.map(item => item.name)
         const data = this.formatJson(this.list)
         excel.export_json_to_excel({
           header: tHeader,
@@ -291,7 +291,7 @@ export default {
       })
     },
     formatJson(jsonData = []) {
-      const filters = this.exportAttrs
+      const filters = this.exportAttrs.map(item => item.name)
       return jsonData.map(v => filters.map(j => v[j]))
     },
     attrFilter(key) {
