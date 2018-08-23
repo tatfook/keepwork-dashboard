@@ -11,8 +11,8 @@
       <el-button v-if="can('download')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">导出</el-button>
     </div>
 
-    <div class="content-container table-container">
-      <el-table :data="list" v-loading="listLoading" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%">
+    <div class="content-container table-container" v-loading="listLoading">
+      <el-table v-if="!listLoading" :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%">
         <el-table-column align="center" v-for="col in showableAttrs" :key="col.name" :label="col.name" :width="col.width">
           <template slot-scope="scope">
             <span> {{colFilter(col, scope.row[col.name])}} </span>
@@ -39,8 +39,8 @@
       <el-form :rules="attrRules" ref="dataForm" :model="temp" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
         <el-form-item v-for="attr in editableAttrs" :key="attr.name" :label="attr.name">
           <el-input v-if="attrType(attr, 'input')" v-model="temp['attr.name']"></el-input>
-          <el-select v-else-if="attrType(attr, 'select')" v-model="temp['attr.name']">
-            <el-option v-for="item in attr.options" :key="item.key" :label="item.display_name" :value="item.key">
+          <el-select v-else-if="attrType(attr, 'select')" v-model="temp['attr.name']" filterable >
+            <el-option v-for="item in attr.options" :key="item.key" :label="item.name" :value="item.key">
             </el-option>
           </el-select>
           <el-date-picker v-else-if="attrType(attr, 'time')" v-model="temp['attr.name']" type="datetime"></el-date-picker>
@@ -75,7 +75,7 @@
 <script>
 import _ from 'lodash'
 
-/**
+/*
 @props
 
 @api: resouce api client
@@ -113,7 +113,8 @@ import _ from 'lodash'
       }
     ]
   }
- */
+*/
+
 export default {
   name: 'BaseCRUD',
   props: {
@@ -129,7 +130,8 @@ export default {
           extra: []
         }
       }
-    }
+    },
+    nested: Array
   },
   data() {
     return {
@@ -148,12 +150,14 @@ export default {
         update: 'Edit',
         create: 'Create'
       },
-      downloadLoading: false
+      downloadLoading: false,
+      nestedData: {}
     }
   },
-  created() {
+  async created() {
     this.resetTemp()
-    this.getList()
+    this.initNestedData()
+    await this.getList()
   },
   methods: {
     can(action) {
@@ -166,14 +170,52 @@ export default {
       return attrType === type
     },
     colFilter(col, value) {
-      return col.filter ? col.filter(value) : value
+      if (value === null) return value
+      if (col.filter) return col.filter(value)
+      if (this.nestedData[col.name]) {
+        const item = this.nestedData[col.name][value]
+        const translate = item && item[this.getNestedAttr(col.name)] || ''
+        return value + '-' + translate
+      }
+      return value
+    },
+    colKey(colName) {
+      if (this.nestedData[colName]) {
+        return this.nestedData[colName].md5
+      }
+      return colName
     },
     async getList() {
       this.listLoading = true
       const res = await this.api.list(this.listQuery)
       this.list = res.rows
       this.total = res.count
+      await this.getNestedData()
       this.listLoading = false
+    },
+    initNestedData() {
+      for (const nestedItem of this.nested) {
+        const data = nestedItem.data || {}
+        this.nestedData[nestedItem.name] = data
+      }
+    },
+    getNestedAttr(name) {
+      for (const nestedItem of this.nested) {
+        if (nestedItem.name === name) return nestedItem.attr || 'name'
+      }
+    },
+    async getNestedData() {
+      const self = this
+      for (const nestedItem of this.nested) {
+        const key = nestedItem.name
+        const api = nestedItem.api
+        const idList = _(self.list).map(item => item[key]).compact().uniq()
+        // FIXME, should only call once
+        for (const id of idList) {
+          const data = self.nestedData[key]
+          if (!data[id]) data[id] = await api.get(id)
+        }
+      }
     },
     handleFilter() {
       this.listQuery['x-page'] = 1
@@ -291,8 +333,7 @@ export default {
       })
     },
     formatJson(jsonData = []) {
-      const filters = this.exportAttrs.map(item => item.name)
-      return jsonData.map(v => filters.map(j => v[j]))
+      return jsonData.map(data => this.exportAttrs.map(col => this.colFilter(col, data[col.name])))
     },
     attrFilter(key) {
       const attrs = []
