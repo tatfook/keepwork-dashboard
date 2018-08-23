@@ -86,6 +86,17 @@ export default {
       this.listQuery['x-page'] = val
       this.getList()
     },
+    resetTemp() {
+      this.temp = { ...this.editableAttrs }
+    },
+    handleCreate() {
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
+    },
     async createData() {
       this.downloadLoading = true
       const list = await generateTeacherCDKeys(this.count)

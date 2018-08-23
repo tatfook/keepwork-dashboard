@@ -43,7 +43,7 @@
             <el-option v-for="item in attr.options" :key="item.key" :label="item.display_name" :value="item.key">
             </el-option>
           </el-select>
-          <el-date-picker v-else-if="attrType(attr, 'time')" v-model="temp['attr.name']" type="datetime" placeholder="Please pick a date"></el-date-picker>
+          <el-date-picker v-else-if="attrType(attr, 'time')" v-model="temp['attr.name']" type="datetime"></el-date-picker>
           <el-rate v-else-if="attrType(attr, 'rate')" style="margin-top:8px;" v-model="temp['attr.name']" :colors="attr.colors" :max='attr.max'></el-rate>
         </el-form-item>
       </el-form>
