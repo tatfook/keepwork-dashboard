@@ -60,10 +60,10 @@ export const asyncRouterMap = [
         meta: { title: 'Teacher CDKeys' }
       },
       {
-        path: 'teacher_cdkeys_temp',
-        component: () => import('@/views/lesson/teacher_cdkey/index'),
-        name: 'Teacher CDKeys 2',
-        meta: { title: 'Teacher CDKeys temp' }
+        path: 'subjects',
+        component: () => import('@/views/lesson/subject/index'),
+        name: 'Subjects',
+        meta: { title: 'Subjects' }
       }
     ]
   },

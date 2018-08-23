@@ -66,4 +66,7 @@ export default {
     position: absolute;
     z-index: 999;
   }
+  .table-container {
+    margin: 10px 0px;
+  }
 </style>

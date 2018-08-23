@@ -1,23 +1,25 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
+    <div class="content-container filter-container">
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary">生成邀请码</el-button>
     </div>
-    <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column label="Key">
-        <template slot-scope="scope">
-          {{scope.row.key}}
-        </template>
-      </el-table-column>
-      <el-table-column label="State">
-        <template slot-scope="scope">
-          {{scope.row.state | statusFilter}}
-        </template>
-      </el-table-column>
-    </el-table>
+    <div class="content-container table-container">
+      <el-table :data="list" v-loading="listLoading" element-loading-text="Loading" border fit highlight-current-row>
+        <el-table-column label="Key">
+          <template slot-scope="scope">
+            {{scope.row.key}}
+          </template>
+        </el-table-column>
+        <el-table-column label="State">
+          <template slot-scope="scope">
+            {{scope.row.state | statusFilter}}
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
 
-    <div class="pagination-container">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30,50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
+    <div class="content-container pagination-container">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery['x-page']" :page-sizes="[10,20,30, 50]" :page-size="listQuery['x-per-page']" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </div>
 
@@ -42,8 +44,8 @@ export default {
       tableKey: 0,
       total: null,
       listQuery: {
-        page: 1,
-        per_page: 20
+        'x-page': 1,
+        'x-per-page': 20
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -72,21 +74,21 @@ export default {
       this.total = res.count
       this.listLoading = false
     },
+    handleFilter() {
+      this.listQuery['x-page'] = 1
+      this.getList()
+    },
     handleSizeChange(val) {
-      this.listQuery.per_page = val
+      this.listQuery['x-per-page'] = val
       this.getList()
     },
     handleCurrentChange(val) {
-      this.listQuery.page = val
+      this.listQuery['x-page'] = val
       this.getList()
-    },
-    handleCreate() {
-      this.dialogFormVisible = true
     },
     async createData() {
       this.downloadLoading = true
       const list = await generateTeacherCDKeys(this.count)
-      debugger
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['key']
         const filterVal = ['key']
