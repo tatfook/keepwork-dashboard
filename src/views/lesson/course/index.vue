@@ -6,7 +6,7 @@
 import BaseCRUD from '@/components/BaseCRUD'
 import { resourceCRUD } from '@/api/lesson'
 
-const lessonAPI = resourceCRUD('lessons ')
+const lessonAPI = resourceCRUD('lessons')
 const subjectAPI = resourceCRUD('subjects')
 const userAPI = resourceCRUD('users')
 
