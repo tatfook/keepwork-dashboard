@@ -131,7 +131,10 @@ export default {
         }
       }
     },
-    nested: Array
+    nested: {
+      type: Array,
+      default: []
+    }
   },
   data() {
     return {
