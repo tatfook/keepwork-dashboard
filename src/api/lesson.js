@@ -23,11 +23,11 @@ export function generateTeacherCDKeys(count) {
 export function resourceCRUD(resource) {
   const url = '/admins/' + resource
   return {
-    list(params) {
+    list(data) {
       return request({
-        method: 'get',
-        url,
-        params
+        method: 'post',
+        url: url + '/search',
+        data
       })
     },
     create(data) {
