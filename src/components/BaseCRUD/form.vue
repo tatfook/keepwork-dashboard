@@ -2,7 +2,11 @@
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
       <el-form-item v-for="attr in attrs" :key="attr.name" :label="attr.name" :prop="attr.name">
-        <el-input v-if="attrType(attr, 'input')" v-model="model[attr.name]"></el-input>
+        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading">
+          <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key">
+          </el-option>
+        </el-select>
+        <el-input v-else-if="attrType(attr, 'input')" v-model="model[attr.name]"></el-input>
         <el-select v-else-if="attrType(attr, 'select')" v-model="model[attr.name]" filterable >
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
@@ -21,6 +25,7 @@
 
 <script>
 import _ from 'lodash'
+import { getResourceClass } from '@/resources'
 
 export default {
   name: 'CRUDFrom',
@@ -37,15 +42,19 @@ export default {
         update: 'Edit',
         create: 'Create'
       },
-      model: {}
+      model: {},
+      associateOptions: {},
+      loading: false
     }
   },
   created() {
     this.model = _.cloneDeep(this.formData || {})
+    this.loadAssociate()
   },
   watch: {
     formData(data) {
       this.model = _.cloneDeep(data || {})
+      this.loadAssociate()
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -55,6 +64,38 @@ export default {
     attrType(attr, type) {
       const attrType = attr.type || 'input'
       return attrType === type
+    },
+    async loadAssociate() {
+      this.loading = true
+      this.associateOptions = {}
+      for (const attr of this.attrs) {
+        if (attr.associate && this.model[attr.name]) {
+          const associateClass = getResourceClass(attr.associate)
+          const item = await associateClass.api().get(this.model[attr.name])
+          this.associateOptions[attr.name] = [{ key: item.id, value: item[associateClass.title()] }]
+        }
+      }
+      this.loading = false
+    },
+    searchAssociate(attr) {
+      const self = this
+      const associateClass = getResourceClass(attr.associate)
+      return async(query) => {
+        if (query !== '') {
+          this.loading = true
+          const list = await associateClass.api().list({
+            [associateClass.title() + '-like']: query + '%',
+            'x-per-page': 50
+          })
+          self.associateOptions[attr.name] = list.rows.map((item) => {
+            return {
+              key: item.id,
+              value: item[associateClass.title()]
+            }
+          })
+          this.loading = false
+        }
+      }
     },
     cancel() {
       this.$emit('cancel')

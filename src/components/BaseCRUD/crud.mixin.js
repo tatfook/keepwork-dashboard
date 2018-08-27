@@ -65,7 +65,7 @@ export default {
       if (this.nestedData[col.name]) {
         const item = this.nestedData[col.name][value]
         const translate = (item && item[this.getNestedAttr(col.name)]) || ''
-        return value + '-' + translate
+        return translate
       }
       return value
     },
@@ -88,10 +88,10 @@ export default {
           .map(item => item.data[key])
           .compact()
           .uniq()
-        // FIXME, should only call once
-        for (const id of idList) {
-          const data = this.nestedData[key]
-          if (!data[id]) data[id] = await nestedResource.api().get(id)
+        const list = await nestedResource.api().list({ id: idList })
+        const data = this.nestedData[key]
+        for (const item of list.rows) {
+          data[item.id] = item
         }
       }
     },
