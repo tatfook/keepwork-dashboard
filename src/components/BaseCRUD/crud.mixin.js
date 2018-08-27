@@ -19,7 +19,8 @@ export default {
       listLoading: true,
       listQuery: {
         'x-page': 1,
-        'x-per-page': 20
+        'x-per-page': 20,
+        'x-order': ''
       },
       activeRow: {},
       dialogFormVisible: false,
@@ -214,14 +215,10 @@ export default {
           })
         })
     },
-    attrFilter(key) {
-      const attrs = []
-      this.attributes.forEach(attr => {
-        if (attr[key] !== false) {
-          attrs.push(attr)
-        }
-      })
-      return attrs
+    handleSort(evt) {
+      const order = evt.order === 'descending' ? 'desc' : 'asc'
+      this.listQuery['x-order'] = evt.column.label + '-' + order
+      this.getList()
     }
   },
   computed: {
