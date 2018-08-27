@@ -60,7 +60,7 @@ export default {
       this.listLoading = false
     },
     colFilter(col, value) {
-      if (value === null) return value
+      if (value === null || value === undefined) return ''
       if (col.filter) return col.filter(value)
       if (this.nestedData[col.name]) {
         const item = this.nestedData[col.name][value]
@@ -77,21 +77,20 @@ export default {
     },
     getNestedAttr(name) {
       for (const nestedItem of this.nested) {
-        if (nestedItem.name === name) return nestedItem.attr || 'name'
+        if (nestedItem.name === name) return getResourceClass(nestedItem.associate).title()
       }
     },
     async getNestedData() {
-      const self = this
       for (const nestedItem of this.nested) {
-        const nestedResource = newResource(nestedItem.associate)
+        const nestedResource = getResourceClass(nestedItem.associate)
         const key = nestedItem.name
-        const idList = _(self.list)
-          .map(item => item[key])
+        const idList = _(this.list)
+          .map(item => item.data[key])
           .compact()
           .uniq()
         // FIXME, should only call once
         for (const id of idList) {
-          const data = self.nestedData[key]
+          const data = this.nestedData[key]
           if (!data[id]) data[id] = await nestedResource.api().get(id)
         }
       }

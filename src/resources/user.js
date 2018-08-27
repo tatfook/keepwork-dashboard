@@ -5,7 +5,12 @@ const crudAPI = resourceCRUD('users')
 
 export default class User extends BaseResource {
   static attributes() {
-    return []
+    return [
+      {
+        name: 'username',
+        title: true
+      }
+    ]
   }
 
   static api() {

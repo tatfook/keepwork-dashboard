@@ -13,7 +13,8 @@ export default class Subject extends BaseResource {
       },
       {
         name: 'subjectName',
-        required: true
+        required: true,
+        title: true
       },
       {
         name: 'createdAt',

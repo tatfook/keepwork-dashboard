@@ -83,6 +83,17 @@ export default class BaseResource {
     return nested
   }
 
+  static title() {
+    const attrs = this.attributes()
+
+    for (const attr of attrs) {
+      if (attr.title) {
+        return attr.name
+      }
+    }
+    return 'name'
+  }
+
   static attrFilter(key) {
     const attrs = []
     this.attributes().forEach(attr => {
