@@ -40,6 +40,7 @@ const user = {
       const data = res.data
       const roles = []
       if (data.roleId >= 10) {
+        // roles.push('operation')
         roles.push('admin')
         commit('SET_ROLES', roles)
       } else {

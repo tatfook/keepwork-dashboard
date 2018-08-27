@@ -4,19 +4,15 @@ import BaseResource from './base'
 const crudAPI = resourceCRUD('users')
 
 export default class User extends BaseResource {
-  resource() {
-    return 'user'
-  }
-
-  attributes() {
+  static attributes() {
     return []
   }
 
-  api() {
+  static api() {
     return crudAPI
   }
 
-  actions() {
+  static actions() {
     return {
       disabled: ['create', 'delete', 'update']
     }

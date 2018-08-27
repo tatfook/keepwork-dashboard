@@ -4,7 +4,7 @@ import BaseResource from './base'
 const crudAPI = resourceCRUD('lessons')
 
 export default class Lesson extends BaseResource {
-  attributes() {
+  static attributes() {
     return [
       {
         name: 'id',
@@ -43,11 +43,11 @@ export default class Lesson extends BaseResource {
     ]
   }
 
-  api() {
+  static api() {
     return crudAPI
   }
 
-  actions() {
+  static actions() {
     return {
       disabled: ['show']
     }

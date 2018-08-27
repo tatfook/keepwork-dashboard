@@ -1,16 +1,13 @@
 // Base Model for resources
+import _ from 'lodash'
 export default class BaseResource {
   constructor(row) {
-    const attrs = this.attributes()
+    const attrs = this.constructor.attributes()
     this.data = {}
-    this.nested = []
     if (row) {
       for (const attr of attrs) {
         if (row[attr.name]) {
           this.data[attr.name] = row[attr.name]
-          if (attr.associate) {
-            this.nested.push(attr)
-          }
         }
       }
     }
@@ -18,22 +15,12 @@ export default class BaseResource {
 
   // resource name, eg: user
   resource() {
-    return self.constructor.name
+    return this.constructor.name
   }
 
   // resource rest API
-  api() {
+  static api() {
     throw new Error('Please define the resource API!')
-  }
-
-  // define the reference key of current resource. eg: userId
-  reference() {
-    return this.resource() + 'Id'
-  }
-
-  // will replace the reference key while rendering
-  title() {
-    return this.data.name
   }
 
   /*
@@ -58,7 +45,7 @@ export default class BaseResource {
       }
     ]
   */
-  attributes() {
+  static attributes() {
     return []
   }
 
@@ -77,10 +64,63 @@ export default class BaseResource {
         ]
       }
   */
-  actions() {
+  static actions() {
     return {
       disabled: [], // ['create', 'edit', 'destroy', 'show']
       extra: []
     }
+  }
+
+  static nested() {
+    const attrs = this.attributes()
+    const nested = []
+
+    for (const attr of attrs) {
+      if (attr.associate) {
+        nested.push(attr)
+      }
+    }
+    return nested
+  }
+
+  static attrFilter(key) {
+    const attrs = []
+    this.attributes().forEach(attr => {
+      if (attr[key] !== false) {
+        attrs.push(attr)
+      }
+    })
+    return attrs
+  }
+
+  static editableAttrs() {
+    return this.attrFilter('edit')
+  }
+
+  static showableAttrs() {
+    return this.attrFilter('show')
+  }
+
+  static exportAttrs() {
+    return this.attrFilter('export')
+  }
+
+  static attrRules() {
+    const rules = {}
+    this.attributes().forEach(attr => {
+      if (attr.required) {
+        rules[attr.name] = [
+          {
+            required: true,
+            message: attr.requiredMessage || `${attr.name} is required`,
+            trigger: attr.requiredTrigger || 'change'
+          }
+        ]
+      }
+      if (attr.rules) {
+        rules[attr.name] = _.concat(rules[attr.name], attr.rules)
+      }
+    })
+    return rules
   }
 }

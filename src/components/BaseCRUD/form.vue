@@ -25,18 +25,7 @@ import _ from 'lodash'
 export default {
   name: 'CRUDFrom',
   props: {
-    visible: {
-      type: Boolean,
-      default: true
-    },
-    attrRules: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    },
-    attrs: {
-      type: Array,
+    resourceClass: {
       required: true
     },
     status: String,
@@ -77,6 +66,14 @@ export default {
     async updateData() {
       const valid = await this.$refs['dataForm'].validate()
       valid && this.$emit('update', this.model)
+    }
+  },
+  computed: {
+    attrs() {
+      return this.resourceClass.editableAttrs()
+    },
+    attrRules() {
+      return this.resourceClass.attrRules()
     }
   }
 }

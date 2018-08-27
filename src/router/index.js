@@ -57,31 +57,36 @@ export const asyncRouterMap = [
         path: 'teacher_cdkeys',
         component: () => import('@/views/lesson/teacher_cdkey/index'),
         name: 'Teacher CDKeys',
+        resource: 'TeacherCDKey',
         meta: { title: 'Teacher CDKeys' }
       },
       {
         path: 'subjects',
         component: () => import('@/views/lesson/subject/index'),
         name: 'Subjects',
+        resource: 'Subject',
         meta: { title: 'Subjects' }
       },
       {
         path: 'skills',
         component: () => import('@/views/lesson/skill/index'),
         name: 'Skills',
+        resource: 'Skill',
         meta: { title: 'Skills' }
       },
       {
         path: 'packages',
         component: () => import('@/views/lesson/package/index'),
         name: 'Packages',
+        resource: 'Package',
         meta: { title: 'Packages' }
       },
       {
-        path: 'courses',
-        component: () => import('@/views/lesson/course/index'),
-        name: 'Courses',
-        meta: { title: 'Courses' }
+        path: 'lessons',
+        component: () => import('@/views/lesson/lesson/index'),
+        name: 'Lessons',
+        resource: 'Lesson',
+        meta: { title: 'Lessons' }
       }
     ]
   },

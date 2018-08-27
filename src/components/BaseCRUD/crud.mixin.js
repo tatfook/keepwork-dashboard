@@ -1,5 +1,7 @@
 import _ from 'lodash'
-import { newResource } from '@/resources'
+import { newResource, getResourceClass } from '@/resources'
+import { rolesCan } from '@/utils/cancan'
+import { mapGetters } from 'vuex'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 
@@ -38,15 +40,15 @@ export default {
   },
   methods: {
     loadResource() {
-      this.factory = newResource(this.resource)
-      this.api = this.factory.api()
-      this.attributes = this.factory.attributes()
-      this.actions = this.factory.actions()
-      this.nested = this.factory.nested
+      this.resourceClass = getResourceClass(this.resource)
+      this.api = this.resourceClass.api()
+      this.attributes = this.resourceClass.attributes()
+      this.actions = this.resourceClass.actions()
+      this.nested = this.resourceClass.nested()
     },
     can(action) {
       if (this.actions.disabled && _.indexOf(this.actions.disabled, action) === -1) {
-        return true
+        return rolesCan(this.roles, action, this.resourceClass)
       }
     },
     async getList() {
@@ -224,15 +226,9 @@ export default {
     }
   },
   computed: {
-    editableAttrs() {
-      return this.attrFilter('edit')
-    },
-    showableAttrs() {
-      return this.attrFilter('show')
-    },
-    exportAttrs() {
-      return this.attrFilter('export')
-    },
+    ...mapGetters({
+      roles: 'roles'
+    }),
     showingData() {
       if (!this.showingFormVisible) return []
       const data = []
@@ -240,24 +236,6 @@ export default {
         data.push({ key: item.name, value: this.temp[item.name] })
       })
       return data
-    },
-    attrRules() {
-      const rules = {}
-      this.attributes.forEach(attr => {
-        if (attr.required) {
-          rules[attr.name] = [
-            {
-              required: true,
-              message: attr.requiredMessage || `${attr.name} is required`,
-              trigger: attr.requiredTrigger || 'change'
-            }
-          ]
-        }
-        if (attr.rules) {
-          rules[attr.name] = _.concat(rules[attr.name], attr.rules)
-        }
-      })
-      return rules
     }
   }
 }

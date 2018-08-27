@@ -11,7 +11,7 @@ const stateMap = [
 ]
 
 export default class Package extends BaseResource {
-  attributes() {
+  static attributes() {
     return [
       {
         name: 'id',
@@ -68,11 +68,11 @@ export default class Package extends BaseResource {
     ]
   }
 
-  api() {
+  static api() {
     return crudAPI
   }
 
-  actions() {
+  static actions() {
     return {
       disabled: ['show']
     }

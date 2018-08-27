@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import User from './user'
+import Role from './Role'
+import TeacherCDKey from './teacherCDKey'
 import Subject from './subject'
 import Skill from './skill'
 import Package from './package'
@@ -7,6 +9,8 @@ import Lesson from './lesson'
 
 export const resources = {
   User,
+  Role,
+  TeacherCDKey,
   Subject,
   Skill,
   Package,
@@ -14,12 +18,17 @@ export const resources = {
 }
 
 export const newResource = (name, row) => {
-  const Klass = resources[_.capitalize(name)]
-  if (!Klass) throw new Error('Invlid resource: ' + name)
+  const Klass = resources[_.upperFirst(name)]
+  if (!Klass) throw new Error('Invlid resource: ' + _.upperFirst(name))
   return new Klass(row)
+}
+
+export const getResourceClass = (name) => {
+  return resources[_.upperFirst(name)]
 }
 
 export default {
   resources,
-  newResource
+  newResource,
+  getResourceClass
 }

@@ -8,15 +8,15 @@
     </div> -->
     <div class="action-container">
       <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">new</el-button>
-      <el-button v-if="can('download')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">export</el-button>
+      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">export</el-button>
     </div>
 
-    <crud-table :listLoading="listLoading" :list="list" :attrs="showableAttrs" :actions="actions" :filter="colFilter" @handleAction="handleAction"> </crud-table>
+    <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction"> </crud-table>
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"> </crud-paginate>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <crud-form :attrs="editableAttrs" :attrRules="attrRules" :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData">
+    <el-dialog v-if="can('edit') || can('create')" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <crud-form :resourceClass="resourceClass" :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData">
       </crud-form>
     </el-dialog>
 

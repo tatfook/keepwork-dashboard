@@ -12,7 +12,7 @@
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row.data)">show</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row.data)">edit</el-button>
           <el-button v-if="can('delete')" type="warning" size="mini" @click="handleAction('delete', scope.row.data)">delete</el-button>
-          <el-button v-for="op in extraActions" :key="op.name" @click="handleAction(op.name, scope.row.data)" size="mini" :type="op.type">{{op.name}}</el-button>
+          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row.data)" size="mini" :type="op.type">{{op.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -21,6 +21,8 @@
 
 <script>
 import _ from 'lodash'
+import { rolesCan } from '@/utils/cancan'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CRUDTable',
@@ -32,12 +34,7 @@ export default {
         return {}
       }
     },
-    attrs: {
-      type: Array,
-      required: true
-    },
-    actions: {
-      type: Object,
+    resourceClass: {
       required: true
     },
     filter: {
@@ -47,11 +44,21 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      cachedCan: {}
+    }
+  },
   methods: {
     can(action) {
-      return !(
-        this.actions.disabled && _.indexOf(this.actions.disabled, action) !== -1
-      )
+      if (this.cachedCan[action] === undefined) {
+        if (this.resourceClass.actions().disabled && _.indexOf(this.resourceClass.actions().disabled, action) === -1) {
+          this.cachedCan[action] = rolesCan(this.roles, action, this.resourceClass)
+        } else {
+          this.cachedCan[action] = false
+        }
+      }
+      return this.cachedCan[action]
     },
     rowValue(row, key) {
       return _.get(row, key)
@@ -61,15 +68,24 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      roles: 'roles'
+    }),
     actionAreaWidth() {
       const defaultLength = ['show', 'edit', 'destroy'].length
-      const disableLength = (this.actions.disabled || []).length
-      const extraLength = (this.actions.extra || []).length
+      const disableLength = (this.resourceClass.actions().disabled || []).length
+      const extraLength = (this.resourceClass.actions().extra || []).length
       const buttonWidth = 80
       return (defaultLength - disableLength + extraLength) * buttonWidth
     },
-    extraActions() {
-      return this.actions.extra || []
+    canActions() {
+      const extraAxtions = this.resourceClass.actions().extra || []
+      return _.remove(extraAxtions, (action) => {
+        !this.can(action)
+      })
+    },
+    attrs() {
+      return this.resourceClass.showableAttrs()
     }
   }
 
