@@ -8,16 +8,19 @@ export default class Subject extends BaseResource {
     return [
       {
         name: 'id',
+        type: 'Number',
         edit: false,
         width: '100px'
       },
       {
         name: 'subjectName',
+        type: 'String',
         required: true,
         title: true
       },
       {
         name: 'createdAt',
+        type: 'String',
         edit: false
       }
     ]

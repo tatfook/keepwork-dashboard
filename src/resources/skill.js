@@ -8,15 +8,18 @@ export default class Skill extends BaseResource {
     return [
       {
         name: 'id',
+        type: 'Number',
         edit: false,
         width: '100px'
       },
       {
         name: 'skillName',
+        type: 'String',
         required: true
       },
       {
         name: 'createdAt',
+        type: 'String',
         edit: false
       }
     ]

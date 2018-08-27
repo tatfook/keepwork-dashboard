@@ -6,13 +6,13 @@
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
         </el-select>
-        <el-input v-else-if="attrType(attr, 'input')" v-model="model[attr.name]"></el-input>
-        <el-select v-else-if="attrType(attr, 'select')" v-model="model[attr.name]" filterable >
+        <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]"></el-input>
+        <el-select v-else-if="attrComponent(attr, 'select')" v-model="model[attr.name]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
         </el-select>
-        <el-date-picker v-else-if="attrType(attr, 'time')" v-model="model[attr.name]" type="datetime"></el-date-picker>
-        <el-rate v-else-if="attrType(attr, 'rate')" style="margin-top:8px;" v-model="model[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
+        <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="model[attr.name]" type="datetime"></el-date-picker>
+        <el-rate v-else-if="attrComponent(attr, 'rate')" style="margin-top:8px;" v-model="model[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -49,23 +49,23 @@ export default {
   },
   created() {
     this.model = _.cloneDeep(this.formData || {})
-    this.loadAssociate()
+    this.loadModelAssociate()
   },
   watch: {
     formData(data) {
       this.model = _.cloneDeep(data || {})
-      this.loadAssociate()
+      this.loadModelAssociate()
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
     }
   },
   methods: {
-    attrType(attr, type) {
-      const attrType = attr.type || 'input'
-      return attrType === type
+    attrComponent(attr, type) {
+      const comp = attr.component || 'input'
+      return comp === type
     },
-    async loadAssociate() {
+    async loadModelAssociate() {
       this.loading = true
       this.associateOptions = {}
       for (const attr of this.attrs) {

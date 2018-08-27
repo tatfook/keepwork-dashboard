@@ -4,7 +4,8 @@ export default class Role extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'name'
+        name: 'name',
+        type: 'String'
       }
     ]
   }

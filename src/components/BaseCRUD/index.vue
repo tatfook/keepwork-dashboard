@@ -1,17 +1,23 @@
 <template>
   <div class="app-container">
-    <!-- FIXME <div class="filter-container">
-      <div v-for="attr in filters" :key="attr.key">
-        <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" v-model="listQuery"></el-input>
-      </div>
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
-    </div> -->
     <div class="action-container">
-      <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">new</el-button>
-      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">export</el-button>
+      <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-plus">New</el-button>
+      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">Export</el-button>
+      <el-dropdown style="float: right" @command="handleAddFilter">
+        <el-button type="primary">
+          Add Filter <i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-for="item in searchableFilters" :key="item" :command="item">
+            {{item}}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
 
-    <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"> </crud-table>
+    <crud-filter :resourceClass="resourceClass" :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch"> </crud-filter>
+
+    <crud-table :key="nestedKey" :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"> </crud-table>
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"> </crud-paginate>
 
@@ -33,6 +39,7 @@ import CRUDTable from './table'
 import CRUDForm from './form'
 import CRUDShow from './show'
 import CRUDPaginate from './paginate'
+import CRUDFilter from './filter'
 
 export default {
   name: 'BaseCRUD',
@@ -41,7 +48,8 @@ export default {
     'crud-table': CRUDTable,
     'crud-form': CRUDForm,
     'crud-show': CRUDShow,
-    'crud-paginate': CRUDPaginate
+    'crud-paginate': CRUDPaginate,
+    'crud-filter': CRUDFilter
   }
 }
 </script>

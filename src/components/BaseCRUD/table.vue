@@ -12,7 +12,7 @@
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row.data)">show</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row.data)">edit</el-button>
           <el-button v-if="can('delete')" type="warning" size="mini" @click="handleAction('delete', scope.row.data)">delete</el-button>
-          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row.data)" size="mini" :type="op.type">{{op.name}}</el-button>
+          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row.data)" size="mini" :type="op.button">{{op.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>

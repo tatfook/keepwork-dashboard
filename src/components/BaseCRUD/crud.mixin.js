@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import md5 from 'blueimp-md5'
 import { newResource, getResourceClass } from '@/resources'
 import { rolesCan } from '@/utils/cancan'
 import { mapGetters } from 'vuex'
@@ -31,7 +32,9 @@ export default {
         create: 'Create'
       },
       downloadLoading: false,
-      nestedData: {}
+      nestedData: {},
+      nestedKey: undefined,
+      searchParams: []
     }
   },
   created() {
@@ -58,6 +61,7 @@ export default {
       this.list = res.rows.map(row => newResource(this.resource, row))
       this.total = res.count
       await this.getNestedData()
+      this.nestedKey = md5(this.nestedData)
       this.listLoading = false
     },
     colFilter(col, value) {
@@ -90,9 +94,8 @@ export default {
           .compact()
           .uniq()
         const list = await nestedResource.api().list({ id: idList })
-        const data = this.nestedData[key]
         for (const item of list.rows) {
-          data[item.id] = item
+          _.merge(this.nestedData[key], { [item.id]: item })
         }
       }
     },
@@ -191,33 +194,45 @@ export default {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning'
-      })
-        .then(() => {
-          this.api
-            .destroy(row)
-            .then(() => {
-              this.$notify({
-                title: 'success',
-                message: 'Deleted successfully!',
-                type: 'success',
-                duration: 2000
-              })
-              this.getList()
+      }).then(() => {
+        this.api
+          .destroy(row)
+          .then(() => {
+            this.$notify({
+              title: 'success',
+              message: 'Deleted successfully!',
+              type: 'success',
+              duration: 2000
             })
-            .catch(err => {
-              console.log(err)
-            })
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
+            this.getList()
           })
+          .catch(err => {
+            console.log(err)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
         })
+      })
     },
     handleSort(evt) {
       const order = evt.order === 'descending' ? 'desc' : 'asc'
       this.listQuery['x-order'] = evt.column.label + '-' + order
+      this.getList()
+    },
+    handleAddFilter(filter) {
+      if (_.indexOf(this.searchParams, filter) === -1) {
+        this.searchParams.push(filter)
+      }
+    },
+    handleRemoveFilter(filter) {
+      const index = _.indexOf(this.searchParams, filter)
+      if (index !== -1) this.searchParams.splice(index, 1)
+    },
+    handleSearch(q) {
+      _.remove(this.listQuery, item => !item.match(/^x-/))
+      _.merge(this.listQuery, q)
       this.getList()
     }
   },
@@ -232,6 +247,10 @@ export default {
         data.push({ key: item.name, value: this.temp[item.name] })
       })
       return data
+    },
+    searchableFilters() {
+      const attrs = this.resourceClass.attributes()
+      return attrs.map(attr => attr.name)
     }
   }
 }

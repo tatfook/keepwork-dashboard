@@ -15,36 +15,43 @@ export default class Package extends BaseResource {
     return [
       {
         name: 'id',
+        type: 'Number',
         edit: false,
         width: '100px'
       },
       {
         name: 'packageName',
+        type: 'String',
         required: true
       },
       {
         name: 'userId',
+        type: 'Number',
         required: true,
         edit: false,
         associate: 'User'
       },
       {
         name: 'subjectId',
+        type: 'Number',
         required: true,
         associate: 'Subject'
       },
       {
         name: 'minAge',
+        type: 'Number',
         required: true
       },
       {
         name: 'maxAge',
+        type: 'Number',
         required: true
       },
       {
         name: 'state',
+        type: 'Number',
         required: true,
-        type: 'select',
+        component: 'select',
         options: stateMap,
         filter: (value) => {
           for (const option of stateMap) {
@@ -55,14 +62,17 @@ export default class Package extends BaseResource {
       },
       {
         name: 'rmb',
+        type: 'Number',
         required: true
       },
       {
         name: 'coin',
+        type: 'Number',
         required: true
       },
       {
         name: 'createdAt',
+        type: 'Datetime',
         edit: false
       }
     ]

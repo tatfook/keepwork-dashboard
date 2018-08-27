@@ -28,7 +28,8 @@ export default class BaseResource {
     example:
     [
       {
-        name: 'title',
+        name: 'state',
+        type: 'Number', // ['String', 'Number']
         required: true,
         width: '100px',
         rules: [
@@ -59,7 +60,7 @@ export default class BaseResource {
           {
             name: 'publish',
             func: (row) => {alert(row.id)},
-            type: 'normal'
+            button: 'normal'
           }
         ]
       }

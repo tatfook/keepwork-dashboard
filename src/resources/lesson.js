@@ -8,36 +8,43 @@ export default class Lesson extends BaseResource {
     return [
       {
         name: 'id',
+        type: 'Number',
         edit: false,
         width: '100px'
       },
       {
         name: 'lessonName',
+        type: 'String',
         required: true
       },
       {
         name: 'userId',
+        type: 'Number',
         associate: 'User',
         required: true,
         edit: false
       },
       {
         name: 'subjectId',
+        type: 'Number',
         required: true,
-        type: 'select',
         associate: 'Subject'
       },
       {
-        name: 'goals'
+        name: 'goals',
+        type: 'String'
       },
       {
-        name: 'extra.coverUrl'
+        name: 'extra.coverUrl',
+        type: 'String'
       },
       {
-        name: 'extra.vedioUrl'
+        name: 'extra.vedioUrl',
+        type: 'String'
       },
       {
         name: 'createdAt',
+        type: 'String',
         edit: false
       }
     ]

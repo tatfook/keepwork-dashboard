@@ -11,10 +11,12 @@ export default class TeacherCDKey extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'key'
+        name: 'key',
+        type: 'String'
       },
       {
         name: 'state',
+        type: 'Number',
         filter: (value) => {
           for (const option of stateMap) {
             if (option.key === value) return option.value

@@ -19,11 +19,11 @@ export default {
     }
   },
   methods: {
-    handleSizeChange() {
-      return this.$emit('handleSizeChange')
+    handleSizeChange(val) {
+      return this.$emit('handleSizeChange', val)
     },
-    handleCurrentChange() {
-      return this.$emit('handleCurrentChange')
+    handleCurrentChange(val) {
+      return this.$emit('handleCurrentChange', val)
     }
   }
 }
