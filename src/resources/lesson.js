@@ -36,11 +36,13 @@ export default class Lesson extends BaseResource {
       },
       {
         name: 'extra.coverUrl',
-        type: 'String'
+        type: 'String',
+        search: false
       },
       {
         name: 'extra.vedioUrl',
-        type: 'String'
+        type: 'String',
+        search: false
       },
       {
         name: 'createdAt',

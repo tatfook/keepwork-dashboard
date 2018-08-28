@@ -260,8 +260,7 @@ export default {
       return data
     },
     searchableFilters() {
-      const attrs = this.resourceClass.attributes()
-      return attrs.map(attr => attr.name)
+      return this.resourceClass.searchAttrs().map(attr => attr.name)
     }
   },
   components: {

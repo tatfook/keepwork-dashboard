@@ -111,6 +111,10 @@ export default class BaseResource {
     return this.attrFilter('export')
   }
 
+  static searchAttrs() {
+    return this.attrFilter('search')
+  }
+
   static attrRules() {
     const rules = {}
     this.attributes().forEach(attr => {
