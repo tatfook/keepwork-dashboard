@@ -99,7 +99,7 @@ export default {
         const nestedResource = getResourceClass(nestedItem.associate)
         const key = nestedItem.name
         const idList = _(this.list)
-          .map(item => item.data[key])
+          .map(item => item[key])
           .compact()
           .uniq()
         const list = await nestedResource.api().list({ id: idList })
