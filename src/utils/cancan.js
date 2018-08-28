@@ -17,13 +17,13 @@ const { allow, can } = cancan
 const Role = getResourceClass('role')
 
 allow(Role, 'manage', 'all', (role) => {
-  return role.data.name === 'admin'
+  return role.name === 'admin'
 })
 allow(Role, ['view', 'edit', 'export'], getResourceClass('Lesson'), (role) => {
-  return role.data.name === 'operation'
+  return role.name === 'operation'
 })
 allow(Role, ['view', 'edit', 'export'], getResourceClass('Package'), (role) => {
-  return role.data.name === 'operation'
+  return role.name === 'operation'
 })
 
 export const roleCan = (role, action, resource) => {

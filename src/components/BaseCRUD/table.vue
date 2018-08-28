@@ -3,16 +3,16 @@
     <el-table :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort">
       <el-table-column align="center" v-for="col in attrs" :key="col.name" :label="col.name" :width="col.width" sortable="custom" >
         <template slot-scope="scope">
-          <span> {{filter(col, rowValue(scope.row.data, col.name))}} </span>
+          <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
         </template>
       </el-table-column>
 
       <el-table-column align="center" :width="actionAreaWidth" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row.data)">show</el-button>
-          <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row.data)">edit</el-button>
-          <el-button v-if="can('delete')" type="warning" size="mini" @click="handleAction('delete', scope.row.data)">delete</el-button>
-          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row.data)" size="mini" :type="op.button">{{op.name}}</el-button>
+          <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row)">show</el-button>
+          <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row)">edit</el-button>
+          <el-button v-if="can('delete')" type="warning" size="mini" @click="handleAction('delete', scope.row)">delete</el-button>
+          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.button">{{op.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>

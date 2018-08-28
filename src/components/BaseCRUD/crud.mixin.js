@@ -86,11 +86,12 @@ export default {
       }
     },
     async getNestedData() {
+      if (this.list.length === 0) return
       for (const nestedItem of this.nested) {
         const nestedResource = getResourceClass(nestedItem.associate)
         const key = nestedItem.name
         const idList = _(this.list)
-          .map(item => item.data[key])
+          .map(item => item[key])
           .compact()
           .uniq()
         const list = await nestedResource.api().list({ id: idList })
@@ -170,9 +171,9 @@ export default {
     async updateData(data) {
       const temp = newResource(this.resource, data)
       try {
-        await this.api.update(temp.data)
+        await this.api.update(temp)
         for (const v of this.list) {
-          if (v.data.id === temp.data.id) {
+          if (v.id === temp.id) {
             const index = this.list.indexOf(v)
             this.list.splice(index, 1, temp)
             break
@@ -231,7 +232,9 @@ export default {
       if (index !== -1) this.searchParams.splice(index, 1)
     },
     handleSearch(q) {
-      _.remove(this.listQuery, item => !item.match(/^x-/))
+      this.listQuery = _.pickBy(this.listQuery, (value, key) => {
+        return _.startsWith(key, 'x-')
+      })
       _.merge(this.listQuery, q)
       this.getList()
     }

@@ -3,19 +3,13 @@ import _ from 'lodash'
 export default class BaseResource {
   constructor(row) {
     const attrs = this.constructor.attributes()
-    this.data = {}
     if (row) {
       for (const attr of attrs) {
         if (row[attr.name]) {
-          this.data[attr.name] = row[attr.name]
+          this[attr.name] = row[attr.name]
         }
       }
     }
-  }
-
-  // resource name, eg: user
-  resource() {
-    return this.constructor.name
   }
 
   // resource rest API
