@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import User from './user'
-import Role from './Role'
+import Role from './role'
 import TeacherCDKey from './teacherCDKey'
 import Subject from './subject'
 import Skill from './skill'
