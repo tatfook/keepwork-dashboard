@@ -20,7 +20,7 @@ export default class Subject extends BaseResource {
       },
       {
         name: 'createdAt',
-        type: 'String',
+        type: 'Date',
         edit: false
       }
     ]

@@ -2,19 +2,7 @@
   <div class="app-container">
     <div class="action-container">
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">Generate Code</el-button>
-      <el-dropdown style="float: right" @command="handleAddFilter">
-        <el-button type="primary">
-          Add Filter <i class="el-icon-arrow-down el-icon--right"></i>
-        </el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="item in searchableFilters" :key="item" :command="item">
-            {{item}}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
     </div>
-
-    <crud-filter :resourceClass="resourceClass" :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch"> </crud-filter>
 
     <crud-table :key="nestedKey" :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"> </crud-table>
 

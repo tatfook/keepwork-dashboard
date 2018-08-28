@@ -72,7 +72,7 @@ export default class Package extends BaseResource {
       },
       {
         name: 'createdAt',
-        type: 'Datetime',
+        type: 'Date',
         edit: false
       }
     ]

@@ -25,7 +25,9 @@ export default class TeacherCDKey extends BaseResource {
         }
       },
       {
-        name: 'createdAt'
+        name: 'createdAt',
+        type: 'Date',
+        edit: false
       }
     ]
   }

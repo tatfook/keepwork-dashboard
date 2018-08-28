@@ -26,7 +26,7 @@
       </crud-form>
     </el-dialog>
 
-    <el-dialog :visible.sync="showingFormVisible">
+    <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">
       <crud-show :list="showingData"> </crud-show>
     </el-dialog>
 

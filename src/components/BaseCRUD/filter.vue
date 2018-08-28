@@ -1,13 +1,14 @@
 <template>
   <div class="filter-container" v-if="haveSearchParams">
-    <div class="filter" v-for="param in searchParams" :key="param">
-      <el-button icon="el-icon-minus" size="mini" circle @click="removeFilter(param)"> </el-button>
-      <span style="margin: 0px 10px; width: 120px; display: inline-block"> {{param}} </span>
-      <el-select v-model="quries[param].op" :key="queryKey" @change="buildQueryKey">
-        <el-option v-for="item in quries[param].options" :key="item.key" :label="item.value" :value="item.key">
+    <div style="margin: 6px;" v-for="filter in quries" :key="filter.name">
+      <el-button icon="el-icon-minus" size="mini" circle @click="removeFilter(filter.name)"> </el-button>
+      <span style="width: 120px; display: inline-block"> {{filter.name}} </span>
+      <el-select style="margin: 0px 10px" v-model="filter.op">
+        <el-option v-for="item in filter.options" :key="item.key" :label="item.value" :value="item.key">
         </el-option>
       </el-select>
-      <el-input style="margin: 0px 10px; width: 300px" size="medium" v-model="quries[param].value"> </el-input>
+      <el-date-picker v-if="filter.type=='Date'" style="width: 300px" type="datetime" v-model="filter.value"></el-date-picker>
+      <el-input v-else style="width: 300px" size="medium" v-model="filter.value"> </el-input>
     </div>
     <el-button icon="el-icon-search" type="primary" @click="handleSearch()"> Search </el-button>
   </div>
@@ -15,7 +16,6 @@
 
 <script>
 import _ from 'lodash'
-import uuid from 'uuid'
 import { getQueryOps, parseQuery } from './queryOps'
 
 export default {
@@ -31,8 +31,7 @@ export default {
   },
   data() {
     return {
-      quries: {},
-      queryKey: undefined
+      quries: {}
     }
   },
   created() {
@@ -44,29 +43,29 @@ export default {
     }
   },
   methods: {
-    buildQueryKey() {
-      this.queryKey = uuid()
-    },
     syncSearchParams(data) {
       data = data || this.searchParams
       const attrs = this.resourceClass.attributes()
+      const newQueries = _.cloneDeep(this.quries)
       for (const filter of data) {
-        if (!this.quries[filter]) {
-          const index = _.findIndex(attrs, (attr) => attr.name === filter)
-          const options = getQueryOps(attrs[index].type || 'String')
-          this.quries[filter] = {
+        if (!newQueries[filter]) {
+          const index = _.findIndex(attrs, attr => attr.name === filter)
+          const type = attrs[index].type || 'String'
+          const options = getQueryOps(type)
+          newQueries[filter] = {
             name: filter,
             op: 'eq',
-            options: options,
-            value: ''
+            value: '',
+            type,
+            options
           }
         }
       }
-      this.buildQueryKey()
+      this.quries = newQueries
     },
     removeFilter(filter) {
       this.$emit('removeFilter', filter)
-      _.omit(this.quries, filter)
+      this.quries = _.omit(this.quries, filter)
     },
     handleSearch() {
       const q = {}
@@ -90,8 +89,5 @@ export default {
   background-color: #eee;
   margin: 10px 0px;
   padding: 10px;
-}
-.filter {
-  margin: 6px;
 }
 </style>

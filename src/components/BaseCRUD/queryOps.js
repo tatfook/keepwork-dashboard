@@ -15,6 +15,12 @@ export const queryOps = {
   'String': commonOps.concat([
     { key: 'like', value: 'like' },
     { key: 'notLike', value: 'not like' }
+  ]),
+  'Date': commonOps.concat([
+    { key: 'gt', value: 'great than' },
+    { key: 'gte', value: 'great or equal' },
+    { key: 'lt', value: 'less than' },
+    { key: 'lte', value: 'less or equal' }
   ])
 }
 

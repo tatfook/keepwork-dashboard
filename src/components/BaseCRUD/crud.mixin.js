@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import md5 from 'blueimp-md5'
+import moment from 'moment'
 import { newResource, getResourceClass } from '@/resources'
 import { rolesCan } from '@/utils/cancan'
 import { mapGetters } from 'vuex'
@@ -76,6 +77,9 @@ export default {
         const item = this.nestedData[col.name][value]
         const translate = (item && item[this.getNestedAttr(col.name)]) || ''
         return translate
+      }
+      if (col.type === 'Date') {
+        return moment(value).fromNow()
       }
       return value
     },
@@ -236,7 +240,9 @@ export default {
       if (index !== -1) this.searchParams.splice(index, 1)
     },
     handleSearch(q) {
-      _.remove(this.listQuery, item => !item.match(/^x-/))
+      this.listQuery = _.pickBy(this.listQuery, (value, key) => {
+        return _.startsWith(key, 'x-')
+      })
       _.merge(this.listQuery, q)
       this.getList()
     }
