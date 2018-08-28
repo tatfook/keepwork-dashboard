@@ -1,7 +1,7 @@
 <template>
   <div class="table-container" v-loading="listLoading">
     <el-table :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort">
-      <el-table-column align="center" v-for="col in attrs" :key="col.name" :label="col.name" :width="col.width" sortable="custom" >
+      <el-table-column align="center" v-for="col in attrs" :key="col.name" :label="col.name" :width="col.width" sortable="custom">
         <template slot-scope="scope">
           <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
         </template>
@@ -52,8 +52,15 @@ export default {
   methods: {
     can(action) {
       if (this.cachedCan[action] === undefined) {
-        if (this.resourceClass.actions().disabled && _.indexOf(this.resourceClass.actions().disabled, action) === -1) {
-          this.cachedCan[action] = rolesCan(this.roles, action, this.resourceClass)
+        if (
+          this.resourceClass.actions().disabled &&
+          _.indexOf(this.resourceClass.actions().disabled, action) === -1
+        ) {
+          this.cachedCan[action] = rolesCan(
+            this.roles,
+            action,
+            this.resourceClass
+          )
         } else {
           this.cachedCan[action] = false
         }
@@ -83,7 +90,7 @@ export default {
     },
     canActions() {
       const extraAxtions = this.resourceClass.actions().extra || []
-      return _.remove(extraAxtions, (action) => {
+      return _.remove(extraAxtions, action => {
         !this.can(action)
       })
     },
@@ -91,12 +98,11 @@ export default {
       return this.resourceClass.showableAttrs()
     }
   }
-
 }
 </script>
 
 <style>
-  .table-container {
-    margin: 10px 0px
-  }
+.table-container {
+  margin: 10px 0px;
+}
 </style>

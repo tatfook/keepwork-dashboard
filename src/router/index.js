@@ -21,74 +21,103 @@ import Layout from '../views/layout/Layout'
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+export const constantRouterMap = [{
+  path: '/login',
+  component: () =>
+      import('@/views/login/index'),
+  hidden: true
+},
+{
+  path: '/404',
+  component: () =>
+      import('@/views/404'),
+  hidden: true
+},
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
-  }
+{
+  path: '/',
+  component: Layout,
+  redirect: '/dashboard',
+  name: 'Dashboard',
+  hidden: true,
+  children: [{
+    path: 'dashboard',
+    component: () =>
+        import('@/views/dashboard/index')
+  }]
+}
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: constantRouterMap
 })
 
-export const asyncRouterMap = [
-  {
-    path: '/lesson',
-    component: Layout,
-    meta: {
-      title: 'Lesson',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'teacher_cdkeys',
-        component: () => import('@/views/lesson/teacher_cdkey/index'),
-        name: 'Teacher CDKeys',
-        resource: 'TeacherCDKey',
-        meta: { title: 'Teacher CDKeys' }
-      },
-      {
-        path: 'subjects',
-        component: () => import('@/views/lesson/subject/index'),
-        name: 'Subjects',
-        resource: 'Subject',
-        meta: { title: 'Subjects' }
-      },
-      {
-        path: 'skills',
-        component: () => import('@/views/lesson/skill/index'),
-        name: 'Skills',
-        resource: 'Skill',
-        meta: { title: 'Skills' }
-      },
-      {
-        path: 'packages',
-        component: () => import('@/views/lesson/package/index'),
-        name: 'Packages',
-        resource: 'Package',
-        meta: { title: 'Packages' }
-      },
-      {
-        path: 'lessons',
-        component: () => import('@/views/lesson/lesson/index'),
-        name: 'Lessons',
-        resource: 'Lesson',
-        meta: { title: 'Lessons' }
-      }
-    ]
+export const asyncRouterMap = [{
+  path: '/lesson',
+  component: Layout,
+  meta: {
+    title: 'Lesson',
+    icon: 'nested'
   },
-  { path: '*', redirect: '/404', hidden: true }
+  children: [{
+    path: 'teacher_cdkeys',
+    component: () =>
+          import('@/views/lesson/teacher_cdkey/index'),
+    name: 'Teacher CDKeys',
+    resource: 'TeacherCDKey',
+    meta: {
+      title: 'Teacher CDKeys'
+    }
+  },
+  {
+    path: 'subjects',
+    component: () =>
+          import('@/views/lesson/subject/index'),
+    name: 'Subjects',
+    resource: 'Subject',
+    meta: {
+      title: 'Subjects'
+    }
+  },
+  {
+    path: 'skills',
+    component: () =>
+          import('@/views/lesson/skill/index'),
+    name: 'Skills',
+    resource: 'Skill',
+    meta: {
+      title: 'Skills'
+    }
+  },
+  {
+    path: 'packages',
+    component: () =>
+          import('@/views/lesson/package/index'),
+    name: 'Packages',
+    resource: 'Package',
+    meta: {
+      title: 'Packages'
+    }
+  },
+  {
+    path: 'lessons',
+    component: () =>
+          import('@/views/lesson/lesson/index'),
+    name: 'Lessons',
+    resource: 'Lesson',
+    meta: {
+      title: 'Lessons'
+    }
+  }
+  ]
+},
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 ]

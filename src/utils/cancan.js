@@ -1,9 +1,15 @@
 import _ from 'lodash'
 import CanCan from 'cancan'
-import { newResource, getResourceClass } from '@/resources'
+import {
+  newResource,
+  getResourceClass
+} from '@/resources'
 
 const cancan = new CanCan()
-const { allow, can } = cancan
+const {
+  allow,
+  can
+} = cancan
 
 /**
  * actions:
@@ -27,7 +33,9 @@ allow(Role, ['view', 'edit', 'export'], getResourceClass('Package'), (role) => {
 })
 
 export const roleCan = (role, action, resource) => {
-  const roleInstance = _.isString(role) ? newResource('role', { name: role }) : newResource('role', role)
+  const roleInstance = _.isString(role) ? newResource('role', {
+    name: role
+  }) : newResource('role', role)
   const resourceClass = _.isString(resource) ? getResourceClass(resource) : resource
   return can(roleInstance, action, resourceClass)
 }

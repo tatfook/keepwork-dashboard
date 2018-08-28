@@ -5,8 +5,7 @@
     transition: margin-left .28s;
     margin-left: 180px;
     position: relative;
-  }
-  // 侧边栏
+  } // 侧边栏
   .sidebar-container {
     transition: width 0.28s;
     width: 180px !important;
@@ -17,8 +16,7 @@
     bottom: 0;
     left: 0;
     z-index: 1001;
-    overflow: hidden;
-    //reset element-ui css
+    overflow: hidden; //reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
@@ -92,9 +90,7 @@
   }
   .el-menu--collapse .el-menu .el-submenu {
     min-width: 180px !important;
-  }
-
-  //适配移动端
+  } //适配移动端
   .mobile {
     .main-container {
       margin-left: 0px;

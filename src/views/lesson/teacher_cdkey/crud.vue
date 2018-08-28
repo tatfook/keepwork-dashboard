@@ -40,7 +40,9 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = this.resourceClass.exportAttrs().map(item => item.name)
         const data = list.map(data =>
-          this.resourceClass.exportAttrs().map(col => this.colFilter(col, data[col.name]))
+          this.resourceClass
+            .exportAttrs()
+            .map(col => this.colFilter(col, data[col.name]))
         )
         excel.export_json_to_excel({
           header: tHeader,

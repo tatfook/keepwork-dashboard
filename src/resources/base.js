@@ -119,13 +119,11 @@ export default class BaseResource {
     const rules = {}
     this.attributes().forEach(attr => {
       if (attr.required) {
-        rules[attr.name] = [
-          {
-            required: true,
-            message: attr.requiredMessage || `${attr.name} is required`,
-            trigger: attr.requiredTrigger || 'change'
-          }
-        ]
+        rules[attr.name] = [{
+          required: true,
+          message: attr.requiredMessage || `${attr.name} is required`,
+          trigger: attr.requiredTrigger || 'change'
+        }]
       }
       if (attr.rules) {
         rules[attr.name] = _.concat(rules[attr.name], attr.rules)

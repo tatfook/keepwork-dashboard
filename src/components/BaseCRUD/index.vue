@@ -5,7 +5,8 @@
       <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">Export</el-button>
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
-          Add Filter <i class="el-icon-arrow-down el-icon--right"></i>
+          Add Filter
+          <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="item in searchableFilters" :key="item" :command="item">
@@ -15,19 +16,18 @@
       </el-dropdown>
     </div>
 
-    <crud-filter :resourceClass="resourceClass" :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch"> </crud-filter>
+    <crud-filter :resourceClass="resourceClass" :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
 
-    <crud-table :key="nestedKey" :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"> </crud-table>
+    <crud-table :key="nestedKey" :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort" />
 
-    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"> </crud-paginate>
+    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
     <el-dialog v-if="can('edit') || can('create')" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <crud-form :resourceClass="resourceClass" :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData">
-      </crud-form>
+      <crud-form :resourceClass="resourceClass" :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
     </el-dialog>
 
     <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">
-      <crud-show :list="showingData"> </crud-show>
+      <crud-show :list="showingData" />
     </el-dialog>
 
   </div>

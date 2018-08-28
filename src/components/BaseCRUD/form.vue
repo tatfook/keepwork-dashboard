@@ -3,15 +3,14 @@
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
       <el-form-item v-for="attr in attrs" :key="attr.name" :label="attr.name" :prop="attr.name">
         <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading">
-          <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key">
-          </el-option>
+          <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
-        <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]"></el-input>
+        <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
         <el-select v-else-if="attrComponent(attr, 'select')" v-model="model[attr.name]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
         </el-select>
-        <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="model[attr.name]" type="datetime"></el-date-picker>
+        <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="model[attr.name]" type="datetime" />
         <el-rate v-else-if="attrComponent(attr, 'rate')" style="margin-top:8px;" v-model="model[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
       </el-form-item>
     </el-form>
@@ -72,7 +71,9 @@ export default {
         if (attr.associate && this.model[attr.name]) {
           const associateClass = getResourceClass(attr.associate)
           const item = await associateClass.api().get(this.model[attr.name])
-          this.associateOptions[attr.name] = [{ key: item.id, value: item[associateClass.title()] }]
+          this.associateOptions[attr.name] = [
+            { key: item.id, value: item[associateClass.title()] }
+          ]
         }
       }
       this.loading = false
@@ -80,14 +81,14 @@ export default {
     searchAssociate(attr) {
       const self = this
       const associateClass = getResourceClass(attr.associate)
-      return async(query) => {
+      return async query => {
         if (query !== '') {
           this.loading = true
           const list = await associateClass.api().list({
             [associateClass.title() + '-like']: query + '%',
             'x-per-page': 50
           })
-          self.associateOptions[attr.name] = list.rows.map((item) => {
+          self.associateOptions[attr.name] = list.rows.map(item => {
             return {
               key: item.id,
               value: item[associateClass.title()]
@@ -121,8 +122,8 @@ export default {
 </script>
 
 <style scoped>
-  .form-footer {
-    text-align: right;
-  }
+.form-footer {
+  text-align: right;
+}
 </style>
 

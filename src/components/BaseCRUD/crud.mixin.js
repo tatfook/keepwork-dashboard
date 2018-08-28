@@ -1,9 +1,16 @@
 import _ from 'lodash'
 import md5 from 'blueimp-md5'
 import moment from 'moment'
-import { newResource, getResourceClass } from '@/resources'
-import { rolesCan } from '@/utils/cancan'
-import { mapGetters } from 'vuex'
+import {
+  newResource,
+  getResourceClass
+} from '@/resources'
+import {
+  rolesCan
+} from '@/utils/cancan'
+import {
+  mapGetters
+} from 'vuex'
 import CRUDTable from './table'
 import CRUDForm from './form'
 import CRUDShow from './show'
@@ -75,8 +82,7 @@ export default {
       if (col.filter) return col.filter(value)
       if (this.nestedData[col.name]) {
         const item = this.nestedData[col.name][value]
-        const translate = (item && item[this.getNestedAttr(col.name)]) || ''
-        return translate
+        return (item && item[this.getNestedAttr(col.name)]) || ''
       }
       if (col.type === 'Date') {
         return moment(value).fromNow()
@@ -84,27 +90,30 @@ export default {
       return value
     },
     initNestedData() {
-      for (const nestedItem of this.nested) {
-        const data = nestedItem.data || {}
-        this.nestedData[nestedItem.name] = data
+      for (const item of this.nested) {
+        this.nestedData[item.name] = {}
       }
     },
     getNestedAttr(name) {
-      for (const nestedItem of this.nested) {
-        if (nestedItem.name === name) return getResourceClass(nestedItem.associate).title()
+      for (const item of this.nested) {
+        if (item.name === name) return getResourceClass(item.associate).title()
       }
     },
     async getNestedData() {
-      for (const nestedItem of this.nested) {
-        const nestedResource = getResourceClass(nestedItem.associate)
-        const key = nestedItem.name
+      for (const item of this.nested) {
+        const nestedResource = getResourceClass(item.associate)
+        const key = item.name
         const idList = _(this.list)
           .map(item => item[key])
           .compact()
           .uniq()
-        const list = await nestedResource.api().list({ id: idList })
+        const list = await nestedResource.api().list({
+          id: idList
+        })
         for (const item of list.rows) {
-          _.merge(this.nestedData[key], { [item.id]: item })
+          _.merge(this.nestedData[key], {
+            [item.id]: item
+          })
         }
       }
     },
@@ -112,7 +121,9 @@ export default {
       if (_.indexOf(DEFAULT_ACTIONS, action) !== -1) {
         return this[`handle${_.capitalize(action)}`](row)
       } else {
-        const index = _.findIndex(this.actions.extra, { name: action })
+        const index = _.findIndex(this.actions.extra, {
+          name: action
+        })
         if (index !== -1) {
           const func = this.actions.extra[index].func || this[`handle${_.capitalize(action)}`]
           if (!func) throw new Error('Missing action' + action)
@@ -138,12 +149,14 @@ export default {
       this.dialogFormVisible = true
     },
     handleEdit(row) {
-      this.activeRow = { ...row }
+      this.activeRow = { ...row
+      }
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
     },
     handleShow(row) {
-      this.activeRow = { ...row }
+      this.activeRow = { ...row
+      }
       this.showingFormVisible = true
     },
     handleExport() {
@@ -255,7 +268,10 @@ export default {
       if (!this.showingFormVisible) return []
       const data = []
       _.forEach(this.attributes, item => {
-        data.push({ key: item.name, value: this.temp[item.name] })
+        data.push({
+          key: item.name,
+          value: this.temp[item.name]
+        })
       })
       return data
     },

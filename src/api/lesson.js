@@ -16,7 +16,9 @@ export function generateTeacherCDKeys(count) {
   return request({
     method: 'post',
     url: '/admins/teacherCDKeys/generate',
-    params: { count }
+    params: {
+      count
+    }
   })
 }
 

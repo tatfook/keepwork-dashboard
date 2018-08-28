@@ -1,5 +1,10 @@
-import { asyncRouterMap, constantRouterMap } from '@/router'
-import { rolesCan } from '@/utils/cancan'
+import {
+  asyncRouterMap,
+  constantRouterMap
+} from '@/router'
+import {
+  rolesCan
+} from '@/utils/cancan'
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
@@ -41,9 +46,13 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes({ commit }, data) {
+    GenerateRoutes({
+      commit
+    }, data) {
       return new Promise(resolve => {
-        const { roles } = data
+        const {
+          roles
+        } = data
         let accessedRouters
         if (roles.indexOf('admin') >= 0) {
           accessedRouters = asyncRouterMap
