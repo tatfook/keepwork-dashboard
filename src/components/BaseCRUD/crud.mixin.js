@@ -3,6 +3,11 @@ import md5 from 'blueimp-md5'
 import { newResource, getResourceClass } from '@/resources'
 import { rolesCan } from '@/utils/cancan'
 import { mapGetters } from 'vuex'
+import CRUDTable from './table'
+import CRUDForm from './form'
+import CRUDShow from './show'
+import CRUDPaginate from './paginate'
+import CRUDFilter from './filter'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 
@@ -86,12 +91,11 @@ export default {
       }
     },
     async getNestedData() {
-      if (this.list.length === 0) return
       for (const nestedItem of this.nested) {
         const nestedResource = getResourceClass(nestedItem.associate)
         const key = nestedItem.name
         const idList = _(this.list)
-          .map(item => item[key])
+          .map(item => item.data[key])
           .compact()
           .uniq()
         const list = await nestedResource.api().list({ id: idList })
@@ -141,9 +145,9 @@ export default {
     handleExport() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = this.exportAttrs.map(item => item.name)
+        const tHeader = this.resourceClass.exportAttrs().map(item => item.name)
         const data = this.list.map(data =>
-          this.exportAttrs.map(col => this.colFilter(col, data[col.name]))
+          this.resourceClass.exportAttrs().map(col => this.colFilter(col, data[col.name]))
         )
         excel.export_json_to_excel({
           header: tHeader,
@@ -171,9 +175,9 @@ export default {
     async updateData(data) {
       const temp = newResource(this.resource, data)
       try {
-        await this.api.update(temp)
+        await this.api.update(temp.data)
         for (const v of this.list) {
-          if (v.id === temp.id) {
+          if (v.data.id === temp.data.id) {
             const index = this.list.indexOf(v)
             this.list.splice(index, 1, temp)
             break
@@ -232,9 +236,7 @@ export default {
       if (index !== -1) this.searchParams.splice(index, 1)
     },
     handleSearch(q) {
-      this.listQuery = _.pickBy(this.listQuery, (value, key) => {
-        return _.startsWith(key, 'x-')
-      })
+      _.remove(this.listQuery, item => !item.match(/^x-/))
       _.merge(this.listQuery, q)
       this.getList()
     }
@@ -255,5 +257,12 @@ export default {
       const attrs = this.resourceClass.attributes()
       return attrs.map(attr => attr.name)
     }
+  },
+  components: {
+    'crud-table': CRUDTable,
+    'crud-form': CRUDForm,
+    'crud-show': CRUDShow,
+    'crud-paginate': CRUDPaginate,
+    'crud-filter': CRUDFilter
   }
 }

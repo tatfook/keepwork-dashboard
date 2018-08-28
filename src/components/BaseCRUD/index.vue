@@ -35,21 +35,9 @@
 
 <script>
 import crudMixin from './crud.mixin'
-import CRUDTable from './table'
-import CRUDForm from './form'
-import CRUDShow from './show'
-import CRUDPaginate from './paginate'
-import CRUDFilter from './filter'
 
 export default {
   name: 'BaseCRUD',
-  mixins: [crudMixin],
-  components: {
-    'crud-table': CRUDTable,
-    'crud-form': CRUDForm,
-    'crud-show': CRUDShow,
-    'crud-paginate': CRUDPaginate,
-    'crud-filter': CRUDFilter
-  }
+  mixins: [crudMixin]
 }
 </script>
