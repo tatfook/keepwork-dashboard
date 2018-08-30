@@ -85,7 +85,7 @@ export default {
         return (item && item[this.getNestedAttr(col.name)]) || ''
       }
       if (col.type === 'Date') {
-        return moment(value).fromNow()
+        return moment(value).format('YYYY-MM-DD HH:mm')
       }
       return value
     },
@@ -192,9 +192,9 @@ export default {
     async updateData(data) {
       const temp = newResource(this.resource, data)
       try {
-        await this.api.update(temp.data)
+        await this.api.update(temp)
         for (const v of this.list) {
-          if (v.data.id === temp.data.id) {
+          if (v.id === temp.id) {
             const index = this.list.indexOf(v)
             this.list.splice(index, 1, temp)
             break

@@ -68,12 +68,19 @@ export default {
       this.loading = true
       this.associateOptions = {}
       for (const attr of this.attrs) {
-        if (attr.associate && this.model[attr.name]) {
-          const associateClass = getResourceClass(attr.associate)
-          const item = await associateClass.api().get(this.model[attr.name])
-          this.associateOptions[attr.name] = [
-            { key: item.id, value: item[associateClass.title()] }
-          ]
+        if (attr.associate) {
+          if (this.model[attr.name]) {
+            const associateClass = getResourceClass(attr.associate)
+            const item = await associateClass.api().get(this.model[attr.name])
+            this.associateOptions[attr.name] = [
+              {
+                key: item.id,
+                value: item[associateClass.title()]
+              }
+            ]
+          } else {
+            await this.searchAssociate(attr)('')
+          }
         }
       }
       this.loading = false
@@ -82,20 +89,18 @@ export default {
       const self = this
       const associateClass = getResourceClass(attr.associate)
       return async query => {
-        if (query !== '') {
-          this.loading = true
-          const list = await associateClass.api().list({
-            [associateClass.title() + '-like']: query + '%',
-            'x-per-page': 50
-          })
-          self.associateOptions[attr.name] = list.rows.map(item => {
-            return {
-              key: item.id,
-              value: item[associateClass.title()]
-            }
-          })
-          this.loading = false
-        }
+        this.loading = true
+        const list = await associateClass.api().list({
+          [associateClass.title() + '-like']: query + '%',
+          'x-per-page': 50
+        })
+        self.associateOptions[attr.name] = list.rows.map(item => {
+          return {
+            key: item.id,
+            value: item[associateClass.title()]
+          }
+        })
+        this.loading = false
       }
     },
     cancel() {
