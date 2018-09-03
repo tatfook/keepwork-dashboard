@@ -99,6 +99,10 @@ export default class BaseResource {
     return attrs
   }
 
+  static requiredAttrs() {
+    return this.attrFilter('required')
+  }
+
   static editableAttrs() {
     return this.attrFilter('edit')
   }

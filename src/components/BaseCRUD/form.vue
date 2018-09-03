@@ -47,13 +47,11 @@ export default {
     }
   },
   created() {
-    this.model = _.cloneDeep(this.formData || {})
-    this.loadModelAssociate()
+    this.initModel()
   },
   watch: {
     formData(data) {
-      this.model = _.cloneDeep(data || {})
-      this.loadModelAssociate()
+      this.initModel()
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -64,12 +62,26 @@ export default {
       const comp = attr.component || 'input'
       return comp === type
     },
+    initModel() {
+      this.model = _.cloneDeep(this.formData || {})
+      if (this.status === 'create') {
+        this.loadDefaultValues()
+      }
+      this.loadModelAssociate()
+    },
+    loadDefaultValues() {
+      _.forEach(this.resourceClass.attributes(), (attr) => {
+        if ((attr.required || attr.edit) && attr.default !== undefined) {
+          this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
+        }
+      })
+    },
     async loadModelAssociate() {
       this.loading = true
       this.associateOptions = {}
       for (const attr of this.attrs) {
         if (attr.associate) {
-          if (this.model[attr.name]) {
+          if (this.model[attr.name] && this.edit !== false) {
             const associateClass = getResourceClass(attr.associate)
             const item = await associateClass.api().get(this.model[attr.name])
             this.associateOptions[attr.name] = [

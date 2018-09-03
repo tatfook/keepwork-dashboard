@@ -180,8 +180,8 @@ export default {
         this.dialogFormVisible = false
         this.handleCurrentChange(1)
         this.$notify({
-          title: '成功',
-          message: '创建成功',
+          title: 'Success',
+          message: 'Created successfully!',
           type: 'success',
           duration: 2000
         })
@@ -234,7 +234,7 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消删除'
+          message: 'Cancel Delete!'
         })
       })
     },

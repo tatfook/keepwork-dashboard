@@ -20,6 +20,9 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
+    SET_ID: (state, id) => {
+      state.id = id
+    },
     SET_NAME: (state, name) => {
       state.name = name
     },
@@ -57,6 +60,7 @@ const user = {
       } else {
         return Promise.reject('getInfo: roles must be a non-null array !')
       }
+      commit('SET_ID', data._id)
       commit('SET_NAME', data.username)
       commit('SET_AVATAR', data.portrait)
       return roles

@@ -2,6 +2,7 @@ import {
   resourceCRUD
 } from '@/api/lesson'
 import BaseResource from './base'
+import store from '@/store'
 
 const crudAPI = resourceCRUD('lessons')
 
@@ -23,6 +24,7 @@ export default class Lesson extends BaseResource {
       type: 'Number',
       associate: 'User',
       required: true,
+      default: () => store.getters.currentUser.id,
       edit: false
     },
     {

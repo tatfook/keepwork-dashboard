@@ -2,6 +2,7 @@ import {
   resourceCRUD
 } from '@/api/lesson'
 import BaseResource from './base'
+import store from '@/store'
 
 const crudAPI = resourceCRUD('packages')
 const stateMap = [{
@@ -44,6 +45,7 @@ export default class Package extends BaseResource {
       type: 'Number',
       required: true,
       edit: false,
+      default: () => store.getters.currentUser.id,
       associate: 'User'
     },
     {
