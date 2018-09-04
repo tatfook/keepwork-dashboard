@@ -94,6 +94,16 @@ export const asyncRouterMap = [{
     }
   },
   {
+    path: 'hot_packages',
+    component: () =>
+          import('@/views/lesson/hot_package/index'),
+    name: 'Hot Packages',
+    resource: 'HotPackage',
+    meta: {
+      title: 'Hot Packages'
+    }
+  },
+  {
     path: 'packages',
     component: () =>
           import('@/views/lesson/package/index'),
@@ -111,6 +121,16 @@ export const asyncRouterMap = [{
     resource: 'Lesson',
     meta: {
       title: 'Lessons'
+    }
+  },
+  {
+    path: 'package_lesson',
+    component: () =>
+          import('@/views/lesson/package_lesson/index'),
+    name: 'packageLesson',
+    resource: 'PackageLesson',
+    meta: {
+      title: 'PackageLesson'
     }
   }
   ]

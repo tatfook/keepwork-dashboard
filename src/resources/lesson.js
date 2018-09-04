@@ -17,6 +17,7 @@ export default class Lesson extends BaseResource {
     {
       name: 'lessonName',
       type: 'String',
+      title: true,
       required: true
     },
     {

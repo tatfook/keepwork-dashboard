@@ -6,6 +6,8 @@ import Subject from './subject'
 import Skill from './skill'
 import Package from './package'
 import Lesson from './lesson'
+import PackageLesson from './packageLesson'
+import HotPackage from './hotPackage'
 
 export const resources = {
   User,
@@ -14,7 +16,9 @@ export const resources = {
   Subject,
   Skill,
   Package,
-  Lesson
+  Lesson,
+  PackageLesson,
+  HotPackage
 }
 
 export const newResource = (name, row) => {

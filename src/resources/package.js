@@ -38,6 +38,7 @@ export default class Package extends BaseResource {
     {
       name: 'packageName',
       type: 'String',
+      title: true,
       required: true
     },
     {
