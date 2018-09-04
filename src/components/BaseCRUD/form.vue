@@ -102,10 +102,11 @@ export default {
       const associateClass = getResourceClass(attr.associate)
       return async query => {
         this.loading = true
-        const list = await associateClass.api().list({
-          [associateClass.title() + '-like']: query + '%',
-          'x-per-page': 50
-        })
+        const queryParam = { 'x-per-page': 50 }
+        if (query !== '') {
+          queryParam[associateClass.title() + '-like'] = query + '%'
+        }
+        const list = await associateClass.api().list(queryParam)
         self.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,
