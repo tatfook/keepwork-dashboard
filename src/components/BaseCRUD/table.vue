@@ -1,7 +1,7 @@
 <template>
   <div class="table-container" v-loading="listLoading">
     <el-table :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort">
-      <el-table-column align="center" v-for="col in attrs" :key="col.name" :label="col.name" :width="col.width" sortable="custom">
+      <el-table-column align="center" v-for="col in attrs" :key="col.name" :label="colTitle(col)" :width="col.width" sortable="custom">
         <template slot-scope="scope">
           <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
         </template>
@@ -66,6 +66,9 @@ export default {
         }
       }
       return this.cachedCan[action]
+    },
+    colTitle(col) {
+      return col.associate || col.name
     },
     rowValue(row, key) {
       return _.get(row, key)
