@@ -238,9 +238,8 @@ export default {
         })
       })
     },
-    handleSort(evt) {
-      const order = evt.order === 'descending' ? 'desc' : 'asc'
-      this.listQuery['x-order'] = evt.column.label + '-' + order
+    handleSort(column, order) {
+      this.listQuery['x-order'] = column + '-' + order
       this.getList()
     },
     handleAddFilter(filter) {

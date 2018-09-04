@@ -1,7 +1,7 @@
 <template>
   <div class="table-container" v-loading="listLoading">
     <el-table :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort">
-      <el-table-column align="center" v-for="col in attrs" :key="col.name" :label="colTitle(col)" :width="col.width" sortable="custom">
+      <el-table-column align="center" v-for="col in attrs" :key="col.name" :prop="col.name" :label="colTitle(col)" :width="col.width" sortable="custom">
         <template slot-scope="scope">
           <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
         </template>
@@ -77,7 +77,8 @@ export default {
       this.$emit('handleAction', action, row)
     },
     handleSort(evt) {
-      this.$emit('handleSort', evt)
+      const order = evt.order === 'descending' ? 'desc' : 'asc'
+      this.$emit('handleSort', evt.prop, order)
     }
   },
   computed: {
