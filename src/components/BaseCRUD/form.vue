@@ -6,6 +6,7 @@
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
+        <el-input v-else-if="attrComponent(attr, 'text')" v-model="model[attr.name]" type="textarea"/>
         <el-select v-else-if="attrComponent(attr, 'select')" v-model="model[attr.name]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>

@@ -5,9 +5,7 @@ export default class BaseResource {
     const attrs = this.constructor.attributes()
     if (row) {
       for (const attr of attrs) {
-        if (row[attr.name]) {
-          this[attr.name] = row[attr.name]
-        }
+        this[attr.name] = _.get(row, attr.name)
       }
     }
   }

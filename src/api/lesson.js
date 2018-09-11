@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import createService from '@/utils/request'
 
 const request = createService(process.env.LESSON_API)
@@ -40,10 +41,14 @@ export function resourceCRUD(resource) {
       })
     },
     update(data) {
+      const params = {}
+      _.forEach(data, (value, key) => {
+        _.set(params, key, value)
+      })
       return request({
         method: 'put',
         url: url + '/' + data.id,
-        data
+        data: params
       })
     },
     destroy(data) {

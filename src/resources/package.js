@@ -89,6 +89,11 @@ export default class Package extends BaseResource {
       required: true
     },
     {
+      name: 'extra.message',
+      type: 'String',
+      component: 'text'
+    },
+    {
       name: 'createdAt',
       type: 'Date',
       edit: false
