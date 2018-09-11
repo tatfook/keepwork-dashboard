@@ -19,6 +19,10 @@ export default class Skill extends BaseResource {
       required: true
     },
     {
+      name: 'enSkillName',
+      type: 'String'
+    },
+    {
       name: 'createdAt',
       type: 'Date',
       edit: false
