@@ -94,6 +94,10 @@ export default class Package extends BaseResource {
       component: 'text'
     },
     {
+      name: 'extra.coverUrl',
+      type: 'String'
+    },
+    {
       name: 'createdAt',
       type: 'Date',
       edit: false
