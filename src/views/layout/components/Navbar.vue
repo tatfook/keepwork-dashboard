@@ -4,17 +4,23 @@
     <breadcrumb></breadcrumb>
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
-        <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+        <img v-if="avatar" class="user-avatar" :src="avatar">
+        <img v-else class="user-avatar" src="@/assets/default_avatar.jpg">
         <i class="el-icon-caret-bottom"></i>
       </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
         <router-link class="inlineBlock" to="/">
           <el-dropdown-item>
-            Home
+            {{$t('home')}}
+          </el-dropdown-item>
+        </router-link>
+        <router-link class="inlineBlock" to="/admin">
+          <el-dropdown-item>
+            Admin
           </el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>
-          <span @click="logout" style="display:block;">LogOut</span>
+          <span @click="logout" style="display:block;">{{$t('logout')}}</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>

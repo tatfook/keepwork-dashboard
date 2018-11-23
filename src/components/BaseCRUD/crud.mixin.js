@@ -2,6 +2,10 @@ import _ from 'lodash'
 import md5 from 'blueimp-md5'
 import moment from 'moment'
 import {
+  QUERY,
+  FORMAT
+} from './config'
+import {
   newResource,
   getResourceClass
 } from '@/resources'
@@ -32,9 +36,9 @@ export default {
       total: null,
       listLoading: true,
       listQuery: {
-        'x-page': 1,
-        'x-per-page': 20,
-        'x-order': ''
+        [QUERY.page]: 1,
+        [QUERY.perPage]: 20,
+        [QUERY.order]: ''
       },
       activeRow: {},
       dialogFormVisible: false,
@@ -56,6 +60,9 @@ export default {
     this.getList()
   },
   methods: {
+    i18n(col) {
+      return this.resourceClass.i18n(col)
+    },
     loadResource() {
       this.resourceClass = getResourceClass(this.resource)
       this.api = this.resourceClass.api()
@@ -85,7 +92,7 @@ export default {
         return (item && item[this.getNestedAttr(col.name)]) || ''
       }
       if (col.type === 'Date') {
-        return moment(value).format('YYYY-MM-DD HH:mm')
+        return moment(value).format(FORMAT.date)
       }
       return value
     },
@@ -104,8 +111,11 @@ export default {
         const nestedResource = getResourceClass(item.associate)
         const key = item.name
         const idList = _(this.list)
-          .map(item => item[key])
+          .map(item => {
+            return _.isObject(item[key]) ? item[key].id : item[key]
+          })
           .compact()
+          .flatten()
           .uniq()
         const list = await nestedResource.api().list({
           id: idList
@@ -132,15 +142,15 @@ export default {
       }
     },
     handleFilter() {
-      this.listQuery['x-page'] = 1
+      this.listQuery[QUERY.page] = 1
       this.getList()
     },
     handleSizeChange(val) {
-      this.listQuery['x-per-page'] = val
+      this.listQuery[QUERY.perPage] = val
       this.getList()
     },
     handleCurrentChange(val) {
-      this.listQuery['x-page'] = val
+      this.listQuery[QUERY.page] = val
       this.getList()
     },
     handleCreate() {
@@ -162,7 +172,7 @@ export default {
     handleExport() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = this.resourceClass.exportAttrs().map(item => item.name)
+        const tHeader = this.resourceClass.exportAttrs().map(item => this.i18n(item.name))
         const data = this.list.map(data =>
           this.resourceClass.exportAttrs().map(col => this.colFilter(col, data[col.name]))
         )
@@ -180,8 +190,8 @@ export default {
         this.dialogFormVisible = false
         this.handleCurrentChange(1)
         this.$notify({
-          title: 'Success',
-          message: 'Created successfully!',
+          title: this.$t('success'),
+          message: this.$t('base.success.create'),
           type: 'success',
           duration: 2000
         })
@@ -190,9 +200,9 @@ export default {
       }
     },
     async updateData(data) {
-      const temp = newResource(this.resource, data)
+      let temp = newResource(this.resource, data)
       try {
-        await this.api.update(temp)
+        temp = await this.api.update(temp)
         for (const v of this.list) {
           if (v.id === temp.id) {
             const index = this.list.indexOf(v)
@@ -202,8 +212,8 @@ export default {
         }
         this.dialogFormVisible = false
         this.$notify({
-          title: 'success',
-          message: 'Updated successfully!',
+          title: this.$t('success'),
+          message: this.$t('base.success.update'),
           type: 'success',
           duration: 2000
         })
@@ -212,17 +222,51 @@ export default {
       }
     },
     async handleDelete(row) {
-      this.$confirm('Are you sure?', 'Delete', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+      this.$confirm(this.$t('base.confirm.delete'), this.$t('delete'), {
+        confirmButtonText: this.$t('ok'),
+        cancelButtonText: this.$t('cancel'),
         type: 'warning'
       }).then(() => {
         this.api
           .destroy(row)
           .then(() => {
             this.$notify({
-              title: 'success',
-              message: 'Deleted successfully!',
+              title: this.$t('success'),
+              message: this.$t('base.success.delete'),
+              type: 'success',
+              duration: 2000
+            })
+            this.getList()
+          })
+          .catch(err => {
+            console.error(err)
+            this.$message({
+              type: 'error',
+              message: this.$t('base.failed.delete')
+            })
+          })
+      }).catch(err => {
+        console.error(err)
+        this.$message({
+          type: 'error',
+          message: this.$t('base.failed.delete')
+        })
+      })
+    },
+    handleDeleteAll() {
+      this.$confirm(this.$t('base.success.deleteList'), this.$t('delete'), {
+        confirmButtonText: this.$t('ok'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.api
+          .destroyAll({
+            ids: this.list.map((row) => row.id)
+          })
+          .then(() => {
+            this.$notify({
+              title: this.$t('success'),
+              message: this.$t('base.success.delete'),
               type: 'success',
               duration: 2000
             })
@@ -233,13 +277,13 @@ export default {
           })
       }).catch(() => {
         this.$message({
-          type: 'info',
-          message: 'Cancel Delete!'
+          type: 'error',
+          message: this.$t('base.failed.delete')
         })
       })
     },
     handleSort(column, order) {
-      this.listQuery['x-order'] = column + '-' + order
+      this.listQuery[QUERY.order] = column + '-' + order
       this.getList()
     },
     handleAddFilter(filter) {
@@ -253,7 +297,7 @@ export default {
     },
     handleSearch(q) {
       this.listQuery = _.pickBy(this.listQuery, (value, key) => {
-        return _.startsWith(key, 'x-')
+        return QUERY[key] !== undefined
       })
       _.merge(this.listQuery, q)
       this.getList()
@@ -269,7 +313,7 @@ export default {
       _.forEach(this.attributes, item => {
         data.push({
           key: item.name,
-          value: this.temp[item.name]
+          value: this.activeRow[item.name]
         })
       })
       return data

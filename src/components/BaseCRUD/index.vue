@@ -1,16 +1,17 @@
 <template>
   <div class="app-container">
     <div class="action-container">
-      <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-plus">New</el-button>
-      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">Export</el-button>
+      <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-plus">{{$t('new')}}</el-button>
+      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
+      <el-button v-if="can('delete')" class="filter-item" style="margin-left: 10px;" @click="handleDeleteAll" type="primary" icon="el-icon-plus">{{$t('deleteAll')}}</el-button>
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
-          Add Filter
+          {{$t('addFilter')}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="item in searchableFilters" :key="item" :command="item">
-            {{item}}
+            {{i18n(item)}}
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

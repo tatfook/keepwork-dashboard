@@ -1,12 +1,12 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="attr.name" :prop="attr.name">
-        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading">
+      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.name">
+        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
-        <el-input v-else-if="attrComponent(attr, 'text')" v-model="model[attr.name]" type="textarea"/>
+        <el-input v-else-if="attrComponent(attr, 'text')" v-model="model[attr.name]" type="textarea" />
         <el-select v-else-if="attrComponent(attr, 'select')" v-model="model[attr.name]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
@@ -16,9 +16,9 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
-      <el-button @click="cancel">cancel</el-button>
-      <el-button v-if="status=='create'" type="primary" @click="createData">save</el-button>
-      <el-button v-else type="primary" @click="updateData">update</el-button>
+      <el-button @click="cancel">{{$t('cancel')}}</el-button>
+      <el-button v-if="status=='create'" type="primary" @click="createData">{{$t('save')}}</el-button>
+      <el-button v-else type="primary" @click="updateData">{{$t('update')}}</el-button>
     </div>
   </div>
 </template>
@@ -59,6 +59,9 @@ export default {
     }
   },
   methods: {
+    i18n(col) {
+      return this.resourceClass.i18n(col)
+    },
     attrComponent(attr, type) {
       const comp = attr.component || 'input'
       return comp === type
@@ -82,7 +85,7 @@ export default {
       this.associateOptions = {}
       for (const attr of this.attrs) {
         if (attr.associate) {
-          if (this.model[attr.name] && this.edit !== false) {
+          if (this.model[attr.name] && !attr.multiple && this.edit !== false) {
             const associateClass = getResourceClass(attr.associate)
             const item = await associateClass.api().get(this.model[attr.name])
             this.associateOptions[attr.name] = [
@@ -91,6 +94,19 @@ export default {
                 value: item[associateClass.title()]
               }
             ]
+          } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
+            const associateClass = getResourceClass(attr.associate)
+            const list = await associateClass.api().list({
+              'x-page': 1,
+              'x-per-page': 20,
+              'id-in': this.model[attr.name]
+            })
+            this.associateOptions[attr.name] = list.rows.map(item => {
+              return {
+                key: item.id,
+                value: item[associateClass.title()]
+              }
+            })
           } else {
             await this.searchAssociate(attr)('')
           }

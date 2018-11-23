@@ -1,5 +1,9 @@
 // Base Model for resources
 import _ from 'lodash'
+import {
+  i18n
+} from '../i18n'
+
 export default class BaseResource {
   constructor(row) {
     const attrs = this.constructor.attributes()
@@ -59,7 +63,7 @@ export default class BaseResource {
   */
   static actions() {
     return {
-      disabled: [], // ['create', 'edit', 'destroy', 'show']
+      disabled: ['show'], // ['create', 'edit', 'destroy', 'show']
       extra: []
     }
   }
@@ -132,5 +136,9 @@ export default class BaseResource {
       }
     })
     return rules
+  }
+
+  static i18n(col) {
+    return i18n.t(['resources', this.name, 'attr', col].join('.'))
   }
 }

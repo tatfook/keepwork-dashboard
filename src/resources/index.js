@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Admin from './admin'
 import User from './user'
 import Role from './role'
 import TeacherCDKey from './teacherCDKey'
@@ -10,6 +11,7 @@ import PackageLesson from './packageLesson'
 import HotPackage from './hotPackage'
 
 export const resources = {
+  Admin,
   User,
   Role,
   TeacherCDKey,

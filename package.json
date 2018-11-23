@@ -1,8 +1,8 @@
 {
-  "name": "keepwork-dashboard-2.0",
+  "name": "keepwork-dashboard",
   "version": "3.6.0",
   "license": "MIT",
-  "description": "Dashboard for keepwork platform",
+  "description": "new dashboard for keepwork2.0",
   "author": "keepwork team",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -23,6 +23,7 @@
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "vue": "2.5.17",
+    "vue-i18n": "^8.3.2",
     "vue-router": "3.0.1",
     "vuex": "3.0.1",
     "xlsx": "^0.13.4"
