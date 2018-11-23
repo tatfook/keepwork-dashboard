@@ -29,7 +29,7 @@ export default {
       let matched = this.$route.matched.filter(item => item.name)
       const first = matched[0]
       if (first && first.name !== 'dashboard') {
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(
+        matched = [{ path: '/dashboard', meta: { title: this.$t('dashboard') }}].concat(
           matched
         )
       }

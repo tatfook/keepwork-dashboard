@@ -16,7 +16,7 @@
         </router-link>
         <router-link class="inlineBlock" to="/admin">
           <el-dropdown-item>
-            Admin
+            {{$t('admin')}}
           </el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>

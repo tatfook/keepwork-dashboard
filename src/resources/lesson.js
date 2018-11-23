@@ -44,7 +44,7 @@ export default class Lesson extends BaseResource {
       search: false
     },
     {
-      name: 'extra.vedioUrl',
+      name: 'extra.videoUrl',
       type: 'String',
       search: false
     },

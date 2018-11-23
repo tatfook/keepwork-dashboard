@@ -45,8 +45,8 @@ export default {
       showingFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: this.$t('edit'),
+        create: this.$t('create')
       },
       downloadLoading: false,
       nestedData: {},
