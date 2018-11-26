@@ -30,6 +30,7 @@
     }
   },
   "home": "Home",
+  "admin": "Admin",
   "login": "Login",
   "logout": "Logout",
   "dashboard": "Dashboard",
@@ -40,6 +41,7 @@
   "create": "Create",
   "delete": "Delete",
   "save": "Save",
+  "update": "Update",
   "cancel": "Cancel",
   "ok": "OK",
   "export": "Export",
@@ -48,18 +50,108 @@
   "deleteAll": "Delete All",
   "search": "Search",
 
+  "name": "name",
+  "roles": "roles",
+
+  "lesson": "Lesson Platform",
+  "teacherCDKeys": "Teacher CDKeys",
+  "subjects": "Subjects",
+  "skills": "Skills",
+  "hotPackages": "Hot Packages",
+  "packages": "Packages",
+  "lessons": "Lessons",
+  "packageLesson": "PackageLesson",
 
   "resources": {
+    "Admin": {
+      "attr": {
+        "id": "id",
+        "username": "user name",
+        "password": "password"
+      }
+    },
     "User": {
       "attr": {
         "id": "id",
-        "username": "username",
+        "username": "user name",
         "role": "role",
         "desc": "desc",
         "createdAt": "created at",
         "updatedAt": "updated at"
       },
       "management": "user management"
+    },
+    "TeacherCDKey": {
+      "attr": {
+        "key": "key",
+        "state": "state",
+        "createdAt": "created at"
+      }
+    },
+    "Subject": {
+      "attr": {
+        "id": "id",
+        "subjectName": "subject name",
+        "enSubjectName": "subject name explanation",
+        "createdAt": "created at"
+      }
+    },
+    "Skill": {
+      "attr": {
+        "id": "id",
+        "skillName": "skill name",
+        "enSkillName": "skill name explanation",
+        "createdAt": "created at"
+      }
+    },
+    "HotPackage": {
+      "attr": {
+        "id": "id",
+        "packageId": "package id",
+        "hotNo": "hot No.",
+        "createdAt": "created at"
+      }
+    },
+    "Package": {
+      "attr": {
+        "id": "id",
+        "packageName": "package name",
+        "userId": "user id",
+        "subjectId": "subject id",
+        "minAge": "minimum age",
+        "maxAge": "maximum age",
+        "state": "state",
+        "rmb": "rmb",
+        "coin": "coin",
+        "extra": {
+          "message": "message",
+          "coverUrl": "cover url"
+        },
+        "createdAt": "created at"
+      }
+    },
+    "Lesson": {
+      "attr": {
+        "id": "id",
+        "lessonName": "lesson name",
+        "userId": "user id",
+        "subjectId": "subject id",
+        "goals": "goals",
+        "extra": {
+          "coverUrl": "cover url",
+          "videoUrl": "video url"
+        },
+        "createdAt": "created at"
+      }
+    },
+    "PackageLesson": {
+      "attr": {
+        "id": "id",
+        "packageId": "package id",
+        "lessonId": "lesson id",
+        "userId": "user id",
+        "createdAt": "created at"
+      }
     }
   }
 }
