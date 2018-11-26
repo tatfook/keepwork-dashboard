@@ -1,4 +1,26 @@
 {
+  "home": "首页",
+  "admin": "管理员",
+  "login": "登录",
+  "logout": "登出",
+  "dashboard": "管理控制台",
+  "success": "成功",
+  "fail": "失败",
+  "edit": "编辑",
+  "show": "查看",
+  "create": "创建",
+  "delete": "删除",
+  "save": "保存",
+  "update": "更新",
+  "cancel": "取消",
+  "ok": "确定",
+  "export": "导出",
+  "new": "新增",
+  "addFilter": "筛选",
+  "deleteAll": "删除全部",
+  "search": "搜索",
+  "name": "名字",
+  "roles": "角色",
   "base": {
     "confirm": {
       "delete": "是否确定?",
@@ -29,39 +51,25 @@
       "notLike": "不匹配"
     }
   },
-  "home": "首页",
-  "admin": "管理员",
-  "login": "登录",
-  "logout": "登出",
-  "dashboard": "管理控制台",
-  "success": "成功",
-  "fail": "失败",
-  "edit": "编辑",
-  "show": "查看",
-  "create": "创建",
-  "delete": "删除",
-  "save": "保存",
-  "update": "更新",
-  "cancel": "取消",
-  "ok": "确定",
-  "export": "导出",
-  "new": "新增",
-  "addFilter": "筛选",
-  "deleteAll": "删除全部",
-  "search": "搜索",
-
-  "name": "名字",
-  "roles": "角色",
-
-  "lesson": "课程平台",
-  "teacherCDKeys": "教师兑换码",
-  "subjects": "主题",
-  "skills": "技能",
-  "hotPackages": "热门包",
-  "packages": "包",
-  "lessons": "课程",
-  "packageLesson": "课程包",
-
+  "sidebar": {
+    "sidebarLesson": "课程",
+    "lesson": {
+      "lesson": "课程平台",
+      "teacherCDKeys": "教师兑换码",
+      "subjects": "主题",
+      "skills": "技能",
+      "hotPackages": "热门包",
+      "packages": "包",
+      "lessons": "课程",
+      "packageLesson": "课程包"
+    },
+    "siderbarUser": "账户",
+    "user": {
+      "userManager": "用户管理",
+      "userInfo": "用户信息",
+      "blockedUser": "封停用户"
+    }
+  },
   "resources": {
     "Admin": {
       "attr": {
@@ -74,6 +82,8 @@
       "attr": {
         "id": "序号",
         "username": "用户名",
+        "cellphone": "手机号",
+        "status": "状态",
         "role": "角色",
         "desc": "描述",
         "createdAt": "创建日期",
