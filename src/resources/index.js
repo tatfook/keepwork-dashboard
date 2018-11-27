@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import Admin from './admin'
 import User from './user'
+import Userinfo from './userinfo'
+import BlockedUser from './blockedUser'
 import Role from './role'
 import TeacherCDKey from './teacherCDKey'
 import Subject from './subject'
@@ -13,6 +15,8 @@ import HotPackage from './hotPackage'
 export const resources = {
   Admin,
   User,
+  Userinfo,
+  BlockedUser,
   Role,
   TeacherCDKey,
   Subject,

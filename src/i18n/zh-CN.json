@@ -91,6 +91,29 @@
       },
       "management": "用户管理"
     },
+    "Userinfo": {
+      "attr": {
+        "username": "用户名",
+        "createdAt": "创建日期",
+        "cellphone": "手机号",
+        "level": "等级",
+        "status": "状态",
+        "balance": "余额",
+        "coin": "知识币",
+        "bean": "知识豆",
+        "sex": "性别"
+      }
+    },
+    "BlockedUser": {
+      "attr": {
+        "username": "用户名",
+        "createdAt": "封号日期",
+        "cellphone": "手机号",
+        "level": "等级",
+        "reason": "原因",
+        "operator": "操作者"
+      }
+    },
     "TeacherCDKey": {
       "attr": {
         "key": "值",
