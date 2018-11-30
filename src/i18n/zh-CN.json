@@ -13,7 +13,8 @@
       "message": "失败!",
       "create": "创建失败!",
       "update": "更新失败!",
-      "delete": "删除失败!"
+      "delete": "删除失败!",
+      "empty": "请先选取数据！"
     },
     "queryOp": {
       "eq": "等于",

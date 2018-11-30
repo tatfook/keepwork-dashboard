@@ -2,7 +2,7 @@
   <el-table :data="list" border fit highlight-current-row style="width: 100%">
     <el-table-column align="center" label="Key">
       <template slot-scope="scope">
-        <span> {{scope.row.key}} </span>
+        <span> {{i18n(scope.row.key)}} </span>
       </template>
     </el-table-column>
     <el-table-column align="center" label="Value">
@@ -14,10 +14,22 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
 export default {
   name: 'CRUDShow',
   props: {
     list: Array
+  },
+  methods: {
+    i18n(col) {
+      return this.resourceClass.i18n(col)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      resourceClass: 'resourceClass'
+    })
   }
 }
 </script>
