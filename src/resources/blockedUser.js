@@ -18,6 +18,7 @@ export default class BlockedUser extends BaseResource {
         required: true,
         component: 'text',
         edit: true,
+        show: true,
         associate: 'User'
       },
       {

@@ -11,6 +11,25 @@ export function blockedUserCRUD() {
         return { count: 0, rows: [] }
       }
 
+      if (params['x-order'] === 'cellphone-desc') {
+        delete params['x-order']
+      }
+
+      if (params['cellphone-eq']) {
+        const cellphone = params['cellphone-eq']
+
+        try {
+          const response = await usersCRUD.get('?cellphone=' + cellphone)
+          params['objectId-eq'] = response[0].id
+        } catch (error) {
+          console.log(error)
+        }
+
+        params['objectId-eq'] = params['objectId-eq'] || 0
+
+        delete params['cellphone-eq']
+      }
+
       params['objectType-eq'] = 1
       const originList = await illegalsCRUD.list(params)
 
