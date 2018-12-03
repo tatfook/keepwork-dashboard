@@ -1,20 +1,9 @@
 import _ from 'lodash'
 import moment from 'moment'
-import {
-  QUERY,
-  FORMAT
-} from './config'
-import {
-  newResource,
-  getResourceClass
-} from '@/resources'
-import {
-  rolesCan
-} from '@/utils/cancan'
-import {
-  mapGetters,
-  mapActions
-} from 'vuex'
+import { QUERY, FORMAT } from './config'
+import { newResource, getResourceClass } from '@/resources'
+import { rolesCan } from '@/utils/cancan'
+import { mapGetters, mapActions } from 'vuex'
 import CRUDTable from './table'
 import CRUDForm from './form'
 import CRUDShow from './show'
@@ -196,32 +185,34 @@ export default {
         confirmButtonText: this.$t('ok'),
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
-      }).then(() => {
-        this.api
-          .destroy(row)
-          .then(() => {
-            this.$notify({
-              title: this.$t('success'),
-              message: this.$t('base.success.delete'),
-              type: 'success',
-              duration: 2000
-            })
-            this.getList()
-          })
-          .catch(err => {
-            console.error(err)
-            this.$message({
-              type: 'error',
-              message: this.$t('base.failed.delete')
-            })
-          })
-      }).catch(err => {
-        console.error(err)
-        this.$message({
-          type: 'error',
-          message: this.$t('base.failed.delete')
-        })
       })
+        .then(() => {
+          this.api
+            .destroy(row)
+            .then(() => {
+              this.$notify({
+                title: this.$t('success'),
+                message: this.$t('base.success.delete'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            })
+            .catch(err => {
+              console.error(err)
+              this.$message({
+                type: 'error',
+                message: this.$t('base.failed.delete')
+              })
+            })
+        })
+        .catch(err => {
+          console.error(err)
+          this.$message({
+            type: 'error',
+            message: this.$t('base.failed.delete')
+          })
+        })
     },
     handleDeleteAll() {
       if (this.selected.length === 0) {
@@ -235,29 +226,31 @@ export default {
         confirmButtonText: this.$t('ok'),
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
-      }).then(() => {
-        this.api
-          .destroyAll({
-            ids: this.selected.map((row) => row.id)
-          })
-          .then(() => {
-            this.$notify({
-              title: this.$t('success'),
-              message: this.$t('base.success.delete'),
-              type: 'success',
-              duration: 2000
-            })
-            this.getList()
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }).catch(() => {
-        this.$message({
-          type: 'error',
-          message: this.$t('base.failed.delete')
-        })
       })
+        .then(() => {
+          this.api
+            .destroyAll({
+              ids: this.selected.map(row => row.id)
+            })
+            .then(() => {
+              this.$notify({
+                title: this.$t('success'),
+                message: this.$t('base.success.delete'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'error',
+            message: this.$t('base.failed.delete')
+          })
+        })
     },
     handleSort(column, order) {
       this.listQuery[QUERY.order] = column + '-' + order

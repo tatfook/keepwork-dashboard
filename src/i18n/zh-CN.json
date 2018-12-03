@@ -106,12 +106,12 @@
     },
     "BlockedUser": {
       "attr": {
-        "username": "用户名",
+        "objectId": "用户名",
         "createdAt": "封号日期",
         "cellphone": "手机号",
         "level": "等级",
-        "reason": "原因",
-        "operator": "操作者"
+        "description": "原因",
+        "handler": "操作者"
       }
     },
     "TeacherCDKey": {

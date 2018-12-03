@@ -12,7 +12,6 @@ export default class User extends BaseResource {
       },
       {
         name: 'createdAt',
-        title: true,
         type: 'Date',
         edit: false
       },
@@ -21,7 +20,6 @@ export default class User extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
-        title: true,
         edit: true
       },
       {
@@ -29,7 +27,6 @@ export default class User extends BaseResource {
         type: 'select',
         required: true,
         component: 'select',
-        title: true,
         edit: true
       }
     ]

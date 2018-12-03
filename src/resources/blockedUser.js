@@ -1,53 +1,50 @@
-import { resourceCRUD } from '@/api/keepwork'
+import { blockedUserCRUD } from '@/api/blockedUser'
 import BaseResource from './base'
 
-const crudAPI = resourceCRUD('users')
+const crudAPI = blockedUserCRUD()
 
 export default class BlockedUser extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'username',
-        title: true
+        name: 'id',
+        type: 'Number',
+        edit: false,
+        show: false
+      },
+      {
+        name: 'objectId',
+        type: 'String',
+        required: true,
+        component: 'text',
+        edit: true,
+        associate: 'User'
       },
       {
         name: 'cellphone',
         type: 'String',
         required: true,
         component: 'text',
-        title: true,
-        edit: true
+        edit: false
       },
       {
         name: 'createdAt',
         type: 'Date',
-        required: true,
-        component: 'text',
-        title: true,
-        edit: true
+        required: false,
+        edit: false
       },
       {
-        name: 'level',
+        name: 'description',
         type: 'String',
         required: true,
         component: 'text',
-        title: true,
         edit: true
       },
       {
-        name: 'reason',
+        name: 'handler',
         type: 'String',
         required: true,
         component: 'text',
-        title: true,
-        edit: true
-      },
-      {
-        name: 'operator',
-        type: 'String',
-        required: true,
-        component: 'text',
-        title: true,
         edit: true
       }
     ]
