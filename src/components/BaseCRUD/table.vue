@@ -2,7 +2,7 @@
   <div class="table-container" v-loading="listLoading">
     <el-table ref="multipleTable" :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column align="center" v-for="col in attrs" :key="col.name" :prop="col.name" :label="i18n(col.name)" :width="col.width" sortable="custom">
+      <el-table-column align="center" v-for="col in attrs" :key="col.name" :prop="col.name" :label="i18n(col.name)" :width="col.width" :sortable="canSort(col)">
         <template slot-scope="scope">
           <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
         </template>
@@ -64,6 +64,9 @@ export default {
         }
       }
       return this.cachedCan[action]
+    },
+    canSort(col) {
+      return col.sort === false ? false : 'custom'
     },
     rowValue(row, key) {
       return _.get(row, key)
