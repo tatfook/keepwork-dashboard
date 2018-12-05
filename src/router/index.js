@@ -21,44 +21,45 @@ import Layout from '../views/layout/Layout'
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [{
-  path: '/login',
-  component: () =>
-      import('@/views/login/index'),
-  hidden: true
-},
-{
-  path: '/404',
-  component: () =>
-      import('@/views/404'),
-  hidden: true
-},
+export const constantRouterMap = [
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
 
-{
-  path: '/',
-  component: Layout,
-  redirect: '/dashboard',
-  name: 'Dashboard',
-  hidden: true,
-  children: [{
-    path: 'dashboard',
-    component: () =>
-        import('@/views/dashboard/index')
-  }]
-},
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    name: 'Dashboard',
+    hidden: true,
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index')
+      }
+    ]
+  },
 
-{
-  path: '/',
-  component: Layout,
-  redirect: '/admin',
-  name: 'Admin',
-  hidden: true,
-  children: [{
-    path: 'admin',
-    component: () =>
-        import('@/views/admin/index')
-  }]
-}
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/admin',
+    name: 'Admin',
+    hidden: true,
+    children: [
+      {
+        path: 'admin',
+        component: () => import('@/views/admin/index')
+      }
+    ]
+  }
 ]
 
 export default new Router({
@@ -69,88 +70,140 @@ export default new Router({
   routes: constantRouterMap
 })
 
-export const asyncRouterMap = [{
-  path: '/lesson',
-  component: Layout,
-  meta: {
-    title: 'Lesson',
-    icon: 'nested'
-  },
-  children: [{
-    path: 'teacher_cdkeys',
-    component: () =>
-          import('@/views/lesson/teacher_cdkey/index'),
-    name: 'Teacher CDKeys',
-    resource: 'TeacherCDKey',
+export const asyncRouterMap = [
+  {
+    path: '/user',
+    component: Layout,
     meta: {
-      title: 'Teacher CDKeys'
-    }
+      title: 'sidebar.siderbarUser',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'manager',
+        component: () => import('@/views/user/manager/index'),
+        name: 'User Manager',
+        resource: 'User',
+        meta: {
+          title: 'sidebar.user.userManager'
+        }
+      },
+      {
+        path: 'info',
+        component: () => import('@/views/user/info/index'),
+        name: 'User Info',
+        resource: 'UserInfo',
+        meta: {
+          title: 'sidebar.user.userInfo'
+        }
+      },
+      {
+        path: 'blocked_user',
+        component: () => import('@/views/user/blocked-user/index'),
+        name: 'Blocked User',
+        resource: 'BlockedUser',
+        meta: {
+          title: 'sidebar.user.blockedUser'
+        }
+      }
+    ]
   },
   {
-    path: 'subjects',
-    component: () =>
-          import('@/views/lesson/subject/index'),
-    name: 'Subjects',
-    resource: 'Subject',
+    path: '/sensitiveWords',
+    component: Layout,
     meta: {
-      title: 'Subjects'
-    }
+      title: 'sidebar.sidebarSensitiveWords',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'manager',
+        component: () => import('@/views/sensitive-words/index'),
+        name: 'Sensitive Words',
+        resource: 'SensitiveWords',
+        meta: {
+          title: 'sidebar.sidebarSensitiveWords',
+          icon: 'nested'
+        }
+      }
+    ]
   },
   {
-    path: 'skills',
-    component: () =>
-          import('@/views/lesson/skill/index'),
-    name: 'Skills',
-    resource: 'Skill',
+    path: '/lesson',
+    component: Layout,
     meta: {
-      title: 'Skills'
-    }
+      title: 'sidebar.sidebarLesson',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'teacher_cdkeys',
+        component: () => import('@/views/lesson/teacher_cdkey/index'),
+        name: 'Teacher CDKeys',
+        resource: 'TeacherCDKey',
+        meta: {
+          title: 'sidebar.lesson.teacherCDKeys'
+        }
+      },
+      {
+        path: 'subjects',
+        component: () => import('@/views/lesson/subject/index'),
+        name: 'Subjects',
+        resource: 'Subject',
+        meta: {
+          title: 'sidebar.lesson.subjects'
+        }
+      },
+      {
+        path: 'skills',
+        component: () => import('@/views/lesson/skill/index'),
+        name: 'Skills',
+        resource: 'Skill',
+        meta: {
+          title: 'sidebar.lesson.skills'
+        }
+      },
+      {
+        path: 'hot_packages',
+        component: () => import('@/views/lesson/hot_package/index'),
+        name: 'Hot Packages',
+        resource: 'HotPackage',
+        meta: {
+          title: 'sidebar.lesson.hotPackages'
+        }
+      },
+      {
+        path: 'packages',
+        component: () => import('@/views/lesson/package/index'),
+        name: 'Packages',
+        resource: 'Package',
+        meta: {
+          title: 'sidebar.lesson.packages'
+        }
+      },
+      {
+        path: 'lessons',
+        component: () => import('@/views/lesson/lesson/index'),
+        name: 'Lessons',
+        resource: 'Lesson',
+        meta: {
+          title: 'sidebar.lesson.lessons'
+        }
+      },
+      {
+        path: 'package_lesson',
+        component: () => import('@/views/lesson/package_lesson/index'),
+        name: 'packageLesson',
+        resource: 'PackageLesson',
+        meta: {
+          title: 'sidebar.lesson.packageLesson'
+        }
+      }
+    ]
   },
   {
-    path: 'hot_packages',
-    component: () =>
-          import('@/views/lesson/hot_package/index'),
-    name: 'Hot Packages',
-    resource: 'HotPackage',
-    meta: {
-      title: 'Hot Packages'
-    }
-  },
-  {
-    path: 'packages',
-    component: () =>
-          import('@/views/lesson/package/index'),
-    name: 'Packages',
-    resource: 'Package',
-    meta: {
-      title: 'Packages'
-    }
-  },
-  {
-    path: 'lessons',
-    component: () =>
-          import('@/views/lesson/lesson/index'),
-    name: 'Lessons',
-    resource: 'Lesson',
-    meta: {
-      title: 'Lessons'
-    }
-  },
-  {
-    path: 'package_lesson',
-    component: () =>
-          import('@/views/lesson/package_lesson/index'),
-    name: 'packageLesson',
-    resource: 'PackageLesson',
-    meta: {
-      title: 'PackageLesson'
-    }
+    path: '*',
+    redirect: '/404',
+    hidden: true
   }
-  ]
-},
-{
-  path: '*',
-  redirect: '/404',
-  hidden: true
-}
 ]

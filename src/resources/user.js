@@ -1,16 +1,35 @@
-import {
-  resourceCRUD
-} from '@/api/lesson'
+import { resourceCRUD } from '@/api/keepwork'
 import BaseResource from './base'
 
 const crudAPI = resourceCRUD('users')
 
 export default class User extends BaseResource {
   static attributes() {
-    return [{
-      name: 'username',
-      title: true
-    }]
+    return [
+      {
+        name: 'username',
+        title: true
+      },
+      {
+        name: 'createdAt',
+        type: 'Date',
+        edit: false
+      },
+      {
+        name: 'cellphone',
+        type: 'String',
+        required: true,
+        component: 'text',
+        edit: true
+      },
+      {
+        name: 'status',
+        type: 'select',
+        required: true,
+        component: 'select',
+        edit: true
+      }
+    ]
   }
 
   static api() {
@@ -19,7 +38,7 @@ export default class User extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'delete', 'update']
+      disabled: ['show']
     }
   }
 }

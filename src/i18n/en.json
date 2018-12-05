@@ -1,4 +1,26 @@
 {
+  "home": "Home",
+  "admin": "Admin",
+  "login": "Login",
+  "logout": "Logout",
+  "dashboard": "Dashboard",
+  "success": "Success",
+  "failed": "Failed",
+  "edit": "Edit",
+  "show": "Show",
+  "create": "Create",
+  "delete": "Delete",
+  "save": "Save",
+  "update": "Update",
+  "cancel": "Cancel",
+  "ok": "OK",
+  "export": "Export",
+  "new": "New",
+  "addFilter": "Add Filter",
+  "deleteAll": "Delete All",
+  "search": "Search",
+  "name": "name",
+  "roles": "roles",
   "base": {
     "confirm": {
       "delete": "Are you sure?",
@@ -30,39 +52,25 @@
       "notLike": "not like"
     }
   },
-  "home": "Home",
-  "admin": "Admin",
-  "login": "Login",
-  "logout": "Logout",
-  "dashboard": "Dashboard",
-  "success": "Success",
-  "failed": "Failed",
-  "edit": "Edit",
-  "show": "Show",
-  "create": "Create",
-  "delete": "Delete",
-  "save": "Save",
-  "update": "Update",
-  "cancel": "Cancel",
-  "ok": "OK",
-  "export": "Export",
-  "new": "New",
-  "addFilter": "Add Filter",
-  "deleteAll": "Delete All",
-  "search": "Search",
-
-  "name": "name",
-  "roles": "roles",
-
-  "lesson": "Lesson Platform",
-  "teacherCDKeys": "Teacher CDKeys",
-  "subjects": "Subjects",
-  "skills": "Skills",
-  "hotPackages": "Hot Packages",
-  "packages": "Packages",
-  "lessons": "Lessons",
-  "packageLesson": "PackageLesson",
-
+  "sidebar": {
+    "sidebarLesson": "Lesson",
+    "lesson": {
+      "lesson": "Lesson Platform",
+      "teacherCDKeys": "Teacher CDKeys",
+      "subjects": "Subjects",
+      "skills": "Skills",
+      "hotPackages": "Hot Packages",
+      "packages": "Packages",
+      "lessons": "Lessons",
+      "packageLesson": "PackageLesson"
+    },
+    "sidebarUser": "User",
+    "user": {
+      "userManager": "User Manager",
+      "userInfo": "User Info",
+      "blockedUser": "Blocked User"
+    }
+  },
   "resources": {
     "Admin": {
       "attr": {
@@ -75,6 +83,8 @@
       "attr": {
         "id": "id",
         "username": "user name",
+        "cellphone": "cell phone",
+        "status": "status",
         "role": "role",
         "desc": "desc",
         "createdAt": "created at",
