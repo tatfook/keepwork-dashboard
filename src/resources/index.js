@@ -11,6 +11,7 @@ import Package from './package'
 import Lesson from './lesson'
 import PackageLesson from './packageLesson'
 import HotPackage from './hotPackage'
+import SensitiveWords from './sensitiveWords'
 
 export const resources = {
   Admin,
@@ -24,7 +25,8 @@ export const resources = {
   Package,
   Lesson,
   PackageLesson,
-  HotPackage
+  HotPackage,
+  SensitiveWords
 }
 
 export const newResource = (name, row) => {

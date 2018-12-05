@@ -80,7 +80,7 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: '/manager',
+        path: 'manager',
         component: () => import('@/views/user/manager/index'),
         name: 'User Manager',
         resource: 'User',
@@ -89,7 +89,7 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: '/info',
+        path: 'info',
         component: () => import('@/views/user/info/index'),
         name: 'User Info',
         resource: 'UserInfo',
@@ -98,12 +98,32 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: '/blocked_user',
+        path: 'blocked_user',
         component: () => import('@/views/user/blocked-user/index'),
         name: 'Blocked User',
         resource: 'BlockedUser',
         meta: {
           title: 'sidebar.user.blockedUser'
+        }
+      }
+    ]
+  },
+  {
+    path: '/sensitiveWords',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarSensitiveWords',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'manager',
+        component: () => import('@/views/sensitive-words/index'),
+        name: 'Sensitive Words',
+        resource: 'SensitiveWords',
+        meta: {
+          title: 'sidebar.sidebarSensitiveWords',
+          icon: 'nested'
         }
       }
     ]

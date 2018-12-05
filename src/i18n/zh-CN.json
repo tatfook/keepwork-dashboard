@@ -52,6 +52,13 @@
     }
   },
   "sidebar": {
+    "siderbarUser": "账户",
+    "user": {
+      "userManager": "用户管理",
+      "userInfo": "用户信息",
+      "blockedUser": "封停用户"
+    },
+    "sidebarSensitiveWords": "敏感词管理",
     "sidebarLesson": "课程",
     "lesson": {
       "lesson": "课程平台",
@@ -62,12 +69,6 @@
       "packages": "包",
       "lessons": "课程",
       "packageLesson": "课程包"
-    },
-    "siderbarUser": "账户",
-    "user": {
-      "userManager": "用户管理",
-      "userInfo": "用户信息",
-      "blockedUser": "封停用户"
     }
   },
   "resources": {
@@ -184,6 +185,11 @@
         "lessonId": "课程序号",
         "userId": "用户序号",
         "createdAt": "创建日期"
+      }
+    },
+    "SensitiveWords": {
+      "attr": {
+        "word": "关键字"
       }
     }
   }

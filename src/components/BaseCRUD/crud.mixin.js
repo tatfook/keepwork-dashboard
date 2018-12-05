@@ -300,6 +300,7 @@ export default {
       return data
     },
     searchableFilters() {
+      console.log(this.resourceClass)
       return this.resourceClass.searchAttrs().map(attr => attr.name)
     }
   },
