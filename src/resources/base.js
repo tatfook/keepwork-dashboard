@@ -141,4 +141,8 @@ export default class BaseResource {
   static i18n(col) {
     return i18n.t(['resources', this.name, 'attr', col].join('.'))
   }
+
+  static i18nBase(attr) {
+    return i18n.t(attr)
+  }
 }
