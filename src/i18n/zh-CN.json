@@ -59,6 +59,11 @@
       "blockedUser": "封停用户"
     },
     "sidebarSensitiveWords": "敏感词管理",
+    "sidebarWebsite": "网站",
+    "website": {
+      "websiteManagement": "网站管理",
+      "suspendManagement": "封停管理"
+    },
     "sidebarLesson": "课程",
     "lesson": {
       "lesson": "课程平台",

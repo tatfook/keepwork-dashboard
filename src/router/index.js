@@ -109,6 +109,34 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/website',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarWebsite',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'website_manage',
+        component: () => import('@/views/website/website_manage/index'),
+        name: 'Website Suspend',
+        resource: 'WebsiteManage',
+        meta: {
+          title: 'sidebar.website.websiteManagement'
+        }
+      },
+      {
+        path: 'website_suspend',
+        component: () => import('@/views/website/website_suspend/index'),
+        name: 'Website Suspend',
+        resource: 'WebsiteSuspend',
+        meta: {
+          title: 'sidebar.website.suspendManagement'
+        }
+      }
+    ]
+  },
+  {
     path: '/sensitiveWords',
     component: Layout,
     meta: {

@@ -53,6 +53,12 @@
     }
   },
   "sidebar": {
+    "sidebarSensitiveWords": "Sensitive Word Management",
+    "sidebarWebsite": "Website",
+    "website": {
+      "websiteManagement": "Website Management",
+      "suspendManagement": "Suspend Management"
+    },
     "sidebarLesson": "Lesson",
     "lesson": {
       "lesson": "Lesson Platform",
