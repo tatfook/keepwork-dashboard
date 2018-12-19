@@ -163,6 +163,14 @@
         "userId": "user id",
         "createdAt": "created at"
       }
+    },
+    "SensitiveWords": {
+      "attr": {
+        "word": "Keyword",
+        "id": "ID",
+        "createdAt": "Date of creation",
+        "updatedAt": "Update date"
+      }
     }
   }
 }

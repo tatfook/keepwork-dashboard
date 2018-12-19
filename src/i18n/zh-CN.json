@@ -189,7 +189,10 @@
     },
     "SensitiveWords": {
       "attr": {
-        "word": "关键字"
+        "word": "关键字",
+        "id": "ID",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期"
       }
     }
   }
