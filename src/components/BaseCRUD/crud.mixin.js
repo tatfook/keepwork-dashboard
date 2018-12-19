@@ -9,7 +9,6 @@ import CRUDForm from './form'
 import CRUDShow from './show'
 import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
-import { Message } from 'element-ui'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 
@@ -155,11 +154,7 @@ export default {
           duration: 2000
         })
       } catch (err) {
-        Message({
-          message: '关键字重复',
-          type: 'error',
-          duration: 5 * 1000
-        })
+        console.error(err)
       }
     },
     async updateData(data) {
