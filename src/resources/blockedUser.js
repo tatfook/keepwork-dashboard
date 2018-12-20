@@ -29,7 +29,7 @@ export default class BlockedUser extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
-        edit: true,
+        edit: false,
         show: true,
         associate: 'User'
       },
