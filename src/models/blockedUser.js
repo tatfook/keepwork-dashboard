@@ -33,6 +33,13 @@ export default function blockedUserModel() {
       params['objectType-eq'] = 1
       const originList = await illegalsCRUD.list(params)
 
+      _.map(
+        originList.rows,
+        (item) => {
+          item.level = 'ordinary'
+        }
+      )
+
       if (!originList || !originList.count || !Array.isArray(originList.rows)) {
         return { count: 0, rows: [] }
       }

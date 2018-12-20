@@ -86,21 +86,22 @@
         "status": "状态",
         "role": "角色",
         "desc": "描述",
-        "createdAt": "创建日期",
+        "createdAt": "注册时间",
         "updatedAt": "更新日期"
       },
       "management": "用户管理"
     },
     "Userinfo": {
       "attr": {
+        "id": "序号",
         "username": "用户名",
-        "createdAt": "创建日期",
+        "createdAt": "注册时间",
         "cellphone": "手机号",
-        "level": "等级",
+        "level": "用户等级",
         "status": "状态",
         "balance": "余额",
-        "coin": "知识币",
-        "bean": "知识豆",
+        "coin": "知识币余数",
+        "bean": "知识豆余数",
         "sex": "性别"
       }
     },
@@ -110,8 +111,8 @@
         "objectId": "用户名",
         "createdAt": "封号日期",
         "cellphone": "手机号",
-        "level": "等级",
-        "description": "原因",
+        "level": "用户等级",
+        "description": "封号原因",
         "handler": "操作者"
       }
     },
