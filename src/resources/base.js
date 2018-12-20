@@ -15,9 +15,8 @@ export default class BaseResource {
     }
   }
 
-  // resource rest API
-  static api() {
-    throw new Error('Please define the resource API!')
+  static model() {
+    throw new Error('Please define the resource MODEL!')
   }
 
   /*

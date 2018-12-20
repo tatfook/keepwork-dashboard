@@ -1,7 +1,7 @@
-import { blockedUserCRUD } from '@/api/blockedUser'
+import blockedUserModel from '@/models/blockedUser'
 import BaseResource from './base'
 
-const crudAPI = blockedUserCRUD()
+const model = blockedUserModel()
 
 export default class BlockedUser extends BaseResource {
   static attributes() {
@@ -51,13 +51,13 @@ export default class BlockedUser extends BaseResource {
     ]
   }
 
-  static api() {
-    return crudAPI
+  static model() {
+    return model
   }
 
   static actions() {
     return {
-      disabled: []
+      disabled: ['show']
     }
   }
 }

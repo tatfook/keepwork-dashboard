@@ -53,6 +53,13 @@
     }
   },
   "sidebar": {
+    "sidebarUser": "User",
+    "user": {
+      "userManager": "User Manager",
+      "userInfo": "User Info",
+      "blockedUser": "Blocked User"
+    },
+    "sidebarSensitiveWords": "Sensitive Words",
     "sidebarLesson": "Lesson",
     "lesson": {
       "lesson": "Lesson Platform",
@@ -63,12 +70,6 @@
       "packages": "Packages",
       "lessons": "Lessons",
       "packageLesson": "PackageLesson"
-    },
-    "sidebarUser": "User",
-    "user": {
-      "userManager": "User Manager",
-      "userInfo": "User Info",
-      "blockedUser": "Blocked User"
     }
   },
   "resources": {
@@ -91,6 +92,38 @@
         "updatedAt": "updated at"
       },
       "management": "user management"
+    },
+    "Userinfo": {
+      "attr": {
+        "username": "user name",
+        "createdAt": "created at",
+        "cellphone": "cell phone",
+        "level": "level",
+        "status": "status",
+        "balance": "balance",
+        "coin": "knowledge coin",
+        "bean": "knowledge bean",
+        "sex": "sex"
+      }
+    },
+    "BlockedUser": {
+      "attr": {
+        "id": "id",
+        "objectId": "user name",
+        "createdAt": "suspended at",
+        "cellphone": "cell phone",
+        "level": "level",
+        "description": "reason",
+        "handler": "handler"
+      }
+    },
+    "SensitiveWords": {
+      "attr": {
+        "id": "id",
+        "word": "word",
+        "createdAt": "created at",
+        "updatedAt": "updated at"
+      }
     },
     "TeacherCDKey": {
       "attr": {

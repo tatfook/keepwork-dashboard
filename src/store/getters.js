@@ -17,7 +17,7 @@ const getters = {
   total: state => state.resource.total,
   actions: state => state.resource.actions,
   attributes: state => state.resource.attributes,
-  api: state => state.resource.api,
+  model: state => state.resource.model,
   nested: state => state.resource.nested,
   nestedData: state => state.resource.nestedData
 }

@@ -1,8 +1,5 @@
 import BaseResource from './base'
-import {
-  getTeacherCDKeys,
-  generateTeacherCDKeys
-} from '@/api/lesson'
+import { getTeacherCDKeys, generateTeacherCDKeys } from '@/api/lesson'
 
 const stateMap = [
   {
@@ -29,7 +26,7 @@ export default class TeacherCDKey extends BaseResource {
       {
         name: 'state',
         type: 'Number',
-        filter: (value) => {
+        filter: value => {
           for (const option of stateMap) {
             if (option.key === value) return option.value
           }
@@ -44,7 +41,7 @@ export default class TeacherCDKey extends BaseResource {
     ]
   }
 
-  static api() {
+  static model() {
     return {
       list: getTeacherCDKeys,
       generate: generateTeacherCDKeys

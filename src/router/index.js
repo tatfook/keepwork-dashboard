@@ -75,7 +75,7 @@ export const asyncRouterMap = [
     path: '/user',
     component: Layout,
     meta: {
-      title: 'sidebar.siderbarUser',
+      title: 'sidebar.sidebarUser',
       icon: 'nested'
     },
     children: [
@@ -111,10 +111,10 @@ export const asyncRouterMap = [
   {
     path: '/sensitiveWords',
     component: Layout,
-    meta: {
-      title: 'sidebar.sidebarSensitiveWords',
-      icon: 'nested'
-    },
+    // meta: {
+    //   title: 'sidebar.sidebarSensitiveWords',
+    //   icon: 'nested'
+    // },
     children: [
       {
         path: 'manager',

@@ -1,10 +1,10 @@
-import { resourceCRUD } from './keepwork'
+import { resourceCRUD } from '../api/keepwork'
 import _ from 'lodash'
 
 const usersCRUD = resourceCRUD('users')
 const illegalsCRUD = resourceCRUD('illegals')
 
-export function userinfoCRUD() {
+export default function userinfoModel() {
   return {
     async list(params) {
       const originList = await usersCRUD.list(params)
@@ -41,9 +41,9 @@ export function userinfoCRUD() {
           const curBlockedUser = blockedUserMap.get(item.id)
 
           if (curBlockedUser) {
-            item.status = false
+            item.status = 1
           } else {
-            item.status = true
+            item.status = 0
           }
         }
       )

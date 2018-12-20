@@ -1,7 +1,7 @@
-import { userinfoCRUD } from '@/api/userinfo'
+import userinfoModel from '@/models/userinfo'
 import BaseResource from './base'
 
-const crudAPI = userinfoCRUD()
+const model = userinfoModel()
 
 const sexMap = [
   {
@@ -31,11 +31,11 @@ const levelMap = [
 
 const statusMap = [
   {
-    key: true,
+    key: 0,
     value: '正常'
   },
   {
-    key: false,
+    key: 1,
     value: '封停'
   }
 ]
@@ -43,6 +43,11 @@ const statusMap = [
 export default class Userinfo extends BaseResource {
   static attributes() {
     return [
+      {
+        name: 'id',
+        show: false,
+        edit: false
+      },
       {
         name: 'username',
         title: true,
@@ -141,13 +146,13 @@ export default class Userinfo extends BaseResource {
     ]
   }
 
-  static api() {
-    return crudAPI
+  static model() {
+    return model
   }
 
   static actions() {
     return {
-      disabled: ['create']
+      disabled: ['create', 'show']
     }
   }
 }

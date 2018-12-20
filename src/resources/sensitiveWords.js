@@ -1,7 +1,7 @@
 import { resourceCRUD } from '@/api/keepwork'
 import BaseResource from './base'
 
-const crudAPI = resourceCRUD('sensitiveWords')
+const model = resourceCRUD('sensitiveWords')
 
 export default class SensitiveWords extends BaseResource {
   static attributes() {
@@ -32,13 +32,13 @@ export default class SensitiveWords extends BaseResource {
     ]
   }
 
-  static api() {
-    return crudAPI
+  static model() {
+    return model
   }
 
   static actions() {
     return {
-      disabled: []
+      disabled: ['show']
     }
   }
 }
