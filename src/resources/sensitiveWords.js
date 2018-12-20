@@ -10,7 +10,8 @@ export default class SensitiveWords extends BaseResource {
         name: 'id',
         type: 'Number',
         show: false,
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'word',
@@ -21,13 +22,15 @@ export default class SensitiveWords extends BaseResource {
         name: 'createdAt',
         type: 'Date',
         show: false,
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'updatedAt',
         type: 'Date',
         show: false,
-        edit: false
+        edit: false,
+        search: false
       }
     ]
   }
