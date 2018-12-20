@@ -123,6 +123,10 @@
         "word": "word",
         "createdAt": "created at",
         "updatedAt": "updated at"
+      },
+      "tips": {
+        "keyWord": "Keyword repetition！",
+        "updateError": "Operational errors！"
       }
     },
     "TeacherCDKey": {
