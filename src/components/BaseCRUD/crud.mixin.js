@@ -144,7 +144,7 @@ export default {
     },
     async createData(data) {
       try {
-        await this.api.create(data)
+        await this.model.create(data)
         this.dialogFormVisible = false
         this.handleCurrentChange(1)
         this.$notify({
@@ -160,7 +160,7 @@ export default {
     async updateData(data) {
       let temp = newResource(this.resource, data)
       try {
-        temp = await this.api.update(temp)
+        temp = await this.model.update(temp)
         for (const v of this.list) {
           if (v.id === temp.id) {
             const index = this.list.indexOf(v)
@@ -187,7 +187,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          this.api
+          this.model
             .destroy(row)
             .then(() => {
               this.$notify({
@@ -228,7 +228,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          this.api
+          this.model
             .destroyAll({
               ids: this.selected.map(row => row.id)
             })
@@ -286,7 +286,7 @@ export default {
       resourceName: 'resourceName',
       resourceClass: 'resourceClass',
       total: 'total',
-      api: 'api',
+      model: 'model',
       attributes: 'attributes',
       actions: 'actions'
     }),
@@ -302,7 +302,7 @@ export default {
       return data
     },
     searchableFilters() {
-      console.log(this.resourceClass)
+      // console.log(this.resourceClass)
       return this.resourceClass.searchAttrs().map(attr => attr.name)
     }
   },

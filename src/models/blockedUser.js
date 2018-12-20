@@ -1,10 +1,10 @@
-import { resourceCRUD } from './keepwork'
+import { resourceCRUD } from '../api/keepwork'
 import _ from 'lodash'
 
 const usersCRUD = resourceCRUD('users')
 const illegalsCRUD = resourceCRUD('illegals')
 
-export function blockedUserCRUD() {
+export default function blockedUserModel() {
   return {
     async list(params) {
       if (typeof params !== 'object') {

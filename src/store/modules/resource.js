@@ -26,7 +26,7 @@ const resource = {
       state.resourceClass = getResourceClass(state.resourceName)
       state.actions = state.resourceClass.actions()
       state.attributes = state.resourceClass.attributes()
-      state.api = state.resourceClass.api()
+      state.model = state.resourceClass.model()
       state.resourceList = []
       state.selectedResources = []
       state.total = 0
@@ -74,7 +74,7 @@ const resource = {
       queryOptions
     }) {
       await commit('SET_QUERY_OPTIONS', { queryOptions })
-      const res = await state.api.list(queryOptions)
+      const res = await state.model.list(queryOptions)
       const resourceList = res.rows.map(row => newResource(state.resourceName, row))
       const total = res.count
       await commit('SET_RESOURCE_LIST', { resourceList, total })
@@ -91,7 +91,7 @@ const resource = {
           .compact()
           .flatten()
           .uniq()
-        const list = await nestedResource.api().list({
+        const list = await nestedResource.model().list({
           id: idList
         })
         for (const item of list.rows) {

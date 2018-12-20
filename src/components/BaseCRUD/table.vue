@@ -100,7 +100,7 @@ export default {
       _.remove(extraAxtions, action => {
         return !this.can(action.name)
       })
-      console.log(extraAxtions)
+
       return extraAxtions
     },
     attrs() {

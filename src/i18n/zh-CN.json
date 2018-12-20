@@ -52,7 +52,7 @@
     }
   },
   "sidebar": {
-    "siderbarUser": "账户",
+    "sidebarUser": "账户",
     "user": {
       "userManager": "用户管理",
       "userInfo": "用户信息",
@@ -61,7 +61,6 @@
     "sidebarSensitiveWords": "敏感词管理",
     "sidebarLesson": "课程",
     "lesson": {
-      "lesson": "课程平台",
       "teacherCDKeys": "教师兑换码",
       "subjects": "主题",
       "skills": "技能",
@@ -107,12 +106,21 @@
     },
     "BlockedUser": {
       "attr": {
+        "id": "序号",
         "objectId": "用户名",
         "createdAt": "封号日期",
         "cellphone": "手机号",
         "level": "等级",
         "description": "原因",
         "handler": "操作者"
+      }
+    },
+    "SensitiveWords": {
+      "attr": {
+        "id": "序号",
+        "word": "关键字",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期"
       }
     },
     "TeacherCDKey": {
@@ -185,11 +193,6 @@
         "lessonId": "课程序号",
         "userId": "用户序号",
         "createdAt": "创建日期"
-      }
-    },
-    "SensitiveWords": {
-      "attr": {
-        "word": "关键字"
       }
     }
   }
