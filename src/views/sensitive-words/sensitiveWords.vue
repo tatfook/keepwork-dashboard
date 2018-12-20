@@ -56,7 +56,7 @@ export default {
         })
       } catch (err) {
         Message({
-          message: '关键字重复',
+          message: this.$t('resources.SensitiveWords.tips.keyWord'),
           type: 'error',
           duration: 5 * 1000
         })
@@ -83,7 +83,7 @@ export default {
         this.getList()
       } catch (err) {
         Message({
-          message: '操作错误',
+          message: this.$t('resources.SensitiveWords.tips.updateError'),
           type: 'error',
           duration: 5 * 1000
         })

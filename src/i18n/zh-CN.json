@@ -121,6 +121,10 @@
         "word": "关键字",
         "createdAt": "创建日期",
         "updatedAt": "更新日期"
+      },
+      "tips": {
+        "keyWord": "关键词重复",
+        "updateError": "操作失误"
       }
     },
     "TeacherCDKey": {
