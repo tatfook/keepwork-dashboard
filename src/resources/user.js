@@ -20,7 +20,8 @@ export default class User extends BaseResource {
       {
         name: 'id',
         show: false,
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'username',
@@ -53,7 +54,7 @@ export default class User extends BaseResource {
           }
           return value
         },
-        search: false
+        search: true
       }
     ]
   }

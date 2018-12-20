@@ -46,7 +46,8 @@ export default class Userinfo extends BaseResource {
       {
         name: 'id',
         show: false,
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'username',
@@ -141,7 +142,8 @@ export default class Userinfo extends BaseResource {
           }
 
           return sexMap.N.value
-        }
+        },
+        search: false
       }
     ]
   }
