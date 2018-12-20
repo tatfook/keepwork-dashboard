@@ -59,7 +59,7 @@ export default function userinfoModel() {
     get(params) {
       return usersCRUD.get(params)
     },
-    destory(params) {
+    destroy(params) {
       return usersCRUD.destroy(params)
     }
   }

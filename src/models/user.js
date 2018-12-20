@@ -42,8 +42,8 @@ export default function userModel() {
     async update(params) {
       return usersCRUD.update(params)
     },
-    async destory(params) {
-      return usersCRUD.destory(params)
+    async destroy(params) {
+      return usersCRUD.destroy(params)
     }
   }
 }

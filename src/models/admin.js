@@ -11,6 +11,6 @@ export default function adminModel() {
     },
     async create() {},
     async update() {},
-    async destory() {}
+    async destroy() {}
   }
 }
