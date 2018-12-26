@@ -4,7 +4,7 @@ const request = createService()
 
 export function login(username, password) {
   return request({
-    url: '/admin/login',
+    url: '/admins/login',
     method: 'post',
     data: {
       username,
@@ -15,7 +15,7 @@ export function login(username, password) {
 
 export function getInfo() {
   return request({
-    url: '/user/getProfile',
+    url: '/users/profile',
     method: 'get'
   })
 }

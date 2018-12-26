@@ -1,6 +1,6 @@
 import {
-  login,
-  getInfo
+  login
+  // getInfo
 } from '@/api/login'
 import {
   getToken,
@@ -37,32 +37,35 @@ const user = {
   actions: {
     // 登录
     async Login({
-      commit
+      commit, dispatch
     }, userInfo) {
       const username = userInfo.username.trim()
-      const res = await login(username, userInfo.password)
-      const data = res.data
+      const data = await login(username, userInfo.password)
       setToken(data.token)
       commit('SET_TOKEN', data.token)
+      commit('SET_ID', data.id)
+      commit('SET_NAME', data.username)
+      commit('SET_AVATAR', data.portrait)
     },
 
     // 获取用户信息
     async GetInfo({
       commit
     }) {
-      const res = await getInfo()
-      const data = res.data
+      // const data = await getInfo()
       const roles = []
-      if (data.roleId >= 10) {
-        // roles.push('operation')
-        roles.push('admin')
-        commit('SET_ROLES', roles)
-      } else {
-        return Promise.reject('getInfo: roles must be a non-null array !')
-      }
-      commit('SET_ID', data._id)
-      commit('SET_NAME', data.username)
-      commit('SET_AVATAR', data.portrait)
+      roles.push('admin')
+      commit('SET_ROLES', roles)
+      // if (data.roleId >= 10) {
+      //   // roles.push('operation')
+      //   roles.push('admin')
+      //   commit('SET_ROLES', roles)
+      // } else {
+      //   return Promise.reject('getInfo: roles must be a non-null array !')
+      // }
+      // commit('SET_ID', data._id)
+      // commit('SET_NAME', data.username)
+      // commit('SET_AVATAR', data.portrait)
       return roles
     },
 

@@ -1,69 +1,80 @@
-const commonOps = [{
-  key: 'eq',
-  value: 'equal'
-},
-{
-  key: 'ne',
-  value: 'not equal'
-},
-{
-  key: 'in',
-  value: 'in'
-},
-{
-  key: 'notIn',
-  value: 'not in'
-}
-]
+import {
+  queryKey
+} from './config'
+import {
+  i18n
+} from '@/i18n'
 
-export const queryOps = {
-  'Number': commonOps.concat([{
-    key: 'gt',
-    value: 'great than'
+const commonOps = () => {
+  return [{
+    key: 'eq',
+    value: i18n.t('base.queryOp.eq')
   },
   {
-    key: 'gte',
-    value: 'great or equal'
+    key: 'ne',
+    value: i18n.t('base.queryOp.ne')
   },
   {
-    key: 'lt',
-    value: 'less than'
+    key: 'in',
+    value: i18n.t('base.queryOp.in')
   },
   {
-    key: 'lte',
-    value: 'less or equal'
+    key: 'notIn',
+    value: i18n.t('base.queryOp.notIn')
   }
-  ]),
-  'String': commonOps.concat([{
-    key: 'like',
-    value: 'like'
-  },
-  {
-    key: 'notLike',
-    value: 'not like'
+  ]
+}
+
+export const queryOps = () => {
+  return {
+    'Number': commonOps().concat([{
+      key: 'gt',
+      value: i18n.t('base.queryOp.gt')
+    },
+    {
+      key: 'gte',
+      value: i18n.t('base.queryOp.gte')
+    },
+    {
+      key: 'lt',
+      value: i18n.t('base.queryOp.lt')
+    },
+    {
+      key: 'lte',
+      value: i18n.t('base.queryOp.lte')
+    }
+    ]),
+    'String': commonOps().concat([{
+      key: 'like',
+      value: i18n.t('base.queryOp.like')
+    },
+    {
+      key: 'notLike',
+      value: i18n.t('base.queryOp.notLike')
+    }
+    ]),
+    'Date': commonOps().concat([{
+      key: 'gt',
+      value: i18n.t('base.queryOp.gt')
+    },
+    {
+      key: 'gte',
+      value: i18n.t('base.queryOp.gte')
+    },
+    {
+      key: 'lt',
+      value: i18n.t('base.queryOp.lt')
+    },
+    {
+      key: 'lte',
+      value: i18n.t('base.queryOp.lte')
+    }
+    ])
   }
-  ]),
-  'Date': commonOps.concat([{
-    key: 'gt',
-    value: 'great than'
-  },
-  {
-    key: 'gte',
-    value: 'great or equal'
-  },
-  {
-    key: 'lt',
-    value: 'less than'
-  },
-  {
-    key: 'lte',
-    value: 'less or equal'
-  }
-  ])
 }
 
 export const getQueryOps = (type) => {
-  return queryOps[type] || commonOps
+  return queryOps()[type] || commonOps()
 }
 
 export const parseQuery = ({
@@ -71,12 +82,12 @@ export const parseQuery = ({
   op,
   value
 }) => {
-  const key = name + '-' + op
+  const key = queryKey(name, op)
   switch (op) {
     case 'like':
     case 'notLike':
       return {
-        [key]: value + '%'
+        [key]: '%' + value + '%'
       }
     case 'in':
     case 'notIn':

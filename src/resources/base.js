@@ -1,5 +1,10 @@
 // Base Model for resources
 import _ from 'lodash'
+import {
+  i18n
+} from '../i18n'
+import store from '@/store'
+
 export default class BaseResource {
   constructor(row) {
     const attrs = this.constructor.attributes()
@@ -10,9 +15,8 @@ export default class BaseResource {
     }
   }
 
-  // resource rest API
-  static api() {
-    throw new Error('Please define the resource API!')
+  static model() {
+    throw new Error('Please define the resource MODEL!')
   }
 
   /*
@@ -59,7 +63,7 @@ export default class BaseResource {
   */
   static actions() {
     return {
-      disabled: [], // ['create', 'edit', 'destroy', 'show']
+      disabled: ['show'], // ['create', 'edit', 'destroy', 'show']
       extra: []
     }
   }
@@ -132,5 +136,15 @@ export default class BaseResource {
       }
     })
     return rules
+  }
+
+  static i18n(col) {
+    // FIXME
+    // this.name is not working on production
+    return i18n.t(['resources', store.getters.resourceName, 'attr', col].join('.'))
+  }
+
+  static i18nBase(attr) {
+    return i18n.t(attr)
   }
 }

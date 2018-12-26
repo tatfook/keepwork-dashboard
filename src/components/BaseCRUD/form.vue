@@ -1,12 +1,12 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="attr.name" :prop="attr.name">
-        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading">
+      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.name">
+        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
-        <el-input v-else-if="attrComponent(attr, 'text')" v-model="model[attr.name]" type="textarea"/>
+        <el-input v-else-if="attrComponent(attr, 'text')" v-model="model[attr.name]" type="textarea" />
         <el-select v-else-if="attrComponent(attr, 'select')" v-model="model[attr.name]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
@@ -16,9 +16,9 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
-      <el-button @click="cancel">cancel</el-button>
-      <el-button v-if="status=='create'" type="primary" @click="createData">save</el-button>
-      <el-button v-else type="primary" @click="updateData">update</el-button>
+      <el-button @click="cancel">{{$t('cancel')}}</el-button>
+      <el-button v-if="status=='create'" type="primary" @click.prevent="createData">{{$t('save')}}</el-button>
+      <el-button v-else type="primary" @click.prevent="updateData">{{$t('update')}}</el-button>
     </div>
   </div>
 </template>
@@ -26,13 +26,14 @@
 <script>
 import _ from 'lodash'
 import { getResourceClass } from '@/resources'
+import { mapGetters } from 'vuex'
+import {
+  QUERY
+} from './config'
 
 export default {
   name: 'CRUDFrom',
   props: {
-    resourceClass: {
-      required: true
-    },
     status: String,
     formData: Object
   },
@@ -59,6 +60,9 @@ export default {
     }
   },
   methods: {
+    i18n(col) {
+      return this.resourceClass.i18n(col)
+    },
     attrComponent(attr, type) {
       const comp = attr.component || 'input'
       return comp === type
@@ -72,7 +76,7 @@ export default {
     },
     loadDefaultValues() {
       _.forEach(this.resourceClass.attributes(), (attr) => {
-        if ((attr.required || attr.edit) && attr.default !== undefined) {
+        if ((attr.required || attr.edit !== false) && attr.default !== undefined) {
           this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
         }
       })
@@ -82,15 +86,28 @@ export default {
       this.associateOptions = {}
       for (const attr of this.attrs) {
         if (attr.associate) {
-          if (this.model[attr.name] && this.edit !== false) {
+          if (this.model[attr.name] && !attr.multiple && this.edit !== false) {
             const associateClass = getResourceClass(attr.associate)
-            const item = await associateClass.api().get(this.model[attr.name])
+            const item = await associateClass.model().get(this.model[attr.name])
             this.associateOptions[attr.name] = [
               {
                 key: item.id,
                 value: item[associateClass.title()]
               }
             ]
+          } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
+            const associateClass = getResourceClass(attr.associate)
+            const list = await associateClass.model().list({
+              [QUERY.page]: 1,
+              [QUERY.perPage]: 20,
+              'id-in': this.model[attr.name]
+            })
+            this.associateOptions[attr.name] = list.rows.map(item => {
+              return {
+                key: item.id,
+                value: item[associateClass.title()]
+              }
+            })
           } else {
             await this.searchAssociate(attr)('')
           }
@@ -107,7 +124,7 @@ export default {
         if (query !== '') {
           queryParam[associateClass.title() + '-like'] = query + '%'
         }
-        const list = await associateClass.api().list(queryParam)
+        const list = await associateClass.model().list(queryParam)
         self.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,
@@ -130,6 +147,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      resourceClass: 'resourceClass'
+    }),
     attrs() {
       return this.resourceClass.editableAttrs()
     },

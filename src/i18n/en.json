@@ -1,0 +1,206 @@
+{
+  "home": "Home",
+  "admin": "Admin",
+  "login": "Login",
+  "logout": "Logout",
+  "dashboard": "Dashboard",
+  "success": "Success",
+  "failed": "Failed",
+  "edit": "Edit",
+  "show": "Show",
+  "create": "Create",
+  "delete": "Delete",
+  "save": "Save",
+  "update": "Update",
+  "cancel": "Cancel",
+  "ok": "OK",
+  "export": "Export",
+  "new": "New",
+  "addFilter": "Add Filter",
+  "deleteAll": "Delete All",
+  "search": "Search",
+  "name": "name",
+  "roles": "roles",
+  "base": {
+    "confirm": {
+      "delete": "Are you sure?",
+      "deleteList": "Will delete all the list, are you sure?"
+    },
+    "success": {
+      "message": "Success!",
+      "create": "Created successfully!",
+      "update": "Updated successfully!",
+      "delete": "Deleted successfully!"
+    },
+    "failed": {
+      "message": "Failed!",
+      "create": "Failed to create!",
+      "update": "Failed to update!",
+      "delete": "Failed to delete!",
+      "empty": "Empty List!"
+    },
+    "queryOp": {
+      "eq": "equal",
+      "ne": "not equal",
+      "in": "in",
+      "notIn": "not in",
+      "gt": "grate than",
+      "gte": "grate or equal",
+      "lt": "less than",
+      "lte": "less or equal",
+      "like": "like",
+      "notLike": "not like"
+    }
+  },
+  "sidebar": {
+    "sidebarUser": "User",
+    "user": {
+      "userManager": "User Manager",
+      "userInfo": "User Info",
+      "blockedUser": "Blocked User"
+    },
+    "sidebarSensitiveWords": "Sensitive Words",
+    "sidebarLesson": "Lesson",
+    "lesson": {
+      "lesson": "Lesson Platform",
+      "teacherCDKeys": "Teacher CDKeys",
+      "subjects": "Subjects",
+      "skills": "Skills",
+      "hotPackages": "Hot Packages",
+      "packages": "Packages",
+      "lessons": "Lessons",
+      "packageLesson": "PackageLesson"
+    }
+  },
+  "resources": {
+    "Admin": {
+      "attr": {
+        "id": "id",
+        "username": "user name",
+        "password": "password"
+      }
+    },
+    "User": {
+      "attr": {
+        "id": "id",
+        "username": "user name",
+        "cellphone": "cell phone",
+        "status": "status",
+        "role": "role",
+        "desc": "desc",
+        "createdAt": "registered at",
+        "updatedAt": "updated at"
+      },
+      "management": "user management"
+    },
+    "Userinfo": {
+      "attr": {
+        "id": "id",
+        "username": "user name",
+        "createdAt": "registered at",
+        "cellphone": "cell phone",
+        "level": "level",
+        "status": "status",
+        "balance": "balance",
+        "coin": "knowledge coin remainder",
+        "bean": "knowledge bean remainder",
+        "sex": "sex"
+      }
+    },
+    "BlockedUser": {
+      "attr": {
+        "id": "id",
+        "objectId": "user name",
+        "createdAt": "suspended at",
+        "cellphone": "cell phone",
+        "level": "level",
+        "description": "suspend reason",
+        "handler": "handler"
+      }
+    },
+    "SensitiveWords": {
+      "attr": {
+        "id": "id",
+        "word": "word",
+        "createdAt": "created at",
+        "updatedAt": "updated at"
+      },
+      "tips": {
+        "keyWord": "Keyword repetition！",
+        "updateError": "Operational errors！"
+      }
+    },
+    "TeacherCDKey": {
+      "attr": {
+        "key": "key",
+        "state": "state",
+        "createdAt": "created at"
+      }
+    },
+    "Subject": {
+      "attr": {
+        "id": "id",
+        "subjectName": "subject name",
+        "enSubjectName": "subject name explanation",
+        "createdAt": "created at"
+      }
+    },
+    "Skill": {
+      "attr": {
+        "id": "id",
+        "skillName": "skill name",
+        "enSkillName": "skill name explanation",
+        "createdAt": "created at"
+      }
+    },
+    "HotPackage": {
+      "attr": {
+        "id": "id",
+        "packageId": "package id",
+        "hotNo": "hot No.",
+        "createdAt": "created at"
+      }
+    },
+    "Package": {
+      "attr": {
+        "id": "id",
+        "packageName": "package name",
+        "userId": "user id",
+        "subjectId": "subject id",
+        "minAge": "minimum age",
+        "maxAge": "maximum age",
+        "state": "state",
+        "rmb": "rmb",
+        "coin": "coin",
+        "extra": {
+          "message": "message",
+          "coverUrl": "cover url"
+        },
+        "createdAt": "created at"
+      }
+    },
+    "Lesson": {
+      "attr": {
+        "id": "id",
+        "lessonName": "lesson name",
+        "userId": "user id",
+        "subjectId": "subject id",
+        "goals": "goals",
+        "extra": {
+          "coverUrl": "cover url",
+          "videoUrl": "video url"
+        },
+        "createdAt": "created at"
+      }
+    },
+    "PackageLesson": {
+      "attr": {
+        "id": "id",
+        "packageId": "package id",
+        "lessonId": "lesson id",
+        "userId": "user id",
+        "createdAt": "created at"
+      }
+    }
+  }
+}

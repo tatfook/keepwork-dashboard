@@ -36,7 +36,7 @@ export default {
     },
     async generateData() {
       this.downloadLoading = true
-      const list = await this.resourceClass.api().generate(this.count)
+      const list = await this.resourceClass.model().generate(this.count)
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = this.resourceClass.exportAttrs().map(item => item.name)
         const data = list.map(data =>
