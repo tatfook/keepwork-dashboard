@@ -16,7 +16,14 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const env = require('../config/prod.env')
+let env
+
+if (process.env.NODE_ENV === 'release') {
+  env = require('../config/release.env')
+} else {
+  env = require('../config/prod.env')
+}
+
 
 // For NamedChunksPlugin
 const seen = new Set()
