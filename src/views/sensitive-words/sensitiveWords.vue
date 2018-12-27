@@ -45,15 +45,23 @@ export default {
   methods: {
     async createData(data) {
       try {
-        await this.api.create(data)
-        this.dialogFormVisible = false
-        this.handleCurrentChange(1)
-        this.$notify({
-          title: this.$t('success'),
-          message: this.$t('base.success.create'),
-          type: 'success',
-          duration: 2000
-        })
+        const createDataRepeated = await this.model.create(data)
+        if (createDataRepeated) {
+          this.dialogFormVisible = false
+          this.handleCurrentChange(1)
+          this.$notify({
+            title: this.$t('success'),
+            message: this.$t('base.success.create'),
+            type: 'success',
+            duration: 2000
+          })
+        } else {
+          Message({
+            message: this.$t('resources.SensitiveWords.tips.keyWord'),
+            type: 'error',
+            duration: 5 * 1000
+          })
+        }
       } catch (err) {
         Message({
           message: this.$t('resources.SensitiveWords.tips.keyWord'),
@@ -65,7 +73,7 @@ export default {
     async updateData(data) {
       let temp = newResource(this.resource, data)
       try {
-        temp = await this.api.update(temp)
+        temp = await this.model.update(temp)
         for (const v of this.list) {
           if (v.id === temp.id) {
             const index = this.list.indexOf(v)
