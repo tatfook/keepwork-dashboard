@@ -18,12 +18,13 @@ function resolve(dir) {
 
 let env
 
-if (process.env.NODE_ENV === 'release') {
+if (process.env.NODE_ENV === 'stage') {
+  env = require('../config/stage.env')
+} else if (process.env.NODE_ENV === 'release') {
   env = require('../config/release.env')
 } else {
   env = require('../config/prod.env')
 }
-
 
 // For NamedChunksPlugin
 const seen = new Set()
