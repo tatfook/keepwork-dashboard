@@ -1,9 +1,7 @@
-import {
-  resourceCRUD
-} from '@/api/keepwork'
+import adminModel from '@/models/admin'
 import BaseResource from './base'
 
-const crudAPI = resourceCRUD('admins')
+const model = adminModel()
 
 export default class Admin extends BaseResource {
   static attributes() {
@@ -25,8 +23,8 @@ export default class Admin extends BaseResource {
     ]
   }
 
-  static api() {
-    return crudAPI
+  static model() {
+    return model
   }
 
   static actions() {

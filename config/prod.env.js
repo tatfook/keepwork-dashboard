@@ -2,6 +2,6 @@
 
 module.exports = {
   NODE_ENV: '"production"',
-  BASE_API: '"https://stage.keepwork.com/api/wiki/models"',
-  LESSON_API: '"https://api-stage.keepwork.com/lesson/v0"',
+  BASE_API: '"https://api.keepwork.com/core/v0"',
+  LESSON_API: '"https://api.keepwork.com/lesson/v0"',
 }

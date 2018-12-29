@@ -1,4 +1,26 @@
 {
+  "home": "首页",
+  "admin": "管理员",
+  "login": "登录",
+  "logout": "登出",
+  "dashboard": "管理控制台",
+  "success": "成功",
+  "fail": "失败",
+  "edit": "编辑",
+  "show": "查看",
+  "create": "创建",
+  "delete": "删除",
+  "save": "保存",
+  "update": "更新",
+  "cancel": "取消",
+  "ok": "确定",
+  "export": "导出",
+  "new": "新增",
+  "addFilter": "筛选",
+  "deleteAll": "删除全部",
+  "search": "搜索",
+  "name": "名字",
+  "roles": "角色",
   "base": {
     "confirm": {
       "delete": "是否确定?",
@@ -13,7 +35,8 @@
       "message": "失败!",
       "create": "创建失败!",
       "update": "更新失败!",
-      "delete": "删除失败!"
+      "delete": "删除失败!",
+      "empty": "请先选取数据！"
     },
     "queryOp": {
       "eq": "等于",
@@ -28,25 +51,25 @@
       "notLike": "不匹配"
     }
   },
-  "home": "首页",
-  "login": "登录",
-  "logout": "登出",
-  "dashboard": "管理控制台",
-  "success": "成功",
-  "fail": "失败",
-  "edit": "编辑",
-  "show": "查看",
-  "create": "创建",
-  "delete": "删除",
-  "save": "保存",
-  "cancel": "取消",
-  "ok": "确定",
-  "export": "导出",
-  "new": "新增",
-  "addFilter": "筛选",
-  "deleteAll": "删除全部",
-  "search": "搜索",
-
+  "sidebar": {
+    "sidebarUser": "账户",
+    "user": {
+      "userManager": "用户管理",
+      "userInfo": "用户信息",
+      "blockedUser": "封停用户"
+    },
+    "sidebarSensitiveWords": "敏感词管理",
+    "sidebarLesson": "课程",
+    "lesson": {
+      "teacherCDKeys": "教师兑换码",
+      "subjects": "主题",
+      "skills": "技能",
+      "hotPackages": "热门包",
+      "packages": "包",
+      "lessons": "课程",
+      "packageLesson": "课程包"
+    }
+  },
   "resources": {
     "Admin": {
       "attr": {
@@ -59,12 +82,123 @@
       "attr": {
         "id": "序号",
         "username": "用户名",
+        "cellphone": "手机号",
+        "status": "状态",
         "role": "角色",
         "desc": "描述",
-        "createdAt": "创建日期",
+        "createdAt": "注册时间",
         "updatedAt": "更新日期"
       },
       "management": "用户管理"
+    },
+    "Userinfo": {
+      "attr": {
+        "id": "序号",
+        "username": "用户名",
+        "createdAt": "注册时间",
+        "cellphone": "手机号",
+        "level": "用户等级",
+        "status": "状态",
+        "balance": "余额",
+        "coin": "知识币余数",
+        "bean": "知识豆余数",
+        "sex": "性别"
+      }
+    },
+    "BlockedUser": {
+      "attr": {
+        "id": "序号",
+        "objectId": "用户名",
+        "createdAt": "封号日期",
+        "cellphone": "手机号",
+        "level": "用户等级",
+        "description": "封号原因",
+        "handler": "操作者"
+      }
+    },
+    "SensitiveWords": {
+      "attr": {
+        "id": "序号",
+        "word": "关键字",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期"
+      },
+      "tips": {
+        "keyWord": "关键词重复",
+        "updateError": "操作失误"
+      }
+    },
+    "TeacherCDKey": {
+      "attr": {
+        "key": "值",
+        "state": "状态",
+        "createdAt": "创建日期"
+      }
+    },
+    "Subject": {
+      "attr": {
+        "id": "序号",
+        "subjectName": "主题名称",
+        "enSubjectName": "主题名称说明",
+        "createdAt": "创建日期"
+      }
+    },
+    "Skill": {
+      "attr": {
+        "id": "序号",
+        "skillName": "技能名称",
+        "enSkillName": "技能名称说明",
+        "createdAt": "创建日期"
+      }
+    },
+    "HotPackage": {
+      "attr": {
+        "id": "序号",
+        "packageId": "包序号",
+        "hotNo": "热门排行",
+        "createdAt": "创建日期"
+      }
+    },
+    "Package": {
+      "attr": {
+        "id": "序号",
+        "packageName": "包名称",
+        "userId": "用户序号",
+        "subjectId": "主题序号",
+        "minAge": "最小年龄",
+        "maxAge": "最大年龄",
+        "state": "状态",
+        "rmb": "价钱",
+        "coin": "coin币",
+        "extra": {
+          "message": "信息",
+          "coverUrl": "封面链接"
+        },
+        "createdAt": "创建日期"
+      }
+    },
+    "Lesson": {
+      "attr": {
+        "id": "序号",
+        "lessonName": "课程名称",
+        "userId": "用户序号",
+        "subjectId": "主题序号",
+        "goals": "目标",
+        "extra": {
+          "coverUrl": "封面链接",
+          "videoUrl": "视频链接"
+        },
+        "createdAt": "创建日期"
+      }
+    },
+    "PackageLesson": {
+      "attr": {
+        "id": "序号",
+        "packageId": "包序号",
+        "lessonId": "课程序号",
+        "userId": "用户序号",
+        "createdAt": "创建日期"
+      }
     }
   }
 }

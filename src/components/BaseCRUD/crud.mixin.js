@@ -1,20 +1,9 @@
 import _ from 'lodash'
-import md5 from 'blueimp-md5'
 import moment from 'moment'
-import {
-  QUERY,
-  FORMAT
-} from './config'
-import {
-  newResource,
-  getResourceClass
-} from '@/resources'
-import {
-  rolesCan
-} from '@/utils/cancan'
-import {
-  mapGetters
-} from 'vuex'
+import { QUERY, FORMAT } from './config'
+import { newResource, getResourceClass } from '@/resources'
+import { rolesCan } from '@/utils/cancan'
+import { mapGetters, mapActions } from 'vuex'
 import CRUDTable from './table'
 import CRUDForm from './form'
 import CRUDShow from './show'
@@ -32,43 +21,35 @@ export default {
   },
   data() {
     return {
-      list: null,
-      total: null,
       listLoading: true,
       listQuery: {
         [QUERY.page]: 1,
         [QUERY.perPage]: 20,
         [QUERY.order]: ''
       },
-      activeRow: {},
       dialogFormVisible: false,
       showingFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: 'edit',
+        create: 'create'
       },
       downloadLoading: false,
-      nestedData: {},
-      nestedKey: undefined,
       searchParams: []
     }
   },
-  created() {
-    this.loadResource()
-    this.initNestedData()
-    this.getList()
+  async created() {
+    await this.setResourceName({ resourceName: this.resource })
+    await this.getList()
   },
   methods: {
+    ...mapActions({
+      setResourceName: 'setResourceName',
+      setActiveResource: 'setActiveResource',
+      setQueryOptions: 'setQueryOptions'
+    }),
     i18n(col) {
       return this.resourceClass.i18n(col)
-    },
-    loadResource() {
-      this.resourceClass = getResourceClass(this.resource)
-      this.api = this.resourceClass.api()
-      this.attributes = this.resourceClass.attributes()
-      this.actions = this.resourceClass.actions()
-      this.nested = this.resourceClass.nested()
     },
     can(action) {
       if (this.actions.disabled && _.indexOf(this.actions.disabled, action) === -1) {
@@ -77,11 +58,7 @@ export default {
     },
     async getList() {
       this.listLoading = true
-      const res = await this.api.list(this.listQuery)
-      this.list = res.rows.map(row => newResource(this.resource, row))
-      this.total = res.count
-      await this.getNestedData()
-      this.nestedKey = md5(this.nestedData)
+      await this.setQueryOptions({ queryOptions: this.listQuery })
       this.listLoading = false
     },
     colFilter(col, value) {
@@ -96,35 +73,9 @@ export default {
       }
       return value
     },
-    initNestedData() {
-      for (const item of this.nested) {
-        this.nestedData[item.name] = {}
-      }
-    },
     getNestedAttr(name) {
       for (const item of this.nested) {
         if (item.name === name) return getResourceClass(item.associate).title()
-      }
-    },
-    async getNestedData() {
-      for (const item of this.nested) {
-        const nestedResource = getResourceClass(item.associate)
-        const key = item.name
-        const idList = _(this.list)
-          .map(item => {
-            return _.isObject(item[key]) ? item[key].id : item[key]
-          })
-          .compact()
-          .flatten()
-          .uniq()
-        const list = await nestedResource.api().list({
-          id: idList
-        })
-        for (const item of list.rows) {
-          _.merge(this.nestedData[key], {
-            [item.id]: item
-          })
-        }
       }
     },
     handleAction(action, row) {
@@ -153,27 +104,34 @@ export default {
       this.listQuery[QUERY.page] = val
       this.getList()
     },
-    handleCreate() {
-      this.activeRow = null
+    async handleCreate() {
+      this.setActiveResource({})
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
     },
-    handleEdit(row) {
-      this.activeRow = { ...row
-      }
+    async handleEdit(row) {
+      const resource = this.list[this.list.findIndex(item => item.id === row.id)]
+      this.setActiveResource({ resource })
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
     },
-    handleShow(row) {
-      this.activeRow = { ...row
-      }
+    async handleShow(row) {
+      const resource = this.list[this.list.findIndex(item => item.id === row.id)]
+      this.setActiveResource({ resource })
       this.showingFormVisible = true
     },
     handleExport() {
+      if (this.selected.length === 0) {
+        this.$message({
+          type: 'error',
+          message: this.$t('base.failed.empty')
+        })
+        return
+      }
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = this.resourceClass.exportAttrs().map(item => this.i18n(item.name))
-        const data = this.list.map(data =>
+        const data = this.selected.map(data =>
           this.resourceClass.exportAttrs().map(col => this.colFilter(col, data[col.name]))
         )
         excel.export_json_to_excel({
@@ -186,7 +144,7 @@ export default {
     },
     async createData(data) {
       try {
-        await this.api.create(data)
+        await this.model.create(data)
         this.dialogFormVisible = false
         this.handleCurrentChange(1)
         this.$notify({
@@ -202,7 +160,7 @@ export default {
     async updateData(data) {
       let temp = newResource(this.resource, data)
       try {
-        temp = await this.api.update(temp)
+        temp = await this.model.update(temp)
         for (const v of this.list) {
           if (v.id === temp.id) {
             const index = this.list.indexOf(v)
@@ -217,6 +175,7 @@ export default {
           type: 'success',
           duration: 2000
         })
+        this.getList()
       } catch (err) {
         console.error(err)
       }
@@ -226,61 +185,72 @@ export default {
         confirmButtonText: this.$t('ok'),
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
-      }).then(() => {
-        this.api
-          .destroy(row)
-          .then(() => {
-            this.$notify({
-              title: this.$t('success'),
-              message: this.$t('base.success.delete'),
-              type: 'success',
-              duration: 2000
-            })
-            this.getList()
-          })
-          .catch(err => {
-            console.error(err)
-            this.$message({
-              type: 'error',
-              message: this.$t('base.failed.delete')
-            })
-          })
-      }).catch(err => {
-        console.error(err)
-        this.$message({
-          type: 'error',
-          message: this.$t('base.failed.delete')
-        })
       })
+        .then(() => {
+          this.model
+            .destroy(row)
+            .then(() => {
+              this.$notify({
+                title: this.$t('success'),
+                message: this.$t('base.success.delete'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            })
+            .catch(err => {
+              console.error(err)
+              this.$message({
+                type: 'error',
+                message: this.$t('base.failed.delete')
+              })
+            })
+        })
+        .catch(err => {
+          console.error(err)
+          this.$message({
+            type: 'error',
+            message: this.$t('base.failed.delete')
+          })
+        })
     },
     handleDeleteAll() {
-      this.$confirm(this.$t('base.success.deleteList'), this.$t('delete'), {
+      if (this.selected.length === 0) {
+        this.$message({
+          type: 'error',
+          message: this.$t('base.failed.empty')
+        })
+        return
+      }
+      this.$confirm(this.$t('base.confirm.deleteList'), this.$t('delete'), {
         confirmButtonText: this.$t('ok'),
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
-      }).then(() => {
-        this.api
-          .destroyAll({
-            ids: this.list.map((row) => row.id)
-          })
-          .then(() => {
-            this.$notify({
-              title: this.$t('success'),
-              message: this.$t('base.success.delete'),
-              type: 'success',
-              duration: 2000
-            })
-            this.getList()
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      }).catch(() => {
-        this.$message({
-          type: 'error',
-          message: this.$t('base.failed.delete')
-        })
       })
+        .then(() => {
+          this.model
+            .destroyAll({
+              ids: this.selected.map(row => row.id)
+            })
+            .then(() => {
+              this.$notify({
+                title: this.$t('success'),
+                message: this.$t('base.success.delete'),
+                type: 'success',
+                duration: 2000
+              })
+              this.getList()
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'error',
+            message: this.$t('base.failed.delete')
+          })
+        })
     },
     handleSort(column, order) {
       this.listQuery[QUERY.order] = column + '-' + order
@@ -296,16 +266,29 @@ export default {
       if (index !== -1) this.searchParams.splice(index, 1)
     },
     handleSearch(q) {
-      this.listQuery = _.pickBy(this.listQuery, (value, key) => {
-        return QUERY[key] !== undefined
+      const query = {}
+      _.forEach(QUERY, (v) => {
+        query[v] = this.listQuery[v]
       })
-      _.merge(this.listQuery, q)
+      _.merge(query, q)
+      this.listQuery = query
       this.getList()
     }
   },
   computed: {
     ...mapGetters({
-      roles: 'roles'
+      roles: 'roles',
+      nested: 'nested',
+      nestedData: 'nestedData',
+      list: 'resourceList',
+      activeRow: 'activeResource',
+      selected: 'selectedResources',
+      resourceName: 'resourceName',
+      resourceClass: 'resourceClass',
+      total: 'total',
+      model: 'model',
+      attributes: 'attributes',
+      actions: 'actions'
     }),
     showingData() {
       if (!this.showingFormVisible) return []
@@ -319,6 +302,7 @@ export default {
       return data
     },
     searchableFilters() {
+      // console.log(this.resourceClass)
       return this.resourceClass.searchAttrs().map(attr => attr.name)
     }
   },

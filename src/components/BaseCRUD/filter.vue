@@ -16,13 +16,11 @@
 <script>
 import _ from 'lodash'
 import { getQueryOps, parseQuery } from './queryOps'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CRUDFiler',
   props: {
-    resourceClass: {
-      required: true
-    },
     searchParams: {
       type: Array,
       required: true
@@ -68,6 +66,7 @@ export default {
     removeFilter(filter) {
       this.$emit('removeFilter', filter)
       this.quries = _.omit(this.quries, filter)
+      this.handleSearch()
     },
     handleSearch() {
       const q = {}
@@ -79,6 +78,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      resourceClass: 'resourceClass'
+    }),
     haveSearchParams() {
       return this.searchParams.length > 0
     }

@@ -7,6 +7,18 @@ const getters = {
   name: state => state.user.name,
   roles: state => state.user.roles,
   permissionRouters: state => state.permission.routers,
-  addRouters: state => state.permission.addRouters
+  addRouters: state => state.permission.addRouters,
+
+  resourceList: state => state.resource.resourceList,
+  activeResource: state => state.resource.activeResource,
+  selectedResources: state => state.resource.selectedResources,
+  resourceName: state => state.resource.resourceName,
+  resourceClass: state => state.resource.resourceClass,
+  total: state => state.resource.total,
+  actions: state => state.resource.actions,
+  attributes: state => state.resource.attributes,
+  model: state => state.resource.model,
+  nested: state => state.resource.nested,
+  nestedData: state => state.resource.nestedData
 }
 export default getters
