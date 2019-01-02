@@ -1,18 +1,18 @@
 <template>
   <div class="table-container" v-loading="listLoading">
     <el-table ref="multipleTable" :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column align="center" v-for="col in attrs" :key="col.name" :prop="col.name" :label="i18n(col.name)" :width="col.width" :sortable="canSort(col)">
         <template slot-scope="scope">
           <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :width="actionAreaWidth" class-name="small-padding fixed-width">
+      <el-table-column v-if="canOperate" align="center" :label="$t('operate')" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row)">{{$t('show')}}</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row)">{{$t('edit')}}</el-button>
-          <el-button v-if="can('destroy')" type="warning" size="mini" @click="handleAction('delete', scope.row)">{{$t('delete')}}</el-button>
+          <el-button v-if="can('delete')" type="warning" size="mini" @click="handleAction('delete', scope.row)">{{$t('delete')}}</el-button>
           <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.button">{{$t(op.name)}}</el-button>
         </template>
       </el-table-column>
@@ -38,7 +38,8 @@ export default {
   },
   data() {
     return {
-      cachedCan: {}
+      cachedCan: {},
+      canOperate: true
     }
   },
   methods: {
@@ -62,7 +63,16 @@ export default {
         } else {
           this.cachedCan[action] = false
         }
+
+        if (
+          this.cachedCan['show'] === false &&
+          this.cachedCan['edit'] === false &&
+          this.cachedCan['delete'] === false
+        ) {
+          this.canOperate = false
+        }
       }
+
       return this.cachedCan[action]
     },
     canSort(col) {
@@ -88,13 +98,14 @@ export default {
       resourceClass: 'resourceClass',
       list: 'resourceList'
     }),
-    actionAreaWidth() {
-      const defaultAction = ['show', 'edit', 'delete']
-      const disabled = this.resourceClass.actions().disabled || []
-      const extraLength = this.canActions.length
-      const buttonWidth = 80
-      return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
-    },
+    // actionAreaWidth() {
+    //   const defaultAction = ['show', 'edit', 'delete']
+    //   const disabled = this.resourceClass.actions().disabled || []
+    //   const extraLength = this.canActions.length
+    //   const buttonWidth = 80
+
+    //   return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
+    // },
     canActions() {
       const extraAxtions = this.resourceClass.actions().extra || []
       _.remove(extraAxtions, action => {

@@ -21,6 +21,7 @@
   "search": "搜索",
   "name": "名字",
   "roles": "角色",
+  "operate": "操作",
   "base": {
     "confirm": {
       "delete": "是否确定?",
@@ -79,19 +80,6 @@
       }
     },
     "User": {
-      "attr": {
-        "id": "序号",
-        "username": "用户名",
-        "cellphone": "手机号",
-        "status": "状态",
-        "role": "角色",
-        "desc": "描述",
-        "createdAt": "注册时间",
-        "updatedAt": "更新日期"
-      },
-      "management": "用户管理"
-    },
-    "Userinfo": {
       "attr": {
         "id": "序号",
         "username": "用户名",

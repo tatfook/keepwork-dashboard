@@ -3,7 +3,33 @@ import BaseResource from './base'
 
 const model = userModel()
 
-const stateMap = [
+const sexMap = [
+  {
+    key: 'F',
+    value: '女'
+  },
+  {
+    key: 'M',
+    value: '男'
+  },
+  {
+    key: 'N',
+    value: '未知'
+  }
+]
+
+const levelMap = [
+  {
+    key: 'VIP',
+    value: 'VIP'
+  },
+  {
+    key: 'ordinary',
+    value: '普通'
+  }
+]
+
+const statusMap = [
   {
     key: 0,
     value: '正常'
@@ -14,7 +40,7 @@ const stateMap = [
   }
 ]
 
-export default class User extends BaseResource {
+export default class Userinfo extends BaseResource {
   static attributes() {
     return [
       {
@@ -26,7 +52,8 @@ export default class User extends BaseResource {
       {
         name: 'username',
         title: true,
-        edit: false
+        edit: false,
+        sort: false
       },
       {
         name: 'createdAt',
@@ -39,22 +66,92 @@ export default class User extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
-        edit: true
+        edit: true,
+        sort: false
       },
       {
-        name: 'status',
-        type: 'Number',
+        name: 'level',
+        type: 'String',
         required: true,
         component: 'select',
         edit: false,
-        options: stateMap,
-        filter: (value) => {
-          for (const option of stateMap) {
-            if (option.key === value) return option.value
+        options: levelMap,
+        filter: (key) => {
+          for (const item of levelMap) {
+            if (item.key === key) {
+              return item.value
+            }
           }
-          return value
+
+          return key
         },
-        search: true
+        search: false,
+        sort: false
+      },
+      {
+        name: 'status',
+        type: 'String',
+        required: true,
+        component: 'text',
+        edit: false,
+        filter: (key) => {
+          for (const item of statusMap) {
+            if (item.key === key) {
+              return item.value
+            }
+          }
+
+          return key
+        },
+        search: false,
+        sort: false
+      },
+      {
+        name: 'balance',
+        type: 'String',
+        required: true,
+        component: 'text',
+        title: true,
+        edit: false,
+        search: false,
+        sort: false
+      },
+      {
+        name: 'coin',
+        type: 'String',
+        required: true,
+        component: 'text',
+        edit: false,
+        search: false,
+        sort: false
+      },
+      {
+        name: 'bean',
+        type: 'String',
+        required: true,
+        component: 'text',
+        edit: false,
+        search: false,
+        sort: false
+      },
+      {
+        name: 'sex',
+        type: 'String',
+        required: true,
+        component: 'select',
+        edit: true,
+        options: sexMap,
+        filter: (key) => {
+          for (const item of sexMap) {
+            if (item.key === key) {
+              return item.value
+            }
+          }
+
+          return sexMap.N.value
+        },
+        search: false,
+        sort: false
       }
     ]
   }

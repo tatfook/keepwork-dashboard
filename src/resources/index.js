@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import Admin from './admin'
 import User from './user'
-import Userinfo from './userinfo'
 import BlockedUser from './blockedUser'
 import Role from './role'
 import TeacherCDKey from './teacherCDKey'
@@ -16,7 +15,6 @@ import SensitiveWords from './sensitiveWords'
 export const resources = {
   Admin,
   User,
-  Userinfo,
   BlockedUser,
   Role,
   TeacherCDKey,

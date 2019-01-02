@@ -89,15 +89,6 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'info',
-        component: () => import('@/views/user/info/index'),
-        name: 'User Info',
-        resource: 'UserInfo',
-        meta: {
-          title: 'sidebar.user.userInfo'
-        }
-      },
-      {
         path: 'blocked_user',
         component: () => import('@/views/user/blocked-user/index'),
         name: 'Blocked User',
