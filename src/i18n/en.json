@@ -118,6 +118,12 @@
         "updateError": "Operational errors！"
       }
     },
+    "blockedUser": {
+      "tips": {
+        "createDataError": "Failed to add user information!",
+        "updateError": "Operational errors！"
+      }
+    },
     "TeacherCDKey": {
       "attr": {
         "key": "key",

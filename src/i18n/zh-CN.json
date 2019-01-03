@@ -116,6 +116,12 @@
         "updateError": "操作失误"
       }
     },
+    "blockedUser": {
+      "tips": {
+        "createDataError": "添加用户信息失败",
+        "updateError": "操作失误"
+      }
+    },
     "TeacherCDKey": {
       "attr": {
         "key": "值",

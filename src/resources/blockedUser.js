@@ -29,7 +29,7 @@ export default class BlockedUser extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
-        edit: false,
+        edit: true,
         show: true,
         associate: 'User'
       },
@@ -75,7 +75,7 @@ export default class BlockedUser extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
-        edit: true
+        edit: false
       }
     ]
   }
@@ -86,7 +86,7 @@ export default class BlockedUser extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show', 'edit']
     }
   }
 }
