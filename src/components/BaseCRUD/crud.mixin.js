@@ -302,8 +302,11 @@ export default {
       return data
     },
     searchableFilters() {
-      // console.log(this.resourceClass)
-      return this.resourceClass.searchAttrs().map(attr => attr.name)
+      if (this.resourceClass) {
+        return this.resourceClass.searchAttrs().map(attr => attr.name)
+      } else {
+        return []
+      }
     }
   },
   components: {

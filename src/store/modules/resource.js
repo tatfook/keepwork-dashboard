@@ -74,7 +74,17 @@ const resource = {
       queryOptions
     }) {
       await commit('SET_QUERY_OPTIONS', { queryOptions })
+
+      if (!state.model || !state.model.list) {
+        return false
+      }
+
       const res = await state.model.list(queryOptions)
+
+      if (!res || !res.rows) {
+        return false
+      }
+
       const resourceList = res.rows.map(row => newResource(state.resourceName, row))
       const total = res.count
       await commit('SET_RESOURCE_LIST', { resourceList, total })

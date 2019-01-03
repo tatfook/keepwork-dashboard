@@ -1,7 +1,5 @@
-import userModel from '@/models/user'
 import BaseResource from './base'
-
-const model = userModel()
+import userModel from '@/models/user'
 
 const sexMap = [
   {
@@ -40,7 +38,7 @@ const statusMap = [
   }
 ]
 
-export default class Userinfo extends BaseResource {
+export default class User extends BaseResource {
   static attributes() {
     return [
       {
@@ -157,7 +155,7 @@ export default class Userinfo extends BaseResource {
   }
 
   static model() {
-    return model
+    return userModel()
   }
 
   static actions() {

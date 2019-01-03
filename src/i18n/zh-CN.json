@@ -57,7 +57,8 @@
     "user": {
       "userManager": "用户管理",
       "userInfo": "用户信息",
-      "blockedUser": "封停用户"
+      "blockedUser": "封停用户",
+      "tutor": "导师服务学员管理"
     },
     "sidebarSensitiveWords": "敏感词管理",
     "sidebarLesson": "课程",
@@ -102,6 +103,12 @@
         "level": "用户等级",
         "description": "封号原因",
         "handler": "操作者"
+      }
+    },
+    "Tutor": {
+      "attr": {
+        "userId": "用户名",
+        "endTime": "到期时间"
       }
     },
     "SensitiveWords": {
