@@ -70,6 +70,11 @@
       "packages": "包",
       "lessons": "课程",
       "packageLesson": "课程包"
+    },
+    "sidebarProjects": "项目",
+    "projects": {
+      "ProjectsManage": "项目管理",
+      "BlockedProjects": "封停项目"
     }
   },
   "resources": {
@@ -194,6 +199,25 @@
           "videoUrl": "视频链接"
         },
         "createdAt": "创建日期"
+      }
+    },
+    "ProjectsManage": {
+      "attr": {
+        "id": "ID",
+        "type": "项目类型",
+        "name": "项目名称",
+        "privilege": "招募状态",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期"
+      }
+    },
+    "BlockedProjects": {
+      "attr": {
+        "id": "ID",
+        "name": "项目名称",
+        "createdAt": "封停日期",
+        "description": "封停原因",
+        "handler": "操作者"
       }
     },
     "PackageLesson": {

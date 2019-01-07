@@ -71,6 +71,11 @@
       "packages": "Packages",
       "lessons": "Lessons",
       "packageLesson": "PackageLesson"
+    },
+    "sidebarProjects": "Projects",
+    "projects": {
+      "ProjectsManage": "ProjectsManage",
+      "BlockedProjects": "BlockedProjects"
     }
   },
   "resources": {
@@ -185,6 +190,16 @@
           "videoUrl": "video url"
         },
         "createdAt": "created at"
+      }
+    },
+    "ProjectsManage": {
+      "attr": {
+        "id": "ID",
+        "type": "project type",
+        "name": "entry name",
+        "privilege": "recruitment status",
+        "createdAt": "created at",
+        "updatedAt": "updated at"
       }
     },
     "PackageLesson": {

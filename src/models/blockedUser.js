@@ -72,7 +72,7 @@ export default function blockedUserModel() {
     },
     async create(params) {
       if (typeof params === 'object') {
-        params['objectType'] = 0
+        params['objectType'] = 1
       }
 
       return illegalsCRUD.create(params)
