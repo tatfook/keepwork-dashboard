@@ -107,8 +107,12 @@
     },
     "Tutor": {
       "attr": {
-        "userId": "用户名",
-        "endTime": "到期时间"
+        "userId": "学生用户名",
+        "cellphone": "绑定手机号",
+        "tutorId": "导师用户名",
+        "endTime": "到期时间",
+        "status": "状态",
+        "comment": "备注"
       }
     },
     "SensitiveWords": {
