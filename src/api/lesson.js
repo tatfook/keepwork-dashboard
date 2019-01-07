@@ -29,7 +29,7 @@ export function resourceCRUD(resource) {
     list(data) {
       return request({
         method: 'post',
-        url: url + '/search',
+        url: url + '/query',
         data
       })
     },

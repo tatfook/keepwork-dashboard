@@ -30,7 +30,7 @@ export default function blockedUserModel() {
         delete params['cellphone-eq']
       }
 
-      params['objectType-eq'] = 1
+      params.where['objectType'] = 1
       const originList = await illegalsCRUD.list(params)
 
       _.map(
@@ -59,14 +59,18 @@ export default function blockedUserModel() {
         usersMap.set(item.id, item)
       }
 
-      originList.rows.map(
-        item => {
-          const curUser = usersMap.get(item.objectId)
+      // originList.rows.map(
+      //   item => {
+      //     const curUser = usersMap.get(item.objectId)
 
-          item.cellphone = curUser.cellphone || ''
-          item.username = curUser.username || ''
-        }
-      )
+      //     if (!curUser) {
+      //       return true
+      //     }
+
+      //     item.cellphone = curUser.cellphone || ''
+      //     item.username = curUser.username || ''
+      //   }
+      // )
 
       return originList
     },

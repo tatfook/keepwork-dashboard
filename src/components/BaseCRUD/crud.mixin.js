@@ -9,6 +9,7 @@ import CRUDForm from './form'
 import CRUDShow from './show'
 import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
+import { ActiveQuery } from '@/utils/query'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 
@@ -27,6 +28,7 @@ export default {
         [QUERY.perPage]: 20,
         [QUERY.order]: ''
       },
+      listFilter: {},
       dialogFormVisible: false,
       showingFormVisible: false,
       dialogStatus: '',
@@ -58,14 +60,19 @@ export default {
     },
     async getList() {
       this.listLoading = true
-      await this.setQueryOptions({ queryOptions: this.listQuery })
+      const query = this.resourceClass.queryFilter(new ActiveQuery())
+      const queryOptions = query.where(this.listFilter).paginate(this.listQuery[QUERY.page], this.listQuery[QUERY.perPage]).order(this.listQuery.order).query
+      await this.setQueryOptions({ queryOptions })
+
       this.listLoading = false
     },
-    colFilter(col, value) {
+    colFilter(col, row) {
+      const value = _.get(row, col.name)
+
       if (value === null || value === undefined) return ''
       if (col.filter) return col.filter(value)
-      if (this.nestedData[col.name]) {
-        const item = this.nestedData[col.name][value]
+      if (col.associate) {
+        const item = _.get(row, _.snakeCase(col.associateAs || col.associate))
         return (item && item[this.getNestedAttr(col.name)]) || ''
       }
       if (col.type === 'Date') {
@@ -266,12 +273,13 @@ export default {
       if (index !== -1) this.searchParams.splice(index, 1)
     },
     handleSearch(q) {
-      const query = {}
-      _.forEach(QUERY, (v) => {
-        query[v] = this.listQuery[v]
-      })
-      _.merge(query, q)
-      this.listQuery = query
+      this.listFilter = q
+      // const query = {}
+      // _.forEach(QUERY, (v) => {
+      //   query[v] = this.listQuery[v]
+      // })
+      // _.merge(query, q)
+      // this.listQuery = query
       this.getList()
     }
   },

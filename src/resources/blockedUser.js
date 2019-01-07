@@ -25,7 +25,7 @@ export default class BlockedUser extends BaseResource {
         search: false
       },
       {
-        name: 'objectId',
+        name: 'username',
         type: 'String',
         required: true,
         component: 'text',
@@ -78,6 +78,12 @@ export default class BlockedUser extends BaseResource {
         edit: false
       }
     ]
+  }
+
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.include({ all: true, nested: true })
+    return query
   }
 
   static model() {

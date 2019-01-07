@@ -1,88 +1,86 @@
-import {
-  queryKey
-} from './config'
-import {
-  i18n
-} from '@/i18n'
+// import { queryKey } from './config'
+import { i18n } from '@/i18n'
+import { ActiveQuery } from '@/utils/query'
 
 const commonOps = () => {
-  return [{
-    key: 'eq',
-    value: i18n.t('base.queryOp.eq')
-  },
-  {
-    key: 'ne',
-    value: i18n.t('base.queryOp.ne')
-  },
-  {
-    key: 'in',
-    value: i18n.t('base.queryOp.in')
-  },
-  {
-    key: 'notIn',
-    value: i18n.t('base.queryOp.notIn')
-  }
+  return [
+    {
+      key: 'eq',
+      value: i18n.t('base.queryOp.eq')
+    },
+    {
+      key: 'ne',
+      value: i18n.t('base.queryOp.ne')
+    }
+    // {
+    //   key: 'in',
+    //   value: i18n.t('base.queryOp.in')
+    // },
+    // {
+    //   key: 'notIn',
+    //   value: i18n.t('base.queryOp.notIn')
+    // }
   ]
 }
 
 export const queryOps = () => {
   return {
-    'Number': commonOps().concat([{
-      key: 'gt',
-      value: i18n.t('base.queryOp.gt')
-    },
-    {
-      key: 'gte',
-      value: i18n.t('base.queryOp.gte')
-    },
-    {
-      key: 'lt',
-      value: i18n.t('base.queryOp.lt')
-    },
-    {
-      key: 'lte',
-      value: i18n.t('base.queryOp.lte')
-    }
+    Number: commonOps().concat([
+      {
+        key: 'gt',
+        value: i18n.t('base.queryOp.gt')
+      },
+      {
+        key: 'gte',
+        value: i18n.t('base.queryOp.gte')
+      },
+      {
+        key: 'lt',
+        value: i18n.t('base.queryOp.lt')
+      },
+      {
+        key: 'lte',
+        value: i18n.t('base.queryOp.lte')
+      }
     ]),
-    'String': commonOps().concat([{
-      key: 'like',
-      value: i18n.t('base.queryOp.like')
-    },
-    {
-      key: 'notLike',
-      value: i18n.t('base.queryOp.notLike')
-    }
+    String: commonOps().concat([
+      {
+        key: 'like',
+        value: i18n.t('base.queryOp.like')
+      },
+      {
+        key: 'notLike',
+        value: i18n.t('base.queryOp.notLike')
+      }
     ]),
-    'Date': commonOps().concat([{
-      key: 'gt',
-      value: i18n.t('base.queryOp.gt')
-    },
-    {
-      key: 'gte',
-      value: i18n.t('base.queryOp.gte')
-    },
-    {
-      key: 'lt',
-      value: i18n.t('base.queryOp.lt')
-    },
-    {
-      key: 'lte',
-      value: i18n.t('base.queryOp.lte')
-    }
+    Date: commonOps().concat([
+      {
+        key: 'gt',
+        value: i18n.t('base.queryOp.gt')
+      },
+      {
+        key: 'gte',
+        value: i18n.t('base.queryOp.gte')
+      },
+      {
+        key: 'lt',
+        value: i18n.t('base.queryOp.lt')
+      },
+      {
+        key: 'lte',
+        value: i18n.t('base.queryOp.lte')
+      }
     ])
   }
 }
 
-export const getQueryOps = (type) => {
+export const getQueryOps = type => {
   return queryOps()[type] || commonOps()
 }
 
-export const parseQuery = ({
-  name,
-  op,
-  value
-}) => {
-  const key = queryKey(name, op)
+export const parseQuery = ({ q, op, value }) => {
+  // const key = queryKey(name, op)
+  const key = ActiveQuery.queryKey(q, op)
   switch (op) {
     case 'like':
     case 'notLike':

@@ -117,7 +117,7 @@
         "tutorId": "导师用户名",
         "endTime": "到期时间",
         "status": "状态",
-        "comment": "备注"
+        "tutor": "备注"
       }
     },
     "SensitiveWords": {

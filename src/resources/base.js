@@ -91,6 +91,12 @@ export default class BaseResource {
     return 'name'
   }
 
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.include({ all: true, nested: false })
+    return query
+  }
+
   static attrFilter(key) {
     const attrs = []
     this.attributes().forEach(attr => {
