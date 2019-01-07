@@ -151,8 +151,6 @@ export default {
       resourceClass: 'resourceClass'
     }),
     attrs() {
-      console.log(this.status)
-
       if (this.status === 'create') {
         return this.resourceClass.createableAttrs()
       }
