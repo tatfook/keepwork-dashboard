@@ -76,7 +76,7 @@ export default {
     },
     loadDefaultValues() {
       _.forEach(this.resourceClass.attributes(), (attr) => {
-        if ((attr.required || attr.edit !== false) && attr.default !== undefined) {
+        if ((attr.required || attr.create !== false) && attr.default !== undefined) {
           this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
         }
       })
@@ -151,7 +151,15 @@ export default {
       resourceClass: 'resourceClass'
     }),
     attrs() {
-      return this.resourceClass.editableAttrs()
+      if (this.status === 'create') {
+        return this.resourceClass.createableAttrs()
+      }
+
+      if (this.status === 'update') {
+        return this.resourceClass.editableAttrs()
+      }
+
+      return []
     },
     attrRules() {
       return this.resourceClass.attrRules()

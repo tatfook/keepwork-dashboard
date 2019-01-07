@@ -109,6 +109,10 @@ export default class BaseResource {
     return this.attrFilter('edit')
   }
 
+  static createableAttrs() {
+    return this.attrFilter('create')
+  }
+
   static showableAttrs() {
     return this.attrFilter('show')
   }
