@@ -118,7 +118,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'manager',
-        component: () => import('@/views/sensitive-words/index'),
+        component: () => import('@/views/sensitiveWords/index'),
         name: 'Sensitive Words',
         resource: 'SensitiveWords',
         meta: {
@@ -137,8 +137,8 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'teacher_cdkeys',
-        component: () => import('@/views/lesson/teacher_cdkey/index'),
+        path: 'teacherCdkey',
+        component: () => import('@/views/lesson/teacherCdkey/index'),
         name: 'Teacher CDKeys',
         resource: 'TeacherCDKey',
         meta: {
@@ -164,8 +164,8 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'hot_packages',
-        component: () => import('@/views/lesson/hot_package/index'),
+        path: 'hotPackages',
+        component: () => import('@/views/lesson/hotPackage/index'),
         name: 'Hot Packages',
         resource: 'HotPackage',
         meta: {
@@ -191,12 +191,40 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'package_lesson',
-        component: () => import('@/views/lesson/package_lesson/index'),
+        path: 'packageLesson',
+        component: () => import('@/views/lesson/packageLesson/index'),
         name: 'packageLesson',
         resource: 'PackageLesson',
         meta: {
           title: 'sidebar.lesson.packageLesson'
+        }
+      }
+    ]
+  },
+  {
+    path: '/projects',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarProjects',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'projectsManage',
+        component: () => import('@/views/projects/projectsManage/index'),
+        name: 'Projects Manage',
+        resource: 'ProjectsManage',
+        meta: {
+          title: 'sidebar.projects.ProjectsManage'
+        }
+      },
+      {
+        path: 'blockedProjects',
+        component: () => import('@/views/projects/blockedProjects/index'),
+        name: 'Blocked Projects',
+        resource: 'BlockedProjects',
+        meta: {
+          title: 'sidebar.projects.BlockedProjects'
         }
       }
     ]
