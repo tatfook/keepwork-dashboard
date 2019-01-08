@@ -81,6 +81,7 @@ export const getQueryOps = type => {
 export const parseQuery = ({ q, op, value }) => {
   // const key = queryKey(name, op)
   const key = ActiveQuery.queryKey(q, op)
+
   switch (op) {
     case 'like':
     case 'notLike':

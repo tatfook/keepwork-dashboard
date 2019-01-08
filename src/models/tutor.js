@@ -1,30 +1,14 @@
 import { resourceCRUD as lessonCRUD } from '../api/lesson'
-import { resourceCRUD as keepworkCRUD } from '../api/keepwork'
-import _ from 'lodash'
+// import { resourceCRUD as keepworkCRUD } from '../api/keepwork'
+// import _ from 'lodash'
 
 const tutorCRUD = lessonCRUD('tutors')
-const usersCRUD = keepworkCRUD('users')
 
 export default function tutorModel() {
   return {
     async list(params) {
       console.log(params)
-      // if (params['userId-eq']) {
-
-      // }
-
       const tutorList = await tutorCRUD.list(params)
-
-      const userIds = _.map(tutorList.rows, 'userId')
-
-      const usersParams = { 'id-in': userIds }
-      const userList = await usersCRUD.list(usersParams, 'search')
-
-      const usersMap = new Map()
-
-      for (const item of userList.rows) {
-        usersMap.set(item.id, item)
-      }
 
       for (const item of tutorList.rows) {
         if (item.extra && item.extra.tutor) {
@@ -36,14 +20,6 @@ export default function tutorModel() {
         } else {
           item.status = '已到期'
         }
-
-        const curUser = usersMap.get(item.userId)
-
-        if (!curUser) {
-          continue
-        }
-
-        item.cellphone = curUser.cellphone || ''
       }
 
       return tutorList

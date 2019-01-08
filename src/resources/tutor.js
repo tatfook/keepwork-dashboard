@@ -19,22 +19,25 @@ export default class Tutor extends BaseResource {
         edit: false,
         search: true,
         sort: false,
-        associate: 'tutor'
+        associate: 'users',
+        associateAs: 'student'
       },
       {
         name: 'cellphone',
+        originName: 'userId',
         show: true,
         search: true,
         create: false,
         edit: false,
         sort: false,
-        component: 'input'
+        component: 'input',
+        associate: 'users',
+        associateAs: 'student'
       },
       {
         name: 'tutorId',
         show: true,
         search: false,
-        associate: 'User',
         sort: false
       },
       {

@@ -278,12 +278,6 @@ export default {
     },
     handleSearch(q) {
       this.listFilter = q
-      // const query = {}
-      // _.forEach(QUERY, (v) => {
-      //   query[v] = this.listQuery[v]
-      // })
-      // _.merge(query, q)
-      // this.listQuery = query
       this.getList()
     }
   },
