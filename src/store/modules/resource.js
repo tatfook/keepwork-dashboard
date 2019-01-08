@@ -2,7 +2,7 @@ import {
   getResourceClass,
   newResource
 } from '@/resources'
-import _ from 'lodash'
+// import _ from 'lodash'
 
 const resource = {
   state: {
@@ -89,28 +89,28 @@ const resource = {
       const total = res.count
       await commit('SET_RESOURCE_LIST', { resourceList, total })
 
-      const nestedData = {}
-      for (const item of state.nested) {
-        const nestedResource = getResourceClass(item.associate)
-        const key = item.name
-        nestedData[key] = {}
-        const idList = _(resourceList)
-          .map(item => {
-            return _.isObject(item[key]) ? item[key].id : item[key]
-          })
-          .compact()
-          .flatten()
-          .uniq()
-        const list = await nestedResource.model().list({
-          id: idList
-        })
-        for (const item of list.rows) {
-          _.merge(nestedData[key], {
-            [item.id]: item
-          })
-        }
-      }
-      await commit('SET_NESTED_DATA', { nestedData })
+      // const nestedData = {}
+      // for (const item of state.nested) {
+      //   const nestedResource = getResourceClass(item.associate)
+      //   const key = item.name
+      //   nestedData[key] = {}
+      //   const idList = _(resourceList)
+      //     .map(item => {
+      //       return _.isObject(item[key]) ? item[key].id : item[key]
+      //     })
+      //     .compact()
+      //     .flatten()
+      //     .uniq()
+      //   const list = await nestedResource.model().list({
+      //     id: idList
+      //   })
+      //   for (const item of list.rows) {
+      //     _.merge(nestedData[key], {
+      //       [item.id]: item
+      //     })
+      //   }
+      // }
+      // await commit('SET_NESTED_DATA', { nestedData })
     },
 
     async setSelectedResouces({

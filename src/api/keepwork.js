@@ -6,10 +6,10 @@ const request = createService()
 export function resourceCRUD(resource) {
   const url = '/admins/' + resource
   return {
-    list(data) {
+    list(data, method = 'query') {
       return request({
         method: 'post',
-        url: url + '/search',
+        url: url + '/' + method,
         data
       })
     },

@@ -4,7 +4,7 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column align="center" v-for="col in attrs" :key="col.name" :prop="col.name" :label="i18n(col.name)" :width="col.width" :sortable="canSort(col)">
         <template slot-scope="scope">
-          <span> {{filter(col, rowValue(scope.row, col.name))}} </span>
+          <span> {{filter(col, scope.row)}} </span>
         </template>
       </el-table-column>
 

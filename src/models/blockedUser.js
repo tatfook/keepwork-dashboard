@@ -30,7 +30,7 @@ export default function blockedUserModel() {
         delete params['cellphone-eq']
       }
 
-      params['objectType-eq'] = 1
+      params.where['objectType'] = 1
       const originList = await illegalsCRUD.list(params)
 
       _.map(
@@ -43,30 +43,6 @@ export default function blockedUserModel() {
       if (!originList || !originList.count || !Array.isArray(originList.rows)) {
         return { count: 0, rows: [] }
       }
-
-      const blockedUserIds = _.map(originList.rows, 'objectId')
-
-      const usersParams = { 'id-in': blockedUserIds }
-      const userList = await usersCRUD.list(usersParams)
-
-      if (!userList || !userList.count || !Array.isArray(userList.rows)) {
-        return { count: 0, rows: [] }
-      }
-
-      const usersMap = new Map()
-
-      for (const item of userList.rows) {
-        usersMap.set(item.id, item)
-      }
-
-      originList.rows.map(
-        item => {
-          const curUser = usersMap.get(item.objectId)
-
-          item.cellphone = curUser.cellphone || ''
-          item.username = curUser.username || ''
-        }
-      )
 
       return originList
     },

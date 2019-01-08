@@ -26,10 +26,11 @@
 <script>
 import _ from 'lodash'
 import { getResourceClass } from '@/resources'
+import { ActiveQuery } from '@/utils/query'
 import { mapGetters } from 'vuex'
-import {
-  QUERY
-} from './config'
+// import {
+//   QUERY
+// } from './config'
 
 export default {
   name: 'CRUDFrom',
@@ -69,6 +70,7 @@ export default {
     },
     initModel() {
       this.model = _.cloneDeep(this.formData || {})
+
       if (this.status === 'create') {
         this.loadDefaultValues()
       }
@@ -97,11 +99,9 @@ export default {
             ]
           } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
             const associateClass = getResourceClass(attr.associate)
-            const list = await associateClass.model().list({
-              [QUERY.page]: 1,
-              [QUERY.perPage]: 20,
-              'id-in': this.model[attr.name]
-            })
+
+            const queryOptions = new ActiveQuery().where({ 'id-in': this.model[attr.name] }).paginate(1, 20).query
+            const list = await associateClass.model().list(queryOptions)
             this.associateOptions[attr.name] = list.rows.map(item => {
               return {
                 key: item.id,

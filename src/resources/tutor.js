@@ -5,27 +5,40 @@ export default class Tutor extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'userId',
-        show: true,
+        name: 'id',
+        show: false,
         edit: false,
         create: false,
+        search: false
+      },
+      {
+        name: 'username',
+        originName: 'userId',
+        show: true,
+        create: true,
+        edit: false,
         search: true,
-        associate: 'User',
-        sort: false
+        sort: false,
+        associate: 'users',
+        associateAs: 'student'
       },
       {
         name: 'cellphone',
+        originName: 'userId',
         show: true,
         search: true,
-        insert: true,
+        create: false,
         edit: false,
-        component: 'input'
+        sort: false,
+        component: 'input',
+        associate: 'users',
+        associateAs: 'student'
       },
       {
         name: 'tutorId',
         show: true,
         search: false,
-        associate: 'User'
+        sort: false
       },
       {
         name: 'endTime',
@@ -36,11 +49,14 @@ export default class Tutor extends BaseResource {
       },
       {
         name: 'status',
+        create: false,
+        edit: false,
         show: true
       },
       {
         name: 'comment',
-        show: true
+        show: true,
+        sort: false
       }
     ]
   }
