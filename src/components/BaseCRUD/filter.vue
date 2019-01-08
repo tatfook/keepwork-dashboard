@@ -78,6 +78,7 @@ export default {
     },
     handleSearch() {
       const q = {}
+      console.log(this.quries)
       for (const filter in this.quries) {
         const data = this.quries[filter]
         if (data.value !== '') _.merge(q, parseQuery(data))

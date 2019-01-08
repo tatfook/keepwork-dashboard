@@ -18,7 +18,7 @@ export default function tutorModel() {
       const userIds = _.map(tutorList.rows, 'userId')
 
       const usersParams = { 'id-in': userIds }
-      const userList = await usersCRUD.list(usersParams)
+      const userList = await usersCRUD.list(usersParams, 'search')
 
       const usersMap = new Map()
 
@@ -28,7 +28,7 @@ export default function tutorModel() {
 
       for (const item of tutorList.rows) {
         if (item.extra && item.extra.tutor) {
-          item.tutor = item.extra.tutor
+          item.comment = item.extra.tutor
         }
 
         if (item.endTime > Date.now()) {
@@ -38,6 +38,10 @@ export default function tutorModel() {
         }
 
         const curUser = usersMap.get(item.userId)
+
+        if (!curUser) {
+          continue
+        }
 
         item.cellphone = curUser.cellphone || ''
       }

@@ -44,34 +44,6 @@ export default function blockedUserModel() {
         return { count: 0, rows: [] }
       }
 
-      const blockedUserIds = _.map(originList.rows, 'objectId')
-
-      const usersParams = { 'id-in': blockedUserIds }
-      const userList = await usersCRUD.list(usersParams)
-
-      if (!userList || !userList.count || !Array.isArray(userList.rows)) {
-        return { count: 0, rows: [] }
-      }
-
-      const usersMap = new Map()
-
-      for (const item of userList.rows) {
-        usersMap.set(item.id, item)
-      }
-
-      // originList.rows.map(
-      //   item => {
-      //     const curUser = usersMap.get(item.objectId)
-
-      //     if (!curUser) {
-      //       return true
-      //     }
-
-      //     item.cellphone = curUser.cellphone || ''
-      //     item.username = curUser.username || ''
-      //   }
-      // )
-
       return originList
     },
     async create(params) {

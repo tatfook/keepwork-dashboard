@@ -67,13 +67,17 @@ export default {
       this.listLoading = false
     },
     colFilter(col, row) {
-      const value = _.get(row, col.name)
+      let value = _.get(row, col.name)
+
+      if (!value) {
+        value = _.get(row, col.originName)
+      }
 
       if (value === null || value === undefined) return ''
       if (col.filter) return col.filter(value)
       if (col.associate) {
         const item = _.get(row, _.snakeCase(col.associateAs || col.associate))
-        return (item && item[this.getNestedAttr(col.name)]) || ''
+        return (item && item[col.name]) || ''
       }
       if (col.type === 'Date') {
         return moment(value).format(FORMAT.date)

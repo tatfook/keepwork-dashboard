@@ -7,12 +7,7 @@ import store from '@/store'
 
 export default class BaseResource {
   constructor(row) {
-    const attrs = this.constructor.attributes()
-    if (row) {
-      for (const attr of attrs) {
-        this[attr.name] = _.get(row, attr.name)
-      }
-    }
+    _.merge(this, row)
   }
 
   static model() {

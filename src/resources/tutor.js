@@ -12,13 +12,14 @@ export default class Tutor extends BaseResource {
         search: false
       },
       {
-        name: 'userId',
+        name: 'username',
+        originName: 'userId',
         show: true,
         create: true,
         edit: false,
         search: true,
-        associate: 'User',
-        sort: false
+        sort: false,
+        associate: 'tutor'
       },
       {
         name: 'cellphone',
@@ -50,7 +51,7 @@ export default class Tutor extends BaseResource {
         show: true
       },
       {
-        name: 'tutor',
+        name: 'comment',
         show: true,
         sort: false
       }

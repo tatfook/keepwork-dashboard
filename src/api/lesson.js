@@ -26,10 +26,10 @@ export function generateTeacherCDKeys(count) {
 export function resourceCRUD(resource) {
   const url = '/admins/' + resource
   return {
-    list(data) {
+    list(data, method = 'query') {
       return request({
         method: 'post',
-        url: url + '/query',
+        url: url + '/' + method,
         data
       })
     },

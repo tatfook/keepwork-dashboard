@@ -20,12 +20,14 @@ export default class BlockedUser extends BaseResource {
       {
         name: 'id',
         type: 'Number',
+        create: false,
         edit: false,
         show: false,
         search: false
       },
       {
         name: 'username',
+        originName: 'objectId',
         type: 'String',
         required: true,
         component: 'text',
@@ -35,22 +37,26 @@ export default class BlockedUser extends BaseResource {
       },
       {
         name: 'cellphone',
+        originName: 'objectId',
         type: 'String',
         required: true,
         component: 'text',
-        edit: false
+        edit: false,
+        associate: 'User'
       },
       {
         name: 'createdAt',
         type: 'Date',
         required: false,
-        edit: false
+        edit: false,
+        component: 'time'
       },
       {
         name: 'level',
         type: 'String',
         required: true,
         component: 'select',
+        create: false,
         edit: false,
         options: levelMap,
         filter: (key) => {

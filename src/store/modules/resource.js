@@ -74,7 +74,7 @@ const resource = {
       queryOptions
     }) {
       await commit('SET_QUERY_OPTIONS', { queryOptions })
-      console.log(queryOptions)
+
       if (!state.model || !state.model.list) {
         return false
       }

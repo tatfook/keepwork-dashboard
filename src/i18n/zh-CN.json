@@ -102,7 +102,7 @@
     "BlockedUser": {
       "attr": {
         "id": "序号",
-        "objectId": "用户名",
+        "username": "用户名",
         "createdAt": "封号日期",
         "cellphone": "手机号",
         "level": "用户等级",
@@ -112,12 +112,12 @@
     },
     "Tutor": {
       "attr": {
-        "userId": "学生用户名",
+        "username": "学生用户名",
         "cellphone": "绑定手机号",
         "tutorId": "导师用户名",
         "endTime": "到期时间",
         "status": "状态",
-        "tutor": "备注"
+        "comment": "备注"
       }
     },
     "SensitiveWords": {
