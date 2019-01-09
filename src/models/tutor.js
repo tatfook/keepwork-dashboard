@@ -151,7 +151,7 @@ export default function tutorModel() {
 
       updateParams.id = params.id
       updateParams.tutorId = params.tutorId
-      updateParams.endTime = params.endTime
+      updateParams.endTime = new Date(params.endTime).getTime()
       updateParams.extra = {
         tutor: params.comment || ''
       }
@@ -160,6 +160,11 @@ export default function tutorModel() {
     },
     async destroy(params) {
       return tutorCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }

@@ -9,7 +9,8 @@ export default class Tutor extends BaseResource {
         show: false,
         edit: false,
         create: false,
-        search: false
+        search: false,
+        export: false
       },
       {
         name: 'studentName',
