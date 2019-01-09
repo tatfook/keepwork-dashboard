@@ -146,7 +146,7 @@
     },
     "WebsiteManage": {
       "attr": {
-        "displayName": "网站名",
+        "sitename": "网站名",
         "username": "网站创建者",
         "createdAt": "创建时间",
         "updatedAt": "更新时间"
@@ -154,9 +154,10 @@
     },
     "WebsiteSuspend": {
       "attr": {
-        "displayName": "网站名",
+        "sitename": "网站名",
         "createdAt": "封号日期",
-        "description": "封号原因"
+        "description": "封号原因",
+        "handler": "操作者"
       }
     },
     "TeacherCDKey": {

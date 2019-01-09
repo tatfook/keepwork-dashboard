@@ -7,7 +7,7 @@ export default class websiteManage extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'displayName',
+        name: 'sitename',
         edit: false,
         sort: false,
         search: true
