@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import Admin from './admin'
-import User from './user'
+import Users from './user'
 import BlockedUser from './blockedUser'
 import Role from './role'
 import TeacherCDKey from './teacherCDKey'
@@ -17,7 +17,7 @@ import BlockedProjects from './blockedProjects'
 
 export const resources = {
   Admin,
-  User,
+  Users,
   BlockedUser,
   Role,
   TeacherCDKey,

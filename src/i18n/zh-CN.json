@@ -112,9 +112,9 @@
     },
     "Tutor": {
       "attr": {
-        "username": "学生用户名",
+        "studentName": "学生用户名",
         "cellphone": "绑定手机号",
-        "tutorId": "导师用户名",
+        "teacherName": "导师用户名",
         "endTime": "到期时间",
         "status": "状态",
         "comment": "备注"

@@ -33,6 +33,11 @@ export default {
     handleGenerate() {
       this.dialogFormVisible = true
     },
+    async getList() {
+      this.listLoading = true
+      await this.setQueryOptions({ queryOptions: this.listQuery })
+      this.listLoading = false
+    },
     async generateData() {
       this.downloadLoading = true
       const list = await this.resourceClass.model().generate(this.count)

@@ -28,9 +28,7 @@ import _ from 'lodash'
 import { getResourceClass } from '@/resources'
 import { ActiveQuery } from '@/utils/query'
 import { mapGetters } from 'vuex'
-// import {
-//   QUERY
-// } from './config'
+import { resourceCRUD as keepworkCRUD } from '@/api/keepwork'
 
 export default {
   name: 'CRUDFrom',
@@ -116,19 +114,19 @@ export default {
       this.loading = false
     },
     searchAssociate(attr) {
-      const self = this
-      const associateClass = getResourceClass(attr.associate)
       return async query => {
         this.loading = true
+        const crud = keepworkCRUD(attr.associate)
+
         const queryParam = { 'x-per-page': 50 }
         if (query !== '') {
-          queryParam[associateClass.title() + '-like'] = query + '%'
+          queryParam[`${attr.associateField}-like`] = query + '%'
         }
-        const list = await associateClass.model().list(queryParam)
-        self.associateOptions[attr.name] = list.rows.map(item => {
+        const list = await crud.list(queryParam, 'search')
+        this.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,
-            value: item[associateClass.title()]
+            value: item[attr.associateField]
           }
         })
         this.loading = false
