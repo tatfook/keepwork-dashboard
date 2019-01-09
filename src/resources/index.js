@@ -14,6 +14,8 @@ import SensitiveWords from './sensitiveWords'
 import Tutor from './tutor'
 import ProjectsManage from './projectsManage'
 import BlockedProjects from './blockedProjects'
+import WebsiteManage from './websiteManage'
+import WebsiteSuspend from './websiteSuspend'
 
 export const resources = {
   Admin,
@@ -30,7 +32,9 @@ export const resources = {
   SensitiveWords,
   Tutor,
   ProjectsManage,
-  BlockedProjects
+  BlockedProjects,
+  WebsiteManage,
+  WebsiteSuspend
 }
 
 export const newResource = (name, row) => {

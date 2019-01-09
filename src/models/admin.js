@@ -1,4 +1,4 @@
-import { resourceCRUD } from '@/api/keepwork'
+import { resourceCRUD } from '../api/keepwork'
 import md5 from 'blueimp-md5'
 
 const adminsCRUD = resourceCRUD('admins')
