@@ -9,7 +9,7 @@ const privilegeMap = [
     value: '开启'
   },
   {
-    key: 2,
+    key: 0,
     value: '关闭'
   }
 ]
@@ -65,7 +65,8 @@ export default class ProjectsManage extends BaseResource {
         options: privilegeMap,
         filter: (key) => {
           for (const item of privilegeMap) {
-            if (item.key === key) {
+            const privilegeKey = key & 1
+            if (item.key === privilegeKey) {
               return item.value
             }
           }
