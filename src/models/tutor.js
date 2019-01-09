@@ -12,24 +12,28 @@ const coverCondition = (field, condition) => {
 export default function tutorModel() {
   return {
     async list(params) {
-      if (params.where.studentName) {
-        const studentObject = params.where.studentName
-        let condition = ''
-        let value = ''
+      for (const index in params.include) {
+        const item = params.include[index]
+        if (item.where && item.where['studentName']) {
+          const studentObject = item.where['studentName']
+          let condition = ''
+          let value = ''
 
-        for (const key in studentObject) {
-          condition = coverCondition('username', key)
-          value = studentObject[key]
-        }
+          for (const key in studentObject) {
+            condition = coverCondition('username', key)
+            value = studentObject[key]
+          }
+          const searchStudents = await usersCRUD.list({ [condition]: value }, 'search')
 
-        const searchStudents = await usersCRUD.list({ [condition]: value }, 'search')
+          const searchStudentIds = _.map(searchStudents.rows, 'id')
 
-        const searchStudentIds = _.map(searchStudents.rows, 'id')
+          delete params.where.studentName
 
-        delete params.where.studentName
+          params.where.userId = {
+            '$in': searchStudentIds
+          }
 
-        params.where.userId = {
-          '$in': searchStudentIds
+          _.pullAt(params.include, index)
         }
       }
 
@@ -49,9 +53,30 @@ export default function tutorModel() {
 
         delete params.where.cellphone
 
-        params.where.userId = {
+        params.where.userId = _.merge(params.where.userId || {}, {
           '$in': searchCellphoneIds
+        })
+      }
+
+      if (params.where.status) {
+        const statusObject = params.where.status
+        let value = ''
+
+        for (const key in statusObject) {
+          value = statusObject[key]
         }
+
+        if (value === '正常') {
+          params.where.endTime = {
+            '$gte': Date.now()
+          }
+        } else {
+          params.where.endTime = {
+            '$lt': Date.now()
+          }
+        }
+
+        delete params.where.status
       }
 
       const tutorList = await tutorCRUD.list(params)
@@ -109,7 +134,6 @@ export default function tutorModel() {
       return {}
     },
     async create(params) {
-      console.log(params)
       const createParams = {}
 
       createParams.userId = params.userId
@@ -117,7 +141,7 @@ export default function tutorModel() {
       createParams.startTime = Date.now()
       createParams.endTime = new Date(params.endTime).getTime()
       createParams.extra = {
-        tutor: params.tutor || ''
+        tutor: params.comment || ''
       }
 
       return tutorCRUD.create(createParams)
@@ -129,7 +153,7 @@ export default function tutorModel() {
       updateParams.tutorId = params.tutorId
       updateParams.endTime = params.endTime
       updateParams.extra = {
-        tutor: params.tutor || ''
+        tutor: params.comment || ''
       }
 
       return tutorCRUD.update(updateParams)
