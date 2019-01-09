@@ -9,7 +9,7 @@ export default function projectsManageModel() {
     },
     async create(params) {
       if (typeof params === 'object') {
-        params['handler'] = 0
+        params['objectType'] = 1
       }
       return illegalsCRUD.create(params)
     },
