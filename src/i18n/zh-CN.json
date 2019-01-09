@@ -61,6 +61,11 @@
       "tutor": "导师服务学员管理"
     },
     "sidebarSensitiveWords": "敏感词管理",
+    "sidebarWebsite": "网站",
+    "website": {
+      "websiteManagement": "网站管理",
+      "suspendManagement": "封停管理"
+    },
     "sidebarLesson": "课程",
     "lesson": {
       "teacherCDKeys": "教师兑换码",
@@ -137,6 +142,21 @@
       "tips": {
         "createDataError": "添加用户信息失败",
         "updateError": "操作失误"
+      }
+    },
+    "WebsiteManage": {
+      "attr": {
+        "displayName": "网站名",
+        "username": "网站创建者",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间"
+      }
+    },
+    "WebsiteSuspend": {
+      "attr": {
+        "displayName": "网站名",
+        "createdAt": "封号日期",
+        "description": "封号原因"
       }
     },
     "TeacherCDKey": {

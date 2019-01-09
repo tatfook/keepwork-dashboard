@@ -8,6 +8,9 @@ export default function userinfoModel() {
   return {
     async list(params) {
       const originList = await usersCRUD.list(params)
+      console.log(1)
+      console.log(originList)
+      console.log(2)
 
       if (!originList || !originList.count || !originList.rows) {
         return { count: 0, rows: [] }
@@ -29,6 +32,7 @@ export default function userinfoModel() {
       } catch (error) {
         console.log(error)
       }
+      console.log(blockedUserList)
 
       const blockedUserMap = new Map()
 

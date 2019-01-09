@@ -61,6 +61,11 @@
       "blockedUser": "Blocked User"
     },
     "sidebarSensitiveWords": "Sensitive Words",
+    "sidebarWebsite": "Website",
+    "website": {
+      "websiteManagement": "Website Management",
+      "suspendManagement": "Suspend Management"
+    },
     "sidebarLesson": "Lesson",
     "lesson": {
       "lesson": "Lesson Platform",
@@ -127,6 +132,21 @@
       "tips": {
         "createDataError": "Failed to add user information!",
         "updateError": "Operational errors！"
+      }
+    },
+    "WebsiteManage": {
+      "attr": {
+        "displayName": "website name",
+        "username": "website creator",
+        "createdAt": "created at",
+        "updatedAt": "updated at"
+      }
+    },
+    "WebsiteSuspend": {
+      "attr": {
+        "displayName": "website name",
+        "createdAt": "suspended at",
+        "description": "suspend reason"
       }
     },
     "TeacherCDKey": {
