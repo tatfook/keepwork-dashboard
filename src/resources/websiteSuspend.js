@@ -10,6 +10,7 @@ export default class websiteSuspend extends BaseResource {
         name: 'displayName',
         required: true,
         search: true,
+        sort: false,
         edit: true
       },
       {
