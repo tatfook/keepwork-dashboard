@@ -12,7 +12,7 @@ export default class Tutor extends BaseResource {
         search: false
       },
       {
-        name: 'username',
+        name: 'studentName',
         originName: 'userId',
         show: true,
         create: true,
@@ -20,22 +20,20 @@ export default class Tutor extends BaseResource {
         search: true,
         sort: false,
         associate: 'users',
-        associateAs: 'student'
+        associateAs: 'students',
+        associateField: 'username'
       },
       {
         name: 'cellphone',
-        originName: 'userId',
         show: true,
         search: true,
         create: false,
         edit: false,
         sort: false,
-        component: 'input',
-        associate: 'users',
-        associateAs: 'student'
+        component: 'input'
       },
       {
-        name: 'tutorId',
+        name: 'teacherName',
         show: true,
         search: false,
         sort: false
@@ -49,6 +47,7 @@ export default class Tutor extends BaseResource {
       },
       {
         name: 'status',
+        type: 'options',
         create: false,
         edit: false,
         show: true

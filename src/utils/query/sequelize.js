@@ -19,35 +19,16 @@ export default class SequelizeQuery {
   }
 
   where(q = {}) {
-    // const selfFilter = {}
-    // const associateFilter = {}
-
-    // for (const key in q) {
-    //   if (typeof key !== 'string') {
-    //     continue
-    //   }
-
-    //   const associateMode = key.match(/\$(\w+)\.(\w+)\$-(\w+)/)
-
-    //   if (associateMode) {
-    //     const table = associateMode[1]
-    //     const name = associateMode[2]
-    //     const condition = associateMode[3]
-    //     continue
-    //   }
-
-    //   const selfMode = key.match(/(\w+)-(\w+)/)
-
-    //   if (selfMode) {
-    //     continue
-    //   }
-    // }
     for (const key in q) {
       const k = key.split('-')
       const v = q[key]
 
       if (k.length === 2) {
-        console.log('self mode!!')
+        this.query.where = {
+          [k[0]]: {
+            [`$${k[1]}`]: v
+          }
+        }
       } else if (k.length === 3) {
         const query = {}
         const as = k[0].match(/(\w+)\[(\w+)\]/)
