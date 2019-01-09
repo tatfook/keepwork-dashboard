@@ -3,20 +3,52 @@ import BaseResource from './base'
 
 const model = projectsManageModel()
 
+const privilegeMap = [
+  {
+    key: 1,
+    value: '开启'
+  },
+  {
+    key: 2,
+    value: '关闭'
+  }
+]
+const typeMap = [
+  {
+    key: 0,
+    value: '网站项目'
+  },
+  {
+    key: 1,
+    value: 'paracraft项目'
+  }
+]
+
 export default class ProjectsManage extends BaseResource {
   static attributes() {
     return [
       {
         name: 'id',
         type: 'Number',
-        show: true,
-        edit: false
+        show: false,
+        edit: false,
+        search: false
       },
       {
         name: 'type',
         type: 'Number',
         show: true,
-        search: true
+        search: true,
+        options: typeMap,
+        filter: (key) => {
+          for (const item of typeMap) {
+            if (item.key === key) {
+              return item.value
+            }
+          }
+
+          return key
+        }
       },
       {
         name: 'name',
@@ -29,7 +61,17 @@ export default class ProjectsManage extends BaseResource {
         type: 'Number',
         edit: true,
         show: true,
-        search: true
+        search: true,
+        options: privilegeMap,
+        filter: (key) => {
+          for (const item of privilegeMap) {
+            if (item.key === key) {
+              return item.value
+            }
+          }
+
+          return key
+        }
       },
       {
         name: 'createdAt',

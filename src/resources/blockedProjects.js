@@ -9,15 +9,20 @@ export default class BlockedProjects extends BaseResource {
       {
         name: 'id',
         type: 'Number',
-        show: true,
-        create: false
+        show: false,
+        create: false,
+        search: false
       },
       {
         name: 'name',
+        originName: 'objectId',
         type: 'String',
         edit: true,
         required: true,
-        search: true
+        search: true,
+        associate: 'projects',
+        associateAs: 'projects',
+        associateField: 'name'
       },
       {
         name: 'createdAt',
@@ -25,6 +30,7 @@ export default class BlockedProjects extends BaseResource {
         show: true,
         edit: false,
         required: true,
+        component: 'time',
         search: false
       },
       {
