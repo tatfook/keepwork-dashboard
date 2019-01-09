@@ -136,7 +136,7 @@
     },
     "WebsiteManage": {
       "attr": {
-        "displayName": "website name",
+        "sitename": "website name",
         "username": "website creator",
         "createdAt": "created at",
         "updatedAt": "updated at"
@@ -144,9 +144,10 @@
     },
     "WebsiteSuspend": {
       "attr": {
-        "displayName": "website name",
+        "sitename": "website name",
         "createdAt": "suspended at",
-        "description": "suspend reason"
+        "description": "suspend reason",
+        "handler": "handler"
       }
     },
     "TeacherCDKey": {

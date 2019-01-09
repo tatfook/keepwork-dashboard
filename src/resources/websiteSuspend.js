@@ -7,11 +7,15 @@ export default class websiteSuspend extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'displayName',
+        name: 'sitename',
+        originName: 'objectId',
         required: true,
         search: true,
         sort: false,
-        edit: true
+        edit: true,
+        associate: 'sites',
+        associateAs: 'illegalSites',
+        associateField: 'sitename'
       },
       {
         name: 'createdAt',
@@ -27,6 +31,13 @@ export default class websiteSuspend extends BaseResource {
         component: 'text',
         sort: false,
         edit: true
+      },
+      {
+        name: 'handler',
+        type: 'Number',
+        create: false,
+        edit: false,
+        sort: false
       }
     ]
   }
