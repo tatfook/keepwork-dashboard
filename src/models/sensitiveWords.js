@@ -1,4 +1,4 @@
-import { resourceCRUD } from '@/api/keepwork'
+import { resourceCRUD } from '../api/keepwork'
 
 const sensitiveWordsCRUD = resourceCRUD('sensitiveWords')
 
