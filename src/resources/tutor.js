@@ -36,7 +36,10 @@ export default class Tutor extends BaseResource {
         name: 'teacherName',
         show: true,
         search: false,
-        sort: false
+        sort: false,
+        associate: 'users',
+        associateAs: 'teachers',
+        associateField: 'username'
       },
       {
         name: 'endTime',

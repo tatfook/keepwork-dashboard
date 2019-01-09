@@ -86,6 +86,7 @@ const resource = {
       }
 
       const resourceList = res.rows.map(row => newResource(state.resourceName, row))
+      console.log(resourceList)
       const total = res.count
       await commit('SET_RESOURCE_LIST', { resourceList, total })
 
