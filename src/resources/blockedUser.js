@@ -33,7 +33,10 @@ export default class BlockedUser extends BaseResource {
         component: 'text',
         edit: true,
         show: true,
-        associate: 'User'
+        associate: 'users',
+        associateAs: 'illegalUser',
+        associateField: 'username',
+        sort: false
       },
       {
         name: 'cellphone',
@@ -41,8 +44,12 @@ export default class BlockedUser extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
+        create: false,
         edit: false,
-        associate: 'User'
+        associate: 'users',
+        associateAs: 'illegalUser',
+        associateField: 'cellphone',
+        sort: false
       },
       {
         name: 'createdAt',
@@ -67,29 +74,26 @@ export default class BlockedUser extends BaseResource {
           }
 
           return key
-        }
+        },
+        sort: false
       },
       {
         name: 'description',
         type: 'String',
         required: true,
         component: 'text',
-        edit: true
+        edit: true,
+        sort: false
       },
       {
         name: 'handler',
         type: 'String',
         required: true,
         component: 'text',
-        edit: false
+        edit: false,
+        sort: false
       }
     ]
-  }
-
-  static queryFilter(query) {
-    // will include all by default, to make sure every associate works
-    query.include({ all: true, nested: true })
-    return query
   }
 
   static model() {

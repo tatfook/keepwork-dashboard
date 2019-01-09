@@ -71,7 +71,8 @@ export default class User extends BaseResource {
         name: 'realname',
         type: 'String',
         edit: false,
-        search: false
+        search: false,
+        sort: false
       },
       {
         name: 'level',

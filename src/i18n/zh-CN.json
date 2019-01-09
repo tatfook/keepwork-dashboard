@@ -105,7 +105,7 @@
         "id": "序号",
         "username": "用户名",
         "createdAt": "封号日期",
-        "cellphone": "手机号",
+        "cellphone": "绑定手机号",
         "level": "用户等级",
         "description": "封号原因",
         "handler": "操作者"

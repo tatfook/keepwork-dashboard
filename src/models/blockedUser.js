@@ -11,10 +11,6 @@ export default function blockedUserModel() {
         return { count: 0, rows: [] }
       }
 
-      if (params['x-order'] === 'cellphone-desc') {
-        delete params['x-order']
-      }
-
       if (params['cellphone-eq']) {
         const cellphone = params['cellphone-eq']
 
@@ -30,7 +26,7 @@ export default function blockedUserModel() {
         delete params['cellphone-eq']
       }
 
-      params.where['objectType'] = 1
+      params.where['objectType'] = 0
       const originList = await illegalsCRUD.list(params)
 
       _.map(
@@ -48,7 +44,7 @@ export default function blockedUserModel() {
     },
     async create(params) {
       if (typeof params === 'object') {
-        params['objectType'] = 1
+        params['objectType'] = 0
       }
 
       return illegalsCRUD.create(params)

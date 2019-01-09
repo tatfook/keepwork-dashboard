@@ -76,7 +76,7 @@ export default {
       if (value === null || value === undefined) return ''
       if (col.filter) return col.filter(value)
       if (!row[col.name] && col.associate) {
-        const item = _.get(row, _.snakeCase(col.associateAs || col.associate))
+        const item = _.get(row, col.associateAs || col.associate)
         return (item && item[col.name]) || ''
       }
       if (col.type === 'Date') {

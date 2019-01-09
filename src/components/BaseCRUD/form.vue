@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.name">
+      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.originName || attr.name">
         <el-select v-if="attr.associate" v-model="model[attr.originName || attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
