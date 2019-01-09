@@ -19,13 +19,6 @@ export default class websiteSuspend extends BaseResource {
         edit: true,
         search: false
       },
-      // {
-      //   name: 'updatedAt',
-      //   type: 'Date',
-      //   component: 'time',
-      //   required: false,
-      //   edit: false
-      // },
       {
         name: 'description',
         type: 'String',
@@ -34,15 +27,6 @@ export default class websiteSuspend extends BaseResource {
         sort: false,
         edit: true
       }
-      // {
-      //   name: 'handler',
-      //   type: 'String',
-      //   required: true,
-      //   // component: 'text',
-      //   search: false,
-      //   sort: false,
-      //   edit: false
-      // }
     ]
   }
 
