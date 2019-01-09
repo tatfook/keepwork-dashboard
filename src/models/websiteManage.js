@@ -8,14 +8,6 @@ export default function websiteManageModel() {
 
       const websitesList = await websitesCRUD.list(websitesParams)
 
-      websitesList.rows.map(
-        item => {
-          if (!item.displayName) {
-            item.displayName = item.sitename
-          }
-        }
-      )
-
       return websitesList
     },
     async create(params) {

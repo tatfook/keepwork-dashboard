@@ -9,11 +9,13 @@ export default class websiteManage extends BaseResource {
       {
         name: 'displayName',
         edit: false,
+        sort: false,
         search: true
       },
       {
         name: 'username',
         edit: false,
+        sort: false,
         search: true
       },
       {

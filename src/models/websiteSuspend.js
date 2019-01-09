@@ -8,13 +8,6 @@ export default function websiteSuspendModel() {
 
       const websiteSuspendList = await websiteSuspendCRUD.list(websiteSuspendParams)
 
-      websiteSuspendList.rows.map(
-        item => {
-          if (!item.displayName) {
-            item.displayName = item.sitename
-          }
-        }
-      )
       return websiteSuspendList
     },
     async create(params) {
