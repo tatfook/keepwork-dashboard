@@ -34,6 +34,7 @@ export default class Tutor extends BaseResource {
       },
       {
         name: 'teacherName',
+        originName: 'tutorId',
         show: true,
         search: false,
         sort: false,
@@ -58,7 +59,8 @@ export default class Tutor extends BaseResource {
       {
         name: 'comment',
         show: true,
-        sort: false
+        sort: false,
+        search: false
       }
     ]
   }
