@@ -37,10 +37,60 @@
 </template>
 
 <script>
-import crudMixin from './crud.mixin'
+import crudMixin from '../../../components/BaseCRUD/crud.mixin'
+import { Message } from 'element-ui'
+import { newResource } from '@/resources'
 
 export default {
-  name: 'BaseCRUD',
-  mixins: [crudMixin]
+  name: 'BlockedUser',
+  mixins: [crudMixin],
+  methods: {
+    async createData(data) {
+      try {
+        await this.model.create(data)
+        this.dialogFormVisible = false
+        this.handleCurrentChange(1)
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('base.success.create'),
+          type: 'success',
+          duration: 2000
+        })
+      } catch (err) {
+        Message({
+          message: this.$t('resources.blockedUser.tips.createDataError'),
+          type: 'error',
+          duration: 5 * 1000
+        })
+      }
+    },
+    async updateData(data) {
+      let temp = newResource(this.resource, data)
+      try {
+        temp = await this.model.update(temp)
+        for (const v of this.list) {
+          if (v.id === temp.id) {
+            const index = this.list.indexOf(v)
+            this.list.splice(index, 1, temp)
+            break
+          }
+        }
+        this.dialogFormVisible = false
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('base.success.update'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
+      } catch (err) {
+        Message({
+          message: this.$t('resources.blockedUser.tips.updateError'),
+          type: 'error',
+          duration: 5 * 1000
+        })
+      }
+    }
+  }
 }
 </script>

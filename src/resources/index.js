@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import Admin from './admin'
 import User from './user'
-import Userinfo from './userinfo'
 import BlockedUser from './blockedUser'
 import Role from './role'
 import TeacherCDKey from './teacherCDKey'
@@ -12,11 +11,16 @@ import Lesson from './lesson'
 import PackageLesson from './packageLesson'
 import HotPackage from './hotPackage'
 import SensitiveWords from './sensitiveWords'
+import Tutor from './tutor'
+import ProjectsManage from './projectsManage'
+import BlockedProjects from './blockedProjects'
+import WebsiteManage from './websiteManage'
+import WebsiteSuspend from './websiteSuspend'
+import IssuesManage from './issuesManage'
 
 export const resources = {
   Admin,
   User,
-  Userinfo,
   BlockedUser,
   Role,
   TeacherCDKey,
@@ -26,7 +30,13 @@ export const resources = {
   Lesson,
   PackageLesson,
   HotPackage,
-  SensitiveWords
+  SensitiveWords,
+  Tutor,
+  ProjectsManage,
+  BlockedProjects,
+  WebsiteManage,
+  WebsiteSuspend,
+  IssuesManage
 }
 
 export const newResource = (name, row) => {

@@ -1,7 +1,7 @@
 import { resourceCRUD } from '../api/keepwork'
 import _ from 'lodash'
 
-const usersCRUD = resourceCRUD('users')
+// const usersCRUD = resourceCRUD('users')
 const illegalsCRUD = resourceCRUD('illegals')
 
 export default function blockedUserModel() {
@@ -11,26 +11,22 @@ export default function blockedUserModel() {
         return { count: 0, rows: [] }
       }
 
-      if (params['x-order'] === 'cellphone-desc') {
-        delete params['x-order']
-      }
+      // if (params['cellphone-eq']) {
+      //   const cellphone = params['cellphone-eq']
 
-      if (params['cellphone-eq']) {
-        const cellphone = params['cellphone-eq']
+      //   try {
+      //     const response = await usersCRUD.get('?cellphone=' + cellphone)
+      //     params['objectId-eq'] = response[0].id
+      //   } catch (error) {
+      //     console.log(error)
+      //   }
 
-        try {
-          const response = await usersCRUD.get('?cellphone=' + cellphone)
-          params['objectId-eq'] = response[0].id
-        } catch (error) {
-          console.log(error)
-        }
+      //   params['objectId-eq'] = params['objectId-eq'] || 0
 
-        params['objectId-eq'] = params['objectId-eq'] || 0
+      //   delete params['cellphone-eq']
+      // }
 
-        delete params['cellphone-eq']
-      }
-
-      params['objectType-eq'] = 1
+      params.where['objectType'] = 0
       const originList = await illegalsCRUD.list(params)
 
       _.map(
@@ -44,35 +40,11 @@ export default function blockedUserModel() {
         return { count: 0, rows: [] }
       }
 
-      const blockedUserIds = _.map(originList.rows, 'objectId')
-
-      const usersParams = { 'id-in': blockedUserIds }
-      const userList = await usersCRUD.list(usersParams)
-
-      if (!userList || !userList.count || !Array.isArray(userList.rows)) {
-        return { count: 0, rows: [] }
-      }
-
-      const usersMap = new Map()
-
-      for (const item of userList.rows) {
-        usersMap.set(item.id, item)
-      }
-
-      originList.rows.map(
-        item => {
-          const curUser = usersMap.get(item.objectId)
-
-          item.cellphone = curUser.cellphone || ''
-          item.username = curUser.username || ''
-        }
-      )
-
       return originList
     },
     async create(params) {
       if (typeof params === 'object') {
-        params['objectType'] = 1
+        params['objectType'] = 0
       }
 
       return illegalsCRUD.create(params)
@@ -85,6 +57,11 @@ export default function blockedUserModel() {
     },
     async destroy(params) {
       return illegalsCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }

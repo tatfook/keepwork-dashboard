@@ -1,8 +1,8 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.name">
-        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
+      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.originName || attr.name">
+        <el-select v-if="attr.associate" v-model="model[attr.originName || attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
@@ -25,11 +25,8 @@
 
 <script>
 import _ from 'lodash'
-import { getResourceClass } from '@/resources'
 import { mapGetters } from 'vuex'
-import {
-  QUERY
-} from './config'
+import { resourceCRUD as keepworkCRUD } from '@/api/keepwork'
 
 export default {
   name: 'CRUDFrom',
@@ -69,6 +66,7 @@ export default {
     },
     initModel() {
       this.model = _.cloneDeep(this.formData || {})
+
       if (this.status === 'create') {
         this.loadDefaultValues()
       }
@@ -76,7 +74,7 @@ export default {
     },
     loadDefaultValues() {
       _.forEach(this.resourceClass.attributes(), (attr) => {
-        if ((attr.required || attr.edit !== false) && attr.default !== undefined) {
+        if ((attr.required || attr.create !== false) && attr.default !== undefined) {
           this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
         }
       })
@@ -87,27 +85,30 @@ export default {
       for (const attr of this.attrs) {
         if (attr.associate) {
           if (this.model[attr.name] && !attr.multiple && this.edit !== false) {
-            const associateClass = getResourceClass(attr.associate)
-            const item = await associateClass.model().get(this.model[attr.name])
+            const crud = keepworkCRUD(attr.formAssociate || attr.associate)
+            const item = await crud.get(this.model[attr.originName])
+
             this.associateOptions[attr.name] = [
               {
                 key: item.id,
-                value: item[associateClass.title()]
+                value: item[attr.associateField]
               }
             ]
           } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
-            const associateClass = getResourceClass(attr.associate)
-            const list = await associateClass.model().list({
-              [QUERY.page]: 1,
-              [QUERY.perPage]: 20,
-              'id-in': this.model[attr.name]
-            })
-            this.associateOptions[attr.name] = list.rows.map(item => {
-              return {
-                key: item.id,
-                value: item[associateClass.title()]
-              }
-            })
+            // const crud = keepworkCRUD(attr.associate)
+            // const queryParam = { 'x-per-page': 50 }
+
+            // queryParam[`${attr.associateField}-like`] = query + '%'
+
+            // const queryOptions = new ActiveQuery().where({ 'id-in': this.model[attr.name] }).paginate(1, 20).query
+
+            // const list = await crud.list(this.model[attr.name])
+            // this.associateOptions[attr.name] = list.rows.map(item => {
+            //   return {
+            //     key: item.id,
+            //     value: item[attr.associateField]
+            //   }
+            // })
           } else {
             await this.searchAssociate(attr)('')
           }
@@ -116,19 +117,19 @@ export default {
       this.loading = false
     },
     searchAssociate(attr) {
-      const self = this
-      const associateClass = getResourceClass(attr.associate)
       return async query => {
         this.loading = true
+        const crud = keepworkCRUD(attr.formAssociate || attr.associate)
+
         const queryParam = { 'x-per-page': 50 }
         if (query !== '') {
-          queryParam[associateClass.title() + '-like'] = query + '%'
+          queryParam[`${attr.associateField}-like`] = query + '%'
         }
-        const list = await associateClass.model().list(queryParam)
-        self.associateOptions[attr.name] = list.rows.map(item => {
+        const list = await crud.list(queryParam, 'search')
+        this.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,
-            value: item[associateClass.title()]
+            value: item[attr.associateField]
           }
         })
         this.loading = false
@@ -151,7 +152,15 @@ export default {
       resourceClass: 'resourceClass'
     }),
     attrs() {
-      return this.resourceClass.editableAttrs()
+      if (this.status === 'create') {
+        return this.resourceClass.createableAttrs()
+      }
+
+      if (this.status === 'update') {
+        return this.resourceClass.editableAttrs()
+      }
+
+      return []
     },
     attrRules() {
       return this.resourceClass.attrRules()

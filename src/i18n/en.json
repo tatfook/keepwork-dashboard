@@ -21,6 +21,7 @@
   "search": "Search",
   "name": "name",
   "roles": "roles",
+  "operate": "operate",
   "base": {
     "confirm": {
       "delete": "Are you sure?",
@@ -60,6 +61,11 @@
       "blockedUser": "Blocked User"
     },
     "sidebarSensitiveWords": "Sensitive Words",
+    "sidebarWebsite": "Website",
+    "website": {
+      "websiteManagement": "Website Management",
+      "suspendManagement": "Suspend Management"
+    },
     "sidebarLesson": "Lesson",
     "lesson": {
       "lesson": "Lesson Platform",
@@ -70,6 +76,11 @@
       "packages": "Packages",
       "lessons": "Lessons",
       "packageLesson": "PackageLesson"
+    },
+    "sidebarProjects": "Projects",
+    "projects": {
+      "ProjectsManage": "ProjectsManage",
+      "BlockedProjects": "BlockedProjects"
     }
   },
   "resources": {
@@ -81,19 +92,6 @@
       }
     },
     "User": {
-      "attr": {
-        "id": "id",
-        "username": "user name",
-        "cellphone": "cell phone",
-        "status": "status",
-        "role": "role",
-        "desc": "desc",
-        "createdAt": "registered at",
-        "updatedAt": "updated at"
-      },
-      "management": "user management"
-    },
-    "Userinfo": {
       "attr": {
         "id": "id",
         "username": "user name",
@@ -128,6 +126,28 @@
       "tips": {
         "keyWord": "Keyword repetition！",
         "updateError": "Operational errors！"
+      }
+    },
+    "blockedUser": {
+      "tips": {
+        "createDataError": "Failed to add user information!",
+        "updateError": "Operational errors！"
+      }
+    },
+    "WebsiteManage": {
+      "attr": {
+        "sitename": "website name",
+        "username": "website creator",
+        "createdAt": "created at",
+        "updatedAt": "updated at"
+      }
+    },
+    "WebsiteSuspend": {
+      "attr": {
+        "sitename": "website name",
+        "createdAt": "suspended at",
+        "description": "suspend reason",
+        "handler": "handler"
       }
     },
     "TeacherCDKey": {
@@ -191,6 +211,16 @@
           "videoUrl": "video url"
         },
         "createdAt": "created at"
+      }
+    },
+    "ProjectsManage": {
+      "attr": {
+        "id": "ID",
+        "type": "project type",
+        "name": "entry name",
+        "privilege": "recruitment status",
+        "createdAt": "created at",
+        "updatedAt": "updated at"
       }
     },
     "PackageLesson": {

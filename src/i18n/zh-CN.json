@@ -21,6 +21,7 @@
   "search": "搜索",
   "name": "名字",
   "roles": "角色",
+  "operate": "操作",
   "base": {
     "confirm": {
       "delete": "是否确定?",
@@ -56,9 +57,15 @@
     "user": {
       "userManager": "用户管理",
       "userInfo": "用户信息",
-      "blockedUser": "封停用户"
+      "blockedUser": "封停用户",
+      "tutor": "导师服务学员管理"
     },
     "sidebarSensitiveWords": "敏感词管理",
+    "sidebarWebsite": "网站",
+    "website": {
+      "websiteManagement": "网站管理",
+      "suspendManagement": "封停管理"
+    },
     "sidebarLesson": "课程",
     "lesson": {
       "teacherCDKeys": "教师兑换码",
@@ -68,6 +75,12 @@
       "packages": "包",
       "lessons": "课程",
       "packageLesson": "课程包"
+    },
+    "sidebarProjects": "项目",
+    "projects": {
+      "ProjectsManage": "项目管理",
+      "BlockedProjects": "封停项目",
+      "IssuesManage": "issues管理"
     }
   },
   "resources": {
@@ -82,21 +95,9 @@
       "attr": {
         "id": "序号",
         "username": "用户名",
-        "cellphone": "手机号",
-        "status": "状态",
-        "role": "角色",
-        "desc": "描述",
         "createdAt": "注册时间",
-        "updatedAt": "更新日期"
-      },
-      "management": "用户管理"
-    },
-    "Userinfo": {
-      "attr": {
-        "id": "序号",
-        "username": "用户名",
-        "createdAt": "注册时间",
-        "cellphone": "手机号",
+        "cellphone": "绑定手机号",
+        "realname": "实名认证手机号",
         "level": "用户等级",
         "status": "状态",
         "balance": "余额",
@@ -106,14 +107,27 @@
       }
     },
     "BlockedUser": {
+      "msg": "是否确定解封用户？",
+      "title": "解封",
+      "deblockAll": "解封选中",
       "attr": {
         "id": "序号",
-        "objectId": "用户名",
+        "username": "用户名",
         "createdAt": "封号日期",
-        "cellphone": "手机号",
+        "cellphone": "绑定手机号",
         "level": "用户等级",
         "description": "封号原因",
         "handler": "操作者"
+      }
+    },
+    "Tutor": {
+      "attr": {
+        "studentName": "学生用户名",
+        "cellphone": "绑定手机号",
+        "teacherName": "导师用户名",
+        "endTime": "到期时间",
+        "status": "状态",
+        "comment": "备注"
       }
     },
     "SensitiveWords": {
@@ -126,6 +140,28 @@
       "tips": {
         "keyWord": "关键词重复",
         "updateError": "操作失误"
+      }
+    },
+    "blockedUser": {
+      "tips": {
+        "createDataError": "添加用户信息失败",
+        "updateError": "操作失误"
+      }
+    },
+    "WebsiteManage": {
+      "attr": {
+        "sitename": "网站名",
+        "username": "网站创建者",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间"
+      }
+    },
+    "WebsiteSuspend": {
+      "attr": {
+        "sitename": "网站名",
+        "createdAt": "封号日期",
+        "description": "封号原因",
+        "handler": "操作者"
       }
     },
     "TeacherCDKey": {
@@ -189,6 +225,32 @@
           "videoUrl": "视频链接"
         },
         "createdAt": "创建日期"
+      }
+    },
+    "ProjectsManage": {
+      "attr": {
+        "id": "ID",
+        "type": "项目类型",
+        "name": "项目名称",
+        "privilege": "招募状态",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期"
+      }
+    },
+    "BlockedProjects": {
+      "attr": {
+        "id": "ID",
+        "name": "项目名称",
+        "createdAt": "封停日期",
+        "description": "封停原因",
+        "handler": "操作者"
+      }
+    },
+    "IssuesManage": {
+      "attr": {
+        "title": "issue标题",
+        "createdAt": "创建日期",
+        "updatedAt": "更改日期"
       }
     },
     "PackageLesson": {

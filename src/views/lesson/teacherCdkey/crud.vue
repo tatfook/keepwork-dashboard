@@ -4,7 +4,7 @@
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">Generate Code</el-button>
     </div>
 
-    <crud-table :key="nestedKey" :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"> </crud-table>
+    <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"></crud-table>
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"> </crud-paginate>
 
@@ -15,7 +15,6 @@
         <el-button type="primary" @click="generateData">OK</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
@@ -33,6 +32,11 @@ export default {
   methods: {
     handleGenerate() {
       this.dialogFormVisible = true
+    },
+    async getList() {
+      this.listLoading = true
+      await this.setQueryOptions({ queryOptions: this.listQuery })
+      this.listLoading = false
     },
     async generateData() {
       this.downloadLoading = true
