@@ -11,27 +11,12 @@ export default class SensitiveWords extends BaseResource {
         type: 'Number',
         show: false,
         create: false,
-        edit: false,
         search: false
       },
       {
         name: 'word',
         type: 'String',
         required: true
-      },
-      {
-        name: 'createdAt',
-        type: 'Date',
-        show: false,
-        edit: false,
-        search: false
-      },
-      {
-        name: 'updatedAt',
-        type: 'Date',
-        show: false,
-        edit: false,
-        search: false
       }
     ]
   }
@@ -42,7 +27,7 @@ export default class SensitiveWords extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show', 'edit']
     }
   }
 }
