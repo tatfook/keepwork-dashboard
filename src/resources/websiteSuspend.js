@@ -13,7 +13,8 @@ export default class websiteSuspend extends BaseResource {
         search: true,
         sort: false,
         edit: true,
-        associate: 'sites',
+        formAssociate: 'sites',
+        associate: 'illegalSites',
         associateAs: 'illegalSites',
         associateField: 'sitename'
       },

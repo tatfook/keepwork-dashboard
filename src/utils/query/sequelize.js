@@ -31,18 +31,32 @@ export default class SequelizeQuery {
         }
       } else if (k.length === 3) {
         const query = {}
-        const as = k[0].match(/(\w+)\[(\w+)\]/)
 
-        if (as) {
-          query.as = as[2]
-          query['$model$'] = as[1]
-        } else {
-          query['$model$'] = as[1]
+        const asName = k[0].match(/(\w+)\[(\w+)\]/)
+
+        if (asName && asName[1] && asName[2]) {
+          query.as = asName[2]
+          query['$model$'] = asName[1]
+        } else if (k[0]) {
+          query['$model$'] = k[0]
         }
 
         query.where = {
           [k[1]]: {
             [`$${k[2]}`]: v
+          }
+        }
+
+        if (this.query && this.query.include) {
+          for (const index in this.query.include) {
+            const item = this.query.include[index]
+
+            if (
+              item['$model$'] === query['$model$'] ||
+              item['as'] === query['as']
+            ) {
+              _.pullAt(this.query.include, index)
+            }
           }
         }
 

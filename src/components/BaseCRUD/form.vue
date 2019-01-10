@@ -85,7 +85,7 @@ export default {
       for (const attr of this.attrs) {
         if (attr.associate) {
           if (this.model[attr.name] && !attr.multiple && this.edit !== false) {
-            const crud = keepworkCRUD(attr.associate)
+            const crud = keepworkCRUD(attr.formAssociate || attr.associate)
             const item = await crud.get(this.model[attr.originName])
 
             this.associateOptions[attr.name] = [
@@ -119,7 +119,7 @@ export default {
     searchAssociate(attr) {
       return async query => {
         this.loading = true
-        const crud = keepworkCRUD(attr.associate)
+        const crud = keepworkCRUD(attr.formAssociate || attr.associate)
 
         const queryParam = { 'x-per-page': 50 }
         if (query !== '') {

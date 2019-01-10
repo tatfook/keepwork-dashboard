@@ -33,8 +33,9 @@ export default class BlockedUser extends BaseResource {
         component: 'text',
         edit: true,
         show: true,
-        associate: 'users',
-        associateAs: 'illegalUser',
+        formAssociate: 'users',
+        associate: 'illegalUsers',
+        associateAs: 'illegalUsers',
         associateField: 'username',
         sort: false
       },
@@ -46,8 +47,8 @@ export default class BlockedUser extends BaseResource {
         component: 'text',
         create: false,
         edit: false,
-        associate: 'users',
-        associateAs: 'illegalUser',
+        associate: 'illegalUsers',
+        associateAs: 'illegalUsers',
         associateField: 'cellphone',
         sort: false
       },

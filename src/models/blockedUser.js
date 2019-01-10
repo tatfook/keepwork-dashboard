@@ -1,7 +1,7 @@
 import { resourceCRUD } from '../api/keepwork'
 import _ from 'lodash'
 
-const usersCRUD = resourceCRUD('users')
+// const usersCRUD = resourceCRUD('users')
 const illegalsCRUD = resourceCRUD('illegals')
 
 export default function blockedUserModel() {
@@ -11,20 +11,20 @@ export default function blockedUserModel() {
         return { count: 0, rows: [] }
       }
 
-      if (params['cellphone-eq']) {
-        const cellphone = params['cellphone-eq']
+      // if (params['cellphone-eq']) {
+      //   const cellphone = params['cellphone-eq']
 
-        try {
-          const response = await usersCRUD.get('?cellphone=' + cellphone)
-          params['objectId-eq'] = response[0].id
-        } catch (error) {
-          console.log(error)
-        }
+      //   try {
+      //     const response = await usersCRUD.get('?cellphone=' + cellphone)
+      //     params['objectId-eq'] = response[0].id
+      //   } catch (error) {
+      //     console.log(error)
+      //   }
 
-        params['objectId-eq'] = params['objectId-eq'] || 0
+      //   params['objectId-eq'] = params['objectId-eq'] || 0
 
-        delete params['cellphone-eq']
-      }
+      //   delete params['cellphone-eq']
+      // }
 
       params.where['objectType'] = 0
       const originList = await illegalsCRUD.list(params)
