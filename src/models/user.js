@@ -1,32 +1,46 @@
-import { resourceCRUD } from '@/api/keepwork'
+import { resourceCRUD } from '../api/keepwork'
 import _ from 'lodash'
 
 const usersCRUD = resourceCRUD('users')
 const illegalsCRUD = resourceCRUD('illegals')
 
-export default function userModel() {
+export default function userinfoModel() {
   return {
     async list(params) {
-      const usersParams = params
+      const originList = await usersCRUD.list(params)
 
-      const usersList = await usersCRUD.list(usersParams)
-
-      const userIds = _.map(usersList.rows, 'id')
-
-      const illegalsParams = { 'objectId-in': userIds, 'objectType-eq': 1 }
-      const illegalsList = await illegalsCRUD.list(illegalsParams)
-
-      const illegalsMap = new Map()
-
-      for (const item of illegalsList.rows) {
-        illegalsMap.set(item.objectId, item)
+      if (!originList || !originList.count || !originList.rows) {
+        return { count: 0, rows: [] }
       }
 
-      usersList.rows.map(
-        item => {
-          const curIllegal = illegalsMap.get(item.id)
+      _.map(
+        originList.rows,
+        (item) => {
+          item.level = 'ordinary'
+        }
+      )
 
-          if (curIllegal) {
+      const usersIds = _.map(originList.rows, 'id')
+
+      let blockedUserList
+
+      try {
+        blockedUserList = await illegalsCRUD.list({ 'objectId-in': usersIds })
+      } catch (error) {
+        console.log(error)
+      }
+
+      const blockedUserMap = new Map()
+
+      for (const item of blockedUserList.rows) {
+        blockedUserMap.set(item.objectId, item)
+      }
+
+      originList.rows.map(
+        item => {
+          const curBlockedUser = blockedUserMap.get(item.id)
+
+          if (curBlockedUser) {
             item.status = 1
           } else {
             item.status = 0
@@ -34,15 +48,18 @@ export default function userModel() {
         }
       )
 
-      return usersList
+      return originList
     },
-    async create(params) {
+    create(params) {
       return usersCRUD.create(params)
     },
-    async update(params) {
+    update(params) {
       return usersCRUD.update(params)
     },
-    async destroy(params) {
+    get(params) {
+      return usersCRUD.get(params)
+    },
+    destroy(params) {
       return usersCRUD.destroy(params)
     }
   }

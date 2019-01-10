@@ -89,21 +89,49 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'info',
-        component: () => import('@/views/user/info/index'),
-        name: 'User Info',
-        resource: 'UserInfo',
-        meta: {
-          title: 'sidebar.user.userInfo'
-        }
-      },
-      {
         path: 'blocked_user',
         component: () => import('@/views/user/blocked-user/index'),
         name: 'Blocked User',
         resource: 'BlockedUser',
         meta: {
           title: 'sidebar.user.blockedUser'
+        }
+      },
+      {
+        path: 'tutor',
+        component: () => import('@/views/user/tutor/index'),
+        name: 'Tutor',
+        resource: 'Tutor',
+        meta: {
+          title: 'sidebar.user.tutor'
+        }
+      }
+    ]
+  },
+  {
+    path: '/website',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarWebsite',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'websiteManage',
+        component: () => import('@/views/website/websiteManage/index'),
+        name: 'Website Manage',
+        resource: 'WebsiteManage',
+        meta: {
+          title: 'sidebar.website.websiteManagement'
+        }
+      },
+      {
+        path: 'websiteSuspend',
+        component: () => import('@/views/website/websiteSuspend/index'),
+        name: 'Website Suspend',
+        resource: 'WebsiteSuspend',
+        meta: {
+          title: 'sidebar.website.suspendManagement'
         }
       }
     ]
@@ -118,7 +146,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'manager',
-        component: () => import('@/views/sensitive-words/index'),
+        component: () => import('@/views/sensitiveWords/index'),
         name: 'Sensitive Words',
         resource: 'SensitiveWords',
         meta: {
@@ -137,8 +165,8 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'teacher_cdkeys',
-        component: () => import('@/views/lesson/teacher_cdkey/index'),
+        path: 'teacherCdkey',
+        component: () => import('@/views/lesson/teacherCdkey/index'),
         name: 'Teacher CDKeys',
         resource: 'TeacherCDKey',
         meta: {
@@ -164,8 +192,8 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'hot_packages',
-        component: () => import('@/views/lesson/hot_package/index'),
+        path: 'hotPackages',
+        component: () => import('@/views/lesson/hotPackage/index'),
         name: 'Hot Packages',
         resource: 'HotPackage',
         meta: {
@@ -191,12 +219,49 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'package_lesson',
-        component: () => import('@/views/lesson/package_lesson/index'),
+        path: 'packageLesson',
+        component: () => import('@/views/lesson/packageLesson/index'),
         name: 'packageLesson',
         resource: 'PackageLesson',
         meta: {
           title: 'sidebar.lesson.packageLesson'
+        }
+      }
+    ]
+  },
+  {
+    path: '/projects',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarProjects',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'projectsManage',
+        component: () => import('@/views/projects/projectsManage/index'),
+        name: 'Projects Manage',
+        resource: 'ProjectsManage',
+        meta: {
+          title: 'sidebar.projects.ProjectsManage'
+        }
+      },
+      {
+        path: 'blockedProjects',
+        component: () => import('@/views/projects/blockedProjects/index'),
+        name: 'Blocked Projects',
+        resource: 'BlockedProjects',
+        meta: {
+          title: 'sidebar.projects.BlockedProjects'
+        }
+      },
+      {
+        path: 'issuesManage',
+        component: () => import('@/views/projects/issuesManage/index'),
+        name: 'Issues Manage',
+        resource: 'IssuesManage',
+        meta: {
+          title: 'sidebar.projects.IssuesManage'
         }
       }
     ]

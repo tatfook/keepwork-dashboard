@@ -24,19 +24,27 @@ export function generateTeacherCDKeys(count) {
 }
 
 export function resourceCRUD(resource) {
-  const url = '/admins/' + resource
+  const base = '/admins/' + resource
   return {
-    list(data) {
+    list(data, method = 'query') {
+      let url = base
+
+      if (method === 'query') {
+        url = url + '/' + method + `?t=${Date.now()}`
+      } else if (method === 'search') {
+        url = url + '/' + method
+      }
+
       return request({
         method: 'post',
-        url: url + '/search',
+        url,
         data
       })
     },
     create(data) {
       return request({
         method: 'post',
-        url,
+        url: base,
         data
       })
     },
@@ -47,21 +55,21 @@ export function resourceCRUD(resource) {
       })
       return request({
         method: 'put',
-        url: url + '/' + data.id,
+        url: base + '/' + data.id,
         data: params
       })
     },
     destroy(data) {
       return request({
         method: 'delete',
-        url: url + '/' + data.id,
+        url: base + '/' + data.id,
         data
       })
     },
     get(id) {
       return request({
         method: 'get',
-        url: url + '/' + id
+        url: base + '/' + id
       })
     }
   }

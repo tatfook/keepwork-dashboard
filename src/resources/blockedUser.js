@@ -20,37 +20,51 @@ export default class BlockedUser extends BaseResource {
       {
         name: 'id',
         type: 'Number',
+        create: false,
         edit: false,
         show: false,
         search: false
       },
       {
-        name: 'objectId',
+        name: 'username',
+        originName: 'objectId',
         type: 'String',
         required: true,
         component: 'text',
-        edit: false,
+        edit: true,
         show: true,
-        associate: 'User'
+        formAssociate: 'users',
+        associate: 'illegalUsers',
+        associateAs: 'illegalUsers',
+        associateField: 'username',
+        sort: false
       },
       {
         name: 'cellphone',
+        originName: 'objectId',
         type: 'String',
         required: true,
         component: 'text',
-        edit: false
+        create: false,
+        edit: false,
+        associate: 'illegalUsers',
+        associateAs: 'illegalUsers',
+        associateField: 'cellphone',
+        sort: false
       },
       {
         name: 'createdAt',
         type: 'Date',
         required: false,
-        edit: false
+        edit: false,
+        component: 'time'
       },
       {
         name: 'level',
         type: 'String',
         required: true,
         component: 'select',
+        create: false,
         edit: false,
         options: levelMap,
         filter: (key) => {
@@ -61,21 +75,24 @@ export default class BlockedUser extends BaseResource {
           }
 
           return key
-        }
+        },
+        sort: false
       },
       {
         name: 'description',
         type: 'String',
         required: true,
         component: 'text',
-        edit: true
+        edit: true,
+        sort: false
       },
       {
         name: 'handler',
         type: 'String',
         required: true,
         component: 'text',
-        edit: true
+        edit: false,
+        sort: false
       }
     ]
   }
@@ -86,7 +103,38 @@ export default class BlockedUser extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show', 'edit', 'delete'],
+      extra: [
+        {
+          name: 'resources.BlockedUser.title',
+          func: (ctx, data) => {
+            ctx.$confirm(ctx.$t('resources.BlockedUser.msg'), ctx.$t('resources.BlockedUser.title'), {
+              confirmButtonText: ctx.$t('ok'),
+              cancelButtonText: ctx.$t('cancel'),
+              type: 'warning'
+            })
+              .then(async() => {
+                await this.model().destroy(data)
+                ctx.getList()
+              })
+          }
+        }
+      ]
+    }
+  }
+
+  static action() {
+    return {
+      extra: [
+        {
+          name: 'resources.BlockedUser.deblockAll',
+          func: (ctx) => {
+            if (ctx) {
+              ctx.handleDeleteAll()
+            }
+          }
+        }
+      ]
     }
   }
 }

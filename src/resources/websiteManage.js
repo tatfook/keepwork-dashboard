@@ -1,36 +1,35 @@
-import sensitiveWords from '@/models/sensitiveWords'
+import websiteManageModel from '@/models/websiteManage'
 import BaseResource from './base'
 
-const model = sensitiveWords()
+const model = websiteManageModel()
 
-export default class SensitiveWords extends BaseResource {
+export default class websiteManage extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'id',
-        type: 'Number',
-        show: false,
-        create: false,
+        name: 'sitename',
         edit: false,
-        search: false
+        sort: false,
+        search: true
       },
       {
-        name: 'word',
-        type: 'String',
-        required: true
+        name: 'username',
+        edit: false,
+        sort: false,
+        search: true
       },
       {
         name: 'createdAt',
         type: 'Date',
-        show: false,
+        component: 'time',
         edit: false,
         search: false
       },
       {
         name: 'updatedAt',
         type: 'Date',
-        show: false,
-        edit: false,
+        component: 'time',
+        edit: true,
         search: false
       }
     ]
@@ -42,7 +41,7 @@ export default class SensitiveWords extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['create', 'show']
     }
   }
 }

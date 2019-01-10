@@ -7,6 +7,12 @@ export default class Admin extends BaseResource {
   static attributes() {
     return [
       {
+        name: 'id',
+        create: false,
+        edit: false,
+        show: false
+      },
+      {
         name: 'username',
         type: 'String',
         required: true,

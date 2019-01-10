@@ -7,12 +7,7 @@ import store from '@/store'
 
 export default class BaseResource {
   constructor(row) {
-    const attrs = this.constructor.attributes()
-    if (row) {
-      for (const attr of attrs) {
-        this[attr.name] = _.get(row, attr.name)
-      }
-    }
+    _.merge(this, row)
   }
 
   static model() {
@@ -48,7 +43,7 @@ export default class BaseResource {
 
   /*
     resource action settings, including disabled and extra actions.
-    default actions are ['create', 'destroy', 'update', 'download'].
+    default actions are ['create', 'delete', 'update', 'download'].
     example:
       {
         disabled: ['destroy'],
@@ -63,7 +58,13 @@ export default class BaseResource {
   */
   static actions() {
     return {
-      disabled: ['show'], // ['create', 'edit', 'destroy', 'show']
+      disabled: ['show'], // ['create', 'edit', 'delete', 'show']
+      extra: []
+    }
+  }
+
+  static action() {
+    return {
       extra: []
     }
   }
@@ -91,6 +92,12 @@ export default class BaseResource {
     return 'name'
   }
 
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.include({ all: true, nested: false })
+    return query
+  }
+
   static attrFilter(key) {
     const attrs = []
     this.attributes().forEach(attr => {
@@ -107,6 +114,10 @@ export default class BaseResource {
 
   static editableAttrs() {
     return this.attrFilter('edit')
+  }
+
+  static createableAttrs() {
+    return this.attrFilter('create')
   }
 
   static showableAttrs() {

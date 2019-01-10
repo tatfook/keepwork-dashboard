@@ -9,6 +9,7 @@ import CRUDForm from './form'
 import CRUDShow from './show'
 import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
+import { ActiveQuery } from '@/utils/query'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 
@@ -27,6 +28,7 @@ export default {
         [QUERY.perPage]: 20,
         [QUERY.order]: ''
       },
+      listFilter: {},
       dialogFormVisible: false,
       showingFormVisible: false,
       dialogStatus: '',
@@ -41,6 +43,8 @@ export default {
   async created() {
     await this.setResourceName({ resourceName: this.resource })
     await this.getList()
+
+    this.model = this.resourceClass.model()
   },
   methods: {
     ...mapActions({
@@ -58,15 +62,24 @@ export default {
     },
     async getList() {
       this.listLoading = true
-      await this.setQueryOptions({ queryOptions: this.listQuery })
+      const query = this.resourceClass.queryFilter(new ActiveQuery())
+      const queryOptions = query.where(this.listFilter).paginate(this.listQuery[QUERY.page], this.listQuery[QUERY.perPage]).order(this.listQuery.order).query
+      await this.setQueryOptions({ queryOptions })
+
       this.listLoading = false
     },
-    colFilter(col, value) {
+    colFilter(col, row) {
+      let value = _.get(row, col.name)
+
+      if (!value) {
+        value = _.get(row, col.originName)
+      }
+
       if (value === null || value === undefined) return ''
       if (col.filter) return col.filter(value)
-      if (this.nestedData[col.name]) {
-        const item = this.nestedData[col.name][value]
-        return (item && item[this.getNestedAttr(col.name)]) || ''
+      if (!row[col.name] && col.associate) {
+        const item = _.get(row, col.associateAs || col.associate)
+        return (item && item[col.name]) || ''
       }
       if (col.type === 'Date') {
         return moment(value).format(FORMAT.date)
@@ -78,7 +91,7 @@ export default {
         if (item.name === name) return getResourceClass(item.associate).title()
       }
     },
-    handleAction(action, row) {
+    handleActions(action, row) {
       if (_.indexOf(DEFAULT_ACTIONS, action) !== -1) {
         return this[`handle${_.capitalize(action)}`](row)
       } else {
@@ -88,8 +101,13 @@ export default {
         if (index !== -1) {
           const func = this.actions.extra[index].func || this[`handle${_.capitalize(action)}`]
           if (!func) throw new Error('Missing action' + action)
-          return func(row)
+          return func(this, row)
         }
+      }
+    },
+    handleAction(op) {
+      if (op && op.func) {
+        op.func(this)
       }
     },
     handleFilter() {
@@ -132,8 +150,9 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = this.resourceClass.exportAttrs().map(item => this.i18n(item.name))
         const data = this.selected.map(data =>
-          this.resourceClass.exportAttrs().map(col => this.colFilter(col, data[col.name]))
+          this.resourceClass.exportAttrs().map(col => this.colFilter(col, data))
         )
+
         excel.export_json_to_excel({
           header: tHeader,
           data,
@@ -266,12 +285,7 @@ export default {
       if (index !== -1) this.searchParams.splice(index, 1)
     },
     handleSearch(q) {
-      const query = {}
-      _.forEach(QUERY, (v) => {
-        query[v] = this.listQuery[v]
-      })
-      _.merge(query, q)
-      this.listQuery = query
+      this.listFilter = q
       this.getList()
     }
   },
@@ -286,7 +300,6 @@ export default {
       resourceName: 'resourceName',
       resourceClass: 'resourceClass',
       total: 'total',
-      model: 'model',
       attributes: 'attributes',
       actions: 'actions'
     }),
@@ -302,8 +315,14 @@ export default {
       return data
     },
     searchableFilters() {
-      // console.log(this.resourceClass)
-      return this.resourceClass.searchAttrs().map(attr => attr.name)
+      if (this.resourceClass) {
+        return this.resourceClass.searchAttrs().map(attr => attr.name)
+      } else {
+        return []
+      }
+    },
+    canAction() {
+      return this.resourceClass.action().extra || []
     }
   },
   components: {
