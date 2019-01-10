@@ -57,6 +57,11 @@ export default function blockedUserModel() {
     },
     async destroy(params) {
       return illegalsCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }
