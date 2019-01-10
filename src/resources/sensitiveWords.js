@@ -10,6 +10,7 @@ export default class SensitiveWords extends BaseResource {
         name: 'id',
         type: 'Number',
         show: false,
+        create: false,
         edit: false,
         search: false
       },
