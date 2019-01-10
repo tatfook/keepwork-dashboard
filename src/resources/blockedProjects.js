@@ -20,8 +20,9 @@ export default class BlockedProjects extends BaseResource {
         edit: true,
         required: true,
         search: true,
-        associate: 'projects',
-        associateAs: 'projects',
+        formAssociate: 'projects',
+        associate: 'illegalProjects',
+        associateAs: 'illegalProjects',
         associateField: 'name'
       },
       {
