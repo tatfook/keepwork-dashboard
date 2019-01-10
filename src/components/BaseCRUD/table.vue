@@ -89,7 +89,7 @@ export default {
       return _.get(row, key)
     },
     handleAction(action, row) {
-      this.$emit('handleAction', action, row)
+      this.$emit('handleActions', action, row)
     },
     handleSort(evt) {
       const order = evt.order === 'descending' ? 'desc' : 'asc'

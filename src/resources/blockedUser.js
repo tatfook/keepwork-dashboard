@@ -122,4 +122,19 @@ export default class BlockedUser extends BaseResource {
       ]
     }
   }
+
+  static action() {
+    return {
+      extra: [
+        {
+          name: 'resources.BlockedUser.deblockAll',
+          func: (ctx) => {
+            if (ctx) {
+              ctx.handleDeleteAll()
+            }
+          }
+        }
+      ]
+    }
+  }
 }

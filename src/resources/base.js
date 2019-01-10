@@ -43,7 +43,7 @@ export default class BaseResource {
 
   /*
     resource action settings, including disabled and extra actions.
-    default actions are ['create', 'destroy', 'update', 'download'].
+    default actions are ['create', 'delete', 'update', 'download'].
     example:
       {
         disabled: ['destroy'],
@@ -58,7 +58,13 @@ export default class BaseResource {
   */
   static actions() {
     return {
-      disabled: ['show'], // ['create', 'edit', 'destroy', 'show']
+      disabled: ['show'], // ['create', 'edit', 'delete', 'show']
+      extra: []
+    }
+  }
+
+  static action() {
+    return {
       extra: []
     }
   }

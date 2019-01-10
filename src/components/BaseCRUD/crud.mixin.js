@@ -91,7 +91,7 @@ export default {
         if (item.name === name) return getResourceClass(item.associate).title()
       }
     },
-    handleAction(action, row) {
+    handleActions(action, row) {
       if (_.indexOf(DEFAULT_ACTIONS, action) !== -1) {
         return this[`handle${_.capitalize(action)}`](row)
       } else {
@@ -103,6 +103,11 @@ export default {
           if (!func) throw new Error('Missing action' + action)
           return func(this, row)
         }
+      }
+    },
+    handleAction(op) {
+      if (op && op.func) {
+        op.func(this)
       }
     },
     handleFilter() {
@@ -315,6 +320,9 @@ export default {
       } else {
         return []
       }
+    },
+    canAction() {
+      return this.resourceClass.action().extra || []
     }
   },
   components: {
