@@ -43,6 +43,8 @@ export default {
   async created() {
     await this.setResourceName({ resourceName: this.resource })
     await this.getList()
+
+    this.model = this.resourceClass.model()
   },
   methods: {
     ...mapActions({
@@ -293,7 +295,6 @@ export default {
       resourceName: 'resourceName',
       resourceClass: 'resourceClass',
       total: 'total',
-      model: 'model',
       attributes: 'attributes',
       actions: 'actions'
     }),
