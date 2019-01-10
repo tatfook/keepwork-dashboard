@@ -254,6 +254,15 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.projects.BlockedProjects'
         }
+      },
+      {
+        path: 'issuesManage',
+        component: () => import('@/views/projects/issuesManage/index'),
+        name: 'Issues Manage',
+        resource: 'IssuesManage',
+        meta: {
+          title: 'sidebar.projects.IssuesManage'
+        }
       }
     ]
   },
