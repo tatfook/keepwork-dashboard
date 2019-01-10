@@ -2,10 +2,13 @@ import { resourceCRUD } from '@/api/keepwork'
 
 const illegalsCRUD = resourceCRUD('illegals')
 
-export default function projectsManageModel() {
+export default function blockedProjectsModel() {
   return {
     async list(params) {
-      return illegalsCRUD.list(params)
+      params.where['objectType'] = 5
+      const blockedProjectsParams = params
+      const blockedProjectsList = await illegalsCRUD.list(blockedProjectsParams)
+      return blockedProjectsList
     },
     async create(params) {
       if (typeof params === 'object') {
