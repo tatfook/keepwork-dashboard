@@ -16,6 +16,7 @@ import ProjectsManage from './projectsManage'
 import BlockedProjects from './blockedProjects'
 import WebsiteManage from './websiteManage'
 import WebsiteSuspend from './websiteSuspend'
+import IssuesManage from './issuesManage'
 
 export const resources = {
   Admin,
@@ -34,7 +35,8 @@ export const resources = {
   ProjectsManage,
   BlockedProjects,
   WebsiteManage,
-  WebsiteSuspend
+  WebsiteSuspend,
+  IssuesManage
 }
 
 export const newResource = (name, row) => {

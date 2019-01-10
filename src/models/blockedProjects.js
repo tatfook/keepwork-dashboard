@@ -25,6 +25,11 @@ export default function blockedProjectsModel() {
     },
     async destroy(params) {
       return illegalsCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }
