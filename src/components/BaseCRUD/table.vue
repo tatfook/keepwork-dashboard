@@ -8,7 +8,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column v-if="canOperate" align="center" :width="200" :label="$t('operate')" class-name="small-padding fixed-width">
+      <el-table-column v-if="canOperate" align="center" :width="actionAreaWidth" :label="$t('operate')" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row)">{{$t('show')}}</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row)">{{$t('edit')}}</el-button>
@@ -70,6 +70,13 @@ export default {
           this.cachedCan['delete'] === false
         ) {
           this.canOperate = false
+
+          for (const index in this.cachedCan) {
+            if (this.cachedCan[index]) {
+              this.canOperate = true
+              break
+            }
+          }
         }
       }
 
@@ -98,21 +105,28 @@ export default {
       resourceClass: 'resourceClass',
       list: 'resourceList'
     }),
-    // actionAreaWidth() {
-    //   const defaultAction = ['show', 'edit', 'delete']
-    //   const disabled = this.resourceClass.actions().disabled || []
-    //   const extraLength = this.canActions.length
-    //   const buttonWidth = 80
+    actionAreaWidth() {
+      const defaultAction = ['show', 'edit', 'delete']
+      const disabled = this.resourceClass.actions().disabled || []
+      const extraLength = this.canActions.length
+      const buttonWidth = 80
 
-    //   return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
-    // },
+      let width = (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
+
+      if (width <= 200) {
+        width = 200
+      }
+
+      return width
+    },
     canActions() {
-      const extraAxtions = this.resourceClass.actions().extra || []
-      _.remove(extraAxtions, action => {
+      const extraActions = this.resourceClass.actions().extra || []
+
+      _.remove(extraActions, action => {
         return !this.can(action.name)
       })
 
-      return extraAxtions
+      return extraActions
     },
     attrs() {
       return this.resourceClass.showableAttrs()

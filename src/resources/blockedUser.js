@@ -103,7 +103,23 @@ export default class BlockedUser extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit']
+      disabled: ['show', 'edit', 'delete'],
+      extra: [
+        {
+          name: 'resources.BlockedUser.title',
+          func: (ctx, data) => {
+            ctx.$confirm(ctx.$t('resources.BlockedUser.msg'), ctx.$t('resources.BlockedUser.title'), {
+              confirmButtonText: ctx.$t('ok'),
+              cancelButtonText: ctx.$t('cancel'),
+              type: 'warning'
+            })
+              .then(async() => {
+                await this.model().destroy(data)
+                ctx.getList()
+              })
+          }
+        }
+      ]
     }
   }
 }

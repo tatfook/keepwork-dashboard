@@ -107,6 +107,8 @@
       }
     },
     "BlockedUser": {
+      "msg": "是否确定解封用户？",
+      "title": "解封",
       "attr": {
         "id": "序号",
         "username": "用户名",

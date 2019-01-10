@@ -101,7 +101,7 @@ export default {
         if (index !== -1) {
           const func = this.actions.extra[index].func || this[`handle${_.capitalize(action)}`]
           if (!func) throw new Error('Missing action' + action)
-          return func(row)
+          return func(this, row)
         }
       }
     },
