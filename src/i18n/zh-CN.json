@@ -17,7 +17,7 @@
   "export": "导出",
   "new": "新增",
   "addFilter": "筛选",
-  "deleteAll": "删除全部",
+  "deleteAll": "删除选中",
   "search": "搜索",
   "name": "名字",
   "roles": "角色",
@@ -25,7 +25,7 @@
   "base": {
     "confirm": {
       "delete": "是否确定?",
-      "deleteList": "将删除整个列表，是否确定?"
+      "deleteList": "将删除所选中的列表，是否确定?"
     },
     "success": {
       "create": "创建成功!",
@@ -138,14 +138,14 @@
         "updatedAt": "更新日期"
       },
       "tips": {
-        "keyWord": "关键词重复",
-        "updateError": "操作失误"
+        "keyWord": "关键词重复！",
+        "updateError": "操作失误！"
       }
     },
     "blockedUser": {
       "tips": {
-        "createDataError": "添加用户信息失败",
-        "updateError": "操作失误"
+        "createDataError": "封停用户失败！",
+        "updateError": "操作失误！"
       }
     },
     "WebsiteManage": {
@@ -157,11 +157,23 @@
       }
     },
     "WebsiteSuspend": {
+      "unblockSelected": "解封选中",
       "attr": {
         "sitename": "网站名",
         "createdAt": "封号日期",
         "description": "封号原因",
         "handler": "操作者"
+      },
+      "button": {
+        "unblock": "解封",
+        "unblockMsg": "是否确定解封网站？"
+      },
+      "dialog": {
+        "title": "对指定网站封站"
+      },
+      "tips": {
+        "createError": "封停网站失败！",
+        "operateMiss": "操作失误！"
       }
     },
     "TeacherCDKey": {

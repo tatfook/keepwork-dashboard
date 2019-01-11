@@ -12,7 +12,6 @@ export default class websiteSuspend extends BaseResource {
         required: true,
         search: true,
         sort: false,
-        edit: true,
         formAssociate: 'sites',
         associate: 'illegalSites',
         associateAs: 'illegalSites',
@@ -22,7 +21,7 @@ export default class websiteSuspend extends BaseResource {
         name: 'createdAt',
         type: 'Date',
         component: 'time',
-        edit: true,
+        create: false,
         search: false
       },
       {
@@ -31,13 +30,14 @@ export default class websiteSuspend extends BaseResource {
         required: true,
         component: 'text',
         sort: false,
-        edit: true
+        search: false
       },
       {
         name: 'handler',
-        type: 'Number',
-        create: false,
-        edit: false,
+        type: 'String',
+        required: true,
+        component: 'text',
+        search: false,
         sort: false
       }
     ]
@@ -49,7 +49,38 @@ export default class websiteSuspend extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit']
+      disabled: ['show', 'edit', 'delete'],
+      extra: [
+        {
+          name: 'resources.WebsiteSuspend.button.unblock',
+          func: (ctx, data) => {
+            ctx.$confirm(ctx.$t('resources.WebsiteSuspend.button.unblockMsg'), ctx.$t('resources.WebsiteSuspend.button.unblock'), {
+              confirmButtonText: ctx.$t('ok'),
+              cancelButtonText: ctx.$t('cancel'),
+              type: 'warning'
+            })
+              .then(async() => {
+                await this.model().destroy(data)
+                ctx.getList()
+              })
+          }
+        }
+      ]
+    }
+  }
+
+  static action() {
+    return {
+      extra: [
+        {
+          name: 'resources.WebsiteSuspend.unblockSelected',
+          func: (ctx) => {
+            if (ctx) {
+              ctx.handleDeleteAll()
+            }
+          }
+        }
+      ]
     }
   }
 }

@@ -17,7 +17,7 @@
   "export": "Export",
   "new": "New",
   "addFilter": "Add Filter",
-  "deleteAll": "Delete All",
+  "deleteAll": "Delete Selected",
   "search": "Search",
   "name": "name",
   "roles": "roles",
@@ -25,7 +25,7 @@
   "base": {
     "confirm": {
       "delete": "Are you sure?",
-      "deleteList": "Will delete all the list, are you sure?"
+      "deleteList": "The selected list will be deleted, are you sure?"
     },
     "success": {
       "message": "Success!",
@@ -106,6 +106,8 @@
       }
     },
     "BlockedUser": {
+      "msg": "Are you sure to unblock the user?",
+      "title": "unblock",
       "attr": {
         "id": "id",
         "objectId": "user name",
@@ -124,17 +126,18 @@
         "updatedAt": "updated at"
       },
       "tips": {
-        "keyWord": "Keyword repetition！",
-        "updateError": "Operational errors！"
+        "keyWord": "Keyword repetition!",
+        "updateError": "Operational errors!"
       }
     },
     "blockedUser": {
       "tips": {
         "createDataError": "Failed to add user information!",
-        "updateError": "Operational errors！"
+        "updateError": "Operational errors!"
       }
     },
     "WebsiteManage": {
+      "unblockSelected": "Unblock Selected",
       "attr": {
         "sitename": "website name",
         "username": "website creator",
@@ -148,6 +151,17 @@
         "createdAt": "suspended at",
         "description": "suspend reason",
         "handler": "handler"
+      },
+      "button": {
+        "unblock": "unblock",
+        "unblockMsg": "Are you sure to unblock the site?"
+      },
+      "dialog": {
+        "title": "Suspend the specified website"
+      },
+      "tips": {
+        "createError": "Failure to block website!",
+        "operateMiss": "Operate miss!"
       }
     },
     "TeacherCDKey": {

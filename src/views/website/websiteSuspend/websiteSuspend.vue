@@ -4,6 +4,8 @@
       <el-button v-if="can('create')" class="filter-item" @click="handleCreate" type="primary" icon="el-icon-plus">{{$t('new')}}</el-button>
       <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
       <el-button v-if="can('delete')" class="filter-item" style="margin-left: 10px;" @click="handleDeleteAll" type="primary" icon="el-icon-plus">{{$t('deleteAll')}}</el-button>
+      <el-button v-for="op in canAction" :key="op.name" class="filter-item" style="margin-left: 10px;" @click="handleAction(op)" type="primary" icon="el-icon-plus">{{$t(op.name)}}</el-button>
+
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
           {{$t('addFilter')}}
@@ -23,7 +25,7 @@
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
-    <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" :visible.sync="dialogFormVisible">
+    <el-dialog v-if="can('edit') || can('create')" :title="$t('resources.WebsiteSuspend.dialog.title')" :visible.sync="dialogFormVisible">
       <crud-form :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
     </el-dialog>
 
@@ -35,38 +37,30 @@
 </template>
 
 <script>
-import crudMixin from '../../components/BaseCRUD/crud.mixin'
+import crudMixin from '../../../components/BaseCRUD/crud.mixin'
 import { Message } from 'element-ui'
 import { newResource } from '@/resources'
 
 export default {
-  name: 'SensitiveWords',
+  name: 'WebsiteSuspend',
   mixins: [crudMixin],
   methods: {
     async createData(data) {
       try {
-        const createDataRepeated = await this.model.create(data)
-        if (createDataRepeated) {
-          this.dialogFormVisible = false
-          this.handleCurrentChange(1)
-          this.$notify({
-            title: this.$t('success'),
-            message: this.$t('base.success.create'),
-            type: 'success',
-            duration: 2000
-          })
-        } else {
-          Message({
-            message: this.$t('resources.SensitiveWords.tips.keyWord'),
-            type: 'error',
-            duration: 5 * 1000
-          })
-        }
+        await this.model.create(data)
+        this.dialogFormVisible = false
+        this.handleCurrentChange(1)
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('base.success.create'),
+          type: 'success',
+          duration: 2000
+        })
       } catch (err) {
         Message({
-          message: this.$t('resources.SensitiveWords.tips.keyWord'),
+          message: this.$t('resources.WebsiteSuspend.tips.createError'),
           type: 'error',
-          duration: 5 * 1000
+          duration: 2000
         })
       }
     },
@@ -91,9 +85,9 @@ export default {
         this.getList()
       } catch (err) {
         Message({
-          message: this.$t('resources.SensitiveWords.tips.updateError'),
+          message: this.$t('resources.WebsiteSuspend.tips.operateMiss'),
           type: 'error',
-          duration: 5 * 1000
+          duration: 2000
         })
       }
     }

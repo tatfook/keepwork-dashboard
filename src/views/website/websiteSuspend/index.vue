@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import BaseCRUD from '@/components/BaseCRUD'
+import WebsiteSuspend from './websiteSuspend'
 
 export default {
   components: {
-    'base-crud': BaseCRUD
+    'base-crud': WebsiteSuspend
   }
 }
 </script>

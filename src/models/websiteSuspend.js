@@ -22,6 +22,11 @@ export default function websiteSuspendModel() {
     },
     async destroy(params) {
       return websiteSuspendCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }
