@@ -10,7 +10,7 @@ export default function userModel() {
     async create(params) {
       const sensitiveWordsParams = params
 
-      const sensitiveWordsList = await sensitiveWordsCRUD.list(sensitiveWordsParams)
+      const sensitiveWordsList = await sensitiveWordsCRUD.list(sensitiveWordsParams, 'search')
 
       if (sensitiveWordsList.count === 0) {
         return sensitiveWordsCRUD.create(params)
