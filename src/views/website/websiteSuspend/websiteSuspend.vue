@@ -29,10 +29,6 @@
       <crud-form :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
     </el-dialog>
 
-    <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">
-      <crud-show :list="showingData" />
-    </el-dialog>
-
   </div>
 </template>
 
