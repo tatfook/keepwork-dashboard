@@ -35,19 +35,21 @@ export default class BlockedProjects extends BaseResource {
         search: false
       },
       {
+        name: 'handlerName',
+        originName: 'handler',
+        type: 'String',
+        required: true,
+        component: 'text',
+        create: false,
+        edit: false,
+        sort: false
+      },
+      {
         name: 'description',
         type: 'String',
         required: true,
         component: 'text',
         edit: true
-      },
-      {
-        name: 'handler',
-        type: 'String',
-        required: true,
-        component: 'text',
-        edit: false,
-        create: false
       }
     ]
   }

@@ -255,7 +255,7 @@
         "name": "项目名称",
         "createdAt": "封停日期",
         "description": "封停原因",
-        "handler": "操作者"
+        "handlerName": "操作者"
       }
     },
     "IssuesManage": {

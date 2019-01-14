@@ -237,6 +237,15 @@
         "updatedAt": "updated at"
       }
     },
+    "BlockedProjects": {
+      "attr": {
+        "id": "ID",
+        "name": "entry name",
+        "createdAt": "closing date",
+        "description": "reasons for closure",
+        "handlerName": "handler"
+      }
+    },
     "PackageLesson": {
       "attr": {
         "id": "id",
