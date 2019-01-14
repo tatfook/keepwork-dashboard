@@ -23,6 +23,11 @@ export default function userModel() {
     },
     async destroy(params) {
       return sensitiveWordsCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }
