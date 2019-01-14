@@ -66,6 +66,7 @@ export default class BlockedUser extends BaseResource {
         component: 'select',
         create: false,
         edit: false,
+        search: false,
         options: levelMap,
         filter: (key) => {
           for (const item of levelMap) {
@@ -84,6 +85,7 @@ export default class BlockedUser extends BaseResource {
         required: true,
         component: 'text',
         edit: true,
+        search: false,
         sort: false
       },
       {
@@ -93,6 +95,7 @@ export default class BlockedUser extends BaseResource {
         component: 'text',
         create: false,
         edit: false,
+        search: false,
         sort: false
       }
     ]
