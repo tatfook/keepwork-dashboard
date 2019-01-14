@@ -238,6 +238,8 @@
       }
     },
     "BlockedProjects": {
+      "msg": "Are you sure to unblock the user?",
+      "title": "unblock",
       "attr": {
         "id": "ID",
         "name": "entry name",

@@ -250,6 +250,9 @@
       }
     },
     "BlockedProjects": {
+      "msg": "是否确定解封用户？",
+      "title": "解封",
+      "deblockAll": "解封选中",
       "attr": {
         "id": "ID",
         "name": "项目名称",
@@ -262,7 +265,9 @@
       "attr": {
         "title": "issue标题",
         "createdAt": "创建日期",
-        "updatedAt": "更改日期"
+        "updatedAt": "更改日期",
+        "issuesUserName": "发表者",
+        "userName": "创建者"
       }
     },
     "PackageLesson": {

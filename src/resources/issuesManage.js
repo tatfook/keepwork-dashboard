@@ -17,12 +17,12 @@ export default class IssuesManage extends BaseResource {
         show: false
       },
       {
-        name: 'objectId',
-        type: 'Number',
+        name: 'issuesUserName',
+        type: 'String',
         show: true
       },
       {
-        name: 'assigns',
+        name: 'userName',
         type: 'String',
         show: true
       },
