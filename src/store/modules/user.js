@@ -1,12 +1,5 @@
-import {
-  login
-  // getInfo
-} from '@/api/login'
-import {
-  getToken,
-  setToken,
-  removeToken
-} from '@/utils/auth'
+import { login } from '@/api/login'
+import { getToken, getAdminInfo, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
@@ -36,9 +29,7 @@ const user = {
 
   actions: {
     // 登录
-    async Login({
-      commit, dispatch
-    }, userInfo) {
+    async Login({ commit, dispatch }, userInfo) {
       const username = userInfo.username.trim()
       const data = await login(username, userInfo.password)
       setToken(data.token)
@@ -49,39 +40,35 @@ const user = {
     },
 
     // 获取用户信息
-    async GetInfo({
-      commit
-    }) {
-      // const data = await getInfo()
+    async GetInfo({ commit }) {
+      const adminInfo = await getAdminInfo()
+
+      if (typeof adminInfo !== 'object') {
+        return false
+      }
+
       const roles = []
-      roles.push('admin')
-      commit('SET_ROLES', roles)
-      // if (data.roleId >= 10) {
-      //   // roles.push('operation')
-      //   roles.push('admin')
-      //   commit('SET_ROLES', roles)
-      // } else {
-      //   return Promise.reject('getInfo: roles must be a non-null array !')
-      // }
-      // commit('SET_ID', data._id)
-      // commit('SET_NAME', data.username)
-      // commit('SET_AVATAR', data.portrait)
+
+      if (adminInfo.roleId === 0) {
+        roles.push('admin')
+        commit('SET_ROLES', roles)
+      }
+
+      commit('SET_ID', adminInfo.id)
+      commit('SET_NAME', adminInfo.username)
+      // commit('SET_AVATAR', adminInfo.portrait)
       return roles
     },
 
     // 登出
-    LogOut({
-      commit
-    }) {
+    LogOut({ commit }) {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       removeToken()
     },
 
     // 前端 登出
-    FedLogOut({
-      commit
-    }) {
+    FedLogOut({ commit }) {
       commit('SET_TOKEN', '')
       removeToken()
     }
