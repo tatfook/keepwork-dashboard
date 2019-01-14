@@ -121,7 +121,7 @@
         "cellphone": "cell phone",
         "level": "level",
         "description": "suspend reason",
-        "handler": "handler"
+        "handlerName": "handler"
       }
     },
     "SensitiveWords": {
@@ -155,7 +155,7 @@
         "sitename": "website name",
         "createdAt": "suspended at",
         "description": "suspend reason",
-        "handler": "handler"
+        "handlerName": "handler"
       },
       "button": {
         "unblock": "unblock",

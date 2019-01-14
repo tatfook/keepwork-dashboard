@@ -167,7 +167,7 @@
         "sitename": "网站名",
         "createdAt": "封号日期",
         "description": "封号原因",
-        "handler": "操作者"
+        "handlerName": "操作者"
       },
       "button": {
         "unblock": "解封",

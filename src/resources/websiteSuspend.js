@@ -33,10 +33,9 @@ export default class websiteSuspend extends BaseResource {
         search: false
       },
       {
-        name: 'handler',
+        name: 'handlerName',
         type: 'String',
         required: true,
-        component: 'text',
         search: false,
         sort: false
       }
