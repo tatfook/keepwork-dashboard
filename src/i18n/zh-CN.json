@@ -117,7 +117,7 @@
         "cellphone": "绑定手机号",
         "level": "用户等级",
         "description": "封号原因",
-        "handler": "操作者"
+        "handlerName": "操作者"
       }
     },
     "Tutor": {

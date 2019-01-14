@@ -25,7 +25,7 @@ export default function userinfoModel() {
       let blockedUserList
 
       try {
-        blockedUserList = await illegalsCRUD.list({ 'objectId-in': usersIds })
+        blockedUserList = await illegalsCRUD.list({ 'objectId-in': usersIds }, 'search')
       } catch (error) {
         console.log(error)
       }

@@ -87,10 +87,11 @@ export default class BlockedUser extends BaseResource {
         sort: false
       },
       {
-        name: 'handler',
+        name: 'handlerName',
         type: 'String',
         required: true,
         component: 'text',
+        create: false,
         edit: false,
         sort: false
       }
