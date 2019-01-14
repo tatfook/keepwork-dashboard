@@ -1,5 +1,9 @@
 import { resourceCRUD } from '../api/keepwork'
 const websitesCRUD = resourceCRUD('sites')
+const groupsCRUD = resourceCRUD('groups')
+const sitegroupsCRUD = resourceCRUD('siteGroups')
+const membersCRUD = resourceCRUD('members')
+// import _ from 'lodash'
 
 export default function websiteManageModel() {
   return {
@@ -7,6 +11,13 @@ export default function websiteManageModel() {
       const websitesParams = params
 
       const websitesList = await websitesCRUD.list(websitesParams)
+
+      const groupsList = await groupsCRUD.list(websitesParams)
+      console.log(groupsList)
+      const sitegroupsList = await sitegroupsCRUD.list(websitesParams)
+      console.log(sitegroupsList)
+      const membersList = await membersCRUD.list(websitesParams)
+      console.log(membersList)
 
       return websitesList
     },

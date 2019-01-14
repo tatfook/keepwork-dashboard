@@ -145,6 +145,7 @@
     "WebsiteManage": {
       "attr": {
         "sitename": "website name",
+        "siteUrl": "site url",
         "username": "website creator",
         "createdAt": "created at",
         "updatedAt": "updated at"
@@ -159,6 +160,7 @@
       },
       "button": {
         "unblock": "unblock",
+        "privilegeManagement": "privilege management",
         "unblockMsg": "Are you sure to unblock the site?"
       },
       "dialog": {
