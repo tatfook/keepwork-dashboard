@@ -64,12 +64,6 @@ export default class SequelizeQuery {
       } else {
         throw new Error('Invalid query')
       }
-
-      // if (k.length !== 2) throw new Error('Invalid query')
-      // k[k.length - 1] = '$' + k[k.length - 1]
-      // this.query.where[k[0]] = {
-      //   [k[1]]: q[key]
-      // }
     }
     return this
   }
