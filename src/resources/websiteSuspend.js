@@ -60,8 +60,21 @@ export default class websiteSuspend extends BaseResource {
               type: 'warning'
             })
               .then(async() => {
+                ctx.$notify({
+                  title: ctx.$t('success'),
+                  message: ctx.$t('unblockSelectedMsg.success'),
+                  type: 'success',
+                  duration: 2000
+                })
                 await this.model().destroy(data)
                 ctx.getList()
+              })
+              .catch(err => {
+                console.error(err)
+                ctx.$message({
+                  type: 'error',
+                  message: ctx.$t('unblockSelectedMsg.failure')
+                })
               })
           }
         }
@@ -73,11 +86,39 @@ export default class websiteSuspend extends BaseResource {
     return {
       extra: [
         {
-          name: 'resources.WebsiteSuspend.unblockSelected',
+          name: 'unblockSelected',
           func: (ctx) => {
-            if (ctx) {
-              ctx.handleDeleteAll()
+            if (ctx.selected.length === 0) {
+              ctx.$message({
+                type: 'error',
+                message: ctx.$t('base.failed.empty')
+              })
+              return
             }
+            ctx.$confirm(ctx.$t('unblockSelectedMsg.dialogMsg'), ctx.$t('unblockSelected'), {
+              confirmButtonText: ctx.$t('ok'),
+              cancelButtonText: ctx.$t('cancel'),
+              type: 'warning'
+            })
+              .then(() => {
+                this.model().destroyAll({ ids: ctx.selected.map(row => row.id) })
+                  .then(() => {
+                    ctx.$notify({
+                      title: ctx.$t('success'),
+                      message: ctx.$t('unblockSelectedMsg.success'),
+                      type: 'success',
+                      duration: 2000
+                    })
+                    ctx.getList()
+                  })
+              })
+              .catch(err => {
+                console.error(err)
+                ctx.$message({
+                  type: 'error',
+                  message: ctx.$t('unblockSelectedMsg.failure')
+                })
+              })
           }
         }
       ]

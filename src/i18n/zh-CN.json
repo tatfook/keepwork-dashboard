@@ -18,6 +18,7 @@
   "new": "新增",
   "addFilter": "筛选",
   "deleteAll": "删除选中",
+  "unblockSelected": "解封选中",
   "search": "搜索",
   "name": "名字",
   "roles": "角色",
@@ -51,6 +52,11 @@
       "like": "匹配",
       "notLike": "不匹配"
     }
+  },
+  "unblockSelectedMsg": {
+    "dialogMsg": "将解封所选中的列表，是否确定？",
+    "success": "解封成功！",
+    "failure":  "解封失败！"
   },
   "sidebar": {
     "sidebarUser": "账户",
@@ -157,7 +163,6 @@
       }
     },
     "WebsiteSuspend": {
-      "unblockSelected": "解封选中",
       "attr": {
         "sitename": "网站名",
         "createdAt": "封号日期",
