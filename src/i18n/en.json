@@ -18,6 +18,7 @@
   "new": "New",
   "addFilter": "Add Filter",
   "deleteAll": "Delete Selected",
+  "unblockSelected": "Unblock Selected",
   "search": "Search",
   "name": "name",
   "roles": "roles",
@@ -52,6 +53,11 @@
       "like": "like",
       "notLike": "not like"
     }
+  },
+  "unblockSelectedMsg": {
+    "dialogMsg": "The selected list will be unblocked, are you sure?",
+    "success": "unblock successfully!",
+    "failure": "fail to unblock!"
   },
   "sidebar": {
     "sidebarUser": "User",
@@ -115,7 +121,7 @@
         "cellphone": "cell phone",
         "level": "level",
         "description": "suspend reason",
-        "handler": "handler"
+        "handlerName": "handler"
       }
     },
     "SensitiveWords": {
@@ -137,7 +143,6 @@
       }
     },
     "WebsiteManage": {
-      "unblockSelected": "Unblock Selected",
       "attr": {
         "sitename": "website name",
         "username": "website creator",
@@ -150,7 +155,7 @@
         "sitename": "website name",
         "createdAt": "suspended at",
         "description": "suspend reason",
-        "handler": "handler"
+        "handlerName": "handler"
       },
       "button": {
         "unblock": "unblock",
@@ -160,7 +165,7 @@
         "title": "Suspend the specified website"
       },
       "tips": {
-        "createError": "Failure to block website!",
+        "createError": "Fail to block website!",
         "operateMiss": "Operate miss!"
       }
     },

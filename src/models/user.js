@@ -61,6 +61,11 @@ export default function userinfoModel() {
     },
     destroy(params) {
       return usersCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }
