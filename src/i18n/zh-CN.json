@@ -157,6 +157,7 @@
     "WebsiteManage": {
       "attr": {
         "sitename": "网站名",
+        "siteUrl": "网站URL",
         "username": "网站创建者",
         "createdAt": "创建时间",
         "updatedAt": "更新时间"
@@ -171,6 +172,7 @@
       },
       "button": {
         "unblock": "解封",
+        "privilegeManagement": "授权管理",
         "unblockMsg": "是否确定解封网站？"
       },
       "dialog": {

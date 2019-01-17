@@ -3,6 +3,9 @@ import BaseResource from './base'
 
 const model = websiteManageModel()
 
+// const levelMap = [
+// ]
+
 export default class websiteManage extends BaseResource {
   static attributes() {
     return [
@@ -12,6 +15,28 @@ export default class websiteManage extends BaseResource {
         sort: false,
         search: true
       },
+      {
+        name: 'siteUrl',
+        edit: false,
+        sort: false,
+        search: true
+      },
+      // {
+      //   name: 'siteUrl',
+      //   edit: false,
+      //   filter: (key) => {
+      //     const base = 'keepwork.com/'
+      //     for (const item of levelMap) {
+      //       if (item.key === key) {
+      //         return base + item.value
+      //       }
+      //     }
+
+      //     return key
+      //   },
+      //   sort: false,
+      //   search: false
+      // },
       {
         name: 'username',
         edit: false,
@@ -41,7 +66,21 @@ export default class websiteManage extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'show']
+      disabled: ['create', 'show'],
+      extra: [
+        {
+          name: 'resources.WebsiteSuspend.button.privilegeManagement',
+          func: (ctx, data) => {
+            ctx.authority = data
+            ctx.isVisible = true
+            ctx.model.checkAuthority(data)
+            console.log(1)
+            console.log(ctx.model.checkAuthority)
+            // console.log(ctx)
+            // console.log(data)
+          }
+        }
+      ]
     }
   }
 }
