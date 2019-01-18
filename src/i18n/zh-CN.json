@@ -192,8 +192,8 @@
     "Subject": {
       "attr": {
         "id": "序号",
-        "subjectName": "主题名称",
-        "enSubjectName": "主题名称说明",
+        "subjectName": "学科名称",
+        "enSubjectName": "学科名称说明",
         "createdAt": "创建日期"
       }
     },
