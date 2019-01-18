@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="action-container">
-      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">Generate Code</el-button>
+      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">{{$t('resources.TeacherCDKey.attr.generateCode')}}</el-button>
     </div>
 
     <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleActions="handleActions" @handleSort="handleSort"></crud-table>
