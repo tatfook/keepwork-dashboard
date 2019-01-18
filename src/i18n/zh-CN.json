@@ -86,13 +86,13 @@
     },
     "sidebarLesson": "课程",
     "lesson": {
-      "teacherCDKeys": "教师兑换码",
-      "subjects": "主题",
+      "teacherCDKeys": "教师激活码",
+      "subjects": "学科",
       "skills": "技能",
-      "hotPackages": "热门包",
-      "packages": "包",
+      "hotPackages": "热门课程包",
+      "packages": "课程包",
       "lessons": "课程",
-      "packageLesson": "课程包"
+      "packageLesson": "课程关联"
     },
     "sidebarProjects": "项目",
     "projects": {
@@ -197,9 +197,10 @@
     },
     "TeacherCDKey": {
       "attr": {
-        "key": "值",
+        "key": "激活码",
         "state": "状态",
-        "createdAt": "创建日期"
+        "createdAt": "创建日期",
+        "generateCode": "批量生产激活码"
       }
     },
     "Subject": {
@@ -213,15 +214,15 @@
     "Skill": {
       "attr": {
         "id": "序号",
-        "skillName": "技能名称",
-        "enSkillName": "技能名称说明",
+        "skillName": "学科名称",
+        "enSkillName": "学科名称说明",
         "createdAt": "创建日期"
       }
     },
     "HotPackage": {
       "attr": {
         "id": "序号",
-        "packageId": "包序号",
+        "packageId": "课程包名称",
         "hotNo": "热门排行",
         "createdAt": "创建日期"
       }
@@ -229,9 +230,9 @@
     "Package": {
       "attr": {
         "id": "序号",
-        "packageName": "包名称",
-        "userId": "用户序号",
-        "subjectId": "主题序号",
+        "packageName": "课程包名称",
+        "userId": "用户名",
+        "subjectId": "学科",
         "minAge": "最小年龄",
         "maxAge": "最大年龄",
         "state": "状态",
@@ -248,8 +249,8 @@
       "attr": {
         "id": "序号",
         "lessonName": "课程名称",
-        "userId": "用户序号",
-        "subjectId": "主题序号",
+        "userId": "用户名",
+        "subjectId": "学科",
         "goals": "目标",
         "extra": {
           "coverUrl": "封面链接",
@@ -293,9 +294,9 @@
     "PackageLesson": {
       "attr": {
         "id": "序号",
-        "packageId": "包序号",
-        "lessonId": "课程序号",
-        "userId": "用户序号",
+        "packageId": "课程包名称",
+        "lessonId": "课程名称",
+        "userId": "用户名",
         "createdAt": "创建日期"
       }
     }
