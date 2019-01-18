@@ -58,6 +58,18 @@
     "success": "解封成功！",
     "failure":  "解封失败！"
   },
+  "dialog": {
+    "label": {
+      "groupsName": "组名",
+      "members": "成员",
+      "permission": "权限"
+    },
+    "permission": {
+      "reject": "拒绝",
+      "view": "浏览",
+      "edit": "编辑"
+    }
+  },
   "sidebar": {
     "sidebarUser": "账户",
     "user": {
@@ -157,6 +169,7 @@
     "WebsiteManage": {
       "attr": {
         "sitename": "网站名",
+        "siteUrl": "网站URL",
         "username": "网站创建者",
         "createdAt": "创建时间",
         "updatedAt": "更新时间"
@@ -171,6 +184,7 @@
       },
       "button": {
         "unblock": "解封",
+        "privilegeManagement": "授权管理",
         "unblockMsg": "是否确定解封网站？"
       },
       "dialog": {
