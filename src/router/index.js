@@ -88,15 +88,15 @@ export const asyncRouterMap = [
           title: 'sidebar.user.userManager'
         }
       },
-      // {
-      //   path: 'blocked_user',
-      //   component: () => import('@/views/user/blocked-user/index'),
-      //   name: 'Blocked User',
-      //   resource: 'BlockedUser',
-      //   meta: {
-      //     title: 'sidebar.user.blockedUser'
-      //   }
-      // },
+      {
+        path: 'blocked_user',
+        component: () => import('@/views/user/blocked-user/index'),
+        name: 'Blocked User',
+        resource: 'BlockedUser',
+        meta: {
+          title: 'sidebar.user.blockedUser'
+        }
+      },
       {
         path: 'tutor',
         component: () => import('@/views/user/tutor/index'),
@@ -124,16 +124,16 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.website.websiteManagement'
         }
+      },
+      {
+        path: 'websiteSuspend',
+        component: () => import('@/views/website/websiteSuspend/index'),
+        name: 'Website Suspend',
+        resource: 'WebsiteSuspend',
+        meta: {
+          title: 'sidebar.website.suspendManagement'
+        }
       }
-      // {
-      //   path: 'websiteSuspend',
-      //   component: () => import('@/views/website/websiteSuspend/index'),
-      //   name: 'Website Suspend',
-      //   resource: 'WebsiteSuspend',
-      //   meta: {
-      //     title: 'sidebar.website.suspendManagement'
-      //   }
-      // }
     ]
   },
   {
