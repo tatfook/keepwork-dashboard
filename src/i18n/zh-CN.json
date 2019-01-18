@@ -267,6 +267,7 @@
       }
     },
     "IssuesManage": {
+      "comment": "删除评论",
       "attr": {
         "title": "issue标题",
         "createdAt": "创建日期",

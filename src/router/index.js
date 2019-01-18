@@ -246,15 +246,15 @@ export const asyncRouterMap = [
           title: 'sidebar.projects.ProjectsManage'
         }
       },
-      // {
-      //   path: 'blockedProjects',
-      //   component: () => import('@/views/projects/blockedProjects/index'),
-      //   name: 'Blocked Projects',
-      //   resource: 'BlockedProjects',
-      //   meta: {
-      //     title: 'sidebar.projects.BlockedProjects'
-      //   }
-      // },
+      {
+        path: 'blockedProjects',
+        component: () => import('@/views/projects/blockedProjects/index'),
+        name: 'Blocked Projects',
+        resource: 'BlockedProjects',
+        meta: {
+          title: 'sidebar.projects.BlockedProjects'
+        }
+      },
       {
         path: 'issuesManage',
         component: () => import('@/views/projects/issuesManage/index'),
