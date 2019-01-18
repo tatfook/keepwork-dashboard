@@ -95,7 +95,9 @@ export default class Package extends BaseResource {
       },
       {
         name: 'extra.coverUrl',
-        type: 'String'
+        type: 'String',
+        show: false,
+        search: false
       },
       {
         name: 'createdAt',

@@ -75,12 +75,12 @@
     "sidebarLesson": "课程",
     "lesson": {
       "teacherCDKeys": "教师兑换码",
-      "subjects": "主题",
+      "subjects": "学科",
       "skills": "技能",
-      "hotPackages": "热门包",
-      "packages": "包",
+      "hotPackages": "热门课程包",
+      "packages": "课程包",
       "lessons": "课程",
-      "packageLesson": "课程包"
+      "packageLesson": "课程管理"
     },
     "sidebarProjects": "项目",
     "projects": {
@@ -183,7 +183,7 @@
     },
     "TeacherCDKey": {
       "attr": {
-        "key": "值",
+        "key": "邀请码",
         "state": "状态",
         "createdAt": "创建日期"
       }
@@ -191,23 +191,23 @@
     "Subject": {
       "attr": {
         "id": "序号",
-        "subjectName": "主题名称",
-        "enSubjectName": "主题名称说明",
+        "subjectName": "学科名",
+        "enSubjectName": "学科名(en)",
         "createdAt": "创建日期"
       }
     },
     "Skill": {
       "attr": {
         "id": "序号",
-        "skillName": "技能名称",
-        "enSkillName": "技能名称说明",
+        "skillName": "技能名",
+        "enSkillName": "技能名(en)",
         "createdAt": "创建日期"
       }
     },
     "HotPackage": {
       "attr": {
         "id": "序号",
-        "packageId": "包序号",
+        "packageId": "课程包",
         "hotNo": "热门排行",
         "createdAt": "创建日期"
       }
@@ -215,9 +215,9 @@
     "Package": {
       "attr": {
         "id": "序号",
-        "packageName": "包名称",
-        "userId": "用户序号",
-        "subjectId": "主题序号",
+        "packageName": "包名",
+        "userId": "用户",
+        "subjectId": "学科",
         "minAge": "最小年龄",
         "maxAge": "最大年龄",
         "state": "状态",
@@ -233,9 +233,9 @@
     "Lesson": {
       "attr": {
         "id": "序号",
-        "lessonName": "课程名称",
-        "userId": "用户序号",
-        "subjectId": "主题序号",
+        "lessonName": "课程名",
+        "userId": "用户",
+        "subjectId": "学科",
         "goals": "目标",
         "extra": {
           "coverUrl": "封面链接",

@@ -1,13 +1,13 @@
 <template>
-  <blocked-user resource="BlockedUser"></blocked-user>
+  <base-crud resource="BlockedUser"></base-crud>
 </template>
 
 <script>
-import BlockedUser from './blockedUser'
+import BaseCRUD from '@/components/BaseCRUD'
 
 export default {
   components: {
-    'blocked-user': BlockedUser
+    'base-crud': BaseCRUD
   }
 }
 </script>

@@ -17,7 +17,7 @@
 import _ from 'lodash'
 import { getQueryOps, parseQuery } from './queryOps'
 import { mapGetters } from 'vuex'
-// import { getResourceClass } from '@/resources'
+import { getResourceClass } from '@/resources'
 import { ActiveQuery } from '@/utils/query'
 
 export default {
@@ -49,18 +49,20 @@ export default {
       data = data || this.searchParams
       const attrs = this.resourceClass.attributes()
       const newQueries = _.cloneDeep(this.quries)
-
       for (const filter of data) {
         if (!newQueries[filter]) {
-          const index = _.findIndex(attrs, attr => attr.name === filter)
+          const index = _.findIndex(attrs, attr => attr.name === filter || attr.alias === filter)
           const attr = attrs[index]
-          const type = attrs[index].type || 'String'
+          const type = attr.associate ? 'String' : (attr.type || 'String')
           const options = getQueryOps(type)
           let q = filter
-          if (attr.associate && attr.associateAs) {
-            q = ActiveQuery.associateKey(`${attr.associate}[${attr.associateAs}]`, attr.name)
-          } else if (attr.associate) {
-            q = ActiveQuery.associateKey(attr.associate, attr.name)
+          if (attr.associate) {
+            const associateField = attr.associateField || getResourceClass(attr.associate).title()
+            if (attr.associateAs) {
+              q = ActiveQuery.associateKey(attr.associateAs, associateField)
+            } else {
+              q = ActiveQuery.associateKey(_.snakeCase(attr.associate), associateField)
+            }
           }
           newQueries[filter] = {
             name: filter,
@@ -85,7 +87,6 @@ export default {
         const data = this.quries[filter]
         if (data.value !== '') _.merge(q, parseQuery(data))
       }
-
       this.$emit('handleSearch', q)
     }
   },

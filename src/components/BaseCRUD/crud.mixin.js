@@ -1,17 +1,27 @@
 import _ from 'lodash'
 import moment from 'moment'
-import { QUERY, FORMAT } from './config'
-import { newResource, getResourceClass } from '@/resources'
-import { rolesCan } from '@/utils/cancan'
-import { mapGetters, mapActions } from 'vuex'
+import {
+  newResource,
+  getResourceClass
+} from '@/resources'
+import {
+  rolesCan
+} from '@/utils/cancan'
+import { ActiveQuery } from '@/utils/query'
+import {
+  mapGetters,
+  mapActions
+} from 'vuex'
 import CRUDTable from './table'
 import CRUDForm from './form'
 import CRUDShow from './show'
 import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
-import { ActiveQuery } from '@/utils/query'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
+const FORMAT = {
+  date: 'YYYY-MM-DD HH:mm'
+}
 
 export default {
   props: {
@@ -24,9 +34,9 @@ export default {
     return {
       listLoading: true,
       listQuery: {
-        [QUERY.page]: 1,
-        [QUERY.perPage]: 20,
-        [QUERY.order]: ''
+        page: 1,
+        perPage: 20,
+        order: ''
       },
       listFilter: {},
       dialogFormVisible: false,
@@ -43,8 +53,6 @@ export default {
   async created() {
     await this.setResourceName({ resourceName: this.resource })
     await this.getList()
-
-    this.model = this.resourceClass.model()
   },
   methods: {
     ...mapActions({
@@ -63,23 +71,17 @@ export default {
     async getList() {
       this.listLoading = true
       const query = this.resourceClass.queryFilter(new ActiveQuery())
-      const queryOptions = query.where(this.listFilter).paginate(this.listQuery[QUERY.page], this.listQuery[QUERY.perPage]).order(this.listQuery[QUERY.order]).query
+      const queryOptions = query.where(this.listFilter).paginate(this.listQuery.page, this.listQuery.perPage).order(this.listQuery.order).query
       await this.setQueryOptions({ queryOptions })
-
       this.listLoading = false
     },
     colFilter(col, row) {
-      let value = _.get(row, col.name)
-
-      if (value == null || value === undefined) {
-        value = _.get(row, col.originName)
-      }
-
+      const value = _.get(row, col.name)
       if (value === null || value === undefined) return ''
       if (col.filter) return col.filter(value)
-      if (!row[col.name] && col.associate) {
-        const item = _.get(row, col.associateAs || col.associate)
-        return (item && item[col.name]) || ''
+      if (col.associate) {
+        const item = _.get(row, col.associateAs || _.snakeCase(col.associate))
+        return (item && (item[col.associateField] || item[this.getNestedAttr(col.name)])) || value
       }
       if (col.type === 'Date') {
         return moment(value).format(FORMAT.date)
@@ -91,7 +93,7 @@ export default {
         if (item.name === name) return getResourceClass(item.associate).title()
       }
     },
-    handleActions(action, row) {
+    async handleAction(action, row) {
       if (_.indexOf(DEFAULT_ACTIONS, action) !== -1) {
         return this[`handle${_.capitalize(action)}`](row)
       } else {
@@ -99,27 +101,40 @@ export default {
           name: action
         })
         if (index !== -1) {
-          const func = this.actions.extra[index].func || this[`handle${_.capitalize(action)}`]
+          const extraAction = this.actions.extra[index]
+          const func = extraAction.func || this[`handle${_.capitalize(action)}`]
           if (!func) throw new Error('Missing action' + action)
-          return func(this, row)
+          if (extraAction.confirm) {
+            this.$confirm(extraAction.confirm, '', {
+              confirmButtonText: this.$t('ok'),
+              cancelButtonText: this.$t('cancel'),
+              type: 'warning'
+            }).then(async() => {
+              await func(row)
+              this.getList()
+            }).catch(() => {
+              this.$message({
+                type: 'error',
+                message: this.$t('base.failed.message')
+              })
+            })
+          } else {
+            await func(row)
+            this.getList()
+          }
         }
       }
     },
-    handleAction(op) {
-      if (op && op.func) {
-        op.func(this)
-      }
-    },
     handleFilter() {
-      this.listQuery[QUERY.page] = 1
+      this.listQuery.page = 1
       this.getList()
     },
     handleSizeChange(val) {
-      this.listQuery[QUERY.perPage] = val
+      this.listQuery.perPage = val
       this.getList()
     },
     handleCurrentChange(val) {
-      this.listQuery[QUERY.page] = val
+      this.listQuery.page = val
       this.getList()
     },
     async handleCreate() {
@@ -150,9 +165,8 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = this.resourceClass.exportAttrs().map(item => this.i18n(item.name))
         const data = this.selected.map(data =>
-          this.resourceClass.exportAttrs().map(col => this.colFilter(col, data))
+          this.resourceClass.exportAttrs().map(col => this.colFilter(col, data[col.name]))
         )
-
         excel.export_json_to_excel({
           header: tHeader,
           data,
@@ -163,7 +177,7 @@ export default {
     },
     async createData(data) {
       try {
-        await this.model.create(data)
+        await this.api.create(data)
         this.dialogFormVisible = false
         this.handleCurrentChange(1)
         this.$notify({
@@ -179,7 +193,7 @@ export default {
     async updateData(data) {
       let temp = newResource(this.resource, data)
       try {
-        temp = await this.model.update(temp)
+        temp = await this.api.update(temp)
         for (const v of this.list) {
           if (v.id === temp.id) {
             const index = this.list.indexOf(v)
@@ -204,34 +218,32 @@ export default {
         confirmButtonText: this.$t('ok'),
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
-      })
-        .then(() => {
-          this.model
-            .destroy(row)
-            .then(() => {
-              this.$notify({
-                title: this.$t('success'),
-                message: this.$t('base.success.delete'),
-                type: 'success',
-                duration: 2000
-              })
-              this.getList()
+      }).then(() => {
+        this.api
+          .destroy(row)
+          .then(() => {
+            this.$notify({
+              title: this.$t('success'),
+              message: this.$t('base.success.delete'),
+              type: 'success',
+              duration: 2000
             })
-            .catch(err => {
-              console.error(err)
-              this.$message({
-                type: 'error',
-                message: this.$t('base.failed.delete')
-              })
-            })
-        })
-        .catch(err => {
-          console.error(err)
-          this.$message({
-            type: 'error',
-            message: this.$t('base.failed.delete')
+            this.getList()
           })
+          .catch(err => {
+            console.error(err)
+            this.$message({
+              type: 'error',
+              message: this.$t('base.failed.delete')
+            })
+          })
+      }).catch(err => {
+        console.error(err)
+        this.$message({
+          type: 'error',
+          message: this.$t('base.failed.delete')
         })
+      })
     },
     handleDeleteAll() {
       if (this.selected.length === 0) {
@@ -245,34 +257,32 @@ export default {
         confirmButtonText: this.$t('ok'),
         cancelButtonText: this.$t('cancel'),
         type: 'warning'
-      })
-        .then(() => {
-          this.model
-            .destroyAll({
-              ids: this.selected.map(row => row.id)
-            })
-            .then(() => {
-              this.$notify({
-                title: this.$t('success'),
-                message: this.$t('base.success.delete'),
-                type: 'success',
-                duration: 2000
-              })
-              this.getList()
-            })
-            .catch(err => {
-              console.log(err)
-            })
-        })
-        .catch(() => {
-          this.$message({
-            type: 'error',
-            message: this.$t('base.failed.delete')
+      }).then(() => {
+        this.api
+          .destroyAll({
+            ids: this.selected.map((row) => row.id)
           })
+          .then(() => {
+            this.$notify({
+              title: this.$t('success'),
+              message: this.$t('base.success.delete'),
+              type: 'success',
+              duration: 2000
+            })
+            this.getList()
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'error',
+          message: this.$t('base.failed.delete')
         })
+      })
     },
     handleSort(column, order) {
-      this.listQuery[QUERY.order] = column + '-' + order
+      this.listQuery.order = column + '-' + order
       this.getList()
     },
     handleAddFilter(filter) {
@@ -293,13 +303,13 @@ export default {
     ...mapGetters({
       roles: 'roles',
       nested: 'nested',
-      nestedData: 'nestedData',
       list: 'resourceList',
       activeRow: 'activeResource',
       selected: 'selectedResources',
       resourceName: 'resourceName',
       resourceClass: 'resourceClass',
       total: 'total',
+      api: 'api',
       attributes: 'attributes',
       actions: 'actions'
     }),
@@ -315,14 +325,7 @@ export default {
       return data
     },
     searchableFilters() {
-      if (this.resourceClass) {
-        return this.resourceClass.searchAttrs().map(attr => attr.name)
-      } else {
-        return []
-      }
-    },
-    canAction() {
-      return this.resourceClass.action().extra || []
+      return this.resourceClass.searchAttrs().map(attr => attr.alias || attr.name)
     }
   },
   components: {

@@ -40,12 +40,14 @@ export default class Lesson extends BaseResource {
       {
         name: 'extra.coverUrl',
         type: 'String',
-        search: false
+        search: false,
+        show: false
       },
       {
         name: 'extra.videoUrl',
         type: 'String',
-        search: false
+        search: false,
+        show: false
       },
       {
         name: 'createdAt',

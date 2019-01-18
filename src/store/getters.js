@@ -17,8 +17,7 @@ const getters = {
   total: state => state.resource.total,
   actions: state => state.resource.actions,
   attributes: state => state.resource.attributes,
-  model: state => state.resource.model,
-  nested: state => state.resource.nested,
-  nestedData: state => state.resource.nestedData
+  api: state => state.resource.api,
+  nested: state => state.resource.nested
 }
 export default getters

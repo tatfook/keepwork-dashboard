@@ -60,7 +60,7 @@ export default class BlockedProjects extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit', 'delete'],
+      disabled: ['show', 'edit', 'destroy'],
       extra: [
         {
           name: 'resources.BlockedProjects.title',

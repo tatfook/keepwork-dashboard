@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <div class="action-container">
-      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">Generate Code</el-button>
+      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">生成邀请码</el-button>
     </div>
 
-    <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleActions="handleActions" @handleSort="handleSort"></crud-table>
+    <crud-table :listLoading="listLoading" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort" />
 
-    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"></crud-paginate>
+    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
     <el-dialog title="Code Generator" :visible.sync="dialogFormVisible">
       <el-input v-model="count" placeholder="Please input" style='width:400px;'></el-input>
@@ -32,11 +32,6 @@ export default {
   methods: {
     handleGenerate() {
       this.dialogFormVisible = true
-    },
-    async getList() {
-      this.listLoading = true
-      await this.setQueryOptions({ queryOptions: this.listQuery })
-      this.listLoading = false
     },
     async generateData() {
       this.downloadLoading = true

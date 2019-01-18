@@ -2,7 +2,6 @@ import {
   getResourceClass,
   newResource
 } from '@/resources'
-// import _ from 'lodash'
 
 const resource = {
   state: {
@@ -26,17 +25,13 @@ const resource = {
       state.resourceClass = getResourceClass(state.resourceName)
       state.actions = state.resourceClass.actions()
       state.attributes = state.resourceClass.attributes()
-      state.model = state.resourceClass.model()
+      state.api = state.resourceClass.api()
       state.resourceList = []
       state.selectedResources = []
       state.total = 0
       state.activeResource = undefined
       state.queryOptions = {}
-      state.nestedData = {}
       state.nested = state.resourceClass.nested()
-      for (const item of state.nested) {
-        state.nestedData[item.name] = {}
-      }
     },
     SET_ACTIVE_RESOURCE: (state, { resource }) => {
       state.activeResource = resource
@@ -47,9 +42,6 @@ const resource = {
     SET_RESOURCE_LIST: (state, { resourceList, total }) => {
       state.resourceList = resourceList
       state.total = total
-    },
-    SET_NESTED_DATA: (state, { nestedData }) => {
-      state.nestedData = nestedData
     },
     SET_SELECTED_RESOURCES: (state, { selectedResources }) => {
       state.selectedResources = selectedResources
@@ -74,44 +66,10 @@ const resource = {
       queryOptions
     }) {
       await commit('SET_QUERY_OPTIONS', { queryOptions })
-
-      if (!state.model || !state.model.list) {
-        return false
-      }
-
-      const res = await state.model.list(queryOptions)
-
-      if (!res || !res.rows) {
-        return false
-      }
-
+      const res = await state.api.list(queryOptions)
       const resourceList = res.rows.map(row => newResource(state.resourceName, row))
-
       const total = res.count
       await commit('SET_RESOURCE_LIST', { resourceList, total })
-
-      // const nestedData = {}
-      // for (const item of state.nested) {
-      //   const nestedResource = getResourceClass(item.associate)
-      //   const key = item.name
-      //   nestedData[key] = {}
-      //   const idList = _(resourceList)
-      //     .map(item => {
-      //       return _.isObject(item[key]) ? item[key].id : item[key]
-      //     })
-      //     .compact()
-      //     .flatten()
-      //     .uniq()
-      //   const list = await nestedResource.model().list({
-      //     id: idList
-      //   })
-      //   for (const item of list.rows) {
-      //     _.merge(nestedData[key], {
-      //       [item.id]: item
-      //     })
-      //   }
-      // }
-      // await commit('SET_NESTED_DATA', { nestedData })
     },
 
     async setSelectedResouces({
