@@ -17,7 +17,8 @@
   "export": "导出",
   "new": "新增",
   "addFilter": "筛选",
-  "deleteAll": "删除全部",
+  "deleteAll": "删除选中",
+  "unblockSelected": "解封选中",
   "search": "搜索",
   "name": "名字",
   "roles": "角色",
@@ -25,7 +26,7 @@
   "base": {
     "confirm": {
       "delete": "是否确定?",
-      "deleteList": "将删除整个列表，是否确定?"
+      "deleteList": "将删除所选中的列表，是否确定?"
     },
     "success": {
       "create": "创建成功!",
@@ -51,6 +52,11 @@
       "like": "匹配",
       "notLike": "不匹配"
     }
+  },
+  "unblockSelectedMsg": {
+    "dialogMsg": "将解封所选中的列表，是否确定？",
+    "success": "解封成功！",
+    "failure":  "解封失败！"
   },
   "sidebar": {
     "sidebarUser": "账户",
@@ -117,7 +123,7 @@
         "cellphone": "绑定手机号",
         "level": "用户等级",
         "description": "封号原因",
-        "handler": "操作者"
+        "handlerName": "操作者"
       }
     },
     "Tutor": {
@@ -138,14 +144,14 @@
         "updatedAt": "更新日期"
       },
       "tips": {
-        "keyWord": "关键词重复",
-        "updateError": "操作失误"
+        "keyWord": "关键词重复！",
+        "updateError": "操作失误！"
       }
     },
     "blockedUser": {
       "tips": {
-        "createDataError": "添加用户信息失败",
-        "updateError": "操作失误"
+        "createDataError": "封停用户失败！",
+        "updateError": "操作失误！"
       }
     },
     "WebsiteManage": {
@@ -161,7 +167,18 @@
         "sitename": "网站名",
         "createdAt": "封号日期",
         "description": "封号原因",
-        "handler": "操作者"
+        "handlerName": "操作者"
+      },
+      "button": {
+        "unblock": "解封",
+        "unblockMsg": "是否确定解封网站？"
+      },
+      "dialog": {
+        "title": "对指定网站封站"
+      },
+      "tips": {
+        "createError": "封停网站失败！",
+        "operateMiss": "操作失误！"
       }
     },
     "TeacherCDKey": {
@@ -238,19 +255,24 @@
       }
     },
     "BlockedProjects": {
+      "msg": "是否确定解封用户？",
+      "title": "解封",
+      "deblockAll": "解封选中",
       "attr": {
         "id": "ID",
         "name": "项目名称",
         "createdAt": "封停日期",
         "description": "封停原因",
-        "handler": "操作者"
+        "handlerName": "操作者"
       }
     },
     "IssuesManage": {
       "attr": {
         "title": "issue标题",
         "createdAt": "创建日期",
-        "updatedAt": "更改日期"
+        "updatedAt": "更改日期",
+        "issuesUserName": "发表者",
+        "userName": "创建者"
       }
     },
     "PackageLesson": {

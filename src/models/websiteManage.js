@@ -18,6 +18,11 @@ export default function websiteManageModel() {
     },
     async destroy(params) {
       return websitesCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }

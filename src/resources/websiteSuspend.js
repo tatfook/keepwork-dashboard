@@ -12,7 +12,6 @@ export default class websiteSuspend extends BaseResource {
         required: true,
         search: true,
         sort: false,
-        edit: true,
         formAssociate: 'sites',
         associate: 'illegalSites',
         associateAs: 'illegalSites',
@@ -22,7 +21,7 @@ export default class websiteSuspend extends BaseResource {
         name: 'createdAt',
         type: 'Date',
         component: 'time',
-        edit: true,
+        create: false,
         search: false
       },
       {
@@ -31,13 +30,13 @@ export default class websiteSuspend extends BaseResource {
         required: true,
         component: 'text',
         sort: false,
-        edit: true
+        search: false
       },
       {
-        name: 'handler',
-        type: 'Number',
-        create: false,
-        edit: false,
+        name: 'handlerName',
+        type: 'String',
+        required: true,
+        search: false,
         sort: false
       }
     ]
@@ -49,7 +48,79 @@ export default class websiteSuspend extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit']
+      disabled: ['show', 'edit', 'delete'],
+      extra: [
+        {
+          name: 'resources.WebsiteSuspend.button.unblock',
+          func: (ctx, data) => {
+            ctx.$confirm(ctx.$t('resources.WebsiteSuspend.button.unblockMsg'), ctx.$t('resources.WebsiteSuspend.button.unblock'), {
+              confirmButtonText: ctx.$t('ok'),
+              cancelButtonText: ctx.$t('cancel'),
+              type: 'warning'
+            })
+              .then(async() => {
+                ctx.$notify({
+                  title: ctx.$t('success'),
+                  message: ctx.$t('unblockSelectedMsg.success'),
+                  type: 'success',
+                  duration: 2000
+                })
+                await this.model().destroy(data)
+                ctx.getList()
+              })
+              .catch(err => {
+                console.error(err)
+                ctx.$message({
+                  type: 'error',
+                  message: ctx.$t('unblockSelectedMsg.failure')
+                })
+              })
+          }
+        }
+      ]
+    }
+  }
+
+  static action() {
+    return {
+      extra: [
+        {
+          name: 'unblockSelected',
+          func: (ctx) => {
+            if (ctx.selected.length === 0) {
+              ctx.$message({
+                type: 'error',
+                message: ctx.$t('base.failed.empty')
+              })
+              return
+            }
+            ctx.$confirm(ctx.$t('unblockSelectedMsg.dialogMsg'), ctx.$t('unblockSelected'), {
+              confirmButtonText: ctx.$t('ok'),
+              cancelButtonText: ctx.$t('cancel'),
+              type: 'warning'
+            })
+              .then(() => {
+                this.model().destroyAll({ ids: ctx.selected.map(row => row.id) })
+                  .then(() => {
+                    ctx.$notify({
+                      title: ctx.$t('success'),
+                      message: ctx.$t('unblockSelectedMsg.success'),
+                      type: 'success',
+                      duration: 2000
+                    })
+                    ctx.getList()
+                  })
+              })
+              .catch(err => {
+                console.error(err)
+                ctx.$message({
+                  type: 'error',
+                  message: ctx.$t('unblockSelectedMsg.failure')
+                })
+              })
+          }
+        }
+      ]
     }
   }
 }

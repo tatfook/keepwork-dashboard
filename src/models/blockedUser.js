@@ -1,7 +1,8 @@
 import { resourceCRUD } from '../api/keepwork'
 import _ from 'lodash'
+import { getAdminInfo } from '@/utils/auth'
 
-// const usersCRUD = resourceCRUD('users')
+const adminsCRUD = resourceCRUD('admins')
 const illegalsCRUD = resourceCRUD('illegals')
 
 export default function blockedUserModel() {
@@ -11,40 +12,43 @@ export default function blockedUserModel() {
         return { count: 0, rows: [] }
       }
 
-      // if (params['cellphone-eq']) {
-      //   const cellphone = params['cellphone-eq']
-
-      //   try {
-      //     const response = await usersCRUD.get('?cellphone=' + cellphone)
-      //     params['objectId-eq'] = response[0].id
-      //   } catch (error) {
-      //     console.log(error)
-      //   }
-
-      //   params['objectId-eq'] = params['objectId-eq'] || 0
-
-      //   delete params['cellphone-eq']
-      // }
-
       params.where['objectType'] = 0
       const originList = await illegalsCRUD.list(params)
-
-      _.map(
-        originList.rows,
-        (item) => {
-          item.level = 'ordinary'
-        }
-      )
 
       if (!originList || !originList.count || !Array.isArray(originList.rows)) {
         return { count: 0, rows: [] }
       }
+
+      _.map(originList.rows, item => {
+        item.level = 'ordinary'
+      })
+
+      const handlerIds = _.map(originList.rows, 'handler')
+
+      const admins = await adminsCRUD.list({ 'id-in': handlerIds }, 'search')
+
+      const adminMap = new Map()
+
+      for (const item of admins.rows) {
+        adminMap.set(item.id, item)
+      }
+
+      originList.rows.map(item => {
+        const handlerInfo = adminMap.get(item.handler)
+
+        if (handlerInfo) {
+          item.handlerName = handlerInfo.username
+        }
+      })
 
       return originList
     },
     async create(params) {
       if (typeof params === 'object') {
         params['objectType'] = 0
+
+        const adminInfo = getAdminInfo()
+        params['handler'] = adminInfo.userId
       }
 
       return illegalsCRUD.create(params)

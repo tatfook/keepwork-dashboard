@@ -63,7 +63,7 @@ export default {
     async getList() {
       this.listLoading = true
       const query = this.resourceClass.queryFilter(new ActiveQuery())
-      const queryOptions = query.where(this.listFilter).paginate(this.listQuery[QUERY.page], this.listQuery[QUERY.perPage]).order(this.listQuery.order).query
+      const queryOptions = query.where(this.listFilter).paginate(this.listQuery[QUERY.page], this.listQuery[QUERY.perPage]).order(this.listQuery[QUERY.order]).query
       await this.setQueryOptions({ queryOptions })
 
       this.listLoading = false
@@ -71,7 +71,7 @@ export default {
     colFilter(col, row) {
       let value = _.get(row, col.name)
 
-      if (!value) {
+      if (value == null || value === undefined) {
         value = _.get(row, col.originName)
       }
 
