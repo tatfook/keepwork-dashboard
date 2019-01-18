@@ -57,6 +57,12 @@ export default class ProjectsManage extends BaseResource {
         search: true
       },
       {
+        name: 'projectUrl',
+        edit: false,
+        sort: false,
+        search: false
+      },
+      {
         name: 'privilege',
         type: 'Number',
         edit: true,

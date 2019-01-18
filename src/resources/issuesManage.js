@@ -14,12 +14,22 @@ export default class IssuesManage extends BaseResource {
       {
         name: 'id',
         type: 'Number',
+        edit: false,
+        sort: false,
+        search: false,
         show: false
+      },
+      {
+        name: 'issueUrl',
+        edit: false,
+        sort: false,
+        search: false
       },
       {
         name: 'issuesUserName',
         type: 'String',
-        show: true
+        show: true,
+        search: false
       },
       {
         name: 'userName',

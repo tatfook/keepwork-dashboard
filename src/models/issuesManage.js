@@ -75,6 +75,11 @@ export default function issuesManageModel() {
           item.userName = userInfo.username
         }
       })
+
+      issuesManageList.rows.map(item => {
+        const base = process.env.KEEPWORK_PREFIX
+        item.issueUrl = base + 'pbl/project/' + item.id + '/whiteboard'
+      })
       return issuesManageList
     },
     async create(params) {

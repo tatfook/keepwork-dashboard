@@ -266,7 +266,8 @@
         "name": "项目名称",
         "privilege": "招募状态",
         "createdAt": "创建日期",
-        "updatedAt": "更新日期"
+        "updatedAt": "更新日期",
+        "projectUrl": "项目地址"
       }
     },
     "BlockedProjects": {
@@ -288,7 +289,8 @@
         "createdAt": "创建日期",
         "updatedAt": "更改日期",
         "issuesUserName": "发表者",
-        "userName": "创建者"
+        "userName": "创建者",
+        "issueUrl": "issue地址"
       }
     },
     "PackageLesson": {
