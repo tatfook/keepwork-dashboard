@@ -19,6 +19,7 @@
   "addFilter": "Add Filter",
   "deleteAll": "Delete Selected",
   "unblockSelected": "Unblock Selected",
+  "newSelection": "New Selection",
   "search": "Search",
   "name": "name",
   "roles": "roles",
@@ -98,6 +99,7 @@
     "sidebarProjects": "Projects",
     "projects": {
       "ProjectsManage": "ProjectsManage",
+      "HomeSelection": "Home Selection",
       "BlockedProjects": "BlockedProjects"
     }
   },
@@ -254,6 +256,16 @@
         "privilege": "recruitment status",
         "createdAt": "created at",
         "updatedAt": "updated at"
+      }
+    },
+    "HomeSelection": {      
+      "attr": {
+        "choicenessNo": "number",
+        "id": "item ID",
+        "name": "name"
+      },
+      "button": {
+        "del": "删除"
       }
     },
     "BlockedProjects": {

@@ -15,6 +15,7 @@ import Tutor from './tutor'
 import ProjectsManage from './projectsManage'
 import BlockedProjects from './blockedProjects'
 import WebsiteManage from './websiteManage'
+import HomeSelection from './homeSelection'
 import WebsiteSuspend from './websiteSuspend'
 import IssuesManage from './issuesManage'
 
@@ -35,6 +36,7 @@ export const resources = {
   ProjectsManage,
   BlockedProjects,
   WebsiteManage,
+  HomeSelection,
   WebsiteSuspend,
   IssuesManage
 }

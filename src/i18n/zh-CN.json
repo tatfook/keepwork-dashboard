@@ -19,6 +19,7 @@
   "addFilter": "筛选",
   "deleteAll": "删除选中",
   "unblockSelected": "解封选中",
+  "newSelection": "新增精选",
   "search": "搜索",
   "name": "名字",
   "roles": "角色",
@@ -97,6 +98,7 @@
     "sidebarProjects": "项目",
     "projects": {
       "ProjectsManage": "项目管理",
+      "HomeSelection": "首页精选",
       "BlockedProjects": "封停项目",
       "IssuesManage": "issues管理"
     }
@@ -267,6 +269,16 @@
         "privilege": "招募状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期"
+      }
+    },
+    "HomeSelection": {      
+      "attr": {
+        "choicenessNo": "编号",
+        "id": "项目ID",
+        "name": "名称"
+      },
+      "button": {
+        "del": "删除"
       }
     },
     "BlockedProjects": {
