@@ -71,7 +71,7 @@ export default {
     colFilter(col, row) {
       let value = _.get(row, col.name)
 
-      if (!value) {
+      if (value == null || value === undefined) {
         value = _.get(row, col.originName)
       }
 
