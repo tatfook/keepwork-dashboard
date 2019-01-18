@@ -1,5 +1,6 @@
 import projectsManageModel from '@/models/projectsManage'
 import BaseResource from './base'
+import _ from 'lodash'
 
 const model = projectsManageModel()
 
@@ -23,6 +24,16 @@ const typeMap = [
     value: 'paracraft项目'
   }
 ]
+const projectLevel = [
+  {
+    key: 0,
+    value: '一般'
+  },
+  {
+    key: 1,
+    value: '精选项目'
+  }
+]
 
 export default class ProjectsManage extends BaseResource {
   static attributes() {
@@ -42,6 +53,20 @@ export default class ProjectsManage extends BaseResource {
         options: typeMap,
         filter: (key) => {
           for (const item of typeMap) {
+            if (item.key === key) {
+              return item.value
+            }
+          }
+
+          return key
+        }
+      },
+      {
+        name: 'choicenessNo',
+        type: 'Number',
+        options: projectLevel,
+        filter: (key) => {
+          for (const item of projectLevel) {
             if (item.key === key) {
               return item.value
             }
@@ -105,7 +130,48 @@ export default class ProjectsManage extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'show', 'edit']
+      disabled: ['create', 'show', 'edit'],
+      extra: [
+        {
+          name: 'resources.ProjectsManage.setForSelection',
+          func: (ctx, data) => {
+            data.choicenessNo = 1
+            ctx.model.update(data)
+          }
+        },
+        {
+          name: 'resources.ProjectsManage.cancelSelect',
+          func: (ctx, data) => {
+            data.choicenessNo = 0
+            ctx.model.update(data)
+          }
+        }
+      ]
+    }
+  }
+
+  static action() {
+    return {
+      extra: [
+        {
+          name: 'resources.ProjectsManage.batchSelection',
+          func: (ctx) => {
+            _.forEach(ctx.selected, (item, key) => {
+              item.choicenessNo = 1
+              ctx.model.update(item)
+            })
+          }
+        },
+        {
+          name: 'resources.ProjectsManage.batchCancellationSelection',
+          func: (ctx) => {
+            _.forEach(ctx.selected, (item, key) => {
+              item.choicenessNo = 0
+              ctx.model.update(item)
+            })
+          }
+        }
+      ]
     }
   }
 }
