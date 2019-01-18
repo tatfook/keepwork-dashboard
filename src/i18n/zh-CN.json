@@ -260,6 +260,10 @@
       }
     },
     "ProjectsManage": {
+      "setForSelection": "设为精选",
+      "cancelSelect": "取消精选",
+      "batchSelection": "批量精选",
+      "batchCancellationSelection": "批量取消精选",
       "attr": {
         "id": "ID",
         "type": "项目类型",
@@ -267,7 +271,8 @@
         "privilege": "招募状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
-        "projectUrl": "项目地址"
+        "projectUrl": "项目地址",
+        "choicenessNo": "项目级别"
       }
     },
     "BlockedProjects": {
