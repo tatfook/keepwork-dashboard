@@ -6,7 +6,7 @@
 
     <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleActions="handleActions" @handleSort="handleSort"></crud-table>
 
-    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"> </crud-paginate>
+    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"></crud-paginate>
 
     <el-dialog title="Code Generator" :visible.sync="dialogFormVisible">
       <el-input v-model="count" placeholder="Please input" style='width:400px;'></el-input>
@@ -41,12 +41,13 @@ export default {
     async generateData() {
       this.downloadLoading = true
       const list = await this.resourceClass.model().generate(this.count)
+
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = this.resourceClass.exportAttrs().map(item => item.name)
+        const tHeader = this.resourceClass.exportAttrs().map(item => this.i18n(item.name))
         const data = list.map(data =>
           this.resourceClass
             .exportAttrs()
-            .map(col => this.colFilter(col, data[col.name]))
+            .map(col => this.colFilter(col, data))
         )
         excel.export_json_to_excel({
           header: tHeader,
