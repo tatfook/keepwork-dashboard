@@ -57,7 +57,6 @@ export default function websiteManageModel() {
             listArr.push(each.userName)
           }
         }
-        console.log(this.$t('dialog.permission.reject'))
         item.userName = listArr
         switch (item.level) {
           case 128:
