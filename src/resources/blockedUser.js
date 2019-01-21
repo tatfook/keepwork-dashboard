@@ -107,12 +107,17 @@ export default class BlockedUser extends BaseResource {
       disabled: ['show', 'edit', 'destroy'],
       extra: [
         {
-          name: 'resources.BlockedUser.title',
+          name: 'block',
+          button: 'warning',
           func: async(row) => {
             await this.api().destroy(row)
           },
-          button: 'warning',
-          confirm: this.i18nBase('resources.BlockedUser.msg')
+          title: (row) => {
+            return this.i18nBase('resources.BlockedUser.title')
+          },
+          confirmMsg: (row) => {
+            return this.i18nBase('resources.BlockedUser.msg')
+          }
         }
       ]
     }
