@@ -2,7 +2,20 @@
   <div class="app-container">
     <div class="action-container">
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">生成邀请码</el-button>
+
+      <el-dropdown style="float: right" @command="handleAddFilter">
+        <el-button type="primary">
+          {{$t('addFilter')}}
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-for="item in searchableFilters" :key="item" :command="item">
+            {{i18n(item)}}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
+    <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
 
     <crud-table :listLoading="listLoading" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort" />
 
