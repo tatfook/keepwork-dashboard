@@ -104,9 +104,8 @@ export default {
           const extraAction = this.actions.extra[index]
           const func = extraAction.func || this[`handle${_.capitalize(action)}`]
           if (!func) throw new Error('Missing action' + action)
-          const msg = await extraAction.confirmMsg(row)
-          if (msg) {
-            this.$confirm(msg, '', {
+          if (extraAction.confirmMsg) {
+            this.$confirm(extraAction.confirmMsg(row), '', {
               confirmButtonText: this.$t('ok'),
               cancelButtonText: this.$t('cancel'),
               type: 'warning'
