@@ -97,6 +97,13 @@ export default {
       if (_.indexOf(DEFAULT_ACTIONS, action) !== -1) {
         return this[`handle${_.capitalize(action)}`](row)
       } else {
+        // customActions
+        const customIndex = _.findIndex(this.customActions.append, { name: action })
+        if (customIndex !== -1) {
+          const func = this.customActions.append[customIndex].func
+          await func(row, this)
+          return
+        }
         const index = _.findIndex(this.actions.extra, {
           name: action
         })
@@ -311,7 +318,8 @@ export default {
       total: 'total',
       api: 'api',
       attributes: 'attributes',
-      actions: 'actions'
+      actions: 'actions',
+      customActions: 'customActions'
     }),
     showingData() {
       if (!this.showingFormVisible) return []

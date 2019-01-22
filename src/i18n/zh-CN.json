@@ -23,6 +23,10 @@
   "name": "名字",
   "roles": "角色",
   "operate": "操作",
+
+  "viewDetail": "查看详情",
+  "setChoice": "设为精选",
+  "setDefault": "取消精选",
   "base": {
     "confirm": {
       "delete": "是否确定?",
@@ -251,7 +255,9 @@
         "name": "项目名称",
         "privilege": "招募状态",
         "createdAt": "创建日期",
-        "updatedAt": "更新日期"
+        "updatedAt": "更新日期",
+        "choicenessNo": "项目级别",
+        "choice": "设为精选"
       }
     },
     "BlockedProjects": {
