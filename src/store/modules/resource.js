@@ -15,7 +15,6 @@ const resource = {
     nested: {},
     total: 0,
     actions: {},
-    customActions: {},
     attributes: {},
     api: {}
   },
@@ -25,7 +24,6 @@ const resource = {
       state.resourceName = resourceName
       state.resourceClass = getResourceClass(state.resourceName)
       state.actions = state.resourceClass.actions()
-      state.customActions = state.resourceClass.customActions ? state.resourceClass.customActions() : {}
       state.attributes = state.resourceClass.attributes()
       state.api = state.resourceClass.api()
       state.resourceList = []

@@ -1,7 +1,6 @@
 import projectsManageModel from '@/models/projectsManage'
 import BaseResource from './base'
 import { resourceCRUD } from '@/api/keepwork'
-import _ from 'lodash'
 
 const projectsCRUD = resourceCRUD('projects')
 
@@ -34,9 +33,9 @@ export default class ProjectsManage extends BaseResource {
       {
         name: 'id',
         type: 'Number',
-        show: false,
+        show: true,
         edit: false,
-        search: false
+        search: true
       },
       {
         name: 'type',
@@ -81,6 +80,28 @@ export default class ProjectsManage extends BaseResource {
         }
       },
       {
+        name: 'userId',
+        type: 'Number',
+        edit: false,
+        show: true,
+        search: true
+      },
+      {
+        name: 'classifyTags',
+        type: 'String',
+        show: false,
+        search: false
+      },
+      {
+        name: 'visibility',
+        type: 'String',
+        show: true,
+        search: false,
+        filter(value) {
+          return value > 0 ? '私有' : '共开'
+        }
+      },
+      {
         name: 'createdAt',
         type: 'Date',
         show: true,
@@ -113,7 +134,29 @@ export default class ProjectsManage extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'show', 'edit']
+      disabled: ['create', 'show', 'edit'],
+      extra: [{
+        name: 'set',
+        button: 'primary',
+        type(row) {
+          return row['choicenessNo'] > 0 ? 'danger' : 'success'
+        },
+        title(row) {
+          return row['choicenessNo'] > 0 ? '取消精选' : '设为精选'
+        },
+        async func(row, that) {
+          const flag = row['choicenessNo'] === 0 ? 1 : 0
+          await projectsCRUD.update({ ...row, choicenessNo: flag })
+        }
+      }, {
+        name: 'viewDetail',
+        title() {
+          return '查看详情'
+        },
+        func(project) {
+          window.open(`https://keepwork.com/pbl/project/${project.id}`, '_blank')
+        }
+      }]
     }
   }
 
@@ -142,62 +185,21 @@ export default class ProjectsManage extends BaseResource {
     }
   }
 
-  static customActions() {
+  static buttons() {
     return {
       append: [
         {
-          name: 'setChoice',
-          button: 'primary',
-          filter: row => row['choicenessNo'] === 0,
-          async func(row, that) {
-            await projectsCRUD.update({ ...row, choicenessNo: 1 })
-              .then(res => {
-                row['choicenessNo'] = 1
-                that.$notify({
-                  title: that.$t('success'),
-                  message: that.$t('base.success.update'),
-                  type: 'success',
-                  duration: 2000
-                })
-              }).catch(e => {
-                that.$notify({
-                  title: that.$t('fail'),
-                  message: that.$t('base.failed.update'),
-                  type: 'error',
-                  duration: 2000
-                })
-              })
+          name: '设置精选',
+          type: 'success',
+          async func(projects) {
+            await Promise.all(projects.map(item => projectsCRUD.update({ ...item, choicenessNo: 1 })))
           }
         },
         {
-          name: 'setDefault',
-          button: 'danger',
-          filter: row => row['choicenessNo'] > 0,
-          async func(row, that) {
-            await projectsCRUD.update({ ...row, choicenessNo: 0 })
-              .then(res => {
-                row['choicenessNo'] = 0
-                that.$notify({
-                  title: that.$t('success'),
-                  message: that.$t('base.success.update'),
-                  type: 'success',
-                  duration: 2000
-                })
-              })
-              .catch(e => {
-                that.$notify({
-                  title: that.$t('fail'),
-                  message: that.$t('base.failed.update'),
-                  type: 'error',
-                  duration: 2000
-                })
-              })
-          }
-        },
-        {
-          name: 'viewDetail',
-          func(project) {
-            window.open(`https://keepwork.com/pbl/project/${project.id}`, '_blank')
+          name: '取消精选',
+          type: 'danger',
+          async func(projects) {
+            await Promise.all(projects.map(item => projectsCRUD.update({ ...item, choicenessNo: 0 })))
           }
         }
       ]

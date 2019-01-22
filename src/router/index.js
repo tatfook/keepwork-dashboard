@@ -263,6 +263,15 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.projects.IssuesManage'
         }
+      },
+      {
+        path: 'systemTags',
+        component: () => import('@/views/projects/systemTags/index'),
+        name: 'System Tags',
+        resource: 'SystemTags',
+        meta: {
+          title: 'sidebar.projects.SystemTags'
+        }
       }
     ]
   },

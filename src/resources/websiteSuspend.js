@@ -52,11 +52,16 @@ export default class websiteSuspend extends BaseResource {
       extra: [
         {
           name: 'resources.WebsiteSuspend.button.unblock',
+          button: 'warning',
           func: async(row) => {
             await this.api().destroy(row)
           },
-          button: 'warning',
-          confirm: this.i18nBase('resources.WebsiteSuspend.button.unblockMsg')
+          title: (row) => {
+            return this.i18nBase('resources.BlockedProjects.title')
+          },
+          confirmMsg: (row) => {
+            return this.i18nBase('resources.WebsiteSuspend.button.unblockMsg')
+          }
         }
       ]
     }

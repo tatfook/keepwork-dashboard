@@ -97,13 +97,6 @@ export default {
       if (_.indexOf(DEFAULT_ACTIONS, action) !== -1) {
         return this[`handle${_.capitalize(action)}`](row)
       } else {
-        // customActions
-        const customIndex = _.findIndex(this.customActions.append, { name: action })
-        if (customIndex !== -1) {
-          const func = this.customActions.append[customIndex].func
-          await func(row, this)
-          return
-        }
         const index = _.findIndex(this.actions.extra, {
           name: action
         })
@@ -111,8 +104,8 @@ export default {
           const extraAction = this.actions.extra[index]
           const func = extraAction.func || this[`handle${_.capitalize(action)}`]
           if (!func) throw new Error('Missing action' + action)
-          if (extraAction.confirm) {
-            this.$confirm(extraAction.confirm, '', {
+          if (extraAction.confirmMsg) {
+            this.$confirm(extraAction.confirmMsg(row), '', {
               confirmButtonText: this.$t('ok'),
               cancelButtonText: this.$t('cancel'),
               type: 'warning'
@@ -288,6 +281,31 @@ export default {
         })
       })
     },
+    async handleAppendButtonAction(button) {
+      if (this.selected.length === 0) {
+        this.$message({
+          type: 'error',
+          message: this.$t('base.failed.empty')
+        })
+        return
+      }
+      const { func } = button
+      if (!func) throw new Error('Missing Function')
+      try {
+        await func(this.selected)
+        this.$notify({
+          title: this.$t('success'),
+          type: 'success',
+          duration: 2000
+        })
+        this.getList()
+      } catch (error) {
+        this.$message({
+          type: 'error',
+          message: this.$t('base.fail')
+        })
+      }
+    },
     handleSort(column, order) {
       this.listQuery.order = column + '-' + order
       this.getList()
@@ -318,8 +336,7 @@ export default {
       total: 'total',
       api: 'api',
       attributes: 'attributes',
-      actions: 'actions',
-      customActions: 'customActions'
+      actions: 'actions'
     }),
     showingData() {
       if (!this.showingFormVisible) return []
@@ -334,6 +351,9 @@ export default {
     },
     searchableFilters() {
       return this.resourceClass.searchAttrs().map(attr => attr.alias || attr.name)
+    },
+    appendButtons() {
+      return this.resourceClass.buttons ? this.resourceClass.buttons().append : []
     }
   },
   components: {

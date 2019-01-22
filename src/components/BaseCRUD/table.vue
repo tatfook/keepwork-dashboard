@@ -13,9 +13,7 @@
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row)">{{$t('show')}}</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row)">{{$t('edit')}}</el-button>
           <el-button v-if="can('destroy')" type="warning" size="mini" @click="handleAction('delete', scope.row)">{{$t('delete')}}</el-button>
-          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.button">{{$t(op.name)}}</el-button>
-
-          <el-button v-for="op in customActions(scope.row)" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.button">{{$t(op.name)}}</el-button>
+          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.type ? op.type(scope.row) : op.button">{{op.title(scope.row)}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -40,8 +38,7 @@ export default {
   },
   data() {
     return {
-      cachedCan: {},
-      customLength: 0
+      cachedCan: {}
     }
   },
   methods: {
@@ -77,16 +74,6 @@ export default {
     },
     handleSelectionChange(selectedResources) {
       this.setSelectedResouces({ selectedResources })
-    },
-    customActions(row) {
-      if (this.resourceClass.customActions) {
-        const extraStateActions = this.resourceClass.customActions().append || []
-        const actions = extraStateActions.filter(action => action.filter ? action.filter(row) : true)
-        this.customLength = actions.length
-        return actions
-      }
-      this.customLength = 0
-      return []
     }
   },
   computed: {
@@ -101,7 +88,7 @@ export default {
       const extraLength = this.canActions.length
       // const buttonWidth = 80
       const buttonWidth = 90
-      return (_.difference(defaultAction, disabled).length + extraLength + this.customLength) * buttonWidth
+      return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
     },
     canActions() {
       const extraAxtions = this.resourceClass.actions().extra || []
