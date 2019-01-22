@@ -17,6 +17,7 @@ import CRUDForm from './form'
 import CRUDShow from './show'
 import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
+import CRUDCheckbox from './checkbox'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 const FORMAT = {
@@ -41,10 +42,15 @@ export default {
       listFilter: {},
       dialogFormVisible: false,
       showingFormVisible: false,
+      dialogCheckboxVisible: false,
+      checkboxData: [],
       dialogStatus: '',
+      dialogCheckboxStatus: '',
       textMap: {
         update: 'edit',
-        create: 'create'
+        create: 'create',
+        addSystemTags: 'addSystemTags',
+        removeSystemTags: 'removeSystemTags'
       },
       downloadLoading: false,
       searchParams: []
@@ -289,20 +295,40 @@ export default {
         })
         return
       }
-      const { func } = button
+      const { func, refresh = true } = button
       if (!func) throw new Error('Missing Function')
       try {
-        await func(this.selected)
-        this.$notify({
-          title: this.$t('success'),
-          type: 'success',
-          duration: 2000
-        })
-        this.getList()
+        await func(this.selected, this)
+        if (refresh) {
+          this.$notify({
+            title: this.$t('success'),
+            type: 'success',
+            duration: 2000
+          })
+          this.getList()
+        }
       } catch (error) {
+        console.error(error)
         this.$message({
           type: 'error',
-          message: this.$t('base.fail')
+          message: this.$t('fail')
+        })
+      }
+    },
+    async handleCheckboxUpdate(selected) {
+      try {
+        const callback = this.appendButtonUpdateCallback[this.dialogCheckboxStatus]
+        if (callback) {
+          await callback(selected, this)
+        }
+        this.dialogCheckboxVisible = false
+        this.getList()
+      } catch (error) {
+        this.dialogCheckboxVisible = false
+        console.error(error)
+        this.$message({
+          type: 'error',
+          message: this.$t('fail')
         })
       }
     },
@@ -354,6 +380,9 @@ export default {
     },
     appendButtons() {
       return this.resourceClass.buttons ? this.resourceClass.buttons().append : []
+    },
+    appendButtonUpdateCallback() {
+      return this.resourceClass.buttons ? this.resourceClass.buttons().callback : {}
     }
   },
   components: {
@@ -361,6 +390,7 @@ export default {
     'crud-form': CRUDForm,
     'crud-show': CRUDShow,
     'crud-paginate': CRUDPaginate,
-    'crud-filter': CRUDFilter
+    'crud-filter': CRUDFilter,
+    'crud-checkbox': CRUDCheckbox
   }
 }

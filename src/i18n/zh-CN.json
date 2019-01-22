@@ -27,6 +27,8 @@
   "viewDetail": "查看详情",
   "setChoice": "设为精选",
   "setDefault": "取消精选",
+  "addSystemTags": "添加系统标签",
+  "removeSystemTags": "去除系统标签",
   "base": {
     "confirm": {
       "delete": "是否确定?",
@@ -292,7 +294,7 @@
         "id": "ID",
         "classify": "类别",
         "tagname": "系统标签名称",
-        "extra": "附加信息",
+        "extra": "操作者",
         "createdAt": "创建日期",
         "updatedAt": "更改日期"
       }

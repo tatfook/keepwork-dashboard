@@ -16,9 +16,9 @@ export default class SystemTags extends BaseResource {
       {
         name: 'classify',
         type: 'Number',
-        show: true,
+        show: false,
         edit: false,
-        search: true
+        search: false
       },
       {
         name: 'tagname',
@@ -32,7 +32,10 @@ export default class SystemTags extends BaseResource {
         type: 'Object',
         show: true,
         edit: false,
-        search: true
+        search: true,
+        filter(value) {
+          return value['username'] || ''
+        }
       },
       {
         name: 'createdAt',
@@ -57,7 +60,7 @@ export default class SystemTags extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'destroy']
+      disabled: ['show', 'destroy', 'delete']
     }
   }
 }
