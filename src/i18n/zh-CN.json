@@ -23,10 +23,18 @@
   "name": "名字",
   "roles": "角色",
   "operate": "操作",
+
+  "viewDetail": "查看详情",
+  "setChoice": "设为精选",
+  "setDefault": "取消精选",
+  "addSystemTags": "添加系统标签",
+  "removeSystemTags": "去除系统标签",
   "base": {
     "confirm": {
       "delete": "是否确定?",
-      "deleteList": "将删除所选中的列表，是否确定?"
+      "deleteList": "将删除所选中的列表，是否确定?",
+      "choice": "是否设置精选?",
+      "noChoice": "是否取消精选?"
     },
     "success": {
       "create": "创建成功!",
@@ -86,7 +94,8 @@
     "projects": {
       "ProjectsManage": "项目管理",
       "BlockedProjects": "封停项目",
-      "IssuesManage": "issues管理"
+      "IssuesManage": "issues管理",
+      "SystemTags": "系统标签"
     }
   },
   "resources": {
@@ -185,7 +194,9 @@
       "attr": {
         "key": "邀请码",
         "state": "状态",
-        "createdAt": "创建日期"
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期",
+        "userId": "用户"
       }
     },
     "Subject": {
@@ -251,7 +262,12 @@
         "name": "项目名称",
         "privilege": "招募状态",
         "createdAt": "创建日期",
-        "updatedAt": "更新日期"
+        "updatedAt": "更新日期",
+        "choicenessNo": "项目级别",
+        "userId": "创建者",
+        "classifyTags": "系统标签",
+        "status": "状态",
+        "visibility": "可见性"
       }
     },
     "BlockedProjects": {
@@ -273,6 +289,16 @@
         "updatedAt": "更改日期",
         "issuesUserName": "发表者",
         "userName": "创建者"
+      }
+    },
+    "SystemTags": {
+      "attr": {
+        "id": "ID",
+        "classify": "类别",
+        "tagname": "系统标签名称",
+        "extra": "操作者",
+        "createdAt": "创建日期",
+        "updatedAt": "更改日期"
       }
     },
     "PackageLesson": {

@@ -83,11 +83,23 @@ export default {
     },
     handleSearch() {
       const q = {}
+      this.customFilter()
       for (const filter in this.quries) {
         const data = this.quries[filter]
         if (data.value !== '') _.merge(q, parseQuery(data))
       }
       this.$emit('handleSearch', q)
+    },
+    customFilter() {
+      if (!this.resourceClass.customFilter) {
+        return
+      }
+      const convert = this.resourceClass.customFilter().append
+      for (const key in this.quries) {
+        if (_.isFunction(convert[key])) {
+          this.quries[key] = convert[key](this.quries[key])
+        }
+      }
     }
   },
   computed: {
