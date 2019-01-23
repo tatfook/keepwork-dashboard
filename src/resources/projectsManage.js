@@ -197,15 +197,33 @@ export default class ProjectsManage extends BaseResource {
         {
           name: '设置精选',
           type: 'primary',
-          async func(projects) {
-            await Promise.all(projects.map(item => projectsCRUD.update({ ...item, choicenessNo: 1 })))
+          async func(projects, that) {
+            return new Promise((resolve, reject) => {
+              that.$confirm('确认批量设置精选?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(async() => {
+                await Promise.all(projects.map(item => projectsCRUD.update({ ...item, choicenessNo: 1 })))
+                resolve()
+              })
+            })
           }
         },
         {
           name: '取消精选',
           type: 'danger',
-          async func(projects) {
-            await Promise.all(projects.map(item => projectsCRUD.update({ ...item, choicenessNo: 0 })))
+          async func(projects, that) {
+            return new Promise((resolve, reject) => {
+              that.$confirm('确认批量取消精选?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(async() => {
+                await Promise.all(projects.map(item => projectsCRUD.update({ ...item, choicenessNo: 0 })))
+                resolve()
+              })
+            })
           }
         },
         {
