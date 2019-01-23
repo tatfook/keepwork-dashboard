@@ -7,7 +7,7 @@ const projectsCRUD = resourceCRUD('projects')
 const systemTagsCRUD = resourceCRUD('systemTags')
 
 const model = projectsManageModel()
-const temp = {}
+const cache = {}
 const privilegeMap = [
   {
     key: 1,
@@ -82,8 +82,8 @@ export default class ProjectsManage extends BaseResource {
         }
       },
       {
-        name: 'userId',
-        type: 'Number',
+        name: 'username',
+        type: 'String',
         edit: false,
         show: true,
         search: true
@@ -211,11 +211,14 @@ export default class ProjectsManage extends BaseResource {
           async func(projects, that) {
             const res = await systemTagsCRUD.list()
             const tags = _.map(_.get(res, 'rows', []), item => item.tagname)
-            that.checkboxData = tags
-            that.dialogCheckboxVisible = true
-            temp['projects'] = projects
-            temp['tags'] = tags
-            that.dialogCheckboxStatus = 'addSystemTags'
+            const params = {
+              type: 'checkbox',
+              data: tags,
+              status: 'addSystemTags'
+            }
+            that.showDialog(params)
+            cache['projects'] = projects
+            cache['tags'] = tags
           }
         },
         {
@@ -227,17 +230,20 @@ export default class ProjectsManage extends BaseResource {
               const _tags = _.filter(_.split(_.get(cur, 'classifyTags', ''), '|'), v => v)
               return [...arr, ..._tags]
             }, []))
-            that.checkboxData = projectTags
-            that.dialogCheckboxVisible = true
-            temp['projects'] = projects
-            temp['tags'] = projectTags
-            that.dialogCheckboxStatus = 'removeSystemTags'
+            const params = {
+              type: 'checkbox',
+              data: projectTags,
+              status: 'removeSystemTags'
+            }
+            that.showDialog(params)
+            cache['projects'] = projects
+            cache['tags'] = projectTags
           }
         }
       ],
       callback: {
         async addSystemTags(selectedTags, that) {
-          const { projects } = temp
+          const { projects } = cache
           await Promise.all(projects.map(item => {
             const { classifyTags } = item
             const currentTags = classifyTags.split('|')
@@ -246,7 +252,7 @@ export default class ProjectsManage extends BaseResource {
           }))
         },
         async removeSystemTags(selectedTags, that) {
-          const { projects } = temp
+          const { projects } = cache
           const filterProjects = _.filter(projects, p => p.classifyTags)
           await Promise.all(filterProjects.map(item => {
             const { classifyTags } = item

@@ -34,7 +34,11 @@
     </el-dialog>
 
     <el-dialog :visible.sync="dialogCheckboxVisible" :title="$t(textMap[dialogCheckboxStatus])">
-      <crud-checkbox :list="checkboxData" :status="dialogCheckboxStatus" @cancel="dialogCheckboxVisible = false" @update="handleCheckboxUpdate"></crud-checkbox>
+      <crud-checkbox :list="checkboxData" :status="dialogCheckboxStatus" @cancel="dialogCheckboxVisible = false" @callback="handleCheckboxCallback"></crud-checkbox>
+    </el-dialog>
+
+    <el-dialog :visible.sync="dialogInputVisible" :title="dialogTitle">
+      <crud-input :list="inputData" :stats="dialogInputStatus" @cancel="dialogInputVisible = false" @callback="handleInputCallback"></crud-input>
     </el-dialog>
 
   </div>
