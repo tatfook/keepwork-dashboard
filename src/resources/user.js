@@ -43,9 +43,9 @@ export default class User extends BaseResource {
     return [
       {
         name: 'id',
-        show: false,
+        show: true,
         edit: false,
-        search: false
+        search: true
       },
       {
         name: 'username',

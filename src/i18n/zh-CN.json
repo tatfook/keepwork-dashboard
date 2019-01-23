@@ -199,7 +199,8 @@
         "userId": "用户ID",
         "username": "用户名",
         "teachers": {
-          "createdAt": "激活日期"
+          "createdAt": "激活日期",
+          "school": "学校"
         },
         "extra": {
           "remark": "备注"
@@ -271,6 +272,7 @@
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
         "choicenessNo": "项目级别",
+        "userId": "创建者ID",
         "username": "创建者",
         "classifyTags": "系统标签",
         "status": "状态",

@@ -29,7 +29,7 @@ export default class TeacherCDKey extends BaseResource {
       },
       {
         name: 'state',
-        type: 'Number',
+        type: 'String',
         edit: false,
         filter(value) {
           for (const option of stateMap) {
@@ -46,7 +46,8 @@ export default class TeacherCDKey extends BaseResource {
       {
         name: 'teachers.createdAt',
         type: 'Date',
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'userId',
@@ -57,6 +58,12 @@ export default class TeacherCDKey extends BaseResource {
         name: 'username',
         type: 'String',
         edit: false
+      },
+      {
+        name: 'teachers.school',
+        type: 'String',
+        edit: false,
+        search: false
       },
       {
         name: 'extra.remark',
@@ -76,6 +83,36 @@ export default class TeacherCDKey extends BaseResource {
     }
   }
 
+  static customFilter() {
+    return {
+      append: {
+        state(object) {
+          const state = _.find(stateMap, item => item.value === object.value.trim())
+          if (state) {
+            return {
+              ...object,
+              value: state.key
+            }
+          }
+          // if (object.value === '精选') {
+          //   return {
+          //     ...object,
+          //     value: 1
+          //   }
+          // }
+
+          // if (object.value === '一般') {
+          //   return {
+          //     ...object,
+          //     value: 0
+          //   }
+          // }
+          return object
+        }
+      }
+    }
+  }
+
   static buttons() {
     return {
       append: [
@@ -90,7 +127,7 @@ export default class TeacherCDKey extends BaseResource {
                 {
                   label: '数量',
                   key: 'count',
-                  value: '10'
+                  value: 10
                 }
               ],
               type: 'input',
