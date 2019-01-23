@@ -18,6 +18,7 @@ import CRUDShow from './show'
 import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
 import CRUDCheckbox from './checkbox'
+import CRUDInput from './input'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 const FORMAT = {
@@ -43,9 +44,13 @@ export default {
       dialogFormVisible: false,
       showingFormVisible: false,
       dialogCheckboxVisible: false,
+      dialogInputVisible: false,
       checkboxData: [],
+      inputData: [],
       dialogStatus: '',
       dialogCheckboxStatus: '',
+      dialogInputStatus: '',
+      dialogTitle: '',
       textMap: {
         update: 'edit',
         create: 'create',
@@ -288,14 +293,14 @@ export default {
       })
     },
     async handleAppendButtonAction(button) {
-      if (this.selected.length === 0) {
+      const { func, refresh = true, checkSelected = true } = button
+      if (checkSelected && this.selected.length === 0) {
         this.$message({
           type: 'error',
           message: this.$t('base.failed.empty')
         })
         return
       }
-      const { func, refresh = true } = button
       if (!func) throw new Error('Missing Function')
       try {
         await func(this.selected, this)
@@ -315,9 +320,9 @@ export default {
         })
       }
     },
-    async handleCheckboxUpdate(selected) {
+    async handleCheckboxCallback(selected) {
       try {
-        const callback = this.appendButtonUpdateCallback[this.dialogCheckboxStatus]
+        const callback = this.appendButtonCallback[this.dialogCheckboxStatus]
         if (callback) {
           await callback(selected, this)
         }
@@ -325,6 +330,23 @@ export default {
         this.getList()
       } catch (error) {
         this.dialogCheckboxVisible = false
+        console.error(error)
+        this.$message({
+          type: 'error',
+          message: this.$t('fail')
+        })
+      }
+    },
+    async handleInputCallback(input) {
+      try {
+        const callback = this.appendButtonCallback[this.dialogInputStatus]
+        if (callback) {
+          await callback(input, this)
+        }
+        this.dialogInputVisible = false
+        this.getList()
+      } catch (error) {
+        this.dialogInputVisible = false
         console.error(error)
         this.$message({
           type: 'error',
@@ -348,6 +370,14 @@ export default {
     handleSearch(q) {
       this.listFilter = q
       this.getList()
+    },
+    showDialog(params) {
+      // type = input || checkbox
+      const { type = 'Input', title = '', status = '', data } = params
+      this[`dialog${_.upperFirst(type)}Visible`] = true
+      this[`dialog${_.upperFirst(type)}Status`] = status
+      this.dialogTitle = title
+      this[`${type}Data`] = data
     }
   },
   computed: {
@@ -381,7 +411,7 @@ export default {
     appendButtons() {
       return this.resourceClass.buttons ? this.resourceClass.buttons().append : []
     },
-    appendButtonUpdateCallback() {
+    appendButtonCallback() {
       return this.resourceClass.buttons ? this.resourceClass.buttons().callback : {}
     }
   },
@@ -391,6 +421,7 @@ export default {
     'crud-show': CRUDShow,
     'crud-paginate': CRUDPaginate,
     'crud-filter': CRUDFilter,
-    'crud-checkbox': CRUDCheckbox
+    'crud-checkbox': CRUDCheckbox,
+    'crud-input': CRUDInput
   }
 }

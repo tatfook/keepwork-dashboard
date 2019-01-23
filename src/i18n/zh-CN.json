@@ -196,7 +196,14 @@
         "state": "状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
-        "userId": "用户"
+        "userId": "用户ID",
+        "username": "用户名",
+        "teachers": {
+          "createdAt": "激活日期"
+        },
+        "extra": {
+          "remark": "备注"
+        }
       }
     },
     "Subject": {
@@ -264,7 +271,7 @@
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
         "choicenessNo": "项目级别",
-        "userId": "创建者",
+        "username": "创建者",
         "classifyTags": "系统标签",
         "status": "状态",
         "visibility": "可见性"

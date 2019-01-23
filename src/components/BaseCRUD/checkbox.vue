@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'CURDCheckbox',
+  name: 'CRUDCheckbox',
   props: {
     list: Array
   },
@@ -39,7 +39,7 @@ export default {
       this.$emit('cancel')
     },
     updateData() {
-      this.$emit('update', this.selected)
+      this.$emit('callback', this.selected)
     }
   }
 }
