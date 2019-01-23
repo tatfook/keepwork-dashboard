@@ -125,7 +125,7 @@ export default class ProjectsManage extends BaseResource {
       },
       {
         name: 'choicenessNo',
-        type: 'Number',
+        type: 'String',
         show: true,
         search: true,
         filter(value) {
@@ -175,15 +175,13 @@ export default class ProjectsManage extends BaseResource {
           if (object.value === '精选') {
             return {
               ...object,
-              op: 'gt',
-              value: 0
+              value: 1
             }
           }
 
           if (object.value === '一般') {
             return {
               ...object,
-              op: 'eq',
               value: 0
             }
           }

@@ -83,23 +83,26 @@ export default {
     },
     handleSearch() {
       const q = {}
-      this.customFilter()
-      for (const filter in this.quries) {
-        const data = this.quries[filter]
+      // this.customFilter()
+      const quries = this.customFilter()
+      for (const filter in quries) {
+        const data = quries[filter]
         if (data.value !== '') _.merge(q, parseQuery(data))
       }
       this.$emit('handleSearch', q)
     },
     customFilter() {
       if (!this.resourceClass.customFilter) {
-        return
+        return this.quries
       }
       const convert = this.resourceClass.customFilter().append
-      for (const key in this.quries) {
+      const queris = _.cloneDeep(this.quries)
+      for (const key in queris) {
         if (_.isFunction(convert[key])) {
-          this.quries[key] = convert[key](this.quries[key])
+          queris[key] = convert[key](this.quries[key])
         }
       }
+      return queris
     }
   },
   computed: {
