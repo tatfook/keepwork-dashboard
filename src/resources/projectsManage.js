@@ -82,11 +82,17 @@ export default class ProjectsManage extends BaseResource {
         }
       },
       {
-        name: 'username',
-        type: 'String',
+        name: 'userId',
+        type: 'Number',
         edit: false,
         show: true,
         search: true
+      },
+      {
+        name: 'username',
+        type: 'String',
+        edit: false,
+        show: true
       },
       {
         name: 'classifyTags',

@@ -46,7 +46,8 @@ export default class TeacherCDKey extends BaseResource {
       {
         name: 'teachers.createdAt',
         type: 'Date',
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'userId',
@@ -90,7 +91,7 @@ export default class TeacherCDKey extends BaseResource {
                 {
                   label: '数量',
                   key: 'count',
-                  value: '10'
+                  value: 10
                 }
               ],
               type: 'input',
