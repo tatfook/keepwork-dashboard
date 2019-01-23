@@ -250,7 +250,7 @@ export default class ProjectsManage extends BaseResource {
           const { projects } = cache
           await Promise.all(projects.map(item => {
             const { classifyTags } = item
-            const currentTags = classifyTags.split('|')
+            const currentTags = classifyTags.split('|').filter(v => v)
             const finalTags = _.uniq([...currentTags, ...selectedTags]).join('|')
             return projectsCRUD.update({ ...item, classifyTags: finalTags })
           }))
