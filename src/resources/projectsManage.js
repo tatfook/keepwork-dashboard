@@ -93,9 +93,6 @@ export default class ProjectsManage extends BaseResource {
         type: 'String',
         show: true,
         search: true
-        // filter(value) {
-        //   return value.split('|').filter(v => v).join('|')
-        // }
       },
       {
         name: 'visibility',
@@ -103,7 +100,7 @@ export default class ProjectsManage extends BaseResource {
         show: true,
         search: false,
         filter(value) {
-          return value > 0 ? '私有' : '共开'
+          return value > 0 ? '私有' : '公开'
         }
       },
       {

@@ -37,6 +37,16 @@ export default class TeacherCDKey extends BaseResource {
         name: 'createdAt',
         type: 'Date',
         edit: false
+      },
+      {
+        name: 'updatedAt',
+        type: 'Date',
+        edit: false
+      },
+      {
+        name: 'userId',
+        type: 'Number',
+        edit: false
       }
     ]
   }
@@ -50,7 +60,7 @@ export default class TeacherCDKey extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'show', 'edit', 'delete']
+      disabled: ['create', 'show', 'destroy', 'delete']
     }
   }
 }

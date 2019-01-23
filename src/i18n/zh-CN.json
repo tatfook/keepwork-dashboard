@@ -194,7 +194,9 @@
       "attr": {
         "key": "邀请码",
         "state": "状态",
-        "createdAt": "创建日期"
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期",
+        "userId": "用户"
       }
     },
     "Subject": {
