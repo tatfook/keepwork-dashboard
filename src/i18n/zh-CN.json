@@ -234,6 +234,7 @@
     "Package": {
       "attr": {
         "id": "序号",
+        "intro": "简介",
         "packageName": "包名",
         "userId": "用户",
         "subjectId": "学科",
@@ -243,7 +244,7 @@
         "rmb": "价钱",
         "coin": "coin币",
         "extra": {
-          "message": "信息",
+          "message": "原因",
           "coverUrl": "封面链接"
         },
         "createdAt": "创建日期"

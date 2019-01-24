@@ -32,7 +32,7 @@ export default class SystemTags extends BaseResource {
         type: 'Object',
         show: true,
         edit: false,
-        search: true,
+        search: false,
         filter(value) {
           return value['username'] || ''
         }
