@@ -1,4 +1,5 @@
 import { resourceCRUD } from '@/api/lesson'
+import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
 import store from '@/store'
 
@@ -25,6 +26,8 @@ const stateMap = [
     value: '下架'
   }
 ]
+
+const packageUrl = process.env.NODE_ENV === 'development' ? 'https://stage.keepwork.com/l/student/package/' : 'https://keepwork.com/l/student/package/'
 
 export default class Package extends BaseResource {
   static attributes() {
@@ -121,7 +124,21 @@ export default class Package extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show'],
+      extra: [{
+        name: 'view',
+        title() {
+          return '预览'
+        },
+        async func(row, that) {
+          const { userId, id } = row
+          const token = await getUserToken(userId)
+          if (token) {
+            const url = `${packageUrl}${id}?token=${token}`
+            window.open(url, '_blank')
+          }
+        }
+      }]
     }
   }
 }

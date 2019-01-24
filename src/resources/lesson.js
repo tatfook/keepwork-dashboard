@@ -63,7 +63,17 @@ export default class Lesson extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show'],
+      extra: [{
+        name: 'view',
+        title() {
+          return '预览'
+        },
+        async func(row, that) {
+          const { url } = row
+          window.open(url, '_blank')
+        }
+      }]
     }
   }
 }

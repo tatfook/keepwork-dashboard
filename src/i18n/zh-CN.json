@@ -82,7 +82,7 @@
     },
     "sidebarLesson": "课程",
     "lesson": {
-      "teacherCDKeys": "教师兑换码",
+      "teacherCDKeys": "教师激活码",
       "subjects": "学科",
       "skills": "技能",
       "hotPackages": "热门课程包",
@@ -192,7 +192,7 @@
     },
     "TeacherCDKey": {
       "attr": {
-        "key": "邀请码",
+        "key": "激活码",
         "state": "状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
@@ -266,15 +266,15 @@
     },
     "ProjectsManage": {
       "attr": {
-        "id": "ID",
+        "id": "项目ID",
         "type": "项目类型",
         "name": "项目名称",
         "privilege": "招募状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
         "choicenessNo": "项目级别",
-        "userId": "创建者ID",
-        "username": "创建者",
+        "userId": "用户ID",
+        "username": "用户名",
         "classifyTags": "系统标签",
         "status": "状态",
         "visibility": "可见性"
