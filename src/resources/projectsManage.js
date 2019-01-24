@@ -40,6 +40,12 @@ export default class ProjectsManage extends BaseResource {
         search: true
       },
       {
+        name: 'name',
+        type: 'String',
+        edit: true,
+        search: true
+      },
+      {
         name: 'type',
         type: 'Number',
         show: true,
@@ -51,15 +57,8 @@ export default class ProjectsManage extends BaseResource {
               return item.value
             }
           }
-
           return key
         }
-      },
-      {
-        name: 'name',
-        type: 'String',
-        edit: true,
-        search: true
       },
       {
         name: 'privilege',
@@ -95,21 +94,6 @@ export default class ProjectsManage extends BaseResource {
         show: true
       },
       {
-        name: 'classifyTags',
-        type: 'String',
-        show: true,
-        search: true
-      },
-      {
-        name: 'visibility',
-        type: 'String',
-        show: true,
-        search: false,
-        filter(value) {
-          return value > 0 ? '私有' : '公开'
-        }
-      },
-      {
         name: 'createdAt',
         type: 'Date',
         show: true,
@@ -122,6 +106,21 @@ export default class ProjectsManage extends BaseResource {
         show: true,
         edit: false,
         search: false
+      },
+      {
+        name: 'visibility',
+        type: 'String',
+        show: true,
+        search: false,
+        filter(value) {
+          return value > 0 ? '私有' : '公开'
+        }
+      },
+      {
+        name: 'classifyTags',
+        type: 'String',
+        show: true,
+        search: true
       },
       {
         name: 'choicenessNo',
