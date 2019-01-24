@@ -128,7 +128,7 @@ export default class Package extends BaseResource {
       extra: [{
         name: 'view',
         title() {
-          return '查看详情'
+          return '预览'
         },
         async func(row, that) {
           const { userId, id } = row

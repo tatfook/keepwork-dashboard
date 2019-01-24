@@ -67,7 +67,7 @@ export default class Lesson extends BaseResource {
       extra: [{
         name: 'view',
         title() {
-          return '查看详情'
+          return '预览'
         },
         async func(row, that) {
           const { url } = row
