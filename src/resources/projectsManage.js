@@ -3,10 +3,10 @@ import BaseResource from './base'
 import { resourceCRUD } from '@/api/keepwork'
 import _ from 'lodash'
 
-const projectsCRUD = resourceCRUD('projects')
+// const projectsCRUD = resourceCRUD('projects')
 const systemTagsCRUD = resourceCRUD('systemTags')
 
-const model = projectsManageModel()
+const projectsCRUD = projectsManageModel()
 const cache = {}
 const privilegeMap = [
   {
@@ -136,7 +136,7 @@ export default class ProjectsManage extends BaseResource {
   }
 
   static model() {
-    return model
+    return projectsCRUD
   }
 
   static actions() {
