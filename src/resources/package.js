@@ -18,11 +18,11 @@ const stateMap = [
   },
   {
     key: 3,
-    value: '审核失败'
+    value: '审核不通过'
   },
   {
     key: 4,
-    value: '异常'
+    value: '下架'
   }
 ]
 
@@ -40,6 +40,13 @@ export default class Package extends BaseResource {
         type: 'String',
         title: true,
         required: true
+      },
+      {
+        name: 'intro',
+        type: 'String',
+        component: 'text',
+        show: false,
+        search: false
       },
       {
         name: 'userId',
@@ -79,6 +86,12 @@ export default class Package extends BaseResource {
         }
       },
       {
+        name: 'extra.message',
+        type: 'String',
+        component: 'text',
+        search: false
+      },
+      {
         name: 'rmb',
         type: 'Number',
         required: true
@@ -87,11 +100,6 @@ export default class Package extends BaseResource {
         name: 'coin',
         type: 'Number',
         required: true
-      },
-      {
-        name: 'extra.message',
-        type: 'String',
-        component: 'text'
       },
       {
         name: 'extra.coverUrl',
