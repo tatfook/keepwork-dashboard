@@ -121,7 +121,7 @@
     },
     "User": {
       "attr": {
-        "id": "序号",
+        "id": "用户ID",
         "username": "用户名",
         "createdAt": "注册时间",
         "cellphone": "绑定手机号",

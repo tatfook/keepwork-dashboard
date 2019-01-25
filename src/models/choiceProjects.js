@@ -35,7 +35,7 @@ export default function choiceProjectsModel() {
         number: index + 1
       }))
       const list = {
-        count: finalProjects.length,
+        count: projects.count,
         rows: _project
       }
       return list

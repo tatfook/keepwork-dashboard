@@ -58,7 +58,8 @@ export default class TeacherCDKey extends BaseResource {
         name: 'username',
         type: 'String',
         edit: false,
-        search: false
+        search: false,
+        sort: false
       },
       {
         name: 'teachers.school',
@@ -69,7 +70,8 @@ export default class TeacherCDKey extends BaseResource {
       {
         name: 'extra.remark',
         type: 'String',
-        edit: true
+        edit: true,
+        search: false
       }
     ]
   }
