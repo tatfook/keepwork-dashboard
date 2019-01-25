@@ -91,7 +91,8 @@ export default class ProjectsManage extends BaseResource {
         name: 'username',
         type: 'String',
         edit: false,
-        show: true
+        show: true,
+        search: false
       },
       {
         name: 'createdAt',
