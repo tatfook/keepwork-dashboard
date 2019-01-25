@@ -242,11 +242,7 @@
     "HotPackage": {
       "attr": {
         "id": "序号",
-<<<<<<< HEAD
         "packageId": "课程包",
-=======
-        "packageId": "课程包名称",
->>>>>>> origin/release
         "hotNo": "热门排行",
         "createdAt": "创建日期"
       }
@@ -254,14 +250,9 @@
     "Package": {
       "attr": {
         "id": "序号",
-<<<<<<< HEAD
         "intro": "简介",
         "packageName": "包名",
         "userId": "用户",
-=======
-        "packageName": "课程包名称",
-        "userId": "用户名",
->>>>>>> origin/release
         "subjectId": "学科",
         "minAge": "最小年龄",
         "maxAge": "最大年龄",
@@ -278,13 +269,8 @@
     "Lesson": {
       "attr": {
         "id": "序号",
-<<<<<<< HEAD
         "lessonName": "课程名",
         "userId": "用户",
-=======
-        "lessonName": "课程名称",
-        "userId": "用户名",
->>>>>>> origin/release
         "subjectId": "学科",
         "goals": "目标",
         "extra": {
@@ -306,7 +292,6 @@
         "privilege": "招募状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
-<<<<<<< HEAD
         "choicenessNo": "项目级别",
         "userId": "用户ID",
         "username": "用户名",
@@ -330,10 +315,6 @@
         "classifyTags": "系统标签",
         "status": "状态",
         "visibility": "可见性"
-=======
-        "projectUrl": "项目地址",
-        "choicenessNo": "项目级别"
->>>>>>> origin/release
       }
     },
     "BlockedProjects": {
