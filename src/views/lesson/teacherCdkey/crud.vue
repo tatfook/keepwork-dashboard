@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <div class="action-container">
+<<<<<<< HEAD
       <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">生成邀请码</el-button>
 
       <el-dropdown style="float: right" @command="handleAddFilter">
@@ -14,6 +15,9 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+=======
+      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">{{$t('resources.TeacherCDKey.attr.generateCode')}}</el-button>
+>>>>>>> origin/release
     </div>
     <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
 

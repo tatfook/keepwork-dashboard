@@ -59,6 +59,18 @@
     "success": "unblock successfully!",
     "failure": "fail to unblock!"
   },
+  "dialog": {
+    "label": {
+      "groupsName": "groups name",
+      "members": "members",
+      "permission": "permission"
+    },
+    "permission": {
+      "reject": "reject",
+      "view": "view",
+      "edit": "edit"
+    }
+  },
   "sidebar": {
     "sidebarUser": "User",
     "user": {
@@ -145,6 +157,7 @@
     "WebsiteManage": {
       "attr": {
         "sitename": "website name",
+        "siteUrl": "site url",
         "username": "website creator",
         "createdAt": "created at",
         "updatedAt": "updated at"
@@ -159,6 +172,7 @@
       },
       "button": {
         "unblock": "unblock",
+        "privilegeManagement": "privilege management",
         "unblockMsg": "Are you sure to unblock the site?"
       },
       "dialog": {

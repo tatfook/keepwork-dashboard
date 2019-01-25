@@ -6,6 +6,7 @@ const usersCRUD = resourceCRUD('users')
 export default function projectsManageModel() {
   return {
     async list(params) {
+<<<<<<< HEAD
       const projects = await projectsCRUD.list(params)
       const userIds = projects.rows.map(item => item.userId)
       const users = await usersCRUD.list({
@@ -30,6 +31,14 @@ export default function projectsManageModel() {
         rows: finalProjects
       }
       return list
+=======
+      const projectsManageList = await usersCRUD.list(params)
+      projectsManageList.rows.map(item => {
+        const base = process.env.KEEPWORK_PREFIX
+        item.projectUrl = base + 'pbl/project/' + item.id
+      })
+      return projectsManageList
+>>>>>>> origin/release
     },
     async create(params) {
       return projectsCRUD.create(params)

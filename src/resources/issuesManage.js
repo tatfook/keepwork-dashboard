@@ -14,12 +14,22 @@ export default class IssuesManage extends BaseResource {
       {
         name: 'id',
         type: 'Number',
+        edit: false,
+        sort: false,
+        search: false,
         show: false
+      },
+      {
+        name: 'issueUrl',
+        edit: false,
+        sort: false,
+        search: false
       },
       {
         name: 'issuesUserName',
         type: 'String',
-        show: true
+        show: true,
+        search: false
       },
       {
         name: 'userName',
@@ -52,7 +62,17 @@ export default class IssuesManage extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'create']
+      disabled: ['show', 'create', 'edit'],
+      extra: [
+        {
+          name: 'resources.IssuesManage.comment',
+          func: async(ctx, data) => {
+            ctx.issueId = data.id
+            ctx.commentsData = await ctx.model.comments(ctx.issueId)
+            ctx.isShowCommentdialog = true
+          }
+        }
+      ]
     }
   }
 }
