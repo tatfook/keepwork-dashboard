@@ -8,6 +8,7 @@ export default class websiteManage extends BaseResource {
     return [
       {
         name: 'sitename',
+        title: true,
         edit: false,
         sort: false,
         search: true

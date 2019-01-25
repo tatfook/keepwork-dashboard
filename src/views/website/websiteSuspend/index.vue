@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <base-crud resource="WebsiteSuspend"></base-crud>
-  </div>
+  <base-crud resource="WebsiteSuspend"></base-crud>
 </template>
 
 <script>
-import WebsiteSuspend from './websiteSuspend'
+import BaseCRUD from '@/components/BaseCRUD'
 
 export default {
   components: {
-    'base-crud': WebsiteSuspend
+    'base-crud': BaseCRUD
   }
 }
 </script>

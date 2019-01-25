@@ -247,6 +247,15 @@ export const asyncRouterMap = [
         }
       },
       {
+        path: 'choiceProjects',
+        component: () => import('@/views/projects/choiceProjects/index'),
+        name: 'Choice Projects',
+        resource: 'ChoiceProjects',
+        meta: {
+          title: 'sidebar.projects.ChoiceProjects'
+        }
+      },
+      {
         path: 'blockedProjects',
         component: () => import('@/views/projects/blockedProjects/index'),
         name: 'Blocked Projects',
@@ -262,6 +271,15 @@ export const asyncRouterMap = [
         resource: 'IssuesManage',
         meta: {
           title: 'sidebar.projects.IssuesManage'
+        }
+      },
+      {
+        path: 'systemTags',
+        component: () => import('@/views/projects/systemTags/index'),
+        name: 'System Tags',
+        resource: 'SystemTags',
+        meta: {
+          title: 'sidebar.projects.SystemTags'
         }
       }
     ]

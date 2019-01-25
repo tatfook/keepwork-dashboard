@@ -1,5 +1,5 @@
 <template>
-  <base-crud resource="BlockedUser"></base-crud>
+  <base-crud resource="SystemTags"> </base-crud>
 </template>
 
 <script>

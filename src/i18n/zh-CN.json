@@ -23,10 +23,18 @@
   "name": "名字",
   "roles": "角色",
   "operate": "操作",
+
+  "viewDetail": "查看详情",
+  "setChoice": "设为精选",
+  "setDefault": "取消精选",
+  "addSystemTags": "添加系统标签",
+  "removeSystemTags": "去除系统标签",
   "base": {
     "confirm": {
       "delete": "是否确定?",
-      "deleteList": "将删除所选中的列表，是否确定?"
+      "deleteList": "将删除所选中的列表，是否确定?",
+      "choice": "是否设置精选?",
+      "noChoice": "是否取消精选?"
     },
     "success": {
       "create": "创建成功!",
@@ -92,13 +100,15 @@
       "hotPackages": "热门课程包",
       "packages": "课程包",
       "lessons": "课程",
-      "packageLesson": "课程关联"
+      "packageLesson": "课程管理"
     },
     "sidebarProjects": "项目",
     "projects": {
       "ProjectsManage": "项目管理",
+      "ChoiceProjects": "首页精选",
       "BlockedProjects": "封停项目",
-      "IssuesManage": "issues管理"
+      "IssuesManage": "issues管理",
+      "SystemTags": "系统标签"
     }
   },
   "resources": {
@@ -200,29 +210,39 @@
         "key": "激活码",
         "state": "状态",
         "createdAt": "创建日期",
+        "updatedAt": "更新日期",
+        "userId": "用户ID",
+        "username": "用户名",
+        "teachers": {
+          "createdAt": "激活日期",
+          "school": "学校/机构"
+        },
+        "extra": {
+          "remark": "备注"
+        },
         "generateCode": "批量生产激活码"
       }
     },
     "Subject": {
       "attr": {
         "id": "序号",
-        "subjectName": "学科名称",
-        "enSubjectName": "学科名称说明",
+        "subjectName": "学科名",
+        "enSubjectName": "学科名(en)",
         "createdAt": "创建日期"
       }
     },
     "Skill": {
       "attr": {
         "id": "序号",
-        "skillName": "学科名称",
-        "enSkillName": "学科名称说明",
+        "skillName": "技能名",
+        "enSkillName": "技能名(en)",
         "createdAt": "创建日期"
       }
     },
     "HotPackage": {
       "attr": {
         "id": "序号",
-        "packageId": "课程包名称",
+        "packageId": "课程包",
         "hotNo": "热门排行",
         "createdAt": "创建日期"
       }
@@ -230,8 +250,9 @@
     "Package": {
       "attr": {
         "id": "序号",
-        "packageName": "课程包名称",
-        "userId": "用户名",
+        "intro": "简介",
+        "packageName": "包名",
+        "userId": "用户",
         "subjectId": "学科",
         "minAge": "最小年龄",
         "maxAge": "最大年龄",
@@ -239,7 +260,7 @@
         "rmb": "价钱",
         "coin": "coin币",
         "extra": {
-          "message": "信息",
+          "message": "原因",
           "coverUrl": "封面链接"
         },
         "createdAt": "创建日期"
@@ -248,8 +269,8 @@
     "Lesson": {
       "attr": {
         "id": "序号",
-        "lessonName": "课程名称",
-        "userId": "用户名",
+        "lessonName": "课程名",
+        "userId": "用户",
         "subjectId": "学科",
         "goals": "目标",
         "extra": {
@@ -265,14 +286,35 @@
       "batchSelection": "批量精选",
       "batchCancellationSelection": "批量取消精选",
       "attr": {
-        "id": "ID",
+        "id": "项目ID",
         "type": "项目类型",
         "name": "项目名称",
         "privilege": "招募状态",
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
-        "projectUrl": "项目地址",
-        "choicenessNo": "项目级别"
+        "choicenessNo": "项目级别",
+        "userId": "用户ID",
+        "username": "用户名",
+        "classifyTags": "系统标签",
+        "status": "状态",
+        "visibility": "可见性"
+      }
+    },
+    "ChoiceProjects": {
+      "attr": {
+        "number": "序号",
+        "id": "项目ID",
+        "type": "项目类型",
+        "name": "项目名称",
+        "privilege": "招募状态",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期",
+        "choicenessNo": "项目权重",
+        "userId": "用户ID",
+        "username": "用户名",
+        "classifyTags": "系统标签",
+        "status": "状态",
+        "visibility": "可见性"
       }
     },
     "BlockedProjects": {
@@ -296,6 +338,16 @@
         "issuesUserName": "发表者",
         "userName": "创建者",
         "issueUrl": "issue地址"
+      }
+    },
+    "SystemTags": {
+      "attr": {
+        "id": "ID",
+        "classify": "类别",
+        "tagname": "系统标签名称",
+        "extra": "操作者",
+        "createdAt": "创建日期",
+        "updatedAt": "更改日期"
       }
     },
     "PackageLesson": {

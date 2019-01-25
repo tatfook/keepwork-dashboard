@@ -7,13 +7,12 @@ export default class websiteSuspend extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'sitename',
-        originName: 'objectId',
+        name: 'objectId',
+        alias: 'sitename',
         required: true,
         search: true,
         sort: false,
-        formAssociate: 'sites',
-        associate: 'illegalSites',
+        associate: 'WebsiteManage',
         associateAs: 'illegalSites',
         associateField: 'sitename'
       },
@@ -37,7 +36,8 @@ export default class websiteSuspend extends BaseResource {
         type: 'String',
         required: true,
         search: false,
-        sort: false
+        sort: false,
+        edit: false
       }
     ]
   }
@@ -48,76 +48,19 @@ export default class websiteSuspend extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit', 'delete'],
+      disabled: ['show', 'edit', 'destroy'],
       extra: [
         {
           name: 'resources.WebsiteSuspend.button.unblock',
-          func: (ctx, data) => {
-            ctx.$confirm(ctx.$t('resources.WebsiteSuspend.button.unblockMsg'), ctx.$t('resources.WebsiteSuspend.button.unblock'), {
-              confirmButtonText: ctx.$t('ok'),
-              cancelButtonText: ctx.$t('cancel'),
-              type: 'warning'
-            })
-              .then(async() => {
-                ctx.$notify({
-                  title: ctx.$t('success'),
-                  message: ctx.$t('unblockSelectedMsg.success'),
-                  type: 'success',
-                  duration: 2000
-                })
-                await this.model().destroy(data)
-                ctx.getList()
-              })
-              .catch(err => {
-                console.error(err)
-                ctx.$message({
-                  type: 'error',
-                  message: ctx.$t('unblockSelectedMsg.failure')
-                })
-              })
-          }
-        }
-      ]
-    }
-  }
-
-  static action() {
-    return {
-      extra: [
-        {
-          name: 'unblockSelected',
-          func: (ctx) => {
-            if (ctx.selected.length === 0) {
-              ctx.$message({
-                type: 'error',
-                message: ctx.$t('base.failed.empty')
-              })
-              return
-            }
-            ctx.$confirm(ctx.$t('unblockSelectedMsg.dialogMsg'), ctx.$t('unblockSelected'), {
-              confirmButtonText: ctx.$t('ok'),
-              cancelButtonText: ctx.$t('cancel'),
-              type: 'warning'
-            })
-              .then(() => {
-                this.model().destroyAll({ ids: ctx.selected.map(row => row.id) })
-                  .then(() => {
-                    ctx.$notify({
-                      title: ctx.$t('success'),
-                      message: ctx.$t('unblockSelectedMsg.success'),
-                      type: 'success',
-                      duration: 2000
-                    })
-                    ctx.getList()
-                  })
-              })
-              .catch(err => {
-                console.error(err)
-                ctx.$message({
-                  type: 'error',
-                  message: ctx.$t('unblockSelectedMsg.failure')
-                })
-              })
+          button: 'warning',
+          func: async(row) => {
+            await this.api().destroy(row)
+          },
+          title: (row) => {
+            return this.i18nBase('resources.BlockedProjects.title')
+          },
+          confirmMsg: (row) => {
+            return this.i18nBase('resources.WebsiteSuspend.button.unblockMsg')
           }
         }
       ]

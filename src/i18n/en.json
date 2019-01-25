@@ -253,7 +253,8 @@
         "name": "entry name",
         "privilege": "recruitment status",
         "createdAt": "created at",
-        "updatedAt": "updated at"
+        "updatedAt": "updated at",
+        "choicenessNo": "project level"
       }
     },
     "BlockedProjects": {
