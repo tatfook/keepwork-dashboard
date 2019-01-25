@@ -51,6 +51,12 @@ export function resourceCRUD(resource) {
         method: 'get',
         url: base + '/' + id
       })
+    },
+    sql(sql) {
+      return request({
+        method: 'get',
+        url: '/admins/query?sql=' + sql
+      })
     }
   }
 }

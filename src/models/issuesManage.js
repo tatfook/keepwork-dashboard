@@ -4,6 +4,7 @@ import _ from 'lodash'
 const issuesManageCRUD = resourceCRUD('issues')
 const projectCRUD = resourceCRUD('projects')
 const usersCRUD = resourceCRUD('users')
+const commentCRUD = resourceCRUD('comments')
 
 export default function issuesManageModel() {
   return {
@@ -74,6 +75,11 @@ export default function issuesManageModel() {
           item.userName = userInfo.username
         }
       })
+
+      issuesManageList.rows.map(item => {
+        const base = process.env.KEEPWORK_PREFIX
+        item.issueUrl = base + 'pbl/project/' + item.id + '/whiteboard'
+      })
       return issuesManageList
     },
     async create(params) {
@@ -87,6 +93,39 @@ export default function issuesManageModel() {
     },
     async destroy(params) {
       return issuesManageCRUD.destroy(params)
+    },
+    async commentsDestroy(params) {
+      return commentCRUD.destroy(params)
+    },
+    async comments(params) {
+      const commentsList = await commentCRUD.sql('SELECT * FROM `comments` WHERE `objectType`=4 AND `objectId` =' + params)
+
+      if (!commentsList) {
+        return { count: 0, rows: [] }
+      }
+
+      const commentsUserIds = _.map(commentsList, 'userId')
+
+      const commentsUsersList = await usersCRUD.list({ 'id-in': commentsUserIds }, 'search')
+
+      const commentsUserMap = new Map()
+      for (const item of commentsUsersList.rows) {
+        commentsUserMap.set(item.id, item)
+      }
+
+      commentsList.map(item => {
+        const commentsUserInfo = commentsUserMap.get(item.userId)
+        if (commentsUserInfo) {
+          item.commentsUserName = commentsUserInfo.username
+        }
+      })
+
+      return commentsList
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }

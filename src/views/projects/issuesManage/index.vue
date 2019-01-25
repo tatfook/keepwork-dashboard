@@ -1,13 +1,13 @@
 <template>
-  <base-crud resource="IssuesManage"> </base-crud>
+  <issues-manage-crud resource="IssuesManage"> </issues-manage-crud>
 </template>
 
 <script>
-import BaseCRUD from '@/components/BaseCRUD'
+import IssuesManage from './issuesManage'
 
 export default {
   components: {
-    'base-crud': BaseCRUD
+    'issues-manage-crud': IssuesManage
   }
 }
 </script>
