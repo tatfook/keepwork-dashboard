@@ -69,7 +69,6 @@ export default {
       this.$emit('handleAction', action, row)
     },
     handleSort(evt) {
-      console.log(evt)
       const order = evt.order === 'descending' ? 'desc' : 'asc'
       this.$emit('handleSort', evt.prop, order)
     },
@@ -87,7 +86,6 @@ export default {
       const defaultAction = ['show', 'edit', 'delete']
       const disabled = this.resourceClass.actions().disabled || []
       const extraLength = this.canActions.length
-      // const buttonWidth = 80
       const buttonWidth = 110
       return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
     },

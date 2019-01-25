@@ -83,7 +83,6 @@ export default {
     },
     handleSearch() {
       const q = {}
-      // this.customFilter()
       const quries = this.customFilter()
       for (const filter in quries) {
         const data = quries[filter]
