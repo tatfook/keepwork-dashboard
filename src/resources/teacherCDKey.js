@@ -69,7 +69,8 @@ export default class TeacherCDKey extends BaseResource {
       {
         name: 'extra.remark',
         type: 'String',
-        edit: true
+        edit: true,
+        search: false
       }
     ]
   }
