@@ -27,7 +27,7 @@ const stateMap = [
   }
 ]
 
-const packageUrl = process.env.NODE_ENV === 'development' ? 'https://stage.keepwork.com/l/student/package/' : 'https://keepwork.com/l/student/package/'
+const ENV = process.env.NODE_ENV
 
 export default class Package extends BaseResource {
   static attributes() {
@@ -134,8 +134,11 @@ export default class Package extends BaseResource {
           const { userId, id } = row
           const token = await getUserToken(userId)
           if (token) {
-            const url = `${packageUrl}${id}?token=${token}`
-            window.open(url, '_blank')
+            if (ENV === 'stage' || ENV === 'release') {
+              const url = `https://${ENV}.keepwork.com/l/teacher/package/${id}?token=${token}`
+              return window.open(url, '_blank')
+            }
+            window.open(`https://keepwork.com/l/teacher/package/${id}?token=${token}`, '_blank')
           }
         }
       }]
