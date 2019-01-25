@@ -26,28 +26,25 @@ export default class BlockedUser extends BaseResource {
         search: false
       },
       {
-        name: 'username',
-        originName: 'objectId',
+        name: 'objectId',
+        alias: 'username',
         type: 'String',
         required: true,
         component: 'text',
         edit: true,
         show: true,
-        formAssociate: 'users',
-        associate: 'illegalUsers',
-        associateAs: 'illegalUsers',
-        associateField: 'username',
-        sort: false
+        associate: 'User',
+        associateAs: 'illegalUsers'
       },
       {
-        name: 'cellphone',
-        originName: 'objectId',
+        name: 'objectId',
+        alias: 'cellphone',
         type: 'String',
         required: true,
         component: 'text',
         create: false,
         edit: false,
-        associate: 'illegalUsers',
+        associate: 'User',
         associateAs: 'illegalUsers',
         associateField: 'cellphone',
         sort: false
@@ -66,6 +63,7 @@ export default class BlockedUser extends BaseResource {
         component: 'select',
         create: false,
         edit: false,
+        search: false,
         options: levelMap,
         filter: (key) => {
           for (const item of levelMap) {
@@ -84,14 +82,17 @@ export default class BlockedUser extends BaseResource {
         required: true,
         component: 'text',
         edit: true,
+        search: false,
         sort: false
       },
       {
-        name: 'handler',
+        name: 'handlerName',
         type: 'String',
         required: true,
         component: 'text',
+        create: false,
         edit: false,
+        search: false,
         sort: false
       }
     ]
@@ -103,35 +104,19 @@ export default class BlockedUser extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit', 'delete'],
+      disabled: ['show', 'edit', 'destroy'],
       extra: [
         {
-          name: 'resources.BlockedUser.title',
-          func: (ctx, data) => {
-            ctx.$confirm(ctx.$t('resources.BlockedUser.msg'), ctx.$t('resources.BlockedUser.title'), {
-              confirmButtonText: ctx.$t('ok'),
-              cancelButtonText: ctx.$t('cancel'),
-              type: 'warning'
-            })
-              .then(async() => {
-                await this.model().destroy(data)
-                ctx.getList()
-              })
-          }
-        }
-      ]
-    }
-  }
-
-  static action() {
-    return {
-      extra: [
-        {
-          name: 'resources.BlockedUser.deblockAll',
-          func: (ctx) => {
-            if (ctx) {
-              ctx.handleDeleteAll()
-            }
+          name: 'block',
+          button: 'warning',
+          func: async(row) => {
+            await this.api().destroy(row)
+          },
+          title: (row) => {
+            return this.i18nBase('resources.BlockedUser.title')
+          },
+          confirmMsg: (row) => {
+            return this.i18nBase('resources.BlockedUser.msg')
           }
         }
       ]

@@ -88,15 +88,15 @@ export const asyncRouterMap = [
           title: 'sidebar.user.userManager'
         }
       },
-      // {
-      //   path: 'blocked_user',
-      //   component: () => import('@/views/user/blocked-user/index'),
-      //   name: 'Blocked User',
-      //   resource: 'BlockedUser',
-      //   meta: {
-      //     title: 'sidebar.user.blockedUser'
-      //   }
-      // },
+      {
+        path: 'blocked_user',
+        component: () => import('@/views/user/blocked-user/index'),
+        name: 'Blocked User',
+        resource: 'BlockedUser',
+        meta: {
+          title: 'sidebar.user.blockedUser'
+        }
+      },
       {
         path: 'tutor',
         component: () => import('@/views/user/tutor/index'),
@@ -124,16 +124,16 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.website.websiteManagement'
         }
+      },
+      {
+        path: 'websiteSuspend',
+        component: () => import('@/views/website/websiteSuspend/index'),
+        name: 'Website Suspend',
+        resource: 'WebsiteSuspend',
+        meta: {
+          title: 'sidebar.website.suspendManagement'
+        }
       }
-      // {
-      //   path: 'websiteSuspend',
-      //   component: () => import('@/views/website/websiteSuspend/index'),
-      //   name: 'Website Suspend',
-      //   resource: 'WebsiteSuspend',
-      //   meta: {
-      //     title: 'sidebar.website.suspendManagement'
-      //   }
-      // }
     ]
   },
   {
@@ -246,15 +246,24 @@ export const asyncRouterMap = [
           title: 'sidebar.projects.ProjectsManage'
         }
       },
-      // {
-      //   path: 'blockedProjects',
-      //   component: () => import('@/views/projects/blockedProjects/index'),
-      //   name: 'Blocked Projects',
-      //   resource: 'BlockedProjects',
-      //   meta: {
-      //     title: 'sidebar.projects.BlockedProjects'
-      //   }
-      // },
+      {
+        path: 'choiceProjects',
+        component: () => import('@/views/projects/choiceProjects/index'),
+        name: 'Choice Projects',
+        resource: 'ChoiceProjects',
+        meta: {
+          title: 'sidebar.projects.ChoiceProjects'
+        }
+      },
+      {
+        path: 'blockedProjects',
+        component: () => import('@/views/projects/blockedProjects/index'),
+        name: 'Blocked Projects',
+        resource: 'BlockedProjects',
+        meta: {
+          title: 'sidebar.projects.BlockedProjects'
+        }
+      },
       {
         path: 'issuesManage',
         component: () => import('@/views/projects/issuesManage/index'),
@@ -262,6 +271,15 @@ export const asyncRouterMap = [
         resource: 'IssuesManage',
         meta: {
           title: 'sidebar.projects.IssuesManage'
+        }
+      },
+      {
+        path: 'systemTags',
+        component: () => import('@/views/projects/systemTags/index'),
+        name: 'System Tags',
+        resource: 'SystemTags',
+        meta: {
+          title: 'sidebar.projects.SystemTags'
         }
       }
     ]

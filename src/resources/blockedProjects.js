@@ -35,19 +35,21 @@ export default class BlockedProjects extends BaseResource {
         search: false
       },
       {
+        name: 'handlerName',
+        originName: 'handler',
+        type: 'String',
+        required: true,
+        component: 'text',
+        create: false,
+        edit: false,
+        sort: false
+      },
+      {
         name: 'description',
         type: 'String',
         required: true,
         component: 'text',
         edit: true
-      },
-      {
-        name: 'handler',
-        type: 'String',
-        required: true,
-        component: 'text',
-        edit: false,
-        create: false
       }
     ]
   }
@@ -58,7 +60,22 @@ export default class BlockedProjects extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit']
+      disabled: ['show', 'edit', 'destroy'],
+      extra: [
+        {
+          name: 'block',
+          button: 'warning',
+          func: async(row) => {
+            await this.api().destroy(row)
+          },
+          title: (row) => {
+            return this.i18nBase('resources.BlockedProjects.title')
+          },
+          confirmMsg: (row) => {
+            return this.i18nBase('resources.BlockedProjects.msg')
+          }
+        }
+      ]
     }
   }
 }

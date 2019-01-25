@@ -1,4 +1,5 @@
 import { resourceCRUD } from '@/api/lesson'
+import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
 import store from '@/store'
 
@@ -18,13 +19,15 @@ const stateMap = [
   },
   {
     key: 3,
-    value: '审核失败'
+    value: '审核不通过'
   },
   {
     key: 4,
-    value: '异常'
+    value: '下架'
   }
 ]
+
+const ENV = process.env.NODE_ENV
 
 export default class Package extends BaseResource {
   static attributes() {
@@ -40,6 +43,13 @@ export default class Package extends BaseResource {
         type: 'String',
         title: true,
         required: true
+      },
+      {
+        name: 'intro',
+        type: 'String',
+        component: 'text',
+        show: false,
+        search: false
       },
       {
         name: 'userId',
@@ -79,6 +89,12 @@ export default class Package extends BaseResource {
         }
       },
       {
+        name: 'extra.message',
+        type: 'String',
+        component: 'text',
+        search: false
+      },
+      {
         name: 'rmb',
         type: 'Number',
         required: true
@@ -89,13 +105,10 @@ export default class Package extends BaseResource {
         required: true
       },
       {
-        name: 'extra.message',
-        type: 'String',
-        component: 'text'
-      },
-      {
         name: 'extra.coverUrl',
-        type: 'String'
+        type: 'String',
+        show: false,
+        search: false
       },
       {
         name: 'createdAt',
@@ -111,7 +124,24 @@ export default class Package extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show'],
+      extra: [{
+        name: 'view',
+        title() {
+          return '预览'
+        },
+        async func(row, that) {
+          const { userId, id } = row
+          const token = await getUserToken(userId)
+          if (token) {
+            if (ENV === 'stage' || ENV === 'release') {
+              const url = `https://${ENV}.keepwork.com/l/teacher/package/${id}?token=${token}`
+              return window.open(url, '_blank')
+            }
+            window.open(`https://keepwork.com/l/teacher/package/${id}?token=${token}`, '_blank')
+          }
+        }
+      }]
     }
   }
 }

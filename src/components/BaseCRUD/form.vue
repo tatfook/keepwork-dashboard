@@ -1,8 +1,8 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.name)" :prop="attr.originName || attr.name">
-        <el-select v-if="attr.associate" v-model="model[attr.originName || attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
+      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
+        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
@@ -17,16 +17,17 @@
     </el-form>
     <div slot="footer" class="form-footer">
       <el-button @click="cancel">{{$t('cancel')}}</el-button>
-      <el-button v-if="status=='create'" type="primary" @click.prevent="createData">{{$t('save')}}</el-button>
-      <el-button v-else type="primary" @click.prevent="updateData">{{$t('update')}}</el-button>
+      <el-button v-if="status=='create'" type="primary" @click="createData">{{$t('save')}}</el-button>
+      <el-button v-else type="primary" @click="updateData">{{$t('update')}}</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
+import { getResourceClass } from '@/resources'
 import { mapGetters } from 'vuex'
-import { resourceCRUD as keepworkCRUD } from '@/api/keepwork'
+import { ActiveQuery } from '@/utils/query'
 
 export default {
   name: 'CRUDFrom',
@@ -66,7 +67,6 @@ export default {
     },
     initModel() {
       this.model = _.cloneDeep(this.formData || {})
-
       if (this.status === 'create') {
         this.loadDefaultValues()
       }
@@ -74,7 +74,7 @@ export default {
     },
     loadDefaultValues() {
       _.forEach(this.resourceClass.attributes(), (attr) => {
-        if ((attr.required || attr.create !== false) && attr.default !== undefined) {
+        if ((attr.required || attr.edit !== false) && attr.default !== undefined) {
           this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
         }
       })
@@ -85,30 +85,24 @@ export default {
       for (const attr of this.attrs) {
         if (attr.associate) {
           if (this.model[attr.name] && !attr.multiple && this.edit !== false) {
-            const crud = keepworkCRUD(attr.formAssociate || attr.associate)
-            const item = await crud.get(this.model[attr.originName])
-
+            const associateClass = getResourceClass(attr.associate)
+            const item = await associateClass.api().get(this.model[attr.name])
             this.associateOptions[attr.name] = [
               {
                 key: item.id,
-                value: item[attr.associateField]
+                value: item[associateClass.title()]
               }
             ]
           } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
-            // const crud = keepworkCRUD(attr.associate)
-            // const queryParam = { 'x-per-page': 50 }
-
-            // queryParam[`${attr.associateField}-like`] = query + '%'
-
-            // const queryOptions = new ActiveQuery().where({ 'id-in': this.model[attr.name] }).paginate(1, 20).query
-
-            // const list = await crud.list(this.model[attr.name])
-            // this.associateOptions[attr.name] = list.rows.map(item => {
-            //   return {
-            //     key: item.id,
-            //     value: item[attr.associateField]
-            //   }
-            // })
+            const associateClass = getResourceClass(attr.associate)
+            const queryOptions = new ActiveQuery().where({ 'id-in': this.model[attr.name] }).paginate(1, 20).query
+            const list = await associateClass.api().list(queryOptions)
+            this.associateOptions[attr.name] = list.rows.map(item => {
+              return {
+                key: item.id,
+                value: item[associateClass.title()]
+              }
+            })
           } else {
             await this.searchAssociate(attr)('')
           }
@@ -117,19 +111,20 @@ export default {
       this.loading = false
     },
     searchAssociate(attr) {
-      return async query => {
+      const self = this
+      const associateClass = getResourceClass(attr.associate)
+      return async param => {
         this.loading = true
-        const crud = keepworkCRUD(attr.formAssociate || attr.associate)
-
-        const queryParam = { 'x-per-page': 50 }
-        if (query !== '') {
-          queryParam[`${attr.associateField}-like`] = query + '%'
+        let queryParam = {}
+        if (param !== '') {
+          const query = associateClass.queryFilter(new ActiveQuery())
+          queryParam = query.where({ [associateClass.title() + '-like']: param + '%' }).paginate(1, 50).query
         }
-        const list = await crud.list(queryParam, 'search')
-        this.associateOptions[attr.name] = list.rows.map(item => {
+        const list = await associateClass.api().list(queryParam)
+        self.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,
-            value: item[attr.associateField]
+            value: item[associateClass.title()]
           }
         })
         this.loading = false
@@ -152,15 +147,7 @@ export default {
       resourceClass: 'resourceClass'
     }),
     attrs() {
-      if (this.status === 'create') {
-        return this.resourceClass.createableAttrs()
-      }
-
-      if (this.status === 'update') {
-        return this.resourceClass.editableAttrs()
-      }
-
-      return []
+      return this.resourceClass.editableAttrs()
     },
     attrRules() {
       return this.resourceClass.attrRules()

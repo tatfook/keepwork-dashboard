@@ -1,9 +1,15 @@
 import Cookies from 'js-cookie'
+import jwt from 'jsonwebtoken'
 
 const TokenKey = 'Admin-Token'
 
 export function getToken() {
   return Cookies.get(TokenKey)
+}
+
+export function getAdminInfo() {
+  const token = getToken()
+  return jwt.decode(token || '')
 }
 
 export function setToken(token) {

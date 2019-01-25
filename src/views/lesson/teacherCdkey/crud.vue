@@ -1,12 +1,25 @@
 <template>
   <div class="app-container">
     <div class="action-container">
-      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">Generate Code</el-button>
+      <el-button class="filter-item" style="margin-left: 10px;" @click="handleGenerate" type="primary">生成邀请码</el-button>
+
+      <el-dropdown style="float: right" @command="handleAddFilter">
+        <el-button type="primary">
+          {{$t('addFilter')}}
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-for="item in searchableFilters" :key="item" :command="item">
+            {{i18n(item)}}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
+    <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
 
-    <crud-table :listLoading="listLoading" :resourceClass="resourceClass" :list="list" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort"></crud-table>
+    <crud-table :listLoading="listLoading" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort" />
 
-    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange"> </crud-paginate>
+    <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
     <el-dialog title="Code Generator" :visible.sync="dialogFormVisible">
       <el-input v-model="count" placeholder="Please input" style='width:400px;'></el-input>
@@ -33,20 +46,16 @@ export default {
     handleGenerate() {
       this.dialogFormVisible = true
     },
-    async getList() {
-      this.listLoading = true
-      await this.setQueryOptions({ queryOptions: this.listQuery })
-      this.listLoading = false
-    },
     async generateData() {
       this.downloadLoading = true
       const list = await this.resourceClass.model().generate(this.count)
+
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = this.resourceClass.exportAttrs().map(item => item.name)
+        const tHeader = this.resourceClass.exportAttrs().map(item => this.i18n(item.name))
         const data = list.map(data =>
           this.resourceClass
             .exportAttrs()
-            .map(col => this.colFilter(col, data[col.name]))
+            .map(col => this.colFilter(col, data))
         )
         excel.export_json_to_excel({
           header: tHeader,

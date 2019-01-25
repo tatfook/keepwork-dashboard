@@ -1,5 +1,5 @@
 <template>
-  <base-crud resource="BlockedUser"></base-crud>
+  <base-crud resource="ChoiceProjects"> </base-crud>
 </template>
 
 <script>

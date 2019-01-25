@@ -10,8 +10,14 @@ export default class BaseResource {
     _.merge(this, row)
   }
 
+  // resource rest API
+  static api() {
+    return this.model()
+  }
+
+  // resource rest API
   static model() {
-    throw new Error('Please define the resource MODEL!')
+    throw new Error('Please define the resource API!')
   }
 
   /*
@@ -43,7 +49,7 @@ export default class BaseResource {
 
   /*
     resource action settings, including disabled and extra actions.
-    default actions are ['create', 'delete', 'update', 'download'].
+    default actions are ['create', 'destroy', 'update', 'download'].
     example:
       {
         disabled: ['destroy'],
@@ -58,13 +64,7 @@ export default class BaseResource {
   */
   static actions() {
     return {
-      disabled: ['show'], // ['create', 'edit', 'delete', 'show']
-      extra: []
-    }
-  }
-
-  static action() {
-    return {
+      disabled: ['show'], // ['create', 'edit', 'destroy', 'show']
       extra: []
     }
   }
@@ -114,10 +114,6 @@ export default class BaseResource {
 
   static editableAttrs() {
     return this.attrFilter('edit')
-  }
-
-  static createableAttrs() {
-    return this.attrFilter('create')
   }
 
   static showableAttrs() {

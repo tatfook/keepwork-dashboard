@@ -4,7 +4,7 @@
       <el-button v-if="can('create')" class="filter-item" @click="handleCreate" type="primary" icon="el-icon-plus">{{$t('new')}}</el-button>
       <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
       <el-button v-if="can('delete')" class="filter-item" style="margin-left: 10px;" @click="handleDeleteAll" type="primary" icon="el-icon-plus">{{$t('deleteAll')}}</el-button>
-      <el-button v-for="op in canActions" :key="op.name" class="filter-item" style="margin-left: 10px;" @click="handleAction(op)" type="primary" icon="el-icon-plus">{{$t(op.name)}}</el-button>
+      <el-button v-for="op in canAction" :key="op.name" class="filter-item" style="margin-left: 10px;" @click="handleAction(op)" type="primary" icon="el-icon-plus">{{$t(op.name)}}</el-button>
 
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
@@ -21,12 +21,26 @@
 
     <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
 
-    <crud-table :listLoading="listLoading" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort" />
+    <crud-table :listLoading="listLoading" :filter="colFilter" @handleActions="handleActions" @handleSort="handleSort" />
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
     <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" :visible.sync="dialogFormVisible">
       <crud-form :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
+    </el-dialog>
+
+    <el-dialog :visible.sync="isShowCommentdialog" width="800px">
+      <template>
+        <el-table style="width: 100%" max-height="500" :data="commentsList">
+          <el-table-column fixed label="用户" width="150" prop="commentsUserName"></el-table-column>
+          <el-table-column label="评论" width="800" prop="content"></el-table-column>
+          <el-table-column fixed="right" label="操作" width="120">
+            <template slot-scope="scope">
+             <el-button type="warning" size="mini" @click="commentDelete(scope.row)">{{$t('delete')}}</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
     </el-dialog>
 
     <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">
@@ -38,58 +52,26 @@
 
 <script>
 import crudMixin from '../../../components/BaseCRUD/crud.mixin'
-import { Message } from 'element-ui'
-import { newResource } from '@/resources'
 
 export default {
-  name: 'BlockedUser',
+  name: 'BaseCRUD',
   mixins: [crudMixin],
+  props: {},
+  data() {
+    return {
+      isShowCommentdialog: false,
+      commentsData: []
+    }
+  },
+  computed: {
+    commentsList() {
+      return this.commentsData
+    }
+  },
   methods: {
-    async createData(data) {
-      try {
-        await this.model.create(data)
-        this.dialogFormVisible = false
-        this.handleCurrentChange(1)
-        this.$notify({
-          title: this.$t('success'),
-          message: this.$t('base.success.create'),
-          type: 'success',
-          duration: 2000
-        })
-      } catch (err) {
-        Message({
-          message: this.$t('resources.blockedUser.tips.createDataError'),
-          type: 'error',
-          duration: 5 * 1000
-        })
-      }
-    },
-    async updateData(data) {
-      let temp = newResource(this.resource, data)
-      try {
-        temp = await this.model.update(temp)
-        for (const v of this.list) {
-          if (v.id === temp.id) {
-            const index = this.list.indexOf(v)
-            this.list.splice(index, 1, temp)
-            break
-          }
-        }
-        this.dialogFormVisible = false
-        this.$notify({
-          title: this.$t('success'),
-          message: this.$t('base.success.update'),
-          type: 'success',
-          duration: 2000
-        })
-        this.getList()
-      } catch (err) {
-        Message({
-          message: this.$t('resources.blockedUser.tips.updateError'),
-          type: 'error',
-          duration: 5 * 1000
-        })
-      }
+    async commentDelete(row, done) {
+      await this.model.commentsDestroy(row)
+      this.commentsData = await this.model.comments(this.issueId)
     }
   }
 }

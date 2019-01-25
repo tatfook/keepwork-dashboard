@@ -17,7 +17,8 @@
   "export": "Export",
   "new": "New",
   "addFilter": "Add Filter",
-  "deleteAll": "Delete All",
+  "deleteAll": "Delete Selected",
+  "unblockSelected": "Unblock Selected",
   "search": "Search",
   "name": "name",
   "roles": "roles",
@@ -25,7 +26,7 @@
   "base": {
     "confirm": {
       "delete": "Are you sure?",
-      "deleteList": "Will delete all the list, are you sure?"
+      "deleteList": "The selected list will be deleted, are you sure?"
     },
     "success": {
       "message": "Success!",
@@ -51,6 +52,23 @@
       "lte": "less or equal",
       "like": "like",
       "notLike": "not like"
+    }
+  },
+  "unblockSelectedMsg": {
+    "dialogMsg": "The selected list will be unblocked, are you sure?",
+    "success": "unblock successfully!",
+    "failure": "fail to unblock!"
+  },
+  "dialog": {
+    "label": {
+      "groupsName": "groups name",
+      "members": "members",
+      "permission": "permission"
+    },
+    "permission": {
+      "reject": "reject",
+      "view": "view",
+      "edit": "edit"
     }
   },
   "sidebar": {
@@ -106,6 +124,8 @@
       }
     },
     "BlockedUser": {
+      "msg": "Are you sure to unblock the user?",
+      "title": "unblock",
       "attr": {
         "id": "id",
         "objectId": "user name",
@@ -113,7 +133,7 @@
         "cellphone": "cell phone",
         "level": "level",
         "description": "suspend reason",
-        "handler": "handler"
+        "handlerName": "handler"
       }
     },
     "SensitiveWords": {
@@ -124,19 +144,20 @@
         "updatedAt": "updated at"
       },
       "tips": {
-        "keyWord": "Keyword repetition！",
-        "updateError": "Operational errors！"
+        "keyWord": "Keyword repetition!",
+        "updateError": "Operational errors!"
       }
     },
     "blockedUser": {
       "tips": {
         "createDataError": "Failed to add user information!",
-        "updateError": "Operational errors！"
+        "updateError": "Operational errors!"
       }
     },
     "WebsiteManage": {
       "attr": {
         "sitename": "website name",
+        "siteUrl": "site url",
         "username": "website creator",
         "createdAt": "created at",
         "updatedAt": "updated at"
@@ -147,7 +168,19 @@
         "sitename": "website name",
         "createdAt": "suspended at",
         "description": "suspend reason",
-        "handler": "handler"
+        "handlerName": "handler"
+      },
+      "button": {
+        "unblock": "unblock",
+        "privilegeManagement": "privilege management",
+        "unblockMsg": "Are you sure to unblock the site?"
+      },
+      "dialog": {
+        "title": "Suspend the specified website"
+      },
+      "tips": {
+        "createError": "Fail to block website!",
+        "operateMiss": "Operate miss!"
       }
     },
     "TeacherCDKey": {
@@ -220,7 +253,19 @@
         "name": "entry name",
         "privilege": "recruitment status",
         "createdAt": "created at",
-        "updatedAt": "updated at"
+        "updatedAt": "updated at",
+        "choicenessNo": "project level"
+      }
+    },
+    "BlockedProjects": {
+      "msg": "Are you sure to unblock the user?",
+      "title": "unblock",
+      "attr": {
+        "id": "ID",
+        "name": "entry name",
+        "createdAt": "closing date",
+        "description": "reasons for closure",
+        "handlerName": "handler"
       }
     },
     "PackageLesson": {

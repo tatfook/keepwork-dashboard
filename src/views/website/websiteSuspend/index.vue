@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <base-crud resource="WebsiteSuspend"></base-crud>
-  </div>
+  <base-crud resource="WebsiteSuspend"></base-crud>
 </template>
 
 <script>

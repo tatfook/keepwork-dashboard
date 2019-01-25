@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import BaseCRUD from '@/components/BaseCRUD'
+import WebsiteManage from './websiteManage'
 
 export default {
   components: {
-    'base-crud': BaseCRUD
+    'base-crud': WebsiteManage
   }
 }
 </script>

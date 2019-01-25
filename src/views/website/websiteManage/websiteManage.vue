@@ -1,9 +1,10 @@
 <template>
   <div class="app-container">
     <div class="action-container">
-      <el-button v-if="can('create')" class="filter-item" @click="handleCreate" type="primary" icon="el-icon-plus">{{$t('new')}}</el-button>
       <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
       <el-button v-if="can('delete')" class="filter-item" style="margin-left: 10px;" @click="handleDeleteAll" type="primary" icon="el-icon-plus">{{$t('deleteAll')}}</el-button>
+      <el-button v-for="op in canAction" :key="op.name" class="filter-item" style="margin-left: 10px;" @click="handleAction(op)" type="primary" icon="el-icon-plus">{{$t(op.name)}}</el-button>
+
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
           {{$t('addFilter')}}
@@ -19,55 +20,54 @@
 
     <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
 
-    <crud-table :listLoading="listLoading" :filter="colFilter" @handleAction="handleAction" @handleSort="handleSort" />
+    <crud-table :listLoading="listLoading" :filter="colFilter" @handleActions="handleActions" @handleSort="handleSort" />
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
-    <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" :visible.sync="dialogFormVisible">
+    <el-dialog v-if="can('edit') || can('create')" :title="$t('resources.WebsiteSuspend.dialog.title')" :visible.sync="dialogFormVisible">
       <crud-form :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
     </el-dialog>
 
-    <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">
-      <crud-show :list="showingData" />
+    <el-dialog :visible.sync="isVisible">
+      <privilege-manage :list="showData"/>
     </el-dialog>
 
   </div>
 </template>
 
 <script>
-import crudMixin from '../../components/BaseCRUD/crud.mixin'
-import { Message } from 'element-ui'
+import crudMixin from '../../../components/BaseCRUD/crud.mixin'
 import { newResource } from '@/resources'
+import PrivilegeManage from './privilegeManage'
 
 export default {
-  name: 'SensitiveWords',
+  name: 'WebsiteManage',
   mixins: [crudMixin],
+  data() {
+    return {
+      isVisible: false,
+      authority: []
+    }
+  },
+  computed: {
+    showData() {
+      return this.authority.rows
+    }
+  },
   methods: {
     async createData(data) {
       try {
-        const createDataRepeated = await this.model.create(data)
-        if (createDataRepeated) {
-          this.dialogFormVisible = false
-          this.handleCurrentChange(1)
-          this.$notify({
-            title: this.$t('success'),
-            message: this.$t('base.success.create'),
-            type: 'success',
-            duration: 2000
-          })
-        } else {
-          Message({
-            message: this.$t('resources.SensitiveWords.tips.keyWord'),
-            type: 'error',
-            duration: 5 * 1000
-          })
-        }
-      } catch (err) {
-        Message({
-          message: this.$t('resources.SensitiveWords.tips.keyWord'),
-          type: 'error',
-          duration: 5 * 1000
+        await this.model.create(data)
+        this.dialogFormVisible = false
+        this.handleCurrentChange(1)
+        this.$notify({
+          title: this.$t('success'),
+          message: this.$t('base.success.create'),
+          type: 'success',
+          duration: 2000
         })
+      } catch (err) {
+        console.error(err)
       }
     },
     async updateData(data) {
@@ -90,13 +90,12 @@ export default {
         })
         this.getList()
       } catch (err) {
-        Message({
-          message: this.$t('resources.SensitiveWords.tips.updateError'),
-          type: 'error',
-          duration: 5 * 1000
-        })
+        console.error(err)
       }
     }
+  },
+  components: {
+    PrivilegeManage
   }
 }
 </script>

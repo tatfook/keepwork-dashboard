@@ -2,10 +2,15 @@ import { resourceCRUD } from '@/api/keepwork'
 
 const projectsCRUD = resourceCRUD('projects')
 const usersCRUD = resourceCRUD('users')
+import _ from 'lodash'
 
-export default function projectsManageModel() {
+export default function choiceProjectsModel() {
   return {
     async list(params) {
+      params.where['choicenessNo'] = { $gte: 100 }
+      if (params.order) {
+        params.order.push(['choicenessNo', 'desc'])
+      }
       const projects = await projectsCRUD.list(params)
       const userIds = projects.rows.map(item => item.userId)
       const users = await usersCRUD.list({
@@ -18,16 +23,20 @@ export default function projectsManageModel() {
       })
       const usersMap = new Map()
       users.rows.forEach(user => usersMap.set(user.id, user.username))
-      const finalProjects = projects.rows.map(item => {
+      const finalProjects = projects.rows.map((item, index) => {
         const username = usersMap.get(item.userId)
         return {
           ...item,
           username
         }
       })
+      const _project = _.map(_.reverse(_.sortBy(finalProjects, item => item.choicenessNo)), (item, index) => ({
+        ...item,
+        number: index + 1
+      }))
       const list = {
         count: projects.count,
-        rows: finalProjects
+        rows: _project
       }
       return list
     },

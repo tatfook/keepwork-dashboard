@@ -7,9 +7,9 @@ const request = createService(process.env.LESSON_API)
 // FIXME missing query
 export function getTeacherCDKeys(query) {
   return request({
-    method: 'get',
-    url: '/admins/teacherCDKeys',
-    params: query
+    method: 'post',
+    url: '/admins/teacherCDKeys/query',
+    data: query
   })
 }
 

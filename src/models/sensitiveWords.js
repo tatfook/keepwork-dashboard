@@ -10,7 +10,7 @@ export default function userModel() {
     async create(params) {
       const sensitiveWordsParams = params
 
-      const sensitiveWordsList = await sensitiveWordsCRUD.list(sensitiveWordsParams)
+      const sensitiveWordsList = await sensitiveWordsCRUD.list(sensitiveWordsParams, 'search')
 
       if (sensitiveWordsList.count === 0) {
         return sensitiveWordsCRUD.create(params)
@@ -23,6 +23,11 @@ export default function userModel() {
     },
     async destroy(params) {
       return sensitiveWordsCRUD.destroy(params)
+    },
+    async destroyAll(params) {
+      for (const index of params.ids || []) {
+        await this.destroy({ id: index })
+      }
     }
   }
 }

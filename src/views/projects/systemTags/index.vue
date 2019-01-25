@@ -1,5 +1,5 @@
 <template>
-  <base-crud resource="Userinfo"></base-crud>
+  <base-crud resource="SystemTags"> </base-crud>
 </template>
 
 <script>

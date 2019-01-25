@@ -8,9 +8,16 @@ export default class websiteManage extends BaseResource {
     return [
       {
         name: 'sitename',
+        title: true,
         edit: false,
         sort: false,
         search: true
+      },
+      {
+        name: 'siteUrl',
+        edit: false,
+        sort: false,
+        search: false
       },
       {
         name: 'username',
@@ -41,7 +48,16 @@ export default class websiteManage extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'show']
+      disabled: ['create', 'show'],
+      extra: [
+        {
+          name: 'resources.WebsiteSuspend.button.privilegeManagement',
+          func: async(ctx, data) => {
+            ctx.authority = await ctx.model.checkAuthority(data.id)
+            ctx.isVisible = true
+          }
+        }
+      ]
     }
   }
 }

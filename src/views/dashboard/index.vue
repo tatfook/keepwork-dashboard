@@ -1,6 +1,9 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">{{$t('name')}}:{{name}}</div>
+    <div class="dashboard-text">
+      {{$t('name')}}:
+      <span>{{name}}</span>
+    </div>
     <div class="dashboard-text">{{$t('roles')}}:
       <span v-for='role in roles' :key='role'>{{role}}</span>
     </div>
@@ -24,8 +27,8 @@ export default {
     margin: 30px;
   }
   &-text {
-    font-size: 30px;
-    line-height: 46px;
+    font-size: 14px;
+    line-height: 28px;
   }
 }
 </style>
