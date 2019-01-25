@@ -247,6 +247,15 @@ export const asyncRouterMap = [
         }
       },
       {
+        path: 'choiceProjects',
+        component: () => import('@/views/projects/choiceProjects/index'),
+        name: 'Choice Projects',
+        resource: 'ChoiceProjects',
+        meta: {
+          title: 'sidebar.projects.ChoiceProjects'
+        }
+      },
+      {
         path: 'blockedProjects',
         component: () => import('@/views/projects/blockedProjects/index'),
         name: 'Blocked Projects',

@@ -93,6 +93,7 @@
     "sidebarProjects": "项目",
     "projects": {
       "ProjectsManage": "项目管理",
+      "ChoiceProjects": "首页精选",
       "BlockedProjects": "封停项目",
       "IssuesManage": "issues管理",
       "SystemTags": "系统标签"
@@ -200,7 +201,7 @@
         "username": "用户名",
         "teachers": {
           "createdAt": "激活日期",
-          "school": "学校"
+          "school": "学校/机构"
         },
         "extra": {
           "remark": "备注"
@@ -273,6 +274,23 @@
         "createdAt": "创建日期",
         "updatedAt": "更新日期",
         "choicenessNo": "项目级别",
+        "userId": "用户ID",
+        "username": "用户名",
+        "classifyTags": "系统标签",
+        "status": "状态",
+        "visibility": "可见性"
+      }
+    },
+    "ChoiceProjects": {
+      "attr": {
+        "number": "序号",
+        "id": "项目ID",
+        "type": "项目类型",
+        "name": "项目名称",
+        "privilege": "招募状态",
+        "createdAt": "创建日期",
+        "updatedAt": "更新日期",
+        "choicenessNo": "项目权重",
         "userId": "用户ID",
         "username": "用户名",
         "classifyTags": "系统标签",

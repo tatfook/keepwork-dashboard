@@ -86,8 +86,7 @@ export default {
       const defaultAction = ['show', 'edit', 'delete']
       const disabled = this.resourceClass.actions().disabled || []
       const extraLength = this.canActions.length
-      // const buttonWidth = 80
-      const buttonWidth = 100
+      const buttonWidth = 110
       return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
     },
     canActions() {
