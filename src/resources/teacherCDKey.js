@@ -57,7 +57,8 @@ export default class TeacherCDKey extends BaseResource {
       {
         name: 'username',
         type: 'String',
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'teachers.school',
