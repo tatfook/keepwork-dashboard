@@ -60,7 +60,7 @@ export default class SystemTags extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'destroy', 'delete']
+      disabled: ['show', 'edit']
     }
   }
 }
