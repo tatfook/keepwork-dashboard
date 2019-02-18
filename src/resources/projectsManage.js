@@ -175,7 +175,6 @@ export default class ProjectsManage extends BaseResource {
     return {
       append: {
         choicenessNo(object) {
-          console.log(object)
           if (object.value === '精选') {
             if (object.op === 'eq') {
               return {
