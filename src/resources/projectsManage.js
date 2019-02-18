@@ -174,8 +174,14 @@ export default class ProjectsManage extends BaseResource {
   static customFilter() {
     return {
       append: {
+        name(object) {
+          if (object.op === 'eq' && object.name === 'name') {
+            object.value = _.trim(object.value)
+            return object
+          }
+          return object
+        },
         choicenessNo(object) {
-          console.log(object)
           if (object.value === '精选') {
             if (object.op === 'eq') {
               return {
