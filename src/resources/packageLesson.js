@@ -1,8 +1,8 @@
-import { resourceCRUD } from '@/api/lesson'
+import packageLessonModel from '@/models/packageLesson'
 import BaseResource from './base'
 import store from '@/store'
 
-const model = resourceCRUD('packageLessons')
+const model = packageLessonModel()
 
 export default class PackageLesson extends BaseResource {
   static attributes() {
@@ -20,10 +20,25 @@ export default class PackageLesson extends BaseResource {
         associate: 'Package'
       },
       {
+        name: 'packages',
+        type: 'String',
+        search: false,
+        edit: false,
+        filter: object => {
+          return object.packageName
+        }
+      },
+      {
         name: 'lessonId',
         type: 'Number',
         required: true,
         associate: 'Lesson'
+      },
+      {
+        name: 'lessonName',
+        type: 'String',
+        search: false,
+        edit: false
       },
       {
         name: 'userId',
@@ -31,6 +46,12 @@ export default class PackageLesson extends BaseResource {
         associate: 'User',
         required: true,
         default: () => store.getters.currentUser.id,
+        edit: false
+      },
+      {
+        name: 'username',
+        type: 'String',
+        search: false,
         edit: false
       },
       {

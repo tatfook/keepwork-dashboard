@@ -1,7 +1,10 @@
-import { resourceCRUD } from '@/api/lesson'
+// import { resourceCRUD } from '@/api/lesson'
+import hotPackageModel from '@/models/hotPackage'
 import BaseResource from './base'
 
-const model = resourceCRUD('packageSorts')
+// const model = resourceCRUD('packageSorts')
+
+const hotPackageCRUD = hotPackageModel()
 
 export default class HotPackage extends BaseResource {
   static attributes() {
@@ -19,6 +22,10 @@ export default class HotPackage extends BaseResource {
         associate: 'Package'
       },
       {
+        name: 'packageName',
+        type: 'String'
+      },
+      {
         name: 'hotNo',
         type: 'Number'
       },
@@ -31,7 +38,7 @@ export default class HotPackage extends BaseResource {
   }
 
   static model() {
-    return model
+    return hotPackageCRUD
   }
 
   static actions() {
