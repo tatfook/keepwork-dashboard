@@ -211,7 +211,7 @@
         "id": "id",
         "packageId": "package id",
         "hotNo": "hot No.",
-        "packageName": "packageName",
+        "packageName": "package name",
         "createdAt": "created at"
       }
     },
