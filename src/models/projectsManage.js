@@ -26,7 +26,7 @@ export default function projectsManageModel() {
         }
       })
       const list = {
-        count: finalProjects.length,
+        count: projects.count,
         rows: finalProjects
       }
       return list

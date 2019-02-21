@@ -121,7 +121,7 @@
     },
     "User": {
       "attr": {
-        "id": "序号",
+        "id": "用户ID",
         "username": "用户名",
         "createdAt": "注册时间",
         "cellphone": "绑定手机号",
@@ -297,7 +297,7 @@
         "username": "用户名",
         "classifyTags": "系统标签",
         "status": "状态",
-        "visibility": "可见性"
+        "visibility": "项目状态"
       }
     },
     "ChoiceProjects": {
@@ -314,7 +314,7 @@
         "username": "用户名",
         "classifyTags": "系统标签",
         "status": "状态",
-        "visibility": "可见性"
+        "visibility": "项目状态"
       }
     },
     "BlockedProjects": {

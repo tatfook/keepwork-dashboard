@@ -49,7 +49,7 @@ export default class ProjectsManage extends BaseResource {
         name: 'type',
         type: 'Number',
         show: true,
-        search: true,
+        search: false,
         options: typeMap,
         filter: (key) => {
           for (const item of typeMap) {
@@ -65,7 +65,7 @@ export default class ProjectsManage extends BaseResource {
         type: 'Number',
         edit: true,
         show: true,
-        search: true,
+        search: false,
         options: privilegeMap,
         filter: (key) => {
           for (const item of privilegeMap) {
@@ -121,7 +121,10 @@ export default class ProjectsManage extends BaseResource {
         name: 'classifyTags',
         type: 'String',
         show: true,
-        search: true
+        search: true,
+        filter(value) {
+          return value ? value.split('|').filter(v => v).join('|') : ''
+        }
       },
       {
         name: 'choicenessNo',
@@ -173,13 +176,30 @@ export default class ProjectsManage extends BaseResource {
       append: {
         choicenessNo(object) {
           if (object.value === '精选') {
-            return {
-              ...object,
-              value: 1
+            if (object.op === 'eq') {
+              return {
+                ...object,
+                op: 'gt',
+                value: 0
+              }
+            }
+            if (object.op === 'ne') {
+              return {
+                ...object,
+                op: 'eq',
+                value: 0
+              }
             }
           }
 
           if (object.value === '一般') {
+            if (object.op === 'ne') {
+              return {
+                ...object,
+                op: 'gt',
+                value: 0
+              }
+            }
             return {
               ...object,
               value: 0

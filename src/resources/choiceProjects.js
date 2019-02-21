@@ -41,7 +41,7 @@ export default class ChoiceProjects extends BaseResource {
       {
         name: 'choicenessNo',
         type: 'Number',
-        show: true,
+        show: false,
         edit: false,
         search: false
       },
@@ -161,6 +161,67 @@ export default class ChoiceProjects extends BaseResource {
           }
         },
         {
+          name: 'top',
+          button: 'success',
+          title(row) {
+            return '置顶'
+          },
+          async func(row, that) {
+            const [allChoiceProjects, project] = await Promise.all([
+              choiceProjectsCRUD.list({ where: {}}),
+              choiceProjectsCRUD.get(row.id)
+            ])
+            const projects = allChoiceProjects.rows
+            const topProject = _.maxBy(projects, p => p.choicenessNo)
+            const topProjectId = topProject.choicenessNo + 1
+            await choiceProjectsCRUD.update({ ...project, choicenessNo: topProjectId })
+          }
+        },
+        {
+          name: 'up',
+          button: 'success',
+          title(row) {
+            return '上移'
+          },
+          async func(row, that) {
+            const [projects, project] = await Promise.all([
+              choiceProjectsCRUD.list({ where: {}}),
+              choiceProjectsCRUD.get(row.id)
+            ])
+            const allChoiceProjects = projects.rows
+            const index = _.findIndex(allChoiceProjects, p => p.id === row.id)
+            if (index !== 0) {
+              const prvProject = allChoiceProjects[index - 1]
+              await Promise.all([
+                choiceProjectsCRUD.update({ ...prvProject, choicenessNo: project.choicenessNo }),
+                choiceProjectsCRUD.update({ ...project, choicenessNo: prvProject.choicenessNo })
+              ])
+            }
+          }
+        },
+        {
+          name: 'down',
+          button: 'success',
+          title(row) {
+            return '下移'
+          },
+          async func(row, that) {
+            const [projects, project] = await Promise.all([
+              choiceProjectsCRUD.list({ where: {}}),
+              choiceProjectsCRUD.get(row.id)
+            ])
+            const allChoiceProjects = projects.rows
+            const index = _.findIndex(allChoiceProjects, p => p.id === row.id)
+            if (index < allChoiceProjects.length - 1) {
+              const nextProject = allChoiceProjects[index + 1]
+              await Promise.all([
+                choiceProjectsCRUD.update({ ...nextProject, choicenessNo: project.choicenessNo }),
+                choiceProjectsCRUD.update({ ...project, choicenessNo: nextProject.choicenessNo })
+              ])
+            }
+          }
+        },
+        {
           name: 'viewDetail',
           title() {
             return '查看详情'
@@ -206,9 +267,14 @@ export default class ChoiceProjects extends BaseResource {
               choiceProjectsCRUD.list({ where: {}}),
               choiceProjectsCRUD.get(projectId)
             ])
-            console.warn(currentChoiceProjects)
-            console.log(project)
-            await choiceProjectsCRUD.update({ ...project, choicenessNo: 104 })
+            if (currentChoiceProjects.count > 0) {
+              const projects = currentChoiceProjects.rows
+              const topProject = _.maxBy(projects, p => p.choicenessNo)
+              const topProjectId = topProject.choicenessNo + 1
+              await choiceProjectsCRUD.update({ ...project, choicenessNo: topProjectId })
+            } else {
+              await choiceProjectsCRUD.update({ ...project, choicenessNo: 100 })
+            }
           }
         }
       }

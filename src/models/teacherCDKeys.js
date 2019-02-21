@@ -27,7 +27,7 @@ export default function projectsManageModel() {
         }
       })
       const list = {
-        count: finalKeys.length,
+        count: keys.count,
         rows: finalKeys
       }
       return list
