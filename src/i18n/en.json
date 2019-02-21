@@ -99,6 +99,12 @@
     "projects": {
       "ProjectsManage": "ProjectsManage",
       "BlockedProjects": "BlockedProjects"
+    },
+    "sidebarNPL": "NPL megagame",
+    "NPL": {
+      "NPLManage": "Competition management",
+      "NPLApply": "Registration statistics",
+      "NPLWorks": "The statistical work"
     }
   },
   "resources": {
@@ -275,6 +281,16 @@
         "lessonId": "lesson id",
         "userId": "user id",
         "createdAt": "created at"
+      }
+    },
+    "NPLManage": {
+      "attr": {
+        "id": "id",
+        "name": "contest name",
+        "startDate": "start time",
+        "endDate": "end time",
+        "extra": {"description":"description"},
+        "state": "state"
       }
     }
   }

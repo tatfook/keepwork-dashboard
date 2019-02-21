@@ -109,6 +109,12 @@
       "BlockedProjects": "封停项目",
       "IssuesManage": "issues管理",
       "SystemTags": "系统标签"
+    },
+    "sidebarNPL": "NPL大赛",
+    "NPL": {
+      "NPLManage": "大赛管理",
+      "NPLApply": "报名统计",
+      "NPLWorks": "作品统计"
     }
   },
   "resources": {
@@ -357,6 +363,16 @@
         "lessonId": "课程名称",
         "userId": "用户名",
         "createdAt": "创建日期"
+      }
+    },
+    "NPLManage": {
+      "attr": {
+        "id": "序号",
+        "name": "大赛名称",
+        "startDate": "开始时间",
+        "endDate": "结束时间",
+        "extra": {"description":"描述"},
+        "state": "状态"
       }
     }
   }

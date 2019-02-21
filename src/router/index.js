@@ -285,6 +285,43 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/NPL',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarNPL',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'manage',
+        component: () => import('@/views/NPL/NPLManage/index'),
+        name: 'NPL Manage',
+        resource: 'NPLManage',
+        meta: {
+          title: 'sidebar.NPL.NPLManage'
+        }
+      },
+      {
+        path: 'apply',
+        component: () => import('@/views/NPL/NPLApply/index'),
+        name: 'NPL Apply',
+        resource: 'NPLApply',
+        meta: {
+          title: 'sidebar.NPL.NPLApply'
+        }
+      },
+      {
+        path: 'works',
+        component: () => import('@/views/NPL/NPLWorks/index'),
+        name: 'NPL Works',
+        resource: 'NPLWorks',
+        meta: {
+          title: 'sidebar.NPL.NPLWorks'
+        }
+      }
+    ]
+  },
+  {
     path: '*',
     redirect: '/404',
     hidden: true
