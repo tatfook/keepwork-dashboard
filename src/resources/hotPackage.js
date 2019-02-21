@@ -1,8 +1,5 @@
-// import { resourceCRUD } from '@/api/lesson'
 import hotPackageModel from '@/models/hotPackage'
 import BaseResource from './base'
-
-// const model = resourceCRUD('packageSorts')
 
 const hotPackageCRUD = hotPackageModel()
 
