@@ -374,6 +374,20 @@
         "extra": {"description":"描述"},
         "state": "状态"
       }
+    },
+    "NPLApply": {
+      "attr": {
+        "gameNo": "序号",
+        "gameName": "大赛名称",
+        "name": "姓名",
+        "worksCount": "提交作品数",
+        "sex": "性别",
+        "birthdate": "出生年月",
+        "cellphone": "手机号",
+        "email": "邮箱",
+        "QQ": "QQ",
+        "school": "学校/机构"
+      }
     }
   }
 }

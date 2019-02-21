@@ -20,6 +20,7 @@ import IssuesManage from './issuesManage'
 import SystemTags from './systemTags'
 import ChoiceProjects from './choiceProjects'
 import NPLManage from './NPLmanage'
+import NPLApply from './NPLapply'
 
 export const resources = {
   Admin,
@@ -42,7 +43,8 @@ export const resources = {
   IssuesManage,
   SystemTags,
   ChoiceProjects,
-  NPLManage
+  NPLManage,
+  NPLApply
 }
 
 export const newResource = (name, row) => {

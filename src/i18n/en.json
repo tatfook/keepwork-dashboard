@@ -292,6 +292,20 @@
         "extra": {"description":"description"},
         "state": "state"
       }
+    },
+    "NPLApply": {
+      "attr": {
+        "gameNo": "id",
+        "gameName": "contest name",
+        "name": "name",
+        "worksCount": "works count",
+        "sex": "gender",
+        "birthdate": "birthday",
+        "cellphone": "phone number",
+        "email": "Email",
+        "QQ": "QQ",
+        "school": "school"
+      }
     }
   }
 }
