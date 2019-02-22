@@ -4,11 +4,17 @@ import _ from 'lodash'
 const request = createService()
 
 export default {
-  list() {
-    return request({
+  async list() {
+    const works = await request({
       method: 'get',
       url: 'games/members'
     })
+    // _.forEach(works.rows, i => i.id === i.userinfosId)
+    const _works = _.map(works.rows, i => ({ ...i, id: i.userinfosId }))
+    return {
+      count: works.count,
+      rows: _works
+    }
   },
   update(data) {
     const params = {}
