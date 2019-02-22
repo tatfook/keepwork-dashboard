@@ -5,6 +5,16 @@ import _ from 'lodash'
 
 const model = _.merge({}, resourceCRUD('userinfos'), NPLapply)
 
+const genderMap = [
+  {
+    key: 'N',
+    value: '男'
+  },
+  {
+    key: 'F',
+    value: '女'
+  }
+]
 export default class NPLApply extends BaseResource {
   static attributes() {
     return [
@@ -27,16 +37,24 @@ export default class NPLApply extends BaseResource {
       {
         name: 'worksCount',
         type: 'Number',
-        edit: false
+        edit: false,
+        search: false
       },
       {
         name: 'sex',
-        type: 'String'
+        type: 'String',
+        component: 'select',
+        options: genderMap,
+        search: false,
+        filter: value => {
+          return value === 'N' ? '男' : '女'
+        }
       },
       {
         name: 'birthdate',
         type: 'Date',
-        component: 'time'
+        component: 'time',
+        search: false
       },
       {
         name: 'cellphone',
@@ -44,15 +62,18 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'email',
-        type: 'String'
+        type: 'String',
+        search: false
       },
       {
         name: 'qq',
-        type: 'String'
+        type: 'String',
+        search: false
       },
       {
         name: 'school',
-        type: 'String'
+        type: 'String',
+        search: false
       }
     ]
   }
