@@ -109,6 +109,12 @@
       "BlockedProjects": "封停项目",
       "IssuesManage": "issues管理",
       "SystemTags": "系统标签"
+    },
+    "sidebarNPL": "NPL大赛",
+    "NPL": {
+      "NPLManage": "大赛管理",
+      "NPLApply": "报名统计",
+      "NPLWorks": "作品统计"
     }
   },
   "resources": {
@@ -357,6 +363,45 @@
         "lessonId": "课程名称",
         "userId": "用户名",
         "createdAt": "创建日期"
+      }
+    },
+    "NPLManage": {
+      "attr": {
+        "id": "序号",
+        "name": "大赛名称",
+        "no": "期号",
+        "startDate": "开始时间",
+        "endDate": "结束时间",
+        "extra": {"description":"描述"},
+        "state": "状态"
+      }
+    },
+    "NPLApply": {
+      "attr": {
+        "gameNo": "序号",
+        "gameName": "大赛名称",
+        "name": "姓名",
+        "worksCount": "提交作品数",
+        "sex": "性别",
+        "birthdate": "出生年月",
+        "cellphone": "手机号",
+        "email": "邮箱",
+        "QQ": "QQ",
+        "school": "学校/机构"
+      }
+    },
+    "NPLWorks": {
+      "attr": {
+        "id": "序号",
+        "games": {"name":"大赛名称"},
+        "projectId": "项目ID",
+        "worksName": "作品名称",
+        "createdAt": "提交时间",
+        "worksSubject": "作品主题",
+        "worksRate": "作品得分",
+        "worksRateCount": "评分人数",
+        "reward": "获奖情况",
+        "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}}
       }
     }
   }

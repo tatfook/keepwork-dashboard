@@ -99,6 +99,12 @@
     "projects": {
       "ProjectsManage": "ProjectsManage",
       "BlockedProjects": "BlockedProjects"
+    },
+    "sidebarNPL": "NPL megagame",
+    "NPL": {
+      "NPLManage": "Competition management",
+      "NPLApply": "Registration statistics",
+      "NPLWorks": "The statistical work"
     }
   },
   "resources": {
@@ -275,6 +281,45 @@
         "lessonId": "lesson id",
         "userId": "user id",
         "createdAt": "created at"
+      }
+    },
+    "NPLManage": {
+      "attr": {
+        "id": "id",
+        "name": "contest name",
+        "no": "issue",
+        "startDate": "start time",
+        "endDate": "end time",
+        "extra": {"description":"description"},
+        "state": "state"
+      }
+    },
+    "NPLApply": {
+      "attr": {
+        "gameNo": "id",
+        "gameName": "contest name",
+        "name": "name",
+        "worksCount": "works count",
+        "sex": "gender",
+        "birthdate": "birthday",
+        "cellphone": "phone number",
+        "email": "Email",
+        "QQ": "QQ",
+        "school": "school"
+      }
+    },
+    "NPLWorks": {
+      "attr": {
+        "id": "id",
+        "games": {"name":"contest name"},
+        "projectId": "projectID",
+        "worksName": "work name",
+        "createdAt": "time",
+        "worksSubject": "work theme",
+        "worksRate": "work score",
+        "worksRateCount": "number of scores",
+        "reward": "reward",
+        "projects": {"users": {"userinfos": {"name": "name", "school": "scholl"}}}
       }
     }
   }
