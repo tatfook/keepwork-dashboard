@@ -83,7 +83,7 @@ export default {
       list: 'resourceList'
     }),
     actionAreaWidth() {
-      const defaultAction = ['show', 'edit', 'delete']
+      const defaultAction = ['show', 'edit', 'destroy']
       const disabled = this.resourceClass.actions().disabled || []
       const extraLength = this.canActions.length
       const buttonWidth = 110

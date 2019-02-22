@@ -15,7 +15,7 @@ export default class NPLApply extends BaseResource {
       {
         name: 'gameName',
         type: 'String',
-        edit: true,
+        edit: false,
         require: true
       },
       {
@@ -24,7 +24,8 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'worksCount',
-        type: 'Number'
+        type: 'Number',
+        edit: false
       },
       {
         name: 'sex',
@@ -32,7 +33,8 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'birthdate',
-        type: 'Date'
+        type: 'Date',
+        component: 'time'
       },
       {
         name: 'cellphone',
@@ -55,9 +57,9 @@ export default class NPLApply extends BaseResource {
   static model() {
     return model
   }
-  static action() {
+  static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show', 'create', 'delete', 'destroy']
     }
   }
 }

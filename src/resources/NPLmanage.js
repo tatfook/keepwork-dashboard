@@ -34,6 +34,10 @@ export default class NPLManage extends BaseResource {
         require: true
       },
       {
+        name: 'no',
+        type: 'Number'
+      },
+      {
         name: 'startDate',
         type: 'Date',
         edit: true,
@@ -58,7 +62,7 @@ export default class NPLManage extends BaseResource {
       {
         name: 'state',
         type: 'Number',
-        edit: true,
+        edit: false,
         require: true,
         component: 'select',
         options: stateMap,
@@ -74,9 +78,9 @@ export default class NPLManage extends BaseResource {
   static model() {
     return model
   }
-  static action() {
+  static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show', 'delete']
     }
   }
 }

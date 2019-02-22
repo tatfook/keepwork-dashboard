@@ -287,6 +287,7 @@
       "attr": {
         "id": "id",
         "name": "contest name",
+        "no": "issue",
         "startDate": "start time",
         "endDate": "end time",
         "extra": {"description":"description"},
@@ -305,6 +306,20 @@
         "email": "Email",
         "QQ": "QQ",
         "school": "school"
+      }
+    },
+    "NPLWorks": {
+      "attr": {
+        "id": "id",
+        "games": {"name":"contest name"},
+        "projectId": "projectID",
+        "worksName": "work name",
+        "createdAt": "time",
+        "worksSubject": "work theme",
+        "worksRate": "work score",
+        "worksRateCount": "number of scores",
+        "reward": "reward",
+        "projects": {"users": {"userinfos": {"name": "name", "school": "scholl"}}}
       }
     }
   }
