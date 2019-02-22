@@ -110,6 +110,12 @@ export default class NPLApply extends BaseResource {
         }
       ]
     })
+    query.include(
+      {
+        as: 'games',
+        '$model$': 'games'
+      }
+    )
     return query
   }
 }

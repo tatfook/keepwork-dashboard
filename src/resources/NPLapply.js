@@ -1,7 +1,9 @@
 import BaseResource from './base'
+import { resourceCRUD } from '@/api/keepwork'
 import NPLapply from '@/models/NPLapply'
+import _ from 'lodash'
 
-const model = NPLapply
+const model = _.merge({}, resourceCRUD('userinfos'), NPLapply)
 
 export default class NPLApply extends BaseResource {
   static attributes() {
@@ -45,7 +47,7 @@ export default class NPLApply extends BaseResource {
         type: 'String'
       },
       {
-        name: 'QQ',
+        name: 'qq',
         type: 'String'
       },
       {
