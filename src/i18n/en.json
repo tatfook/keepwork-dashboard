@@ -304,7 +304,7 @@
         "birthdate": "birthday",
         "cellphone": "phone number",
         "email": "Email",
-        "QQ": "QQ",
+        "qq": "QQ",
         "school": "school"
       }
     },
