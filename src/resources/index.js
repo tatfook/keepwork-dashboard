@@ -19,6 +19,9 @@ import WebsiteSuspend from './websiteSuspend'
 import IssuesManage from './issuesManage'
 import SystemTags from './systemTags'
 import ChoiceProjects from './choiceProjects'
+import NPLManage from './NPLmanage'
+import NPLApply from './NPLapply'
+import NPLWorks from './NPLworks'
 
 export const resources = {
   Admin,
@@ -40,7 +43,10 @@ export const resources = {
   WebsiteSuspend,
   IssuesManage,
   SystemTags,
-  ChoiceProjects
+  ChoiceProjects,
+  NPLManage,
+  NPLApply,
+  NPLWorks
 }
 
 export const newResource = (name, row) => {
