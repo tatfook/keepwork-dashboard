@@ -11,9 +11,10 @@ export default {
     })
     // _.forEach(works.rows, i => i.id === i.userinfosId)
     const _works = _.map(works.rows, i => ({ ...i, id: i.userinfosId }))
+    const _worksArr = _.map(_works, (i, index) => ({ ...i, serial: index + 1 }))
     return {
       count: works.count,
-      rows: _works
+      rows: _worksArr
     }
   },
   update(data) {
