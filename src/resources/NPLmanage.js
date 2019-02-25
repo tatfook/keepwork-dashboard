@@ -1,7 +1,9 @@
 import { resourceCRUD } from '@/api/keepwork'
 import BaseResource from './base'
+import NPLmanage from '@/models/NPLmanage'
+import _ from 'lodash'
 
-const model = resourceCRUD('games')
+const model = _.merge({}, resourceCRUD('games'), NPLmanage)
 
 const stateMap = [
   {
