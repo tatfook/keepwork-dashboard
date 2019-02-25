@@ -19,7 +19,7 @@ export default class NPLApply extends BaseResource {
   static attributes() {
     return [
       {
-        name: 'gameNo',
+        name: 'serial',
         type: 'Number',
         edit: false,
         width: '100px'
@@ -29,6 +29,11 @@ export default class NPLApply extends BaseResource {
         type: 'String',
         edit: false,
         require: true
+      },
+      {
+        name: 'gameNo',
+        type: 'Number',
+        edit: false
       },
       {
         name: 'name',

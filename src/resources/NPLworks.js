@@ -36,6 +36,11 @@ export default class NPLApply extends BaseResource {
         edit: false
       },
       {
+        name: 'games.no',
+        type: 'Number',
+        edit: true
+      },
+      {
         name: 'projectId',
         type: 'Number',
         edit: false

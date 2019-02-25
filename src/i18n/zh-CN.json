@@ -378,7 +378,8 @@
     },
     "NPLApply": {
       "attr": {
-        "gameNo": "序号",
+        "serial": "序号",
+        "gameNo": "期号",
         "gameName": "大赛名称",
         "name": "姓名",
         "worksCount": "提交作品数",
@@ -393,7 +394,7 @@
     "NPLWorks": {
       "attr": {
         "id": "序号",
-        "games": {"name":"大赛名称"},
+        "games": {"name":"大赛名称", "no": "期号"},
         "projectId": "项目ID",
         "worksName": "作品名称",
         "createdAt": "提交时间",

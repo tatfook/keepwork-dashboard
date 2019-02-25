@@ -296,7 +296,8 @@
     },
     "NPLApply": {
       "attr": {
-        "gameNo": "id",
+        "serial": "NO.",
+        "gameNo": "issue",
         "gameName": "contest name",
         "name": "name",
         "worksCount": "works count",
@@ -311,7 +312,7 @@
     "NPLWorks": {
       "attr": {
         "id": "id",
-        "games": {"name":"contest name"},
+        "games": {"name":"contest name", "no": "issue"},
         "projectId": "projectID",
         "worksName": "work name",
         "createdAt": "time",
