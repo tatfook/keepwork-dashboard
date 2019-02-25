@@ -91,14 +91,16 @@ export default {
       this.$emit('handleSearch', q)
     },
     customFilter() {
-      if (!this.resourceClass.customFilter) {
-        return this.quries
-      }
-      const convert = this.resourceClass.customFilter().append
       const queris = _.cloneDeep(this.quries)
       for (const key in queris) {
-        if (_.isFunction(convert[key])) {
-          queris[key] = convert[key](this.quries[key])
+        queris[key].value = _.trim(queris[key].value)
+      }
+      if (this.resourceClass.customFilter) {
+        const convert = this.resourceClass.customFilter().append
+        for (const key in queris) {
+          if (_.isFunction(convert[key])) {
+            queris[key] = convert[key](this.quries[key])
+          }
         }
       }
       return queris

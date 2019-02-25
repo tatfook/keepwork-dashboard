@@ -99,6 +99,12 @@
     "projects": {
       "ProjectsManage": "ProjectsManage",
       "BlockedProjects": "BlockedProjects"
+    },
+    "sidebarNPL": "NPL megagame",
+    "NPL": {
+      "NPLManage": "Competition management",
+      "NPLApply": "Registration statistics",
+      "NPLWorks": "The statistical work"
     }
   },
   "resources": {
@@ -211,6 +217,7 @@
         "id": "id",
         "packageId": "package id",
         "hotNo": "hot No.",
+        "packageName": "package name",
         "createdAt": "created at"
       }
     },
@@ -274,7 +281,50 @@
         "packageId": "package id",
         "lessonId": "lesson id",
         "userId": "user id",
-        "createdAt": "created at"
+        "createdAt": "created at",
+        "username": "username",
+        "lessonName": "lesson name",
+        "packages": "package"
+      }
+    },
+    "NPLManage": {
+      "attr": {
+        "id": "id",
+        "name": "contest name",
+        "no": "issue",
+        "startDate": "start time",
+        "endDate": "end time",
+        "extra": {"description":"description"},
+        "state": "state"
+      }
+    },
+    "NPLApply": {
+      "attr": {
+        "serial": "NO.",
+        "gameNo": "issue",
+        "gameName": "contest name",
+        "name": "name",
+        "worksCount": "works count",
+        "sex": "gender",
+        "birthdate": "birthday",
+        "cellphone": "phone number",
+        "email": "Email",
+        "qq": "QQ",
+        "school": "school"
+      }
+    },
+    "NPLWorks": {
+      "attr": {
+        "id": "id",
+        "games": {"name":"contest name", "no": "issue"},
+        "projectId": "projectID",
+        "worksName": "work name",
+        "createdAt": "time",
+        "worksSubject": "work theme",
+        "worksRate": "work score",
+        "worksRateCount": "number of scores",
+        "reward": "reward",
+        "projects": {"users": {"userinfos": {"name": "name", "school": "scholl"}}}
       }
     }
   }

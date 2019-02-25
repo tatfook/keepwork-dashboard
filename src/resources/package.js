@@ -144,4 +144,19 @@ export default class Package extends BaseResource {
       }]
     }
   }
+
+  static customFilter() {
+    return {
+      append: {
+        state(object) {
+          for (const item of stateMap) {
+            if (item.value === object.value.trim()) {
+              return { ...object, value: item.key }
+            }
+          }
+          return object
+        }
+      }
+    }
+  }
 }
