@@ -50,9 +50,10 @@ export default class NPLApply extends BaseResource {
         type: 'String',
         component: 'select',
         options: genderMap,
+        edit: false,
         search: false,
         filter: value => {
-          return value === 'N' ? '男' : '女'
+          return value === 'M' ? '男' : '女'
         }
       },
       {
@@ -63,11 +64,13 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'cellphone',
+        edit: false,
         type: 'String'
       },
       {
         name: 'email',
         type: 'String',
+        edit: false,
         search: false
       },
       {
