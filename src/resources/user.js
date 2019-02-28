@@ -180,7 +180,11 @@ export default class User extends BaseResource {
               label: '确认新密码：',
               key: 'password',
               value: '',
-              id: row.id
+              id: row.id,
+              rules: [
+                { required: true, message: '密码不能为空' },
+                { min: 6, message: '最低6个字符', trigger: 'change' }
+              ]
             }],
             type: 'input',
             title: '重置密码',

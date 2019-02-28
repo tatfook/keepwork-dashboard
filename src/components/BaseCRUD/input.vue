@@ -1,8 +1,12 @@
 <template>
   <div class="input-dialog">
     <div class="input-dialog-input-row" v-for="item in inputArr" :key="item.key">
-      <div class="input-dialog-input-row-label"> {{item.label || item.key}}:</div>
-      <el-input style="width: 200px;" :label="item.label" size="medium" v-model="item.value"></el-input>
+      <!-- <div class="input-dialog-input-row-label"> {{item.label || item.key}}:</div> -->
+      <el-form :model="item" ref='form' label-position="left" label-width="120px" >
+        <el-form-item  :label="item.label"  :rules="item.rules" prop="value">
+          <el-input style="width: 200px;" size="medium" v-model="item.value"/>
+        </el-form-item>
+      </el-form>
     </div>
     <div slot="footer" style="text-align: right;">
       <el-button @click="cancel">{{$t('cancel')}}</el-button>
@@ -27,7 +31,13 @@ export default {
   },
   methods: {
     confirm() {
-      this.$emit('callback', this.inputArr)
+      this.$refs.form[0].validate((valid) => {
+        if (valid) {
+          this.$emit('callback', this.inputArr)
+        } else {
+          this.$message.error('格式错误')
+        }
+      })
     },
     cancel() {
       this.$emit('cancel')
