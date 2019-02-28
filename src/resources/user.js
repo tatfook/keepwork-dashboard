@@ -1,5 +1,6 @@
 import BaseResource from './base'
 import userModel from '@/models/user'
+import md5 from 'blueimp-md5'
 
 const sexMap = [
   {
@@ -167,7 +168,49 @@ export default class User extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'show']
+      disabled: ['create', 'edit', 'show', 'destroy'],
+      extra: [{
+        name: 'resetPwd',
+        title() {
+          return '重置密码'
+        },
+        async func(row, that) {
+          const params = {
+            data: [{
+              label: '确认新密码：',
+              key: 'password',
+              value: '',
+              id: row.id
+            }],
+            type: 'input',
+            title: '重置密码',
+            status: 'resetPwd'
+          }
+          that.showDialog(params)
+        }
+      }, {
+        name: 'personalHomepage',
+        title() {
+          return '个人主页'
+        },
+        func(data) {
+          window.open(`https://keepwork.com/u/${data.username}`)
+        }
+      }]
+    }
+  }
+
+  static buttons() {
+    return {
+      callback: {
+        async resetPwd(data, that) {
+          const params = {
+            id: data[0].id,
+            password: md5(data[0].value)
+          }
+          await userModel().update(params)
+        }
+      }
     }
   }
 }
