@@ -52,7 +52,7 @@ export default class NPLApply extends BaseResource {
         options: genderMap,
         search: false,
         filter: value => {
-          return value === 'N' ? '男' : '女'
+          return value === 'M' ? '男' : '女'
         }
       },
       {
