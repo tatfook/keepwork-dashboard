@@ -352,7 +352,10 @@
         "id": "ID",
         "classify": "类别",
         "tagname": "系统标签名称",
-        "extra": "操作者",
+        "extra": {
+          "enTagname": "系统标签(EN)",
+          "username": "操作者"
+        },
         "createdAt": "创建日期",
         "updatedAt": "更改日期"
       }
