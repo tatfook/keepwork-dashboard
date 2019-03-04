@@ -10,7 +10,7 @@ import {
 export default function createService(baseUrl, timeout) {
   const service = axios.create({
     baseURL: baseUrl || process.env.BASE_API,
-    timeout: timeout || 5000
+    timeout: timeout || 10000
   })
 
   service.interceptors.request.use(
@@ -34,7 +34,7 @@ export default function createService(baseUrl, timeout) {
         Message({
           message: res.message,
           type: 'error',
-          duration: 5 * 1000
+          duration: 5 * 2000
         })
         return Promise.reject('error')
       } else {
