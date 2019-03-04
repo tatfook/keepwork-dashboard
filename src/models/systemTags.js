@@ -1,6 +1,5 @@
 import { resourceCRUD } from '@/api/keepwork'
 import store from '@/store'
-import _ from 'lodash'
 
 const usersCRUD = resourceCRUD('systemTags')
 
@@ -10,15 +9,11 @@ export default function projectsManageModel() {
       return usersCRUD.list(params)
     },
     async create(params) {
-      const username = _.get(store, 'getters.name', '')
+      params['extra.username'] = store.getters.name || ''
       params['classify'] = 1
-      params['extra'] = { username }
       return usersCRUD.create(params)
     },
     async update(params) {
-      const username = _.get(store, 'getters.name', '')
-      params['classify'] = 1
-      params['extra'] = { username }
       return usersCRUD.update(params)
     },
     async get(params) {
