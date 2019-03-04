@@ -198,7 +198,8 @@ export default class User extends BaseResource {
           return '个人主页'
         },
         func(data) {
-          window.open(`https://keepwork.com/u/${data.username}`)
+          const origin = window.location.origin
+          window.open(`${origin}/u/${data.username}`)
         }
       }]
     }
