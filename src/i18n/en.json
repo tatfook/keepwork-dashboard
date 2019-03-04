@@ -217,6 +217,7 @@
         "id": "id",
         "packageId": "package id",
         "hotNo": "hot No.",
+        "packageName": "package name",
         "createdAt": "created at"
       }
     },
@@ -280,7 +281,10 @@
         "packageId": "package id",
         "lessonId": "lesson id",
         "userId": "user id",
-        "createdAt": "created at"
+        "createdAt": "created at",
+        "username": "username",
+        "lessonName": "lesson name",
+        "packages": "package"
       }
     },
     "NPLManage": {

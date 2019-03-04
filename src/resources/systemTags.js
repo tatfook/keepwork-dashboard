@@ -28,14 +28,18 @@ export default class SystemTags extends BaseResource {
         search: true
       },
       {
-        name: 'extra',
+        name: 'extra.enTagname',
+        type: 'Object',
+        show: true,
+        edit: true,
+        search: false
+      },
+      {
+        name: 'extra.username',
         type: 'Object',
         show: true,
         edit: false,
-        search: false,
-        filter(value) {
-          return value['username'] || ''
-        }
+        search: false
       },
       {
         name: 'createdAt',

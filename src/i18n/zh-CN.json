@@ -249,6 +249,7 @@
       "attr": {
         "id": "序号",
         "packageId": "课程包",
+        "packageName": "名称",
         "hotNo": "热门排行",
         "createdAt": "创建日期"
       }
@@ -351,7 +352,10 @@
         "id": "ID",
         "classify": "类别",
         "tagname": "系统标签名称",
-        "extra": "操作者",
+        "extra": {
+          "enTagname": "系统标签(EN)",
+          "username": "操作者"
+        },
         "createdAt": "创建日期",
         "updatedAt": "更改日期"
       }
@@ -359,10 +363,13 @@
     "PackageLesson": {
       "attr": {
         "id": "序号",
-        "packageId": "课程包名称",
-        "lessonId": "课程名称",
-        "userId": "用户名",
-        "createdAt": "创建日期"
+        "packageId": "课程包ID",
+        "lessonId": "课程ID",
+        "userId": "用户ID",
+        "createdAt": "创建日期",
+        "username": "用户名",
+        "lessonName": "课程名",
+        "packages": "课程包"
       }
     },
     "NPLManage": {

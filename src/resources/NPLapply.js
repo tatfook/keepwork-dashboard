@@ -13,6 +13,10 @@ const genderMap = [
   {
     key: 'F',
     value: '女'
+  },
+  {
+    key: 'N',
+    value: '保密'
   }
 ]
 export default class NPLApply extends BaseResource {
@@ -50,9 +54,10 @@ export default class NPLApply extends BaseResource {
         type: 'String',
         component: 'select',
         options: genderMap,
+        edit: false,
         search: false,
         filter: value => {
-          return value === 'N' ? '男' : '女'
+          return value === 'M' ? '男' : value === 'F' ? '女' : '保密'
         }
       },
       {
@@ -63,11 +68,13 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'cellphone',
+        edit: false,
         type: 'String'
       },
       {
         name: 'email',
         type: 'String',
+        edit: false,
         search: false
       },
       {
