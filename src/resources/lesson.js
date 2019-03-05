@@ -1,9 +1,11 @@
 import { resourceCRUD } from '@/api/lesson'
+import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
 import store from '@/store'
 
 const model = resourceCRUD('lessons')
 
+const ENV = process.env.NODE_ENV
 export default class Lesson extends BaseResource {
   static attributes() {
     return [
@@ -64,16 +66,25 @@ export default class Lesson extends BaseResource {
   static actions() {
     return {
       disabled: ['show'],
-      extra: [{
-        name: 'view',
-        title() {
-          return '预览'
-        },
-        async func(row, that) {
-          const { url } = row
-          window.open(url, '_blank')
+      extra: [
+        {
+          name: 'view',
+          title() {
+            return '预览'
+          },
+          async func(row, that) {
+            const { userId, id } = row
+            const token = await getUserToken(userId)
+            if (token) {
+              if (ENV === 'stage' || ENV === 'release') {
+                const url = `https://${ENV}.keepwork.com/l/preview/lesson/${id}?token=${token}`
+                return window.open(url, '_blank')
+              }
+              window.open(`https://keepwork.com/l/preview/lesson/${id}?token=${token}`, '_blank')
+            }
+          }
         }
-      }]
+      ]
     }
   }
 }

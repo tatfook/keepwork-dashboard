@@ -135,10 +135,10 @@ export default class Package extends BaseResource {
           const token = await getUserToken(userId)
           if (token) {
             if (ENV === 'stage' || ENV === 'release') {
-              const url = `https://${ENV}.keepwork.com/l/teacher/package/${id}?token=${token}`
+              const url = `https://${ENV}.keepwork.com/l/preview/package/${id}?token=${token}`
               return window.open(url, '_blank')
             }
-            window.open(`https://keepwork.com/l/teacher/package/${id}?token=${token}`, '_blank')
+            window.open(`https://keepwork.com/l/preview/package/${id}?token=${token}`, '_blank')
           }
         }
       }]
