@@ -130,7 +130,7 @@ export default {
               })
             })
           } else {
-            await func(row)
+            await func(row, this)
             this.getList()
           }
         }
