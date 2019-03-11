@@ -259,8 +259,8 @@
         "id": "序号",
         "intro": "简介",
         "packageName": "包名",
-        "userId": "用户",
-        "subjectId": "学科",
+        "username": "用户",
+        "subjectName": "学科",
         "minAge": "最小年龄",
         "maxAge": "最大年龄",
         "state": "状态",
@@ -277,8 +277,8 @@
       "attr": {
         "id": "序号",
         "lessonName": "课程名",
-        "userId": "用户",
-        "subjectId": "学科",
+        "username": "用户",
+        "subjectName": "学科",
         "goals": "目标",
         "extra": {
           "coverUrl": "封面链接",

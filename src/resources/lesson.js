@@ -1,9 +1,10 @@
-import { resourceCRUD } from '@/api/lesson'
+// import { resourceCRUD } from '@/api/lesson'
+import lessonsModel from '@/models/lesson'
 import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
 import store from '@/store'
 
-const model = resourceCRUD('lessons')
+const model = lessonsModel()
 
 const ENV = process.env.NODE_ENV
 export default class Lesson extends BaseResource {
@@ -22,9 +23,16 @@ export default class Lesson extends BaseResource {
         required: true
       },
       {
+        name: 'username',
+        type: 'String',
+        search: false
+      },
+      {
         name: 'userId',
         type: 'Number',
         associate: 'User',
+        search: false,
+        show: false,
         required: true,
         default: () => store.getters.currentUser.id,
         edit: false
@@ -33,7 +41,13 @@ export default class Lesson extends BaseResource {
         name: 'subjectId',
         type: 'Number',
         required: true,
-        associate: 'Subject'
+        associate: 'Subject',
+        show: false
+      },
+      {
+        name: 'subjectName',
+        type: 'String',
+        search: false
       },
       {
         name: 'goals',
