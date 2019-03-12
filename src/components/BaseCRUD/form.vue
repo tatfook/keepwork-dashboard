@@ -13,6 +13,9 @@
         </el-select>
         <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="model[attr.name]" type="datetime" />
         <el-rate v-else-if="attrComponent(attr, 'rate')" style="margin-top:8px;" v-model="model[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
+        <input-file v-else-if="attrComponent(attr, 'file')" v-model="model[attr.name]"></input-file>
+        <input-org v-else-if="attrComponent(attr, 'org')" v-model="model[attr.name]"></input-org>
+        <package-select v-else-if="attrComponent(attr, 'package')" v-model="model[attr.name]"></package-select>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -28,12 +31,20 @@ import _ from 'lodash'
 import { getResourceClass } from '@/resources'
 import { mapGetters } from 'vuex'
 import { ActiveQuery } from '@/utils/query'
+import InputFile from './custom/InputFile'
+import InputOrg from './custom/InputOrg'
+import PackageSelect from './custom/PackageSelect'
 
 export default {
   name: 'CRUDFrom',
   props: {
     status: String,
     formData: Object
+  },
+  components: {
+    InputFile,
+    InputOrg,
+    PackageSelect
   },
   data() {
     return {

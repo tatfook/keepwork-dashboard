@@ -115,6 +115,11 @@
       "NPLManage": "大赛管理",
       "NPLApply": "报名统计",
       "NPLWorks": "作品统计"
+    },
+    "sidebarOrganization": "机构",
+    "org": {
+      "organization": "机构管理",
+      "administrator": "管理员"
     }
   },
   "resources": {
@@ -410,6 +415,22 @@
         "worksRateCount": "评分人数",
         "reward": "获奖情况",
         "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}}
+      }
+    },
+    "Organization": {
+      "attr": {
+        "id": "序号",
+        "userId": "用户ID",
+        "usernames": "管理员账号",
+        "name": "机构名称",
+        "logo": "logo",
+        "loginUrl": "登录url",
+        "cellphone": "联系电话",
+        "startDate": "开始时间",
+        "endDate": "结束时间",
+        "count": "人员总数",
+        "status": "状态",
+        "packages": "课程包"
       }
     }
   }
