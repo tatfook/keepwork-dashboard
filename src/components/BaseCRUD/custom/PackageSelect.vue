@@ -68,14 +68,12 @@ export default {
         arr.push(...lessons)
         return arr
       }, [])
-      console.log(keys)
       this.$refs.packagesTree.setCheckedKeys(keys)
     },
     converLessonId(packages) {
       const _packages = cloneDeep(packages)
       return _packages.map(item => {
         item.lessons = item.lessons.map(l => {
-          console.log(l.lessonId)
           const lessonId = Number(l.lessonId.split('-')[1])
           return {
             ...l,
@@ -103,11 +101,11 @@ export default {
         .filter(item => item.lessons)
         .map(l => ({
           id: `${packageId}-${l.lessons.id}`,
-          label: l.lessons.lessonName + `>${packageId}-${l.lessons.id}`
+          label: l.lessons.lessonName
         }))
       return {
         id: packageId,
-        label: packageName + '>' + packageId,
+        label: packageName,
         children: lessons
       }
     })
@@ -122,7 +120,6 @@ export default {
         lessons
       }
     })
-    console.log(this.packages)
 
     this.tree = [{ id: 0, label: '全选', children: packages }]
     this.initPackageSelected(this.value)
