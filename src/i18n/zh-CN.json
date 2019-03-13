@@ -115,6 +115,12 @@
       "NPLManage": "大赛管理",
       "NPLApply": "报名统计",
       "NPLWorks": "作品统计"
+    },
+    "sidebarOrganization": "机构",
+    "org": {
+      "organization": "机构管理",
+      "administrator": "管理员",
+      "paracraftVisitors": "机构申请"
     }
   },
   "resources": {
@@ -259,8 +265,8 @@
         "id": "序号",
         "intro": "简介",
         "packageName": "包名",
-        "userId": "用户",
-        "subjectId": "学科",
+        "username": "用户",
+        "subjectName": "学科",
         "minAge": "最小年龄",
         "maxAge": "最大年龄",
         "state": "状态",
@@ -277,8 +283,8 @@
       "attr": {
         "id": "序号",
         "lessonName": "课程名",
-        "userId": "用户",
-        "subjectId": "学科",
+        "username": "用户",
+        "subjectName": "学科",
         "goals": "目标",
         "extra": {
           "coverUrl": "封面链接",
@@ -410,6 +416,34 @@
         "worksRateCount": "评分人数",
         "reward": "获奖情况",
         "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}}
+      }
+    },
+    "Organization": {
+      "attr": {
+        "id": "序号",
+        "userId": "用户ID",
+        "usernames": "管理员账号",
+        "name": "机构名称",
+        "logo": "logo",
+        "loginUrl": "登录url",
+        "cellphone": "联系电话",
+        "startDate": "开始时间",
+        "endDate": "结束时间",
+        "count": "人员总数",
+        "status": "状态",
+        "lessonOrganizationPackages": "课程包"
+      }
+    },
+    "ParacraftVisitors": {
+      "attr": {
+        "id": "序号",
+        "cellphone": "电话",
+        "realname": "联系人",
+        "organization": "单位名称",
+        "email": "邮箱",
+        "description": "备注",
+        "createdAt": "申请时间"
+
       }
     }
   }

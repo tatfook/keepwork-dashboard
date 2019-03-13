@@ -322,6 +322,43 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/org',
+    component: Layout,
+    meta: {
+      title: 'sidebar.sidebarOrganization',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'organization',
+        component: () => import('@/views/org/organization/index'),
+        name: 'Organization Manager',
+        resource: 'Organization',
+        meta: {
+          title: 'sidebar.org.organization'
+        }
+      },
+      {
+        path: 'paracraftVisitors',
+        component: () => import('@/views/org/paracraftVisitors/index'),
+        name: 'paracraftVisitors',
+        resource: 'ParacraftVisitors',
+        meta: {
+          title: 'sidebar.org.paracraftVisitors'
+        }
+      }
+      // {
+      //   path: 'administrator',
+      //   component: () => import('@/views/org/administrator/index'),
+      //   name: 'Administrator Manager',
+      //   resource: 'administrator',
+      //   meta: {
+      //     title: 'sidebar.org.administrator'
+      //   }
+      // }
+    ]
+  },
+  {
     path: '*',
     redirect: '/404',
     hidden: true

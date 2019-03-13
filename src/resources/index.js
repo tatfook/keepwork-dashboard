@@ -22,6 +22,9 @@ import ChoiceProjects from './choiceProjects'
 import NPLManage from './NPLmanage'
 import NPLApply from './NPLapply'
 import NPLWorks from './NPLworks'
+import Organization from './organization'
+import ParacraftVisitors from './paracraftVisitors'
+// import Administrator from './administrator'
 
 export const resources = {
   Admin,
@@ -46,7 +49,10 @@ export const resources = {
   ChoiceProjects,
   NPLManage,
   NPLApply,
-  NPLWorks
+  NPLWorks,
+  Organization,
+  ParacraftVisitors
+  // Administrator
 }
 
 export const newResource = (name, row) => {
