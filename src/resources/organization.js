@@ -3,8 +3,7 @@ import organizationModel from '@/models/organization'
 import BaseResource from './base'
 
 const model = { ...resourceCRUD('lessonOrganizations'), ...organizationModel }
-const ENV = process.env.NODE_ENV
-
+const ENV = process.env.NODE_EN
 export default class Organization extends BaseResource {
   static attributes() {
     return [
@@ -65,7 +64,7 @@ export default class Organization extends BaseResource {
         search: true
       },
       {
-        name: 'packages',
+        name: 'lessonOrganizationPackages',
         type: 'Array',
         component: 'package',
         search: false,
@@ -117,13 +116,18 @@ export default class Organization extends BaseResource {
     // will include all by default, to make sure every associate works
     query.include({
       as: 'lessonOrganizationClassMembers',
-      '$model$': 'lessonOrganizationClassMembers',
+      $model$: 'lessonOrganizationClassMembers',
       include: [
         {
           as: 'users',
-          '$model$': 'users'
+          $model$: 'users'
         }
       ]
+    })
+
+    query.include({
+      as: 'lessonOrganizationPackages',
+      $model$: 'lessonOrganizationPackages'
     })
 
     return query

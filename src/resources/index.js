@@ -23,6 +23,7 @@ import NPLManage from './NPLmanage'
 import NPLApply from './NPLapply'
 import NPLWorks from './NPLworks'
 import Organization from './organization'
+import ParacraftVisitors from './paracraftVisitors'
 // import Administrator from './administrator'
 
 export const resources = {
@@ -49,7 +50,8 @@ export const resources = {
   NPLManage,
   NPLApply,
   NPLWorks,
-  Organization
+  Organization,
+  ParacraftVisitors
   // Administrator
 }
 

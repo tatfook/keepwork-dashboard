@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <el-input placeholder="请输入" v-model="url" @change="handleInput">
-      <template slot="prepend">{{prefixUrl}}</template>
-    </el-input>
-  </div>
+  <el-input placeholder="请输入" v-model="url" @change="handleInput">
+    <template slot="prepend">{{prefixUrl}}</template>
+  </el-input>
 </template>
 
 <script>
@@ -24,9 +22,7 @@ export default {
   },
   watch: {
     value(value) {
-      if (this.url !== value) {
-        this.url = value
-      }
+      this.url = value
     }
   },
   methods: {

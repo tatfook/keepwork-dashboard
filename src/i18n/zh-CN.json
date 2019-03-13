@@ -119,7 +119,8 @@
     "sidebarOrganization": "机构",
     "org": {
       "organization": "机构管理",
-      "administrator": "管理员"
+      "administrator": "管理员",
+      "paracraftVisitors": "机构申请"
     }
   },
   "resources": {
@@ -430,7 +431,19 @@
         "endDate": "结束时间",
         "count": "人员总数",
         "status": "状态",
-        "packages": "课程包"
+        "lessonOrganizationPackages": "课程包"
+      }
+    },
+    "ParacraftVisitors": {
+      "attr": {
+        "id": "序号",
+        "cellphone": "电话",
+        "realname": "联系人",
+        "organization": "单位名称",
+        "email": "邮箱",
+        "description": "备注",
+        "createdAt": "申请时间"
+
       }
     }
   }

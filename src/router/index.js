@@ -337,6 +337,15 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.org.organization'
         }
+      },
+      {
+        path: 'paracraftVisitors',
+        component: () => import('@/views/org/paracraftVisitors/index'),
+        name: 'paracraftVisitors',
+        resource: 'ParacraftVisitors',
+        meta: {
+          title: 'sidebar.org.paracraftVisitors'
+        }
       }
       // {
       //   path: 'administrator',
