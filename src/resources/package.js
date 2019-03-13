@@ -172,4 +172,10 @@ export default class Package extends BaseResource {
       }
     }
   }
+
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.include({ all: true, nested: true })
+    return query
+  }
 }
