@@ -24,10 +24,6 @@ export default {
   async create(data) {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
-    // data['packages'] = _.map(data['lessonOrganizationPackages'], (item) => {
-    //   item.lessons = _.map(item.lessons, (l) => ({ ...l, lessonId: _.toNumber(l.lessonId.split('-')[1]) }))
-    //   return item
-    // })
     return request({
       method: 'post',
       url: 'lessonOrganizations',
