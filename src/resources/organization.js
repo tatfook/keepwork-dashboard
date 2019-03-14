@@ -40,10 +40,8 @@ export default class Organization extends BaseResource {
       {
         name: 'logo',
         type: 'String',
-        component: 'file',
         search: false,
-        show: false,
-        edit: false
+        show: false
       },
       {
         name: 'loginUrl',
@@ -124,12 +122,10 @@ export default class Organization extends BaseResource {
         }
       ]
     })
-
     query.include({
       as: 'lessonOrganizationPackages',
       $model$: 'lessonOrganizationPackages'
     })
-
     return query
   }
 }
