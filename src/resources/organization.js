@@ -115,6 +115,7 @@ export default class Organization extends BaseResource {
     query.include({
       as: 'lessonOrganizationClassMembers',
       $model$: 'lessonOrganizationClassMembers',
+      where: { roleId: { $eq: 64 }, classId: 0 },
       include: [
         {
           as: 'users',
