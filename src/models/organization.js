@@ -24,10 +24,7 @@ export default {
   async create(data) {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
-<<<<<<< HEAD
     data['privilege'] = 3
-=======
->>>>>>> 22533a6baf975d33bda50338f9746df4713b5abf
     return request({
       method: 'post',
       url: 'lessonOrganizations',
