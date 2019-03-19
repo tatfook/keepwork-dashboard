@@ -24,6 +24,7 @@ export default {
   async create(data) {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
+    data['privilege'] = 3
     return request({
       method: 'post',
       url: 'lessonOrganizations',
@@ -31,10 +32,8 @@ export default {
     })
   },
   async update(data) {
-    data['privilege'] = 3
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
-    // data['packages'] = data['lessonOrganizationPackages']
     return request({
       method: 'PUT',
       url: `lessonOrganizations/${data.id}`,
