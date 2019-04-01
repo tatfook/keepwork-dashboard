@@ -1,9 +1,10 @@
-import { resourceCRUD } from '@/api/lesson'
+// import { resourceCRUD } from '@/api/lesson'
+import pacakgeModel from '@/models/package'
 import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
 import store from '@/store'
 
-const model = resourceCRUD('packages')
+const model = pacakgeModel()
 const stateMap = [
   {
     key: 0,
@@ -55,15 +56,27 @@ export default class Package extends BaseResource {
         name: 'userId',
         type: 'Number',
         required: true,
+        show: false,
         edit: false,
         default: () => store.getters.currentUser.id,
         associate: 'User'
       },
       {
+        name: 'username',
+        type: 'String',
+        search: false
+      },
+      {
         name: 'subjectId',
         type: 'Number',
         required: true,
-        associate: 'Subject'
+        associate: 'Subject',
+        show: false
+      },
+      {
+        name: 'subjectName',
+        type: 'String',
+        search: false
       },
       {
         name: 'minAge',
@@ -158,5 +171,11 @@ export default class Package extends BaseResource {
         }
       }
     }
+  }
+
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.include({ all: true, nested: true })
+    return query
   }
 }
