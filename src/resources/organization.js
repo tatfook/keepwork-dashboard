@@ -58,6 +58,11 @@ export default class Organization extends BaseResource {
       },
       {
         name: 'cellphone',
+        type: 'Number',
+        search: true
+      },
+      {
+        name: 'email',
         type: 'String',
         search: true
       },
@@ -115,7 +120,7 @@ export default class Organization extends BaseResource {
     query.include({
       as: 'lessonOrganizationClassMembers',
       $model$: 'lessonOrganizationClassMembers',
-      where: {roleId: { $eq: 64 }, classId: { $eq: 0 }},
+      where: { roleId: { $eq: 64 }, classId: { $eq: 0 }},
       required: false,
       include: [
         {
@@ -128,7 +133,7 @@ export default class Organization extends BaseResource {
       as: 'lessonOrganizationPackages',
       $model$: 'lessonOrganizationPackages',
       required: false,
-      where: { classId: { $eq: 0 } },
+      where: { classId: { $eq: 0 }}
     })
     return query
   }

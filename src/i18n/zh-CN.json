@@ -427,6 +427,7 @@
         "logo": "logo",
         "loginUrl": "登录url",
         "cellphone": "联系电话",
+        "email": "邮箱",
         "startDate": "开始时间",
         "endDate": "结束时间",
         "count": "人员总数",
