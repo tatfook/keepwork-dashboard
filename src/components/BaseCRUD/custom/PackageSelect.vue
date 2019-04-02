@@ -86,7 +86,7 @@ export default {
   },
   async mounted() {
     const params = {
-      where: {},
+      where: { state: { $eq: 2 }},
       include: [{ all: true, nested: true }],
       order: [],
       limit: 200,
@@ -114,7 +114,10 @@ export default {
       const packageId = p.id
       const lessons = p.packageLessons
         .filter(i => i.lessons)
-        .map(l => ({ lessonId: `${packageId}-${l.lessons.id}`, lessonNo: l.extra.lessonNo }))
+        .map(l => ({
+          lessonId: `${packageId}-${l.lessons.id}`,
+          lessonNo: l.extra.lessonNo
+        }))
       return {
         packageId,
         lessons
