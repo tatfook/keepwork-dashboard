@@ -120,7 +120,7 @@
     "org": {
       "organization": "机构管理",
       "administrator": "管理员",
-      "paracraftVisitors": "机构申请"
+      "paracraftVisitors": "合作申请"
     }
   },
   "resources": {
@@ -438,13 +438,12 @@
     "ParacraftVisitors": {
       "attr": {
         "id": "序号",
-        "cellphone": "电话",
+        "cellphone": "联系电话",
         "realname": "联系人",
         "organization": "单位名称",
         "email": "邮箱",
-        "description": "备注",
+        "description": "描述",
         "createdAt": "申请时间"
-
       }
     }
   }
