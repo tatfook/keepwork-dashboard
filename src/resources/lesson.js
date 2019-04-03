@@ -25,29 +25,32 @@ export default class Lesson extends BaseResource {
       {
         name: 'username',
         type: 'String',
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'userId',
         type: 'Number',
         associate: 'User',
+        component: 'select',
         search: false,
         show: false,
         required: true,
-        default: () => store.getters.currentUser.id,
-        edit: false
+        default: () => store.getters.currentUser.id
       },
       {
         name: 'subjectId',
         type: 'Number',
         required: true,
+        component: 'select',
         associate: 'Subject',
         show: false
       },
       {
         name: 'subjectName',
         type: 'String',
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'goals',
