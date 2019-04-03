@@ -434,7 +434,7 @@
         "email": "邮箱",
         "startDate": "开始时间",
         "endDate": "结束时间",
-        "count": "人员总数",
+        "count": "学生数上限",
         "status": "状态",
         "lessonOrganizationPackages": "课程包"
       }
