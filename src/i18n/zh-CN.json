@@ -263,6 +263,8 @@
     "Package": {
       "attr": {
         "id": "序号",
+        "userId": "用户",
+        "subjectId": "学科",
         "intro": "简介",
         "packageName": "包名",
         "username": "用户",
@@ -286,6 +288,8 @@
         "username": "用户",
         "subjectName": "学科",
         "goals": "目标",
+        "userId": "用户",
+        "subjectId": "学科",
         "extra": {
           "coverUrl": "封面链接",
           "videoUrl": "视频链接"

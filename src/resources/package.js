@@ -56,26 +56,30 @@ export default class Package extends BaseResource {
         name: 'userId',
         type: 'Number',
         required: true,
+        component: 'select',
         show: false,
-        edit: false,
+        edit: true,
         default: () => store.getters.currentUser.id,
         associate: 'User'
       },
       {
         name: 'username',
-        type: 'String',
-        search: false
+        tyep: 'String',
+        search: false,
+        edit: false
       },
       {
         name: 'subjectId',
         type: 'Number',
         required: true,
+        component: 'select',
         associate: 'Subject',
         show: false
       },
       {
         name: 'subjectName',
         type: 'String',
+        edit: false,
         search: false
       },
       {
