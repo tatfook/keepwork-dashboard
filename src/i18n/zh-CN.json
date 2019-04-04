@@ -454,7 +454,7 @@
           "handler": "操作者"
         },
         "createdAt": "申请时间",
-        "state": "标签",
+        "state": "状态",
         "remark": "管理员备注",
         "handler": "操作者"
       }
