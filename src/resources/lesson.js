@@ -2,7 +2,6 @@
 import lessonsModel from '@/models/lesson'
 import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
-import store from '@/store'
 
 const model = lessonsModel()
 
@@ -25,29 +24,31 @@ export default class Lesson extends BaseResource {
       {
         name: 'username',
         type: 'String',
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'userId',
         type: 'Number',
         associate: 'User',
+        component: 'select',
         search: false,
         show: false,
-        required: true,
-        default: () => store.getters.currentUser.id,
-        edit: false
+        required: true
       },
       {
         name: 'subjectId',
         type: 'Number',
         required: true,
+        component: 'select',
         associate: 'Subject',
         show: false
       },
       {
         name: 'subjectName',
         type: 'String',
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'goals',

@@ -2,7 +2,6 @@
 import pacakgeModel from '@/models/package'
 import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
-import store from '@/store'
 
 const model = pacakgeModel()
 const stateMap = [
@@ -56,26 +55,29 @@ export default class Package extends BaseResource {
         name: 'userId',
         type: 'Number',
         required: true,
+        component: 'select',
         show: false,
-        edit: false,
-        default: () => store.getters.currentUser.id,
+        edit: true,
         associate: 'User'
       },
       {
         name: 'username',
-        type: 'String',
-        search: false
+        tyep: 'String',
+        search: false,
+        edit: false
       },
       {
         name: 'subjectId',
         type: 'Number',
         required: true,
+        component: 'select',
         associate: 'Subject',
         show: false
       },
       {
         name: 'subjectName',
         type: 'String',
+        edit: false,
         search: false
       },
       {

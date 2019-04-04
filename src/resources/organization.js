@@ -93,6 +93,18 @@ export default class Organization extends BaseResource {
         default: 100
       },
       {
+        name: 'teacherCount',
+        type: 'Number',
+        search: false,
+        edit: false
+      },
+      {
+        name: 'studentCount',
+        type: 'Number',
+        search: false,
+        edit: false
+      },
+      {
         name: 'status',
         type: 'String',
         edit: false
