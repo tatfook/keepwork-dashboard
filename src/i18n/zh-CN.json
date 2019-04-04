@@ -120,7 +120,7 @@
     "org": {
       "organization": "机构管理",
       "administrator": "管理员",
-      "paracraftVisitors": "机构申请"
+      "paracraftVisitors": "合作申请"
     }
   },
   "resources": {
@@ -263,6 +263,8 @@
     "Package": {
       "attr": {
         "id": "序号",
+        "userId": "用户",
+        "subjectId": "学科",
         "intro": "简介",
         "packageName": "包名",
         "username": "用户",
@@ -286,6 +288,8 @@
         "username": "用户",
         "subjectName": "学科",
         "goals": "目标",
+        "userId": "用户",
+        "subjectId": "学科",
         "extra": {
           "coverUrl": "封面链接",
           "videoUrl": "视频链接"
@@ -430,7 +434,9 @@
         "email": "邮箱",
         "startDate": "开始时间",
         "endDate": "结束时间",
-        "count": "人员总数",
+        "count": "学生数上限",
+        "studentCount": "已添加学生数",
+        "teacherCount": "已添加教师数",
         "status": "状态",
         "lessonOrganizationPackages": "课程包"
       }
@@ -438,13 +444,19 @@
     "ParacraftVisitors": {
       "attr": {
         "id": "序号",
-        "cellphone": "电话",
+        "cellphone": "联系电话",
         "realname": "联系人",
         "organization": "单位名称",
         "email": "邮箱",
-        "description": "备注",
-        "createdAt": "申请时间"
-
+        "description": "描述",
+        "extra": {
+          "city": "所在城市",
+          "handler": "操作者"
+        },
+        "createdAt": "申请时间",
+        "state": "状态",
+        "remark": "管理员备注",
+        "handler": "操作者"
       }
     }
   }
