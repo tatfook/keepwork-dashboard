@@ -449,7 +449,14 @@
         "organization": "单位名称",
         "email": "邮箱",
         "description": "描述",
-        "createdAt": "申请时间"
+        "extra": {
+          "city": "所在城市",
+          "handler": "操作者"
+        },
+        "createdAt": "申请时间",
+        "state": "标签",
+        "remark": "管理员备注",
+        "handler": "操作者"
       }
     }
   }
