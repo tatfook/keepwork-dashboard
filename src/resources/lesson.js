@@ -2,7 +2,6 @@
 import lessonsModel from '@/models/lesson'
 import { getUserToken } from '@/api/getUserToken'
 import BaseResource from './base'
-import store from '@/store'
 
 const model = lessonsModel()
 
@@ -35,8 +34,7 @@ export default class Lesson extends BaseResource {
         component: 'select',
         search: false,
         show: false,
-        required: true,
-        default: () => store.getters.currentUser.id
+        required: true
       },
       {
         name: 'subjectId',
