@@ -3,6 +3,8 @@ import { resourceCRUD } from '@/api/lesson'
 const usersCRUD = resourceCRUD('users')
 const lessonsCRUD = resourceCRUD('lessons')
 const packageLessons = resourceCRUD('packageLessons')
+const packagesCRUD = resourceCRUD('packages')
+import _ from 'lodash'
 
 export default function hotPackageModel() {
   return {
@@ -47,7 +49,16 @@ export default function hotPackageModel() {
       }
     },
     async create(params) {
-      return packageLessons.create(params)
+      const packageId = _.get(params, 'packageId')
+      const packageData = await packagesCRUD.list({
+        where: { id: { $eq: packageId }},
+        include: [{ all: true, nested: true }],
+        order: [],
+        limit: 20,
+        offset: 0
+      })
+      const userId = _.get(packageData, 'rows[0].userId')
+      return packageLessons.create({ ...params, userId })
     },
     async update(params) {
       return packageLessons.update(params)
