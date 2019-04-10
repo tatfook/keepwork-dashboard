@@ -131,7 +131,7 @@ export default {
           const query = associateClass.queryFilter(new ActiveQuery())
           queryParam = query.where({ [associateClass.title() + '-like']: param + '%' }).paginate(1, 50).query
         }
-        const list = await associateClass.api().list(queryParam)
+        const list = await associateClass.api().list({ ...queryParam, limit: 200 })
         self.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,
