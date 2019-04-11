@@ -100,7 +100,8 @@
       "hotPackages": "热门课程包",
       "packages": "课程包",
       "lessons": "课程",
-      "packageLesson": "课程管理"
+      "packageLesson": "课程管理",
+      "packageTags": "课程标签管理"
     },
     "sidebarProjects": "项目",
     "projects": {
@@ -370,6 +371,20 @@
         "updatedAt": "更改日期"
       }
     },
+    "PackageTags": {
+      "attr": {
+        "id": "ID",
+        "classify": "类别",
+        "tagname": "系统标签名称",
+        "extra": {
+          "enTagname": "系统标签(EN)",
+          "username": "操作者",
+          "sn": "显示排序"
+        },
+        "createdAt": "创建日期",
+        "updatedAt": "更改日期"
+      }
+    },
     "PackageLesson": {
       "attr": {
         "id": "序号",
@@ -427,6 +442,7 @@
         "id": "序号",
         "userId": "用户ID",
         "usernames": "管理员账号",
+        "location": "地区",
         "name": "机构名称",
         "logo": "logo",
         "loginUrl": "登录url",
@@ -438,7 +454,8 @@
         "studentCount": "已添加学生数",
         "teacherCount": "已添加教师数",
         "status": "状态",
-        "lessonOrganizationPackages": "课程包"
+        "lessonOrganizationPackages": "课程包",
+        "visibility": "是否公开"
       }
     },
     "ParacraftVisitors": {

@@ -174,6 +174,15 @@ export const asyncRouterMap = [
         }
       },
       {
+        path: 'packageTags',
+        component: () => import('@/views/lesson/packageTags/index'),
+        name: 'PackageTags',
+        resource: 'PackageTags',
+        meta: {
+          title: 'sidebar.lesson.packageTags'
+        }
+      },
+      {
         path: 'subjects',
         component: () => import('@/views/lesson/subject/index'),
         name: 'Subjects',

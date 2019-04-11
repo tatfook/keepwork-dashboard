@@ -16,6 +16,7 @@
         <input-file v-else-if="attrComponent(attr, 'file')" v-model="model[attr.name]"></input-file>
         <input-org v-else-if="attrComponent(attr, 'org')" v-model="model[attr.name]"></input-org>
         <package-select v-else-if="attrComponent(attr, 'package')" v-model="model[attr.name]"></package-select>
+        <el-cascader v-else-if="attrComponent(attr, 'cascader')" v-model="model[attr.name]" placeholder="" :options="cityName" filterable change-on-select></el-cascader>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -34,6 +35,7 @@ import { ActiveQuery } from '@/utils/query'
 import InputFile from './custom/InputFile'
 import InputOrg from './custom/InputOrg'
 import PackageSelect from './custom/PackageSelect'
+import cityName from './custom/cityName.js'
 
 export default {
   name: 'CRUDFrom',
@@ -54,7 +56,8 @@ export default {
       },
       model: {},
       associateOptions: {},
-      loading: false
+      loading: false,
+      cityName
     }
   },
   created() {
