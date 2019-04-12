@@ -12,7 +12,36 @@ const packageTagsCRUD = keepwrokResourceCRUD('systemTags')
 export default function projectsManageModel() {
   return {
     async list(params) {
-      const keys = await packageCRUD.list(params)
+      let keys = {}
+      if (params.where['tags']) {
+        const tagsQuery = params.where['tags']
+        delete params.where['tags']
+        const res = await tagsCRUD.list({
+          where: {
+            objectType: 8
+          },
+          include: [
+            {
+              as: 'systemTags',
+              $model$: 'systemTags',
+              where: {
+                tagname: tagsQuery
+              }
+            }
+          ]
+        })
+        const packageIds = res.rows.map(item => item.objectId)
+        keys = await packageCRUD.list({
+          where: {
+            id: {
+              $in: packageIds
+            }
+          }
+        })
+      } else {
+        keys = await packageCRUD.list(params)
+      }
+
       const userIds = keys.rows.filter((item) => item.state !== 0).map((item) => item.userId)
       const packageIds = keys.rows.map(item => item.id)
       const [users, subjects, packageTags, tags] = await Promise.all([
