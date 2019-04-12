@@ -144,7 +144,7 @@ export default class Package extends BaseResource {
         name: 'tags',
         type: 'Array',
         edit: true,
-        search: false,
+        search: true,
         show: false,
         component: 'packageTags'
       },
