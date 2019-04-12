@@ -255,7 +255,7 @@ export default class ProjectsManage extends BaseResource {
             const tags = _.map(_.get(res, 'rows', []), item => item.tagname)
             const params = {
               type: 'checkbox',
-              data: tags,
+              data: tags.map(item => ({ label: item, value: item })),
               status: 'addSystemTags'
             }
             that.showDialog(params)
@@ -274,7 +274,7 @@ export default class ProjectsManage extends BaseResource {
             }, []))
             const params = {
               type: 'checkbox',
-              data: projectTags,
+              data: projectTags.map(item => ({ label: item, value: item })),
               status: 'removeSystemTags'
             }
             that.showDialog(params)
