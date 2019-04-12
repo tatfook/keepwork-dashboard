@@ -279,7 +279,9 @@
           "message": "原因",
           "coverUrl": "封面链接"
         },
-        "createdAt": "创建日期"
+        "createdAt": "创建日期",
+        "tags": "课程标签",
+        "tagNames": "课程标签"
       }
     },
     "Lesson": {

@@ -2,8 +2,8 @@
   <div class="checkbox-dialog">
     <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
     <div style="margin: 15px 0"></div>
-    <el-checkbox-group v-model="selected" @change="handleSelectedChange">
-      <el-checkbox v-for="item in list" :label="item" :key="item">{{item}}</el-checkbox>
+    <el-checkbox-group v-model="checkList" @change="handleSelectedChange">
+      <el-checkbox v-for="item in list" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
     </el-checkbox-group>
     <div slot="footer" class="checkbox-confirm-footer ">
       <el-button @click="cancel">{{$t('cancel')}}</el-button>
@@ -16,22 +16,27 @@
 export default {
   name: 'CRUDCheckbox',
   props: {
-    list: Array
+    list: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
   data() {
     return {
       checkAll: false,
-      selected: [],
-      isIndeterminate: true
+      checkList: [],
+      isIndeterminate: false
     }
   },
   methods: {
     handleCheckAllChange(selected) {
-      this.selected = selected ? this.list : []
+      this.checkList = selected ? this.list.map(item => item.value) : []
       this.isIndeterminate = false
     },
-    handleSelectedChange(selected) {
-      const checkCount = selected.length
+    handleSelectedChange(checkList) {
+      const checkCount = checkList.length
       this.checkAll = checkCount === this.list.length
       this.isIndeterminate = checkCount > 0 && checkCount < this.list.length
     },
@@ -39,7 +44,7 @@ export default {
       this.$emit('cancel')
     },
     updateData() {
-      this.$emit('callback', this.selected)
+      this.$emit('callback', this.checkList)
     }
   }
 }
