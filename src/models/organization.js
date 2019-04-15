@@ -44,7 +44,7 @@ export default {
       const memberCount = _.get(orgMemberCount, item.id, {})
       return {
         ...item,
-        location: item.location.split(','),
+        // location: item.location.split(','),
         status,
         usernames: _.isArray(usernames) ? usernames.join(',') : usernames,
         studentCount: _.get(memberCount, 'studentCount', 0),
@@ -57,7 +57,6 @@ export default {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
     data['privilege'] = 3
-    data['location'] = data['location'].join(',')
     return request({
       method: 'post',
       url: 'lessonOrganizations',
@@ -67,7 +66,6 @@ export default {
   async update(data) {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
-    data['location'] = data['location'].join(',')
     return request({
       method: 'PUT',
       url: `lessonOrganizations/${data.id}`,

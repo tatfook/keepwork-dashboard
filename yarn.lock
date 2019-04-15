@@ -7924,6 +7924,13 @@ uuid@^3.0.1, uuid@^3.1.0, uuid@^3.3.2:
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha1-G0r0lV6zB3xQHCOHL8ZROBFYcTE=
 
+v-distpicker@^1.2.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/v-distpicker/download/v-distpicker-1.2.1.tgz#73ecce8a5e20c35fd6143619cbc14a6f3d5ee8d9"
+  integrity sha1-c+zOil4gw1/WFDYZy8FKbz1e6Nk=
+  dependencies:
+    vue "^2.6.10"
+
 v8-compile-cache@^2.0.0:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/v8-compile-cache/download/v8-compile-cache-2.0.2.tgz#a428b28bb26790734c4fc8bc9fa106fccebf6a6c"
@@ -8014,6 +8021,11 @@ vue@2.5.17:
   version "2.5.17"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
   integrity sha1-D4eJrXGL5oyhhyYpgy7VM1icato=
+
+vue@^2.6.10:
+  version "2.6.10"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.6.10.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fvue%2Fdownload%2Fvue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
+  integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
 vuex@3.0.1:
   version "3.0.1"
