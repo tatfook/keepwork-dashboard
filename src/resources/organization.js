@@ -37,13 +37,9 @@ export default class Organization extends BaseResource {
         name: 'location',
         type: 'Array',
         show: true,
-        component: 'cascader',
+        component: 'areaDistpicker',
         search: true,
-        edit: true,
-        default: [],
-        filter(value) {
-          return value.join(',')
-        }
+        edit: true
       },
       {
         name: 'userId',
