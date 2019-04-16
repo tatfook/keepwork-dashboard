@@ -32,14 +32,12 @@ export default class PackageTags extends BaseResource {
         name: 'extra.enTagname',
         type: 'Object',
         show: true,
-        edit: true,
         search: false
       },
       {
         name: 'extra.sn',
         type: 'Object',
         show: true,
-        edit: true,
         search: true
       },
       {

@@ -117,17 +117,17 @@ export default class Package extends BaseResource {
         name: 'rmb',
         type: 'Number',
         required: true,
-        show: false,
-        edit: false,
-        search: false
+        show: true,
+        edit: true,
+        search: true
       },
       {
         name: 'coin',
         type: 'Number',
         required: true,
-        show: false,
-        edit: false,
-        search: false
+        show: true,
+        edit: true,
+        search: true
       },
       {
         name: 'extra.coverUrl',
