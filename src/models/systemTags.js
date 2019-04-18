@@ -6,6 +6,7 @@ const usersCRUD = resourceCRUD('systemTags')
 export default function projectsManageModel() {
   return {
     async list(params) {
+      params['where']['classify'] = { $eq: 1 }
       return usersCRUD.list(params)
     },
     async create(params) {

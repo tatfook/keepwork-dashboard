@@ -16,6 +16,8 @@
         <input-file v-else-if="attrComponent(attr, 'file')" v-model="model[attr.name]"></input-file>
         <input-org v-else-if="attrComponent(attr, 'org')" v-model="model[attr.name]"></input-org>
         <package-select v-else-if="attrComponent(attr, 'package')" v-model="model[attr.name]"></package-select>
+        <package-tags-checkbox v-else-if="attrComponent(attr, 'packageTags')" v-model="model[attr.name]"></package-tags-checkbox>
+        <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="model[attr.name]"></area-distpicker>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -34,6 +36,8 @@ import { ActiveQuery } from '@/utils/query'
 import InputFile from './custom/InputFile'
 import InputOrg from './custom/InputOrg'
 import PackageSelect from './custom/PackageSelect'
+import PackageTagsCheckbox from './custom/PackageTagsCheckbox'
+import AreaDistpicker from './custom/AreaDistpicker'
 
 export default {
   name: 'CRUDFrom',
@@ -44,7 +48,9 @@ export default {
   components: {
     InputFile,
     InputOrg,
-    PackageSelect
+    PackageSelect,
+    PackageTagsCheckbox,
+    AreaDistpicker
   },
   data() {
     return {

@@ -1,9 +1,18 @@
 import { resourceCRUD } from '@/api/keepwork'
 import organizationModel from '@/models/organization'
 import BaseResource from './base'
+import _ from 'lodash'
 
 const model = { ...resourceCRUD('lessonOrganizations'), ...organizationModel }
 const ENV = process.env.NODE_EN
+
+const visibilityMap = [{
+  key: 0,
+  value: '公开'
+}, {
+  key: 1,
+  value: '不公开'
+}]
 export default class Organization extends BaseResource {
   static attributes() {
     return [
@@ -23,6 +32,14 @@ export default class Organization extends BaseResource {
           return Array.isArray(names) ? names.join(',') : names
         },
         required: true
+      },
+      {
+        name: 'location',
+        type: 'Array',
+        show: true,
+        component: 'areaDistpicker',
+        search: true,
+        edit: true
       },
       {
         name: 'userId',
@@ -108,12 +125,16 @@ export default class Organization extends BaseResource {
         name: 'status',
         type: 'String',
         edit: false
+      },
+      {
+        name: 'visibility',
+        type: 'Number',
+        options: visibilityMap,
+        component: 'select',
+        filter(value) {
+          return _.get(_.find(visibilityMap, item => item.key === value), 'value', visibilityMap[1].value)
+        }
       }
-      // {
-      //   name: 'privilege',
-      //   type: 'Number',
-      //   component: 'select'
-      // }
     ]
   }
 
