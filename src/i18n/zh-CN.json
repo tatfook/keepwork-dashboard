@@ -122,6 +122,12 @@
       "organization": "机构管理",
       "administrator": "管理员",
       "paracraftVisitors": "合作申请"
+    },
+    "sidebarMessages": "消息",
+    "messages": {
+      "historyMessages": "历史消息",
+      "postMessage": "发布消息",
+      "userMessages": "用户消息"
     }
   },
   "resources": {
