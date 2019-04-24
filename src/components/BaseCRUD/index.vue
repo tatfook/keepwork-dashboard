@@ -25,8 +25,8 @@
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
-    <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" :visible.sync="dialogFormVisible">
-      <crud-form :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
+    <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" width="60%" :visible.sync="dialogFormVisible">
+      <crud-form v-if="dialogFormVisible" :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
     </el-dialog>
 
     <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">

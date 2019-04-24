@@ -125,9 +125,7 @@
     },
     "sidebarMessages": "消息",
     "messages": {
-      "historyMessages": "历史消息",
-      "postMessage": "发布消息",
-      "userMessages": "用户消息"
+      "historyMessages": "消息"
     }
   },
   "resources": {
@@ -482,6 +480,15 @@
         "state": "状态",
         "remark": "管理员备注",
         "handler": "操作者"
+      }
+    },
+    "Messages": {
+      "attr": {
+        "id":"序号",
+        "createdAt":"创建日期",
+        "sender": "发送者",
+        "type": "消息类型",
+        "text": "消息内容"
       }
     }
   }

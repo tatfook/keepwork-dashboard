@@ -370,30 +370,17 @@ export const asyncRouterMap = [
   {
     path: '/messages',
     component: Layout,
-    meta: {
-      title: 'sidebar.sidebarMessages',
-      icon: 'nested'
-    },
+    // meta: {
+    //   title: 'sidebar.sidebarMessages',
+    //   icon: 'nested'
+    // },
     children: [{
-      path: 'postMessage',
-      component: () => import('@/views/messages/postMessage'),
-      name: 'Post Message',
-      meta: {
-        title: 'sidebar.messages.postMessage'
-      }
-    }, {
       path: 'historyMessages',
       component: () => import('@/views/messages/historyMessages'),
       name: 'History Messages',
       meta: {
-        title: 'sidebar.messages.historyMessages'
-      }
-    }, {
-      path: 'userMessages',
-      component: () => import('@/views/messages/userMessages'),
-      name: 'User Messages',
-      meta: {
-        title: 'sidebar.messages.userMessages'
+        title: 'sidebar.messages.historyMessages',
+        icon: 'message'
       }
     }]
   },
