@@ -133,7 +133,8 @@
       "attr": {
         "id": "序号",
         "username": "用户名",
-        "password": "密码"
+        "password": "密码",
+        "roleId": "角色"
       }
     },
     "User": {

@@ -2,7 +2,8 @@
   <div class="app-container">
     <div class="action-container">
       <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-plus">{{$t('new')}}</el-button>
-      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
+      <!-- TODO: 临时解决方案 -->
+      <el-button class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
       <el-button v-if="can('delete')" class="filter-item" style="margin-left: 10px;" @click="handleDeleteAll" type="primary" icon="el-icon-plus">{{$t('deleteAll')}}</el-button>
       <!-- FIXME: 权限问题 -->
       <el-button v-for="button in appendButtons" :type="button.type" :key="button.name" @click="handleAppendButtonAction(button)">{{button.name}}</el-button>
