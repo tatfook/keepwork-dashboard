@@ -333,6 +333,7 @@ export const asyncRouterMap = [
   {
     path: '/org',
     component: Layout,
+    resource: 'Organization',
     meta: {
       title: 'sidebar.sidebarOrganization',
       icon: 'nested'

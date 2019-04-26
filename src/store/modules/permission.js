@@ -12,8 +12,7 @@ import {
  * @param route
  */
 function hasPermission(roles, route) {
-  if (route.resource) return rolesCan(roles, 'view', route.resource)
-  return true
+  return rolesCan(roles, 'view', route.resource)
 }
 
 /**
@@ -54,12 +53,6 @@ const permission = {
           roles
         } = data
         let accessedRouters
-        // TODO: 临时解决角色问题
-        if (roles.indexOf('market') >= 0) {
-          accessedRouters = asyncRouterMap.filter(item => ['/org', '*'].indexOf(item.path) > -1)
-          commit('SET_ROUTERS', accessedRouters)
-          return resolve()
-        }
         if (roles.indexOf('admin') >= 0) {
           accessedRouters = asyncRouterMap
         } else {
