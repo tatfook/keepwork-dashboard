@@ -32,6 +32,14 @@ allow(Role, ['view', 'edit', 'export'], getResourceClass('Package'), (role) => {
   return role.name === 'operation'
 })
 
+// 市场人员
+allow(Role, ['view', 'export'], getResourceClass('Organization'), role => {
+  return role.name === 'market'
+})
+allow(Role, ['view', 'edit', 'export'], getResourceClass('ParacraftVisitors'), role => {
+  return role.name === 'market'
+})
+
 export const roleCan = (role, action, resource) => {
   const roleInstance = _.isString(role) ? newResource('role', {
     name: role

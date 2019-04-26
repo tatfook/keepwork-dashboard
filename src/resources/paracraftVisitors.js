@@ -44,7 +44,7 @@ const stateMap = [
     value: '完毕'
   }
 ]
-export default class Organization extends BaseResource {
+export default class ParacraftVisitors extends BaseResource {
   static attributes() {
     return [
       {
