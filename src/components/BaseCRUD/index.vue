@@ -2,7 +2,8 @@
   <div class="app-container">
     <div class="action-container">
       <el-button v-if="can('create')" class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-plus">{{$t('new')}}</el-button>
-      <el-button v-if="can('export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
+      <!-- TODO: 临时解决方案 -->
+      <el-button class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExport">{{$t('export')}}</el-button>
       <el-button v-if="can('delete')" class="filter-item" style="margin-left: 10px;" @click="handleDeleteAll" type="primary" icon="el-icon-plus">{{$t('deleteAll')}}</el-button>
       <!-- FIXME: 权限问题 -->
       <el-button v-for="button in appendButtons" :type="button.type" :key="button.name" @click="handleAppendButtonAction(button)">{{button.name}}</el-button>
@@ -25,8 +26,8 @@
 
     <crud-paginate :listQuery="listQuery" :total="total" @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" />
 
-    <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" :visible.sync="dialogFormVisible">
-      <crud-form :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
+    <el-dialog v-if="can('edit') || can('create')" :title="$t(textMap[dialogStatus])" width="60%" :visible.sync="dialogFormVisible">
+      <crud-form v-if="dialogFormVisible" :formData="activeRow" :status="dialogStatus" @cancel="dialogFormVisible = false" @create="createData" @update="updateData" />
     </el-dialog>
 
     <el-dialog v-if="can('show')" :visible.sync="showingFormVisible">

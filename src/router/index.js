@@ -368,6 +368,23 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/messages',
+    component: Layout,
+    // meta: {
+    //   title: 'sidebar.sidebarMessages',
+    //   icon: 'nested'
+    // },
+    children: [{
+      path: 'historyMessages',
+      component: () => import('@/views/messages/historyMessages'),
+      name: 'History Messages',
+      meta: {
+        title: 'sidebar.messages.historyMessages',
+        icon: 'message'
+      }
+    }]
+  },
+  {
     path: '*',
     redirect: '/404',
     hidden: true
