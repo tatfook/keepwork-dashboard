@@ -42,7 +42,6 @@ export default class Admin extends BaseResource {
         component: 'select',
         options: rolesMap,
         edit: true,
-        default: 0,
         filter(roleId) {
           return _.find(rolesMap, item => item.key === roleId).value
         }
