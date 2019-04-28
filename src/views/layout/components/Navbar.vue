@@ -14,7 +14,7 @@
             {{$t('home')}}
           </el-dropdown-item>
         </router-link>
-        <router-link class="inlineBlock" to="/admin">
+        <router-link v-if="isAdmin" class="inlineBlock" to="/admin">
           <el-dropdown-item>
             {{$t('admin')}}
           </el-dropdown-item>
@@ -38,7 +38,7 @@ export default {
     Hamburger
   },
   computed: {
-    ...mapGetters(['sidebar', 'avatar'])
+    ...mapGetters(['sidebar', 'avatar', 'roles', 'isAdmin'])
   },
   methods: {
     toggleSideBar() {

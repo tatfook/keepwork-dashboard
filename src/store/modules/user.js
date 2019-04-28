@@ -54,6 +54,11 @@ const user = {
         commit('SET_ROLES', roles)
       }
 
+      if (adminInfo.roleId === 1) {
+        roles.push('market')
+        commit('SET_ROLES', roles)
+      }
+
       commit('SET_ID', adminInfo.id)
       commit('SET_NAME', adminInfo.username)
       // commit('SET_AVATAR', adminInfo.portrait)
