@@ -76,7 +76,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'sidebar.sidebarUser',
-      icon: 'nested'
+      icon: 'users'
     },
     children: [
       {
@@ -113,7 +113,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'sidebar.sidebarWebsite',
-      icon: 'nested'
+      icon: 'website'
     },
     children: [
       {
@@ -139,10 +139,10 @@ export const asyncRouterMap = [
   {
     path: '/sensitiveWords',
     component: Layout,
-    // meta: {
-    //   title: 'sidebar.sidebarSensitiveWords',
-    //   icon: 'nested'
-    // },
+    meta: {
+      title: 'sidebar.sidebarSensitiveWords',
+      icon: 'sensitiveWords'
+    },
     children: [
       {
         path: 'manager',
@@ -151,7 +151,7 @@ export const asyncRouterMap = [
         resource: 'SensitiveWords',
         meta: {
           title: 'sidebar.sidebarSensitiveWords',
-          icon: 'nested'
+          icon: 'sensitiveWords'
         }
       }
     ]
@@ -161,7 +161,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'sidebar.sidebarLesson',
-      icon: 'nested'
+      icon: 'lesson'
     },
     children: [
       {
@@ -243,7 +243,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'sidebar.sidebarProjects',
-      icon: 'nested'
+      icon: 'projects'
     },
     children: [
       {
@@ -298,7 +298,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'sidebar.sidebarNPL',
-      icon: 'nested'
+      icon: 'npl'
     },
     children: [
       {
@@ -333,9 +333,10 @@ export const asyncRouterMap = [
   {
     path: '/org',
     component: Layout,
+    resource: 'Organization',
     meta: {
       title: 'sidebar.sidebarOrganization',
-      icon: 'nested'
+      icon: 'org'
     },
     children: [
       {
@@ -356,17 +357,25 @@ export const asyncRouterMap = [
           title: 'sidebar.org.paracraftVisitors'
         }
       }
-      // {
-      //   path: 'administrator',
-      //   component: () => import('@/views/org/administrator/index'),
-      //   name: 'Administrator Manager',
-      //   resource: 'administrator',
-      //   meta: {
-      //     title: 'sidebar.org.administrator'
-      //   }
-      // }
     ]
   },
+  // {
+  //   path: '/messages',
+  //   component: Layout,
+  //   meta: {
+  //     title: 'sidebar.sidebarMessages',
+  //     icon: 'message'
+  //   },
+  //   children: [{
+  //     path: 'historyMessages',
+  //     component: () => import('@/views/messages/historyMessages'),
+  //     name: 'History Messages',
+  //     meta: {
+  //       title: 'sidebar.messages.historyMessages',
+  //       icon: 'message'
+  //     }
+  //   }]
+  // },
   {
     path: '*',
     redirect: '/404',

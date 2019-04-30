@@ -122,6 +122,10 @@
       "organization": "机构管理",
       "administrator": "管理员",
       "paracraftVisitors": "合作申请"
+    },
+    "sidebarMessages": "消息",
+    "messages": {
+      "historyMessages": "消息"
     }
   },
   "resources": {
@@ -129,7 +133,8 @@
       "attr": {
         "id": "序号",
         "username": "用户名",
-        "password": "密码"
+        "password": "密码",
+        "roleId": "角色"
       }
     },
     "User": {
@@ -476,6 +481,15 @@
         "state": "状态",
         "remark": "管理员备注",
         "handler": "操作者"
+      }
+    },
+    "Messages": {
+      "attr": {
+        "id":"序号",
+        "createdAt":"创建日期",
+        "sender": "发送者",
+        "type": "消息类型",
+        "text": "消息内容"
       }
     }
   }

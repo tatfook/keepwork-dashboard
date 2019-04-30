@@ -12,8 +12,7 @@ import {
  * @param route
  */
 function hasPermission(roles, route) {
-  if (route.resource) return rolesCan(roles, 'view', route.resource)
-  return true
+  return rolesCan(roles, 'view', route.resource)
 }
 
 /**

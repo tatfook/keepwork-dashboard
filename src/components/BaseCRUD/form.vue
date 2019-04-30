@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
+    <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 600px; margin-left:50px;'>
       <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
         <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
@@ -18,6 +18,7 @@
         <package-select v-else-if="attrComponent(attr, 'package')" v-model="model[attr.name]"></package-select>
         <package-tags-checkbox v-else-if="attrComponent(attr, 'packageTags')" v-model="model[attr.name]"></package-tags-checkbox>
         <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="model[attr.name]"></area-distpicker>
+        <editor v-else-if="attrComponent(attr, 'editor')" v-model="model[attr.name]"></editor>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -38,6 +39,7 @@ import InputOrg from './custom/InputOrg'
 import PackageSelect from './custom/PackageSelect'
 import PackageTagsCheckbox from './custom/PackageTagsCheckbox'
 import AreaDistpicker from './custom/AreaDistpicker'
+import Editor from './custom/Editor'
 
 export default {
   name: 'CRUDFrom',
@@ -50,7 +52,8 @@ export default {
     InputOrg,
     PackageSelect,
     PackageTagsCheckbox,
-    AreaDistpicker
+    AreaDistpicker,
+    Editor
   },
   data() {
     return {

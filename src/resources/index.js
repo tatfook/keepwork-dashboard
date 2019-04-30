@@ -25,6 +25,7 @@ import NPLWorks from './NPLworks'
 import Organization from './organization'
 import ParacraftVisitors from './paracraftVisitors'
 import PackageTags from './packageTags'
+import Messages from './messages'
 // import Administrator from './administrator'
 
 export const resources = {
@@ -53,7 +54,8 @@ export const resources = {
   NPLWorks,
   Organization,
   ParacraftVisitors,
-  PackageTags
+  PackageTags,
+  Messages
   // Administrator
 }
 
