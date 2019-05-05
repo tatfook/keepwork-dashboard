@@ -441,7 +441,10 @@
         "worksRate": "作品得分",
         "worksRateCount": "评分人数",
         "reward": "获奖情况",
-        "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}}
+        "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}},
+        "extra": {
+          "projects": "备份情况"
+        }
       }
     },
     "Organization": {

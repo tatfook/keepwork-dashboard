@@ -85,6 +85,15 @@ export default class NPLApply extends BaseResource {
         type: 'String',
         component: 'select',
         options: rewardMap
+      },
+      {
+        name: 'extra.projects',
+        type: 'String',
+        edit: false,
+        search: false,
+        filter(value) {
+          return value ? '已备份' : ''
+        }
       }
     ]
   }
@@ -93,7 +102,30 @@ export default class NPLApply extends BaseResource {
   }
   static actions() {
     return {
-      disabled: ['show', 'create', 'delete', 'destroy']
+      disabled: ['show', 'create', 'delete', 'destroy'],
+      extra: [{
+        name: 'backup',
+        button: 'success',
+        title() {
+          return '备份'
+        },
+        async func(row, that) {
+          await model.update({ ...row, extra: { projects: row.projects }})
+        }
+      }]
+    }
+  }
+
+  static buttons() {
+    return {
+      append: [{
+        name: '备份',
+        type: 'success',
+        async func(projects, that) {
+          const fetchUpdateProjects = projects.map(item => model.update({ ...item, extra: { projects: item.projects }}))
+          await Promise.all(fetchUpdateProjects)
+        }
+      }]
     }
   }
 
