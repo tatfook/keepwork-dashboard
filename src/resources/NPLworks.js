@@ -110,7 +110,9 @@ export default class NPLApply extends BaseResource {
           return '备份'
         },
         async func(row, that) {
-          await model.update({ ...row, extra: { projects: row.projects }})
+          if (row.projects) {
+            await model.update({ ...row, extra: { projects: row.projects }})
+          }
         }
       }]
     }
@@ -122,7 +124,8 @@ export default class NPLApply extends BaseResource {
         name: '备份',
         type: 'success',
         async func(projects, that) {
-          const fetchUpdateProjects = projects.map(item => model.update({ ...item, extra: { projects: item.projects }}))
+          const _projects = projects.filter(item => item.projects)
+          const fetchUpdateProjects = _projects.map(item => model.update({ ...item, extra: { projects: item.projects }}))
           await Promise.all(fetchUpdateProjects)
         }
       }]
