@@ -62,20 +62,7 @@ export default class IssuesManage extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'create', 'edit'],
-      extra: [
-        // {
-        //   name: 'resources.IssuesManage.comment',
-        //   title() {
-        //     return ''
-        //   },
-        //   func: async(ctx, data) => {
-        //     ctx.issueId = data.id
-        //     ctx.commentsData = await ctx.model.comments(ctx.issueId)
-        //     ctx.isShowCommentdialog = true
-        //   }
-        // }
-      ]
+      disabled: ['show', 'create', 'edit']
     }
   }
 }

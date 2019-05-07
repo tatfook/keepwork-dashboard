@@ -3,7 +3,6 @@ import BaseResource from './base'
 import { resourceCRUD } from '@/api/keepwork'
 import _ from 'lodash'
 
-// const projectsCRUD = resourceCRUD('projects')
 const systemTagsCRUD = resourceCRUD('systemTags')
 
 const projectsCRUD = projectsManageModel()
