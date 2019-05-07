@@ -26,7 +26,6 @@ import Organization from './organization'
 import ParacraftVisitors from './paracraftVisitors'
 import PackageTags from './packageTags'
 import Messages from './messages'
-// import Administrator from './administrator'
 
 export const resources = {
   Admin,
@@ -56,7 +55,6 @@ export const resources = {
   ParacraftVisitors,
   PackageTags,
   Messages
-  // Administrator
 }
 
 export const newResource = (name, row) => {
