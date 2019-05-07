@@ -97,19 +97,6 @@ export default class TeacherCDKey extends BaseResource {
               value: state.key
             }
           }
-          // if (object.value === '精选') {
-          //   return {
-          //     ...object,
-          //     value: 1
-          //   }
-          // }
-
-          // if (object.value === '一般') {
-          //   return {
-          //     ...object,
-          //     value: 0
-          //   }
-          // }
           return object
         }
       }
