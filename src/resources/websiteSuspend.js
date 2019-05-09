@@ -12,6 +12,7 @@ export default class websiteSuspend extends BaseResource {
         required: true,
         search: true,
         sort: false,
+        component: 'link',
         associate: 'WebsiteManage',
         associateAs: 'illegalSites',
         associateField: 'sitename'

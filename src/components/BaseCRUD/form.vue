@@ -2,7 +2,8 @@
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 600px; margin-left:50px;'>
       <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
-        <el-select v-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
+        <input-link v-if="attrComponent(attr, 'link')" v-model="model[attr.name]" :attr="attr" ></input-link>
+        <el-select v-else-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
@@ -36,6 +37,7 @@ import { mapGetters } from 'vuex'
 import { ActiveQuery } from '@/utils/query'
 import InputFile from './custom/InputFile'
 import InputOrg from './custom/InputOrg'
+import InputLink from './custom/InputLink'
 import PackageSelect from './custom/PackageSelect'
 import PackageTagsCheckbox from './custom/PackageTagsCheckbox'
 import AreaDistpicker from './custom/AreaDistpicker'
@@ -50,6 +52,7 @@ export default {
   components: {
     InputFile,
     InputOrg,
+    InputLink,
     PackageSelect,
     PackageTagsCheckbox,
     AreaDistpicker,
