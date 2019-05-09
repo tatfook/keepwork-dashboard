@@ -1,6 +1,6 @@
 <template>
   <div class="input-link">
-    <el-select v-model="siteName" :v-model="siteName" filterable remote :remote-method="searchAssociate(attr)" @change="handleChange" :loading="loading">
+    <el-select :v-model="siteName" filterable remote :remote-method="searchAssociate(attr)" @change="handleChange" :loading="loading">
       <el-option v-for="item in associateOptions" :key="item.key" :label="`${item.username}\/${item.value}`" :value="item.key" />
     </el-select>
   </div>
