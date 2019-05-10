@@ -208,7 +208,10 @@
         "sitename": "网站名",
         "createdAt": "封号日期",
         "description": "封号原因",
-        "handlerName": "操作者"
+        "handlerName": "操作者",
+        "illegalSites": {
+          "username": "用户名"
+        }
       },
       "button": {
         "unblock": "解封",
