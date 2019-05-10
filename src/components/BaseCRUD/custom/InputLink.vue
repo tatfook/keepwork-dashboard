@@ -9,6 +9,7 @@
 <script>
 import { getResourceClass } from '@/resources'
 import { ActiveQuery } from '@/utils/query'
+import _ from 'lodash'
 export default {
   name: 'InputLink',
   data() {
@@ -52,6 +53,7 @@ export default {
             username: item.username
           }
         })
+        self.associateOptions = _.sortBy(self.associateOptions, item => item.username)
         this.loading = false
       }
     }
