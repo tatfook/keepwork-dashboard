@@ -15,11 +15,11 @@
         <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="model[attr.name]" type="datetime" />
         <el-rate v-else-if="attrComponent(attr, 'rate')" style="margin-top:8px;" v-model="model[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
         <input-file v-else-if="attrComponent(attr, 'file')" v-model="model[attr.name]"></input-file>
-        <input-org v-else-if="attrComponent(attr, 'org')" v-model="model[attr.name]"></input-org>
+        <input-org v-else-if="attrComponent(attr, 'org')" v-model.trim="model[attr.name]"></input-org>
         <package-select v-else-if="attrComponent(attr, 'package')" v-model="model[attr.name]"></package-select>
         <package-tags-checkbox v-else-if="attrComponent(attr, 'packageTags')" v-model="model[attr.name]"></package-tags-checkbox>
         <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="model[attr.name]"></area-distpicker>
-        <editor v-else-if="attrComponent(attr, 'editor')" v-model="model[attr.name]"></editor>
+        <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="model[attr.name]"></editor>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
