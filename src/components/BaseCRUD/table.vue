@@ -8,7 +8,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :width="actionAreaWidth" class-name="small-padding fixed-width">
+      <el-table-column align="center" :width="actionAreaWidth" class-name="small-padding fixed-width" label="操作">
         <template slot-scope="scope">
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row)">{{$t('show')}}</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row)">{{$t('edit')}}</el-button>
