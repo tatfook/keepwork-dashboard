@@ -25,9 +25,6 @@ const rewriteFunc = {
     if (result.$in.length) {
       payload = { ...payload, result }
     }
-    if (!username.$like && !url.$like && !type.$in.length && !state.$in.length && !result.$in.length) {
-      return model.list({ where: {}})
-    }
     return model.list({ where: payload })
   }
 }
