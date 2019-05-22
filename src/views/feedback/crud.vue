@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="action-container">
+    <!-- <div class="action-container">
 
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
@@ -14,7 +14,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" />
+    <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" /> -->
     <div class="feedback-filter">
       <el-form ref="feedbackFilter" :model="feedbackFilter" label-width="120px">
         <el-form-item label="举报人：">
