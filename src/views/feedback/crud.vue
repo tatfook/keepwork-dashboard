@@ -42,7 +42,7 @@
         <el-form-item label="处理方法：">
           <el-checkbox-group v-model="feedbackFilter.result">
             <el-checkbox label="1">处理</el-checkbox>
-            <el-checkbox label="2">误判</el-checkbox>
+            <el-checkbox label="2">误报</el-checkbox>
             <el-checkbox label="3">重复</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
