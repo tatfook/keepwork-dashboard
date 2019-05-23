@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
     <!-- <div class="action-container">
-
       <el-dropdown style="float: right" @command="handleAddFilter">
         <el-button type="primary">
           {{$t('addFilter')}}
@@ -17,13 +16,13 @@
     <crud-filter :searchParams="searchParams" @removeFilter="handleRemoveFilter" @handleSearch="handleSearch" /> -->
     <div class="feedback-filter">
       <el-form ref="feedbackFilter" :model="feedbackFilter" label-width="120px">
-        <el-form-item label="举报人：">
+        <el-form-item label="举报人：" prop="username">
           <el-input v-model="feedbackFilter.username"></el-input>
         </el-form-item>
-        <el-form-item label="举报网址：">
+        <el-form-item label="举报网址：" prop="url">
           <el-input v-model="feedbackFilter.url"></el-input>
         </el-form-item>
-        <el-form-item label="举报类型：">
+        <el-form-item label="举报类型：" prop="type">
           <el-checkbox-group v-model="feedbackFilter.type">
             <el-checkbox label="1">假冒网站</el-checkbox>
             <el-checkbox label="2">传播病毒</el-checkbox>
@@ -33,13 +32,13 @@
             <el-checkbox label="0">其他</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="处理状态：">
+        <el-form-item label="处理状态：" prop="state">
           <el-checkbox-group v-model="feedbackFilter.state">
             <el-checkbox label="1">已处理</el-checkbox>
             <el-checkbox label="0">未处理</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="处理方法：">
+        <el-form-item label="处理方法：" prop="result">
           <el-checkbox-group v-model="feedbackFilter.result">
             <el-checkbox label="1">处理</el-checkbox>
             <el-checkbox label="2">误报</el-checkbox>
@@ -48,6 +47,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch(feedbackFilterData)">搜 索</el-button>
+          <el-button type="primary" @click="resetForm('feedbackFilter')">重 置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -122,6 +122,9 @@ export default {
         this.dialogFormVisible = false
         this.getList()
       })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }

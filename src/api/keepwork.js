@@ -8,13 +8,11 @@ export function resourceCRUD(resource) {
   return {
     list(data, method = 'query') {
       let url = base
-
       if (method === 'query') {
         url = url + '/' + method + `?t=${Date.now()}`
       } else if (method === 'search') {
         url = url + '/' + method
       }
-
       return request({
         method: 'post',
         url,
