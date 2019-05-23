@@ -7,7 +7,7 @@ const rewriteFunc = {
   list(params) {
     const { username, url, type, state, result } = params.where
     if (JSON.stringify(params.where) === '{}') {
-      return model.list({ where: {}})
+      return model.list({ ...params, where: {}})
     }
     let payload = {}
     if (username.$like) {
@@ -25,7 +25,7 @@ const rewriteFunc = {
     if (result.$in.length) {
       payload = { ...payload, result }
     }
-    return model.list({ where: payload })
+    return model.list({ ...params, where: payload })
   }
 }
 
