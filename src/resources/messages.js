@@ -1,6 +1,7 @@
 import { resourceCRUD } from '@/api/keepwork'
 import BaseResource from './base'
 import _ from 'lodash'
+import broadcast from '@/api/broadcast'
 
 const model = resourceCRUD('messages')
 const formatMessage = data => {
@@ -20,9 +21,11 @@ const _rewrite = {
     const _data = formatMessage(data)
     return model.update(_data)
   },
-  create(data) {
+  async create(data) {
     const _data = formatMessage(data)
-    return model.create(_data)
+    await model.create(_data)
+    broadcast({ data: _data })
+    return
   }
 }
 
