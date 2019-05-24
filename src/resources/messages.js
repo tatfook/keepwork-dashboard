@@ -1,13 +1,13 @@
 import { resourceCRUD } from '@/api/keepwork'
 import BaseResource from './base'
 import _ from 'lodash'
-import broadcast from '@/api/broadcast'
+// import broadcast from '@/api/broadcast'
 
 const model = resourceCRUD('messages')
-const formatMessage = data => {
-  const { id, sender = 0, type = 0, all = true, text = '' } = data
-  return { id, sender, type, all, msg: { type: 0, text: text }, extra: { senderName: 'Keepwork', senderPortrait: '' }}
-}
+// const formatMessage = data => {
+//   const { id, sender = 0, type = 0, all = 1, text = '' } = data
+//   return { id, sender, type, all, msg: { type: 0, text: text }, extra: { senderName: 'Keepwork', senderPortrait: '' }}
+// }
 
 const _rewrite = {
   async list(params) {
@@ -17,14 +17,11 @@ const _rewrite = {
       rows: res.rows.map(item => ({ ...item, ...item.msg }))
     }
   },
-  update(data) {
-    const _data = formatMessage(data)
-    return model.update(_data)
-  },
   async create(data) {
-    const _data = formatMessage(data)
-    await model.create(_data)
-    broadcast({ data: _data })
+    console.log(data)
+    // const _data = formatMessage(data)
+    // await model.create(_data)
+    // broadcast({ data: _data })
     return
   }
 }
@@ -50,17 +47,26 @@ export default class Messages extends BaseResource {
         edit: false,
         search: true
       },
+      // {
+      //   name: 'sender',
+      //   type: 'Number',
+      //   show: false,
+      //   edit: false,
+      //   search: false
+      // },
       {
-        name: 'sender',
-        type: 'Number',
+        name: 'username',
+        type: 'Array',
+        component: 'username',
         show: false,
-        edit: false,
+        edit: true,
         search: false
       },
       {
         name: 'text',
         type: 'String',
         component: 'editor',
+        required: true,
         edit: true,
         show: true,
         search: false
@@ -87,7 +93,7 @@ export default class Messages extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show']
+      disabled: ['show', 'destroy', 'delete', 'edit', 'export']
     }
   }
 }
