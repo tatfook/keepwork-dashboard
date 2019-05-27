@@ -22,7 +22,8 @@ const menus = [
 export default {
   name: 'Editor',
   props: {
-    value: ''
+    value: '',
+    staus: ''
   },
   data() {
     return {

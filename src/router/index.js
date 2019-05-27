@@ -377,6 +377,25 @@ export const asyncRouterMap = [
     }]
   },
   {
+    path: '/feedback',
+    component: Layout,
+    meta: {
+      title: 'sidebar.feedback',
+      icon: 'feedback'
+    },
+    children: [
+      {
+        path: 'manage',
+        component: () => import('@/views/feedback/index'),
+        name: 'Feedback Manage',
+        meta: {
+          title: 'sidebar.feedbackManage.manage',
+          icon: 'feedback'
+        }
+      }
+    ]
+  },
+  {
     path: '*',
     redirect: '/404',
     hidden: true
