@@ -503,7 +503,8 @@
         "username": "接收人",
         "all": "发送方式",
         "extra": {
-          "receivers": "接收者"
+          "receivers": "接收者",
+          "operator": "操作者"
         }
       }
     },
