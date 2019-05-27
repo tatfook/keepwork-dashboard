@@ -35,7 +35,6 @@ export default {
           offset: 0
         })
         this.options = userList.map(item => ({ label: item.username, value: item.id }))
-        console.log(this.options)
       }
     }
   }
