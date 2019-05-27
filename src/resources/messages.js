@@ -139,6 +139,12 @@ export default class Messages extends BaseResource {
         filter(value) {
           return _.find(typesMap, item => item.key === value).value || typesMap[0].value
         }
+      },
+      {
+        name: 'extra.operator',
+        type: 'String',
+        edit: false,
+        search: false
       }
     ]
   }
@@ -149,7 +155,7 @@ export default class Messages extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'destroy', 'delete', 'edit', 'export']
+      disabled: ['destroy', 'delete', 'edit', 'export']
     }
   }
 }
