@@ -3,9 +3,10 @@
     <el-switch
     inactive-text="所有人"
     active-text="指定用户"
+    @change="onChange"
     v-model="isAssign">
     </el-switch>
-    <user-select v-show="isAssign" v-model="value"></user-select>
+    <user-select v-if="isAssign" v-model="value"></user-select>
   </div>
 </template>
 
@@ -23,6 +24,13 @@ export default {
       options: [{ label: '', value: '' }],
       value: [],
       isAssign: false
+    }
+  },
+  methods: {
+    onChange(value) {
+      if (!value) {
+        this.$emit('input', [])
+      }
     }
   },
   watch: {
