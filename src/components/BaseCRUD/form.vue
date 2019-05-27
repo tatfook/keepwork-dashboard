@@ -20,6 +20,7 @@
         <package-tags-checkbox v-else-if="attrComponent(attr, 'packageTags')" v-model="model[attr.name]"></package-tags-checkbox>
         <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="model[attr.name]"></area-distpicker>
         <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="model[attr.name]"></editor>
+        <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="model[attr.name]"></message-user-select>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -42,6 +43,7 @@ import PackageSelect from './custom/PackageSelect'
 import PackageTagsCheckbox from './custom/PackageTagsCheckbox'
 import AreaDistpicker from './custom/AreaDistpicker'
 import Editor from './custom/Editor'
+import MessageUserSelect from './custom/MessageUserSelect'
 
 export default {
   name: 'CRUDFrom',
@@ -56,7 +58,8 @@ export default {
     PackageSelect,
     PackageTagsCheckbox,
     AreaDistpicker,
-    Editor
+    Editor,
+    MessageUserSelect
   },
   data() {
     return {
