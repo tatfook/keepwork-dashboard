@@ -11,19 +11,33 @@ export default class BlockedProjects extends BaseResource {
         type: 'Number',
         show: false,
         create: false,
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'name',
         originName: 'objectId',
         type: 'String',
-        edit: true,
+        edit: false,
+        show: false,
         required: true,
-        search: true,
+        search: false,
         formAssociate: 'projects',
-        associate: 'illegalProjects',
-        associateAs: 'illegalProjects',
+        associate: 'projectsManage',
+        associateAs: 'projectsManage',
         associateField: 'name'
+      },
+      {
+        name: 'objectId',
+        edit: true,
+        show: true,
+        required: true
+      },
+      {
+        name: 'illegalProjects.name',
+        show: true,
+        edit: false,
+        search: false
       },
       {
         name: 'createdAt',
