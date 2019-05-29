@@ -354,6 +354,10 @@
       "title": "解封",
       "deblockAll": "解封选中",
       "attr": {
+        "objectId": "ID",
+        "illegalProjects": {
+          "name": "项目名称"
+        },
         "id": "ID",
         "name": "项目名称",
         "createdAt": "封停日期",
