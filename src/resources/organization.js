@@ -95,13 +95,15 @@ export default class Organization extends BaseResource {
         name: 'startDate',
         type: 'Date',
         component: 'time',
-        search: false
+        search: false,
+        required: true
       },
       {
         name: 'endDate',
         type: 'Date',
         component: 'time',
-        search: false
+        search: false,
+        required: true
       },
       {
         name: 'count',
