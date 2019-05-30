@@ -126,6 +126,10 @@
     "sidebarMessages": "消息",
     "messages": {
       "historyMessages": "消息"
+    },
+    "feedback": "投诉",
+    "feedbackManage": {
+      "manage": "投诉"
     }
   },
   "resources": {
@@ -208,7 +212,10 @@
         "sitename": "网站名",
         "createdAt": "封号日期",
         "description": "封号原因",
-        "handlerName": "操作者"
+        "handlerName": "操作者",
+        "illegalSites": {
+          "username": "用户名"
+        }
       },
       "button": {
         "unblock": "解封",
@@ -347,6 +354,10 @@
       "title": "解封",
       "deblockAll": "解封选中",
       "attr": {
+        "objectId": "ID",
+        "illegalProjects": {
+          "name": "项目名称"
+        },
         "id": "ID",
         "name": "项目名称",
         "createdAt": "封停日期",
@@ -492,7 +503,24 @@
         "createdAt":"创建日期",
         "sender": "发送者",
         "type": "消息类型",
-        "text": "消息内容"
+        "text": "消息内容",
+        "username": "接收人",
+        "all": "发送方式",
+        "extra": {
+          "receivers": "接收者",
+          "operator": "操作者"
+        }
+      }
+    },
+    "Feedback": {
+      "attr": {
+        "createdAt": "创建日期",
+        "username": "举报人",
+        "url": "举报网址",
+        "type": "举报类型",
+        "description": "举报说明",
+        "state": "处理状态",
+        "result": "处理方法"
       }
     }
   }

@@ -7,11 +7,18 @@ export default class websiteSuspend extends BaseResource {
   static attributes() {
     return [
       {
+        name: 'illegalSites.username',
+        type: 'String',
+        search: true,
+        edit: false
+      },
+      {
         name: 'objectId',
         alias: 'sitename',
         required: true,
         search: true,
         sort: false,
+        component: 'link',
         associate: 'WebsiteManage',
         associateAs: 'illegalSites',
         associateField: 'sitename'
