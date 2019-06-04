@@ -7,7 +7,7 @@ import _ from 'lodash'
 export default function choiceProjectsModel() {
   return {
     async list(params) {
-      params.where['choicenessNo'] = { $gte: 100 }
+      params.where['choicenessNo'] = params.where['choicenessNo'] || { $gte: 100 }
       if (params.order) {
         params.order.push(['choicenessNo', 'desc'])
       }
