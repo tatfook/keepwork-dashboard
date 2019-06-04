@@ -277,14 +277,12 @@ export default class ChoiceProjects extends BaseResource {
           if (projectIDs) {
             projectIDs = projectIDs.replace(/，/g, ',')
             const IDs = _.reverse(_.uniq(_.map(_.filter(_.split(projectIDs, ','), v => v), _.toNumber)))
-            console.log(IDs)
             const [currentChoiceProjects, projects] = await Promise.all([
               choiceProjectsCRUD.list({ where: {}}),
               choiceProjectsCRUD.list({ where: { choicenessNo: { $gte: 0 }, id: { $in: IDs }}})
             ])
             const newProjects = _.get(projects, 'rows', [])
             if (currentChoiceProjects.count > 0) {
-              console.log('get 0')
               const currentProjects = currentChoiceProjects.rows
               const topProject = _.maxBy(currentProjects, p => p.choicenessNo)
               const topProjectId = topProject.choicenessNo + 1
