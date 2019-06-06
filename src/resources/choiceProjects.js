@@ -248,28 +248,55 @@ export default class ChoiceProjects extends BaseResource {
                 }
               ],
               type: 'input',
-              title: '添加首页精选',
+              title: '添加首页精选(可批量添加，逗号隔开)',
               status: 'addHomeChoiceProject'
             }
             that.showDialog(params)
+          }
+        },
+        {
+          name: '取消首页精选',
+          type: 'warning',
+          async func(projects, that) {
+            await that.$confirm('确认批量取消首页精选?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(async() => {
+              const cancelList = _.map(projects, project => choiceProjectsCRUD.update({ ...project, choicenessNo: 1 }))
+              await Promise.all(cancelList)
+            }).catch(err =>
+              Promise.reject(err)
+            )
           }
         }
       ],
       callback: {
         async addHomeChoiceProject(inputArr, that) {
-          const projectId = _.get(_.find(inputArr, (item) => item.key === 'projectId'), 'value', '')
-          if (projectId) {
-            const [currentChoiceProjects, project] = await Promise.all([
+          let projectIDs = _.get(_.find(inputArr, (item) => item.key === 'projectId'), 'value', '')
+          if (projectIDs) {
+            projectIDs = projectIDs.replace(/，/g, ',')
+            const IDs = _.reverse(_.uniq(_.map(_.filter(_.split(projectIDs, ','), v => v), _.toNumber)))
+            const [currentChoiceProjects, projects] = await Promise.all([
               choiceProjectsCRUD.list({ where: {}}),
-              choiceProjectsCRUD.get(projectId)
+              choiceProjectsCRUD.list({ where: { choicenessNo: { $gte: 0 }, id: { $in: IDs }}})
             ])
+            const newProjects = _.get(projects, 'rows', [])
             if (currentChoiceProjects.count > 0) {
-              const projects = currentChoiceProjects.rows
-              const topProject = _.maxBy(projects, p => p.choicenessNo)
+              const currentProjects = currentChoiceProjects.rows
+              const topProject = _.maxBy(currentProjects, p => p.choicenessNo)
               const topProjectId = topProject.choicenessNo + 1
-              await choiceProjectsCRUD.update({ ...project, choicenessNo: topProjectId })
+              if (newProjects.length) {
+                const addProjects = _.map(newProjects, (project, index) =>
+                  choiceProjectsCRUD.update({ ...project, choicenessNo: topProjectId + index })
+                )
+                await Promise.all(addProjects)
+              }
             } else {
-              await choiceProjectsCRUD.update({ ...project, choicenessNo: 100 })
+              const addProjects = _.map(newProjects, (project, index) =>
+                choiceProjectsCRUD.update({ ...project, choicenessNo: 100 + index })
+              )
+              await Promise.all(addProjects)
             }
           }
         }
