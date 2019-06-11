@@ -36,6 +36,11 @@ export default class NPLManage extends BaseResource {
         require: true
       },
       {
+        name: 'type',
+        type: 'Number',
+        require: true
+      },
+      {
         name: 'no',
         type: 'Number'
       },

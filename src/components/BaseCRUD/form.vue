@@ -21,6 +21,7 @@
         <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="model[attr.name]"></area-distpicker>
         <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="model[attr.name]"></editor>
         <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="model[attr.name]"></message-user-select>
+        <work-add v-else-if="attrComponent(attr, 'workAdd')" v-model="model"></work-add>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -44,6 +45,7 @@ import PackageTagsCheckbox from './custom/PackageTagsCheckbox'
 import AreaDistpicker from './custom/AreaDistpicker'
 import Editor from './custom/Editor'
 import MessageUserSelect from './custom/MessageUserSelect'
+import WorkAdd from './custom/WorkAdd'
 
 export default {
   name: 'CRUDFrom',
@@ -59,7 +61,8 @@ export default {
     PackageTagsCheckbox,
     AreaDistpicker,
     Editor,
-    MessageUserSelect
+    MessageUserSelect,
+    WorkAdd
   },
   data() {
     return {
@@ -161,6 +164,7 @@ export default {
     },
     async createData() {
       const valid = await this.$refs['dataForm'].validate()
+      console.log('this.model--', this.model)
       valid && this.$emit('create', this.model)
     },
     async updateData() {

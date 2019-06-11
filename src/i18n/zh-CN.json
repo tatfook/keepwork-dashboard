@@ -111,7 +111,7 @@
       "IssuesManage": "issues管理",
       "SystemTags": "系统标签"
     },
-    "sidebarNPL": "NPL大赛",
+    "sidebarNPL": "大赛运营",
     "NPL": {
       "NPLManage": "大赛管理",
       "NPLApply": "报名统计",
@@ -419,6 +419,7 @@
       "attr": {
         "id": "序号",
         "name": "大赛名称",
+        "type": "赛事类型编号",
         "no": "期号",
         "startDate": "开始时间",
         "endDate": "结束时间",
@@ -444,7 +445,7 @@
     "NPLWorks": {
       "attr": {
         "id": "序号",
-        "games": {"name":"大赛名称", "no": "期号"},
+        "games": {"name":"大赛名称", "no": "期号","type": "赛事类型编号"},
         "projectId": "项目ID",
         "worksName": "作品名称",
         "createdAt": "提交时间",
@@ -455,7 +456,8 @@
         "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}},
         "extra": {
           "projects": "备份情况"
-        }
+        },
+        "worksLogo": ""
       }
     },
     "Organization": {
