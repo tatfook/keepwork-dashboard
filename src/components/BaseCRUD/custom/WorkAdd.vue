@@ -16,7 +16,7 @@
     </div>
     <div class="work-add-item">
       <span class="work-add-item-label">项目ID：</span>
-      <input class="work-add-item-input" v-model="workData.projectId" />
+      <input class="work-add-item-input" v-model="workData.projectId" @blur="toGetProjectDetail" />
     </div>
     <div class="work-add-item">
       <span class="work-add-item-label">作品主题：</span>
@@ -55,9 +55,9 @@ export default {
   async created() {
     await this.getGameNameList()
     if (this.value) {
-      console.log('this.value', this.value)
-      this.workData.gameName = this.value.games.type
-      this.workData.issueNum = this.value.games.no
+      this.workData.id = this.value.id
+      this.workData.gameName = this.value.games.name
+      this.workData.issueNum = this.value.games.no + '#' + this.value.games.id
       this.workData.projectId = this.value.projectId
       this.workData.workTheme = this.value.worksSubject
       this.workData.submitter = this.value.projects.users.userinfos.name
@@ -69,24 +69,6 @@ export default {
     return {
       gameNameOptions: [],
       gameGroup: {},
-      rewardOptions: [
-        {
-          value: '一等奖',
-          label: '一等奖'
-        },
-        {
-          value: '二等奖',
-          label: '二等奖'
-        },
-        {
-          value: '三等奖',
-          label: '三等奖'
-        },
-        {
-          value: '人气奖',
-          label: '人气奖'
-        }
-      ],
       workData: {
         gameName: '',
         issueNum: '',
@@ -102,24 +84,14 @@ export default {
     workData: {
       handler: function(val, oldVal) {
         const data = {
-          games: {
-            name: this.workData.gameName,
-            no: this.workData.issueNum
-          },
-          id: this.value.id,
-          projects: {
-            id: this.workData.projectId,
-            users: {
-              userinfos: {
-                name: this.workData.submitter,
-                school: this.workData.school
-              }
-            }
-          },
-          worksSubject: this.workData.workTheme,
-          reward: this.workData.reward
+          id: val.id,
+          gameId: val.issueNum.split('#')[1],
+          projectId: val.projectId,
+          worksSubject: val.workTheme,
+          name: val.submitter,
+          school: val.school,
+          reward: val.reward
         }
-        console.log('inputData', data)
         this.$emit('input', data)
       },
       deep: true
@@ -129,13 +101,13 @@ export default {
     issueNumOptions() {
       return this.gameName !== ''
         ? _.map(this.gameGroup[this.workData.gameName], item => ({
-          label: item.no,
-          value: item.no
+          label: `第${item.no}期` + '#' + item.id,
+          value: item.no + '#' + item.id
         }))
         : []
     },
     workThemeOptions() {
-      if (this.workData.gameName === 0) {
+      if (this.workData.gameName === 'NPL大赛') {
         // NPL大赛
         return [
           {
@@ -152,7 +124,7 @@ export default {
           }
         ]
       }
-      if (this.workData.gameName === 1) {
+      if (this.workData.gameName === '全国青少年科技创新大赛') {
         // 全国青少年科技创新大赛
         return [
           {
@@ -161,8 +133,8 @@ export default {
           }
         ]
       }
-      if (this.workData.gameName === 2) {
-        // 全国青少年科学影像节
+      if (this.workData.gameName === '全国中小学科学影像节') {
+        // 全国中小学科学影像节
         return [
           {
             value: '科普动画',
@@ -170,8 +142,8 @@ export default {
           }
         ]
       }
-      if (this.workData.gameName === 3) {
-        // 全国中小学信息技术创新与实践活动参赛作品
+      if (this.workData.gameName === '全国中小学信息技术创新与实践大赛') {
+        // 全国中小学信息技术创新与实践大赛
         return [
           {
             value: '动画创作',
@@ -192,21 +164,55 @@ export default {
         ]
       }
       return []
+    },
+    rewardOptions() {
+      if (this.workData.gameName === 'NPL大赛') {
+        return [
+          {
+            value: '一等奖',
+            label: '一等奖'
+          },
+          {
+            value: '二等奖',
+            label: '二等奖'
+          },
+          {
+            value: '三等奖',
+            label: '三等奖'
+          },
+          {
+            value: '人气奖',
+            label: '人气奖'
+          }
+        ]
+      } else {
+        return [
+          {
+            value: '1',
+            label: '已获奖'
+          },
+          {
+            value: '',
+            label: '未获奖'
+          }
+        ]
+      }
     }
   },
   methods: {
     async getGameNameList() {
       const res = await gameCRUD.list()
-      this.gameGroup = _.groupBy(res.rows, 'type')
+      this.gameGroup = _.groupBy(_.get(res, 'rows', []), 'name')
       this.gameNameOptions = _.map(this.gameGroup, item => ({
         label: item[0].name,
-        value: item[0].type
+        value: item[0].name
       }))
     },
     changeOption(val) {
       this.workData.issueNum = ''
       this.workData.workTheme = ''
-    }
+    },
+    toGetProjectDetail(projectId) {}
   }
 }
 </script>

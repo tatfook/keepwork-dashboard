@@ -44,12 +44,6 @@ export default class NPLApply extends BaseResource {
         edit: false
       },
       {
-        name: 'games.type',
-        type: 'Number',
-        require: true,
-        edit: false
-      },
-      {
         name: 'games.no',
         type: 'Number',
         edit: false
@@ -102,7 +96,10 @@ export default class NPLApply extends BaseResource {
         type: 'String',
         component: 'select',
         options: rewardMap,
-        edit: false
+        edit: false,
+        filter(value) {
+          return value === '' ? '否' : value === '1' ? '是' : value
+        }
       },
       {
         name: 'extra.projects',
