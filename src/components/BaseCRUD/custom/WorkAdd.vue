@@ -55,9 +55,9 @@ export default {
   async created() {
     await this.getGameNameList()
     if (this.value) {
+      this.workData.id = this.value.id
       this.workData.gameName = this.value.games.name
-      this.workData.issueNum = this.value.games.no
-      // this.workData.issueNum = this.value.games.no + '#' + this.value.games.id
+      this.workData.issueNum = this.value.games.no + '#' + this.value.games.id
       this.workData.projectId = this.value.projectId
       this.workData.workTheme = this.value.worksSubject
       this.workData.submitter = this.value.projects.users.userinfos.name
@@ -84,14 +84,14 @@ export default {
     workData: {
       handler: function(val, oldVal) {
         const data = {
-          gameId: this.workData.issueNum.split('#')[1],
-          projectId: this.workData.projectId,
-          worksSubject: this.workData.workTheme,
-          name: this.workData.submitter,
-          school: this.workData.school,
-          reward: this.workData.reward
+          id: val.id,
+          gameId: val.issueNum.split('#')[1],
+          projectId: val.projectId,
+          worksSubject: val.workTheme,
+          name: val.submitter,
+          school: val.school,
+          reward: val.reward
         }
-        console.log('data', data)
         this.$emit('input', data)
       },
       deep: true
