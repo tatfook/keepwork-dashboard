@@ -33,17 +33,18 @@ export default class NPLManage extends BaseResource {
         name: 'name',
         type: 'String',
         edit: true,
-        require: true
+        required: true
       },
       {
         name: 'no',
-        type: 'Number'
+        type: 'Number',
+        required: true
       },
       {
         name: 'startDate',
         type: 'Date',
         edit: true,
-        require: true,
+        required: true,
         search: false,
         component: 'time'
       },
@@ -51,7 +52,7 @@ export default class NPLManage extends BaseResource {
         name: 'endDate',
         type: 'Date',
         edit: true,
-        require: true,
+        required: true,
         search: false,
         component: 'time'
       },
@@ -65,7 +66,7 @@ export default class NPLManage extends BaseResource {
         name: 'state',
         type: 'Number',
         edit: false,
-        require: true,
+        required: true,
         component: 'select',
         options: stateMap,
         filter: value => {
