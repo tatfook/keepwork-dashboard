@@ -31,6 +31,14 @@ export default class NPLApply extends BaseResource {
         width: '100px'
       },
       {
+        name: 'worksLogo',
+        type: 'Number',
+        edit: true,
+        width: '100px',
+        show: false,
+        component: 'workAdd'
+      },
+      {
         name: 'games.name',
         type: 'String',
         edit: false
@@ -38,7 +46,7 @@ export default class NPLApply extends BaseResource {
       {
         name: 'games.no',
         type: 'Number',
-        edit: true
+        edit: false
       },
       {
         name: 'projectId',
@@ -57,7 +65,8 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'worksSubject',
-        type: 'String'
+        type: 'String',
+        edit: false
       },
       {
         name: 'worksRate',
@@ -73,18 +82,24 @@ export default class NPLApply extends BaseResource {
       },
       {
         name: 'projects.users.userinfos.name',
-        type: 'String'
+        type: 'String',
+        edit: false
       },
       {
         name: 'projects.users.userinfos.school',
         type: 'String',
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'reward',
         type: 'String',
         component: 'select',
-        options: rewardMap
+        options: rewardMap,
+        edit: false,
+        filter(value) {
+          return value === '' ? '否' : value === '1' ? '是' : value
+        }
       },
       {
         name: 'extra.projects',
@@ -102,7 +117,7 @@ export default class NPLApply extends BaseResource {
   }
   static actions() {
     return {
-      disabled: ['show', 'create', 'delete', 'destroy'],
+      disabled: ['show', 'delete', 'destroy'],
       extra: [{
         name: 'backup',
         button: 'success',
