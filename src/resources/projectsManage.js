@@ -250,7 +250,9 @@ export default class ProjectsManage extends BaseResource {
           type: 'primary',
           refresh: false,
           async func(projects, that) {
-            const res = await systemTagsCRUD.list()
+            const res = await systemTagsCRUD.list(
+              { 'where': { 'classify': { '$eq': 1 }}, 'include': [{ 'all': true, 'nested': false }], 'order': [], 'limit': 300, 'offset': 0 }
+            )
             const tags = _.map(_.get(res, 'rows', []), item => item.tagname)
             const params = {
               type: 'checkbox',
