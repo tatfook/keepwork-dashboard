@@ -77,7 +77,7 @@ export default function issuesManageModel() {
       })
 
       issuesManageList.rows.map(item => {
-        const base = process.env.KEEPWORK_PREFIX
+        const base = process.env.KEEPWORK_PREFIX || 'https://keepwork.com/'
         item.issueUrl = base + 'pbl/project/' + item.id + '/whiteboard'
       })
       return issuesManageList
