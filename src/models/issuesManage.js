@@ -10,7 +10,6 @@ export default function issuesManageModel() {
   return {
     async list(params) {
       const issuesManageList = await issuesManageCRUD.list(params)
-      console.log(issuesManageList)
       if (!issuesManageList || !issuesManageList.count || !issuesManageList.rows) {
         return { count: 0, rows: [] }
       }
