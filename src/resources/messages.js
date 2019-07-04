@@ -31,7 +31,7 @@ const _rewrite = {
     const res = await model.list(params)
     return {
       count: res.count,
-      rows: res.rows.map(item => ({ ...item, ...item.msg }))
+      rows: res.rows
     }
   },
   async create(data) {
@@ -98,7 +98,7 @@ export default class Messages extends BaseResource {
         search: false
       },
       {
-        name: 'text',
+        name: 'msg.text',
         type: 'String',
         component: 'editor',
         required: true,
@@ -137,7 +137,8 @@ export default class Messages extends BaseResource {
         default: 0,
         search: false,
         filter(value) {
-          return _.find(typesMap, item => item.key === value).value || typesMap[0].value
+          const item = _.find(typesMap, item => item.key === value)
+          return _.get(item, 'value', typesMap[0].value)
         }
       },
       {
