@@ -10,7 +10,6 @@ export default function issuesManageModel() {
   return {
     async list(params) {
       const issuesManageList = await issuesManageCRUD.list(params)
-
       if (!issuesManageList || !issuesManageList.count || !issuesManageList.rows) {
         return { count: 0, rows: [] }
       }
@@ -75,10 +74,9 @@ export default function issuesManageModel() {
           item.userName = userInfo.username
         }
       })
-
       issuesManageList.rows.map(item => {
         const base = process.env.KEEPWORK_PREFIX || 'https://keepwork.com/'
-        item.issueUrl = base + 'pbl/project/' + item.id + '/whiteboard'
+        item.issueUrl = base + 'pbl/project/' + item.objectId + '/whiteboard'
       })
       return issuesManageList
     },
