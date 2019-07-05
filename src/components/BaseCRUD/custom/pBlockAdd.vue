@@ -151,6 +151,13 @@ export default {
       console.log('selectedLabels', selectedLabels)
       return selectedLabels
     }
+    //     const getFileExt = file => {
+    //   let { filename, type } = file
+    //   filename = filename || file.name
+    //   let ext = /.+\./.test(filename) ? filename.split('.').pop() : type
+    //   ext = (ext || '').toLowerCase()
+    //   return ext
+    // }
   }
 }
 </script>
