@@ -27,6 +27,7 @@ import ParacraftVisitors from './paracraftVisitors'
 import PackageTags from './packageTags'
 import Messages from './messages'
 import Feedback from './feedback'
+import PBlocks from './pBlocks'
 
 export const resources = {
   Admin,
@@ -56,7 +57,8 @@ export const resources = {
   ParacraftVisitors,
   PackageTags,
   Messages,
-  Feedback
+  Feedback,
+  PBlocks
 }
 
 export const newResource = (name, row) => {

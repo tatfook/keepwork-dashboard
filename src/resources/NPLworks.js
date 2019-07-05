@@ -21,7 +21,7 @@ const rewardMap = [
     value: '人气奖'
   }
 ]
-export default class NPLApply extends BaseResource {
+export default class NPLwork extends BaseResource {
   static attributes() {
     return [
       {
