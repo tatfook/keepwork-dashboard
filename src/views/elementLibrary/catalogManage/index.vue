@@ -1,6 +1,6 @@
 <template>
   <div class="catalogMange">
-    <el-tree v-if="showTree" :data="treeData" :show-checkbox="false" node-key="id" default-expand-all :expand-on-click-node="false" :render-content="renderContent">
+    <el-tree :data="treeData" :show-checkbox="false" node-key="id" default-expand-all :expand-on-click-node="false" :render-content="renderContent">
     </el-tree>
   </div>
 </template>
@@ -13,8 +13,7 @@ const model = resourceCRUD('pClassifies')
 export default {
   data() {
     return {
-      treeData: [],
-      showTree: true
+      treeData: []
     }
   },
   async mounted() {
@@ -48,7 +47,6 @@ export default {
           children: parents
         }
       ]
-      this.showTree = true
     },
     async createClassify(payload) {
       await model.create(payload)
@@ -71,11 +69,6 @@ export default {
     async udpateClassify(payload) {
       await model.update(payload)
       this.initTreeData()
-    },
-    refreshTree() {
-      // TODO: bad way
-      this.showTree = false
-      this.$nextTick(() => (this.showTree = true))
     },
     appendPrompt(data) {
       this.$prompt('请输入名称', '添加分类', {
