@@ -28,7 +28,7 @@ export default class PBlocks extends BaseResource {
         type: 'Array'
       },
       {
-        name: 'id---',
+        name: 'size',
         type: 'Number',
         edit: false
       },

@@ -533,6 +533,7 @@
         "name": "名称",
         "filetype": "类型",
         "pBlockClassifies": "分类",
+        "size": "尺寸",
         "contributor": "贡献者",
         "fileUrl": "模型路径",
         "previewUrl": "动画路径",
