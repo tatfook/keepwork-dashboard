@@ -524,6 +524,19 @@
         "state": "处理状态",
         "result": "处理方法"
       }
+    },
+    "PBlocks": {
+      "attr": {
+        "id": "ID",
+        "name": "名称",
+        "filetype": "类型",
+        "pBlockClassifies": "分类",
+        "contributor": "贡献者",
+        "fileUrl": "模型路径",
+        "previewUrl": "动画路径",
+        "useCount": "使用次数",
+        "com": ""
+      }
     }
   }
 }

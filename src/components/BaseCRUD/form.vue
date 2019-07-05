@@ -22,6 +22,7 @@
         <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="model[attr.name]"></editor>
         <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="model[attr.name]"></message-user-select>
         <work-add v-else-if="attrComponent(attr, 'workAdd')" v-model="model"></work-add>
+        <p-block-add v-else-if="attrComponent(attr, 'pBlockAdd')" v-model="model"></p-block-add>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -46,6 +47,7 @@ import AreaDistpicker from './custom/AreaDistpicker'
 import Editor from './custom/Editor'
 import MessageUserSelect from './custom/MessageUserSelect'
 import WorkAdd from './custom/WorkAdd'
+import pBlockAdd from './custom/pBlockAdd'
 
 export default {
   name: 'CRUDFrom',
@@ -62,7 +64,8 @@ export default {
     AreaDistpicker,
     Editor,
     MessageUserSelect,
-    WorkAdd
+    WorkAdd,
+    pBlockAdd
   },
   data() {
     return {
