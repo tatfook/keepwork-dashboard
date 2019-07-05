@@ -55,6 +55,12 @@ export function resourceCRUD(resource) {
         method: 'get',
         url: '/admins/query?sql=' + sql
       })
+    },
+    getUploadToken() {
+      return request({
+        method: 'get',
+        url: '/qinius/uploadToken'
+      })
     }
   }
 }
