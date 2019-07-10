@@ -63,7 +63,6 @@ export default {
   },
   async created() {
     await this.setResourceName({ resourceName: this.resource })
-    console.log('1', this.resource)
     await this.getList()
   },
   methods: {

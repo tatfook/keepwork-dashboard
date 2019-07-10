@@ -25,6 +25,7 @@ export default class PBlocks extends BaseResource {
       {
         name: 'pBlockClassifies',
         edit: false,
+        show: false,
         type: 'Array'
       },
       {

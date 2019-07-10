@@ -1,5 +1,5 @@
 <template>
-  <div class="p-block-add">
+  <div class="p-block-add" v-loading="isLoading" element-loading-text="拼命加载中">
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">名称：</span>
       <input class="p-block-add-item-input" v-model="blockData.name" />
@@ -19,13 +19,15 @@
       </el-button>
     </div>
     <div class="p-block-add-item">
+      <span class="p-block-add-item-label">动图路径：</span>
+      <input class="p-block-add-item-input" v-model="blockData.gitUrl" />
+      <el-button class="p-block-add-item-button" :loading="button_3_loading">上传
+        <input type="file" class="input_file" @change="uploadGif('',$event)">
+      </el-button>
+    </div>
+    <div class="p-block-add-item">
       <span class="p-block-add-item-label">文件类型：</span>
-      <el-radio-group v-model="blockData.filetype">
-        <el-radio label="bmax">bmax</el-radio>
-        <el-radio label="template">template</el-radio>
-        <el-radio label="stl">stl</el-radio>
-        <el-radio label="X">X</el-radio>
-      </el-radio-group>
+      {{ blockData.filetype }}
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">贡献者：</span>
@@ -33,7 +35,7 @@
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">分类：</span>
-      <el-tree :data="classfiesListData" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
+      <el-tree :data="classfiesListData" @check-change="checkChange" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
       </el-tree>
     </div>
   </div>
@@ -49,30 +51,33 @@ export default {
     value: Object
   },
   async created() {
-    console.log('value', this.value)
     this.classfiesList = await pClassifiesCRUD.list()
-    console.log('classfiesList', this.classfiesList)
+    this.isLoading = false
     if (this.value) {
       this.blockData.id = this.value.id
       this.blockData.name = this.value.name
       this.blockData.fileUrl = this.value.fileUrl
       this.blockData.previewUrl = this.value.previewUrl
+      this.blockData.gifUrl = this.value.gifUrl
       this.blockData.filetype = this.value.filetype
       this.blockData.pBlockClassifies = this.value.pBlockClassifies
       this.blockData.size = this.value.size
       this.blockData.contributor = this.value.contributor
+      this.initTreeSelected(this.value)
     }
   },
   data() {
     return {
+      isLoading: true,
       button_1_loading: false,
       button_2_loading: false,
+      button_3_loading: false,
       classfiesList: {},
       blockData: {
         name: '',
         fileUrl: '',
         previewUrl: '',
-        filetype: 'X',
+        filetype: '',
         pBlockClassifies: [],
         size: '',
         contributor: ''
@@ -86,7 +91,6 @@ export default {
   computed: {
     classfiesListData() {
       const rows = _.get(this.classfiesList, 'rows', [])
-      console.log('rows--data', rows)
       const list = _.map(rows, item => ({ ...item, label: item.name }))
       const parents = _.filter(list, item => item.parentId === 0)
       const children = _.filter(list, item => item.parentId)
@@ -111,53 +115,61 @@ export default {
   watch: {
     blockData: {
       handler: function(val, oldVal) {
-        const data = {
-          id: val.id,
-          name: val.name,
-          fileUrl: val.fileUrl,
-          previewUrl: val.previewUrl,
-          filetype: val.filetype,
-          pBlockClassifies: this.getCheckedKeys(),
-          size: val.size,
-          contributor: val.contributor
-        }
-        console.log('data--', data)
-        this.$emit('input', data)
+        this.emitInput(val)
       },
       deep: true
     }
   },
   methods: {
-    async upload(params, e) {
-      // console.log('1122')
-      // const files = e.target.files || e.dataTransfer.files
-      // console.log('file', files)
-      // const aToken = await pClassifiesCRUD.getUploadToken()
-      // console.log('aToken', aToken)
-      // const reader = new FileReader()
-      // reader.readAsDataURL(files[0])
-      // reader.onload = e => {
-      //   // const base64img = e.target.result
-      //   // console.log('base64img', base64img)
-      // }
+    async uploadGif(params, evt) {
+      const ext = this.getFileExt(_.get(evt, 'target.value', ''))
+      console.dir(ext)
+    },
+    async uploadAnimate() {
+
+    },
+    async uploadModel() {
+
+    },
+    async upload(params, e) {},
+    async initTreeSelected(value) {
+      await this.$nextTick()
+      const pBlockClassifies = _.get(value, 'pBlockClassifies', [])
+      const IDs = _.map(pBlockClassifies, item => _.get(item, 'pClassifies.id'))
+      this.$refs.tree.setCheckedKeys(IDs)
+    },
+    emitInput(val) {
+      val = val || this.blockData
+      const data = {
+        id: val.id,
+        name: val.name,
+        fileUrl: val.fileUrl,
+        previewUrl: val.previewUrl,
+        filetype: val.filetype,
+        gifUrl: val.gifUrl,
+        pBlockClassifies: this.getCheckedKeys(),
+        size: val.size,
+        contributor: val.contributor,
+        pClassifies: this.getCheckedKeys()
+      }
+      this.$emit('input', data)
     },
     getCheckedKeys() {
-      console.log('选择的分类', this.$refs.tree.getCheckedKeys())
       const classfierIdArr = this.$refs.tree.getCheckedKeys()
       const rows = _.get(this.classfiesList, 'rows', [])
       const selectedLabels = _.filter(rows, i => {
         return _.includes(classfierIdArr, i.id)
       })
-      console.log('selectedLabels', selectedLabels)
       return selectedLabels
+    },
+    checkChange(data) {
+      this.emitInput()
+    },
+    getFileExt(_filename) {
+      let ext = /.+\./.test(_filename) ? _filename.split('.').pop() : ''
+      ext = (ext || '').toLowerCase()
+      return ext
     }
-    //     const getFileExt = file => {
-    //   let { filename, type } = file
-    //   filename = filename || file.name
-    //   let ext = /.+\./.test(filename) ? filename.split('.').pop() : type
-    //   ext = (ext || '').toLowerCase()
-    //   return ext
-    // }
   }
 }
 </script>
