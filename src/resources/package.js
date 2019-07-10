@@ -1,6 +1,6 @@
 import { resourceCRUD } from '@/api/keepwork'
 import pacakgeModel from '@/models/package'
-import { getUserToken } from '@/api/getUserToken'
+import { getUserToken } from '@/api/getToken'
 import BaseResource from './base'
 import createService from '@/utils/request'
 const request = createService()

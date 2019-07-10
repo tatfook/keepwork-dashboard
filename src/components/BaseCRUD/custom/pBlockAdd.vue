@@ -7,23 +7,23 @@
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">模型路径：</span>
       <input class="p-block-add-item-input" v-model="blockData.fileUrl" />
-      <el-button class="p-block-add-item-button" :loading="button_1_loading">上传
-        <input type="file" class="input_file" @change="upload('',$event)">
-      </el-button>
+      <el-upload class="p-block-add-item-upload" action="" :accept="modelTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadModel">
+        <el-button class="p-block-add-item-button" :loading="fileUrlUploading">上传</el-button>
+      </el-upload>
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">动画路径：</span>
       <input class="p-block-add-item-input" v-model="blockData.previewUrl" />
-      <el-button class="p-block-add-item-button" :loading="button_2_loading">上传
-        <input type="file" class="input_file" @change="upload('',$event)">
-      </el-button>
+      <el-upload class="p-block-add-item-upload" action="" :accept="animateTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadAnimate">
+        <el-button class="p-block-add-item-button" :loading="previewUrlUploading">上传</el-button>
+      </el-upload>
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">动图路径：</span>
-      <input class="p-block-add-item-input" v-model="blockData.gitUrl" />
-      <el-button class="p-block-add-item-button" :loading="button_3_loading">上传
-        <input type="file" class="input_file" @change="uploadGif('',$event)">
-      </el-button>
+      <input class="p-block-add-item-input" v-model="blockData.gifUrl" />
+      <el-upload class="p-block-add-item-upload" action="" :accept="imageTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadGif">
+        <el-button class="p-block-add-item-button" :loading="gifUrlUploading">上传</el-button>
+      </el-upload>
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">文件类型：</span>
@@ -41,6 +41,8 @@
   </div>
 </template>
 <script>
+import { getUploadToken } from '@/api/getToken'
+import * as qiniu from 'qiniu-js'
 import { resourceCRUD } from '@/api/keepwork'
 import _ from 'lodash'
 const pClassifiesCRUD = resourceCRUD('pClassifies')
@@ -69,15 +71,16 @@ export default {
   data() {
     return {
       isLoading: true,
-      button_1_loading: false,
-      button_2_loading: false,
-      button_3_loading: false,
+      previewUrlUploading: false,
+      fileUrlUploading: false,
+      gifUrlUploading: false,
       classfiesList: {},
       blockData: {
         name: '',
         fileUrl: '',
         previewUrl: '',
         filetype: '',
+        gifUrl: '',
         pBlockClassifies: [],
         size: '',
         contributor: ''
@@ -110,6 +113,15 @@ export default {
       }
       translator(parents, children)
       return parents
+    },
+    modelTypes() {
+      return '.X,.x,.bmax,.template,.stl'
+    },
+    animateTypes() {
+      return '.gltf,.glb'
+    },
+    imageTypes() {
+      return '.gif'
     }
   },
   watch: {
@@ -121,19 +133,37 @@ export default {
     }
   },
   methods: {
-    async uploadGif(params, evt) {
-      const ext = this.getFileExt(_.get(evt, 'target.value', ''))
-      console.dir(ext)
+    async uploadGif(file, fileList) {
+      this.upload({ file, fileKey: 'gifUrl' })
     },
-    async uploadAnimate() {
-
+    async uploadAnimate(file, fileList) {
+      this.upload({ file, fileKey: 'previewUrl' })
     },
-    async uploadModel() {
-
+    async uploadModel(file, fileList) {
+      this.blockData.filetype = this.getFileExt(file.name)
+      this.upload({ file, fileKey: 'fileUrl' })
     },
-    async upload(params, e) {},
+    async upload({ file, fileKey }) {
+      const { token, key } = await getUploadToken()
+      const observable = qiniu.upload(file.raw, key, token)
+      const that = this
+      const observer = {
+        next(res) {
+        },
+        error(err) {
+          console.error(err)
+          that.$message.error('上传失败')
+        },
+        complete(res) {
+          that.$message.success('上传成功')
+          that.blockData[fileKey] = res.url
+          that[`${fileKey}Uploading`] = false
+        }
+      }
+      this[`${fileKey}Uploading`] = true
+      observable.subscribe(observer)
+    },
     async initTreeSelected(value) {
-      await this.$nextTick()
       const pBlockClassifies = _.get(value, 'pBlockClassifies', [])
       const IDs = _.map(pBlockClassifies, item => _.get(item, 'pClassifies.id'))
       this.$refs.tree.setCheckedKeys(IDs)
@@ -173,7 +203,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .p-block-add {
   &-item {
     margin: 10px 0;
@@ -189,6 +219,9 @@ export default {
       border: 1px solid #dcdfe6;
       border-radius: 4px;
       padding-left: 15px;
+    }
+    &-upload {
+      display: inline-block;
     }
     &-button {
       padding: 0 20px;
