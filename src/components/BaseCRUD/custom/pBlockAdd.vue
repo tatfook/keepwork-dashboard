@@ -27,7 +27,12 @@
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">文件类型：</span>
-      {{ blockData.filetype }}
+      <el-radio-group v-model="blockData.filetype">
+        <el-radio label="bmax">bmax</el-radio>
+        <el-radio label="template">template</el-radio>
+        <el-radio label="stl">stl</el-radio>
+        <el-radio label="X">X</el-radio>
+      </el-radio-group>
     </div>
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">贡献者：</span>
@@ -148,8 +153,7 @@ export default {
       const observable = qiniu.upload(file.raw, key, token)
       const that = this
       const observer = {
-        next(res) {
-        },
+        next(res) {},
         error(err) {
           console.error(err)
           that.$message.error('上传失败')
