@@ -167,7 +167,6 @@ export default {
     },
     async createData() {
       const valid = await this.$refs['dataForm'].validate()
-      console.log('this.model--', this.model)
       valid && this.$emit('create', this.model)
     },
     async updateData() {

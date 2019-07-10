@@ -537,6 +537,8 @@
         "contributor": "贡献者",
         "fileUrl": "模型路径",
         "previewUrl": "动画路径",
+        "gifUrl": "动图路径",
+        "tags": "分类",
         "useCount": "使用次数",
         "com": ""
       }
