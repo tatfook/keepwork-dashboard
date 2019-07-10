@@ -9,3 +9,10 @@ export function getUserToken(userId) {
     url: base + userId
   })
 }
+
+export function getUploadToken() {
+  return request({
+    method: 'get',
+    url: '/qinius/uploadToken'
+  })
+}
