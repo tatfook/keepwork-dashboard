@@ -147,6 +147,7 @@
         "username": "用户名",
         "createdAt": "注册时间",
         "cellphone": "绑定手机号",
+        "email": "绑定邮箱",
         "realname": "实名认证手机号",
         "level": "用户等级",
         "status": "状态",
