@@ -21,6 +21,7 @@
 import { resourceCRUD } from '@/api/keepwork'
 const oauthUsers = resourceCRUD('oauthUsers')
 const userCRUD = resourceCRUD('users')
+import _ from 'lodash'
 const TYPES = {
   0: 'QQ',
   1: '微信',
@@ -115,6 +116,11 @@ export default {
           })
         })
         .catch(e => {
+          const code = _.get(e, 'response.status', '')
+          if (code === 409) {
+            this.$message.error('手机号已被绑定')
+          }
+          this.unbinding = false
           console.error(e)
         })
     },
@@ -164,6 +170,11 @@ export default {
           })
         })
         .catch(e => {
+          const code = _.get(e, 'response.status', '')
+          if (code === 409) {
+            this.$message.error('邮箱已被绑定')
+          }
+          this.unbinding = false
           console.error(e)
         })
     },
