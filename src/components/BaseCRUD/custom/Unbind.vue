@@ -80,7 +80,7 @@ export default {
           this.unbinding = true
           await userCRUD.update({
             id: this.customRowData.id,
-            cellphone: ''
+            cellphone: null
           })
           this.$emit('callback')
           this.cellphone = ''
@@ -134,7 +134,7 @@ export default {
           this.unbinding = true
           await userCRUD.update({
             id: this.customRowData.id,
-            email: ''
+            email: null
           })
           this.email = ''
           this.unbinding = false
