@@ -1,6 +1,6 @@
 // import { resourceCRUD } from '@/api/lesson'
 import lessonsModel from '@/models/lesson'
-import { getUserToken } from '@/api/getUserToken'
+import { getUserToken } from '@/api/getToken'
 import BaseResource from './base'
 
 const model = lessonsModel()

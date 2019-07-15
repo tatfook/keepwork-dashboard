@@ -396,6 +396,34 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/elementLibrary',
+    component: Layout,
+    meta: {
+      title: '元件库',
+      icon: 'element'
+    },
+    children: [
+      {
+        path: 'catalogManage',
+        component: () => import('@/views/elementLibrary/catalogManage'),
+        name: 'Catalog Manage',
+        resource: '',
+        meta: {
+          title: '目录管理'
+        }
+      },
+      {
+        path: 'elementManage',
+        component: () => import('@/views/elementLibrary/elementManage'),
+        name: 'Element Manage',
+        resource: 'PBlocks',
+        meta: {
+          title: '元件管理'
+        }
+      }
+    ]
+  },
+  {
     path: '*',
     redirect: '/404',
     hidden: true

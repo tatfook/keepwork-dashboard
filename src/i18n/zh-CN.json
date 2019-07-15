@@ -147,6 +147,7 @@
         "username": "用户名",
         "createdAt": "注册时间",
         "cellphone": "绑定手机号",
+        "email": "绑定邮箱",
         "realname": "实名认证手机号",
         "level": "用户等级",
         "status": "状态",
@@ -525,6 +526,22 @@
         "description": "举报说明",
         "state": "处理状态",
         "result": "处理方法"
+      }
+    },
+    "PBlocks": {
+      "attr": {
+        "id": "ID",
+        "name": "名称",
+        "filetype": "类型",
+        "pBlockClassifies": "分类",
+        "size": "尺寸",
+        "contributor": "贡献者",
+        "fileUrl": "模型路径",
+        "previewUrl": "动画路径",
+        "gifUrl": "动图路径",
+        "tags": "分类",
+        "useCount": "使用次数",
+        "com": ""
       }
     }
   }
