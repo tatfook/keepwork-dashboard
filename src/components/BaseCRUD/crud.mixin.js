@@ -19,6 +19,7 @@ import CRUDPaginate from './paginate'
 import CRUDFilter from './filter'
 import CRUDCheckbox from './checkbox'
 import CRUDInput from './input'
+import Unbind from './custom/Unbind.vue'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 const FORMAT = {
@@ -45,6 +46,8 @@ export default {
       showingFormVisible: false,
       dialogCheckboxVisible: false,
       dialogInputVisible: false,
+      dialogUnbindVisible: false,
+      customRowData: {},
       checkboxData: [],
       inputData: [],
       dialogStatus: '',
@@ -354,6 +357,9 @@ export default {
         })
       }
     },
+    handleUnbindCallback() {
+      this.getList()
+    },
     handleSort(column, order) {
       this.listQuery.order = column ? column + '-' + order : undefined
       this.getList()
@@ -372,7 +378,7 @@ export default {
       this.getList()
     },
     showDialog(params) {
-      // type = input || checkbox
+      // type = input || checkbox || unbind
       const { type = 'Input', title = '', status = '', data } = params
       this[`dialog${_.upperFirst(type)}Visible`] = true
       this[`dialog${_.upperFirst(type)}Status`] = status
@@ -422,6 +428,7 @@ export default {
     'crud-paginate': CRUDPaginate,
     'crud-filter': CRUDFilter,
     'crud-checkbox': CRUDCheckbox,
-    'crud-input': CRUDInput
+    'crud-input': CRUDInput,
+    'crud-unbind': Unbind
   }
 }

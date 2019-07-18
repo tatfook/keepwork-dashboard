@@ -44,6 +44,7 @@ export default class User extends BaseResource {
     return [
       {
         name: 'id',
+        type: 'Number',
         show: true,
         edit: false,
         search: true
@@ -59,6 +60,11 @@ export default class User extends BaseResource {
         type: 'Date',
         edit: false,
         search: false
+      },
+      {
+        name: 'email',
+        type: 'String'
+
       },
       {
         name: 'cellphone',
@@ -209,6 +215,18 @@ export default class User extends BaseResource {
           const currentEnv = window.location.host.split('.')[0].split('.')[0].split('-')[1]
           window.open(`https://${currentEnv}.keepwork.com/u/${data.username}`)
         }
+      }, {
+        name: 'unbindDialog',
+        title() {
+          return '解绑'
+        },
+        async func(row, that) {
+          that.customRowData = row
+          that.showDialog({
+            type: 'unbind',
+            title: '解绑'
+          })
+        }
       }]
     }
   }
@@ -225,5 +243,9 @@ export default class User extends BaseResource {
         }
       }
     }
+  }
+
+  static queryFilter(query) {
+    return query
   }
 }

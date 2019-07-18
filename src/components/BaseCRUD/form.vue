@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 600px; margin-left:50px;'>
+    <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 700px; margin-left:10px;'>
       <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
         <input-link v-if="attrComponent(attr, 'link')" v-model="model[attr.name]" :attr="attr" ></input-link>
         <el-select v-else-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
@@ -22,6 +22,7 @@
         <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="model[attr.name]"></editor>
         <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="model[attr.name]"></message-user-select>
         <work-add v-else-if="attrComponent(attr, 'workAdd')" v-model="model"></work-add>
+        <p-block-add v-else-if="attrComponent(attr, 'pBlockAdd')" v-model="model"></p-block-add>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -46,6 +47,7 @@ import AreaDistpicker from './custom/AreaDistpicker'
 import Editor from './custom/Editor'
 import MessageUserSelect from './custom/MessageUserSelect'
 import WorkAdd from './custom/WorkAdd'
+import pBlockAdd from './custom/pBlockAdd'
 
 export default {
   name: 'CRUDFrom',
@@ -62,7 +64,8 @@ export default {
     AreaDistpicker,
     Editor,
     MessageUserSelect,
-    WorkAdd
+    WorkAdd,
+    pBlockAdd
   },
   data() {
     return {
@@ -164,7 +167,6 @@ export default {
     },
     async createData() {
       const valid = await this.$refs['dataForm'].validate()
-      console.log('this.model--', this.model)
       valid && this.$emit('create', this.model)
     },
     async updateData() {
