@@ -57,12 +57,14 @@ export default class PBlocks extends BaseResource {
       {
         name: 'name',
         edit: false,
-        type: 'String'
+        type: 'String',
+        required: true
       },
       {
         name: 'filetype',
         type: 'String',
-        edit: false
+        edit: false,
+        required: true
       },
       {
         name: 'tags',
