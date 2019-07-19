@@ -5,22 +5,22 @@
       <input class="p-block-add-item-input" v-model="blockData.name" />
     </div>
     <div class="p-block-add-item">
-      <span class="p-block-add-item-label">模型路径：</span>
-      <input class="p-block-add-item-input" v-model="blockData.fileUrl" />
+      <span class="p-block-add-item-label">模型路径(.bmax,.x...)：</span>
+      <input class="p-block-add-item-input" placeholder="bmax,.x..." v-model="blockData.fileUrl" />
       <el-upload class="p-block-add-item-upload" action="" :accept="modelTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadModel">
         <el-button class="p-block-add-item-button" :loading="fileUrlUploading">上传</el-button>
       </el-upload>
     </div>
     <div class="p-block-add-item">
-      <span class="p-block-add-item-label">动画路径：</span>
-      <input class="p-block-add-item-input" v-model="blockData.previewUrl" />
+      <span class="p-block-add-item-label">动画路径(glb,gltf)：</span>
+      <input class="p-block-add-item-input" placeholder="glb,gltf" v-model="blockData.previewUrl" />
       <el-upload class="p-block-add-item-upload" action="" :accept="animateTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadAnimate">
         <el-button class="p-block-add-item-button" :loading="previewUrlUploading">上传</el-button>
       </el-upload>
     </div>
     <div class="p-block-add-item">
-      <span class="p-block-add-item-label">动图路径：</span>
-      <input class="p-block-add-item-input" v-model="blockData.gifUrl" />
+      <span class="p-block-add-item-label">动图路径(gif,jpg)：</span>
+      <input class="p-block-add-item-input" placeholder="gif,jpg" v-model="blockData.gifUrl" />
       <el-upload class="p-block-add-item-upload" action="" :accept="imageTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadGif">
         <el-button class="p-block-add-item-button" :loading="gifUrlUploading">上传</el-button>
       </el-upload>
@@ -31,7 +31,8 @@
         <el-radio label="bmax">bmax</el-radio>
         <el-radio label="template">template</el-radio>
         <el-radio label="stl">stl</el-radio>
-        <el-radio label="X">X</el-radio>
+        <el-radio label="x">x</el-radio>
+        <el-radio label="fbx">fbx</el-radio>
       </el-radio-group>
     </div>
     <div class="p-block-add-item">
@@ -120,13 +121,13 @@ export default {
       return parents
     },
     modelTypes() {
-      return '.X,.x,.bmax,.template,.stl'
+      return '.X,.x,.bmax,.template,.stl,.fbx'
     },
     animateTypes() {
       return '.gltf,.glb'
     },
     imageTypes() {
-      return '.gif'
+      return '.gif,.jpg'
     }
   },
   watch: {
@@ -213,7 +214,7 @@ export default {
     margin: 10px 0;
     &-label {
       display: inline-block;
-      width: 120px;
+      width: 160px;
       text-align: right;
       padding-right: 10px;
     }
