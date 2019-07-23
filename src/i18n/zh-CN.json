@@ -492,6 +492,7 @@
         "description": "描述",
         "extra": {
           "city": "所在城市",
+          "scale": "机构规模",
           "handler": "操作者"
         },
         "createdAt": "申请时间",
