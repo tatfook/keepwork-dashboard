@@ -17,9 +17,9 @@ async function bulkMessages(data) {
 const model = resourceCRUD('messages')
 const userCRUD = resourceCRUD('users')
 const formatMessage = data => {
-  const { sender = 0, type = 0, text = '', username = [] } = data
+  const { sender = 0, type = 0, username = [] } = data
   const all = username.length > 0 ? 0 : 1
-  return { sender, type, all, msg: { type: 0, text: text }, extra: { senderName: 'Keepwork', senderPortrait: '', operator: store.getters.name }}
+  return { sender, type, all, msg: { type: 0, text: data['msg.text'] }, extra: { senderName: 'Keepwork', senderPortrait: '', operator: store.getters.name }}
 }
 
 const _rewrite = {
@@ -101,10 +101,10 @@ export default class Messages extends BaseResource {
         name: 'msg.text',
         type: 'String',
         component: 'editor',
-        required: true,
         edit: true,
         show: true,
-        search: false
+        search: false,
+        default: ''
       },
       {
         name: 'all',
