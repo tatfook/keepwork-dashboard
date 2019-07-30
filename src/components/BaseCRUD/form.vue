@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 700px; margin-left:10px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" >
+      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
         <input-link v-if="attrComponent(attr, 'link')" v-model="model[attr.name]" :attr="attr" ></input-link>
         <el-select v-else-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
@@ -105,9 +105,14 @@ export default {
       this.loadModelAssociate()
     },
     loadDefaultValues() {
-      _.forEach(this.resourceClass.attributes(), (attr) => {
-        if ((attr.required || attr.edit !== false) && attr.default !== undefined) {
-          this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
+      _.forEach(this.resourceClass.attributes(), attr => {
+        if (
+          (attr.required || attr.edit !== false) &&
+          attr.default !== undefined
+        ) {
+          this.model[attr.name] = _.isFunction(attr.default)
+            ? attr.default()
+            : attr.default
         }
       })
     },
@@ -125,9 +130,15 @@ export default {
                 value: item[associateClass.title()]
               }
             ]
-          } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
+          } else if (
+            this.model[attr.name] &&
+            attr.multiple &&
+            this.model[attr.name].length > 0
+          ) {
             const associateClass = getResourceClass(attr.associate)
-            const queryOptions = new ActiveQuery().where({ 'id-in': this.model[attr.name] }).paginate(1, 20).query
+            const queryOptions = new ActiveQuery()
+              .where({ 'id-in': this.model[attr.name] })
+              .paginate(1, 20).query
             const list = await associateClass.api().list(queryOptions)
             this.associateOptions[attr.name] = list.rows.map(item => {
               return {
@@ -150,9 +161,13 @@ export default {
         let queryParam = {}
         if (param !== '') {
           const query = associateClass.queryFilter(new ActiveQuery())
-          queryParam = query.where({ [associateClass.title() + '-like']: param + '%' }).paginate(1, 50).query
+          queryParam = query
+            .where({ [associateClass.title() + '-like']: param + '%' })
+            .paginate(1, 50).query
         }
-        const list = await associateClass.api().list({ ...queryParam, limit: 300 })
+        const list = await associateClass
+          .api()
+          .list({ ...queryParam, limit: 300 })
         self.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,

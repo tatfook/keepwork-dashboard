@@ -101,10 +101,10 @@ export default class Messages extends BaseResource {
         name: 'msg.text',
         type: 'String',
         component: 'editor',
-        required: true,
         edit: true,
         show: true,
-        search: false
+        search: false,
+        default: ''
       },
       {
         name: 'all',
