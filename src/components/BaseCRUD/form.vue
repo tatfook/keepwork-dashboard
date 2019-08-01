@@ -105,9 +105,14 @@ export default {
       this.loadModelAssociate()
     },
     loadDefaultValues() {
-      _.forEach(this.resourceClass.attributes(), (attr) => {
-        if ((attr.required || attr.edit !== false) && attr.default !== undefined) {
-          this.model[attr.name] = _.isFunction(attr.default) ? attr.default() : attr.default
+      _.forEach(this.resourceClass.attributes(), attr => {
+        if (
+          (attr.required || attr.edit !== false) &&
+          attr.default !== undefined
+        ) {
+          this.model[attr.name] = _.isFunction(attr.default)
+            ? attr.default()
+            : attr.default
         }
       })
     },
@@ -125,9 +130,15 @@ export default {
                 value: item[associateClass.title()]
               }
             ]
-          } else if (this.model[attr.name] && attr.multiple && this.model[attr.name].length > 0) {
+          } else if (
+            this.model[attr.name] &&
+            attr.multiple &&
+            this.model[attr.name].length > 0
+          ) {
             const associateClass = getResourceClass(attr.associate)
-            const queryOptions = new ActiveQuery().where({ 'id-in': this.model[attr.name] }).paginate(1, 20).query
+            const queryOptions = new ActiveQuery()
+              .where({ 'id-in': this.model[attr.name] })
+              .paginate(1, 20).query
             const list = await associateClass.api().list(queryOptions)
             this.associateOptions[attr.name] = list.rows.map(item => {
               return {
@@ -150,9 +161,13 @@ export default {
         let queryParam = {}
         if (param !== '') {
           const query = associateClass.queryFilter(new ActiveQuery())
-          queryParam = query.where({ [associateClass.title() + '-like']: param + '%' }).paginate(1, 50).query
+          queryParam = query
+            .where({ [associateClass.title() + '-like']: param + '%' })
+            .paginate(1, 50).query
         }
-        const list = await associateClass.api().list({ ...queryParam, limit: 300 })
+        const list = await associateClass
+          .api()
+          .list({ ...queryParam, limit: 300 })
         self.associateOptions[attr.name] = list.rows.map(item => {
           return {
             key: item.id,

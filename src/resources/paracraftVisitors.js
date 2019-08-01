@@ -94,6 +94,11 @@ export default class ParacraftVisitors extends BaseResource {
         }
       },
       {
+        name: 'extra.scale',
+        type: 'String',
+        edit: true
+      },
+      {
         name: 'createdAt',
         type: 'Date',
         edit: false,
