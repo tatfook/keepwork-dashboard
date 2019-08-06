@@ -95,6 +95,8 @@ export default class ParacraftVisitors extends BaseResource {
       },
       {
         name: 'extra.scale',
+        modelName: 'scale',
+        isNested: true,
         type: 'String',
         edit: true
       },
