@@ -1,26 +1,27 @@
 <template>
   <div class="form-container">
     <el-form :rules="attrRules" ref="dataForm" :model="model" label-position="left" label-width="120px" style='width: 700px; margin-left:10px;'>
-      <el-form-item v-for="attr in attrs" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
-        <input-link v-if="attrComponent(attr, 'link')" v-model="model[attr.name]" :attr="attr" ></input-link>
-        <el-select v-else-if="attr.associate" v-model="model[attr.name]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
+      <el-form-item v-for="attr in attrsWithModelPath" :key="attr.name" :label="i18n(attr.alias || attr.name)" :prop="attr.name">
+        <input-link v-if="attrComponent(attr, 'link')" v-model="attr.model[attr.modelKey]" :attr="attr"></input-link>
+        <el-select v-else-if="attr.associate" v-model="attr.model[attr.modelKey]" filterable remote :remote-method="searchAssociate(attr)" :loading="loading" :multiple="attr.multiple">
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
-        <el-input v-else-if="attrComponent(attr, 'input')" v-model="model[attr.name]" />
-        <el-input v-else-if="attrComponent(attr, 'text')" v-model="model[attr.name]" type="textarea" />
-        <el-select v-else-if="attrComponent(attr, 'select')" v-model="model[attr.name]">
+        <el-input v-else-if="attrComponent(attr, 'input')" v-model="attr.model[attr.modelKey]" />
+        <!-- <el-input v-else-if="attrComponent(attr, 'input')" v-model="attr.model[attr.modelKey]" /> -->
+        <el-input v-else-if="attrComponent(attr, 'text')" v-model="attr.model[attr.modelKey]" type="textarea" />
+        <el-select v-else-if="attrComponent(attr, 'select')" v-model="attr.model[attr.modelKey]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
           </el-option>
         </el-select>
-        <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="model[attr.name]" type="datetime" />
-        <el-rate v-else-if="attrComponent(attr, 'rate')" style="margin-top:8px;" v-model="model[attr.name]" :colors="attr.colors" :max='attr.max'></el-rate>
-        <input-file v-else-if="attrComponent(attr, 'file')" v-model="model[attr.name]"></input-file>
-        <input-org v-else-if="attrComponent(attr, 'org')" v-model.trim="model[attr.name]"></input-org>
-        <package-select v-else-if="attrComponent(attr, 'package')" v-model="model[attr.name]"></package-select>
-        <package-tags-checkbox v-else-if="attrComponent(attr, 'packageTags')" v-model="model[attr.name]"></package-tags-checkbox>
-        <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="model[attr.name]"></area-distpicker>
-        <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="model[attr.name]"></editor>
-        <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="model[attr.name]"></message-user-select>
+        <el-date-picker v-else-if="attrComponent(attr, 'time')" v-model="attr.model[attr.modelKey]" type="datetime" />
+        <el-rate v-else-if="attrComponent(attr, 'rate')" style="margin-top:8px;" v-model="attr.model[attr.modelKey]" :colors="attr.colors" :max='attr.max'></el-rate>
+        <input-file v-else-if="attrComponent(attr, 'file')" v-model="attr.model[attr.modelKey]"></input-file>
+        <input-org v-else-if="attrComponent(attr, 'org')" v-model.trim="attr.model[attr.modelKey]"></input-org>
+        <package-select v-else-if="attrComponent(attr, 'package')" v-model="attr.model[attr.modelKey]"></package-select>
+        <package-tags-checkbox v-else-if="attrComponent(attr, 'packageTags')" v-model="attr.model[attr.modelKey]"></package-tags-checkbox>
+        <area-distpicker v-else-if="attrComponent(attr, 'areaDistpicker')" v-model="attr.model[attr.modelKey]"></area-distpicker>
+        <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="attr.model[attr.modelKey]"></editor>
+        <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="attr.model[attr.modelKey]"></message-user-select>
         <work-add v-else-if="attrComponent(attr, 'workAdd')" v-model="model"></work-add>
         <p-block-add v-else-if="attrComponent(attr, 'pBlockAdd')" v-model="model"></p-block-add>
       </el-form-item>
@@ -195,6 +196,16 @@ export default {
     }),
     attrs() {
       return this.resourceClass.editableAttrs()
+    },
+    attrsWithModelPath() {
+      return _.map(this.attrs, attr => {
+        const self = this
+        return {
+          ...attr,
+          model: attr.isNested ? self.model.extra : self.model,
+          modelKey: attr.isNested ? attr.modelName : attr.name
+        }
+      })
     },
     attrRules() {
       return this.resourceClass.attrRules()
