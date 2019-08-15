@@ -396,6 +396,25 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/version',
+    component: Layout,
+    meta: {
+      title: 'sidebar.version',
+      icon: 'rocket'
+    },
+    children: [
+      {
+        path: 'release',
+        component: () => import('@/views/version/index'),
+        name: 'Release Version',
+        meta: {
+          title: 'sidebar.version.release',
+          icon: 'rocket'
+        }
+      }
+    ]
+  },
+  {
     path: '/elementLibrary',
     component: Layout,
     meta: {

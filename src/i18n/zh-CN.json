@@ -79,6 +79,9 @@
     }
   },
   "sidebar": {
+    "version": {
+      "release": "版本发布"
+    },
     "sidebarUser": "账户",
     "user": {
       "userManager": "用户管理",
