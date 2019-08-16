@@ -36,11 +36,7 @@
     <div class="p-block-add-item">
       <span class="p-block-add-item-label">文件类型：</span>
       <el-radio-group v-model="blockData.filetype">
-        <el-radio label="bmax">bmax</el-radio>
-        <el-radio label="template">template</el-radio>
-        <el-radio label="stl">stl</el-radio>
-        <el-radio label="x">x</el-radio>
-        <el-radio label="fbx">fbx</el-radio>
+        <el-radio v-for="type in MODEL_TYPES" :key="type" :label="type">{{type}}</el-radio>
       </el-radio-group>
     </div>
     <div class="p-block-add-item">
@@ -132,8 +128,11 @@ export default {
       translator(parents, children)
       return parents
     },
+    MODEL_TYPES() {
+      return ['x', 'bmax', 'template', 'stl', 'fbx', 'blocks']
+    },
     modelTypes() {
-      return '.X,.x,.bmax,.template,.stl,.fbx'
+      return this.MODEL_TYPES.map(type => `.${type}`).join(',')
     },
     animateTypes() {
       return '.gltf,.glb'
