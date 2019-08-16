@@ -41,6 +41,7 @@
         <el-radio label="stl">stl</el-radio>
         <el-radio label="x">x</el-radio>
         <el-radio label="fbx">fbx</el-radio>
+        <el-radio label="blocks">blocks</el-radio>
       </el-radio-group>
     </div>
     <div class="p-block-add-item">
@@ -133,7 +134,7 @@ export default {
       return parents
     },
     modelTypes() {
-      return '.X,.x,.bmax,.template,.stl,.fbx'
+      return '.X,.x,.bmax,.template,.stl,.fbx,.blocks'
     },
     animateTypes() {
       return '.gltf,.glb'
