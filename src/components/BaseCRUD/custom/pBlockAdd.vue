@@ -5,6 +5,14 @@
       <input class="p-block-add-item-input" v-model="blockData.name" />
     </div>
     <div class="p-block-add-item">
+      <span class="p-block-add-item-label">英文名称：</span>
+      <input class="p-block-add-item-input" v-model="blockData.enName" />
+    </div>
+    <div class="p-block-add-item">
+      <span class="p-block-add-item-label">文件名：</span>
+      <input class="p-block-add-item-input" v-model="blockData.fileName" />
+    </div>
+    <div class="p-block-add-item">
       <span class="p-block-add-item-label">模型路径(.bmax,.x...)：</span>
       <input class="p-block-add-item-input" placeholder="bmax,.x..." v-model="blockData.fileUrl" />
       <el-upload class="p-block-add-item-upload" action="" :accept="modelTypes" :auto-upload="false" :show-file-list="false" :on-change="uploadModel">
@@ -64,6 +72,8 @@ export default {
     if (this.value) {
       this.blockData.id = this.value.id
       this.blockData.name = this.value.name
+      this.blockData.enName = _.get(this.value, 'extra.enName', '')
+      this.blockData.fileName = _.get(this.value, 'extra.fileName')
       this.blockData.fileUrl = this.value.fileUrl
       this.blockData.previewUrl = this.value.previewUrl
       this.blockData.gifUrl = this.value.gifUrl
@@ -83,6 +93,8 @@ export default {
       classfiesList: {},
       blockData: {
         name: '',
+        enName: '',
+        fileName: '',
         fileUrl: '',
         previewUrl: '',
         filetype: '',
@@ -185,7 +197,11 @@ export default {
         pBlockClassifies: this.getCheckedKeys(),
         size: val.size,
         contributor: val.contributor,
-        pClassifies: this.getCheckedKeys()
+        pClassifies: this.getCheckedKeys(),
+        extra: {
+          enName: _.get(val, 'enName', ''),
+          fileName: _.get(val, 'fileName', '')
+        }
       }
       this.$emit('input', data)
     },

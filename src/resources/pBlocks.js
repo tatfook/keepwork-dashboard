@@ -61,6 +61,16 @@ export default class PBlocks extends BaseResource {
         required: true
       },
       {
+        name: 'extra.enName',
+        edit: false,
+        type: 'String'
+      },
+      {
+        name: 'extra.fileName',
+        edit: false,
+        type: 'String'
+      },
+      {
         name: 'filetype',
         type: 'String',
         edit: false,
