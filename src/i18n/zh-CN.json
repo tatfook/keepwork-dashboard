@@ -23,7 +23,6 @@
   "name": "名字",
   "roles": "角色",
   "operate": "操作",
-
   "viewDetail": "查看详情",
   "setChoice": "设为精选",
   "setDefault": "取消精选",
@@ -64,7 +63,7 @@
   "unblockSelectedMsg": {
     "dialogMsg": "将解封所选中的列表，是否确定？",
     "success": "解封成功！",
-    "failure":  "解封失败！"
+    "failure": "解封失败！"
   },
   "dialog": {
     "label": {
@@ -427,7 +426,9 @@
         "no": "期号",
         "startDate": "开始时间",
         "endDate": "结束时间",
-        "extra": {"description":"描述"},
+        "extra": {
+          "description": "描述"
+        },
         "state": "状态"
       }
     },
@@ -449,7 +450,11 @@
     "NPLWorks": {
       "attr": {
         "id": "序号",
-        "games": {"name":"大赛名称", "no": "期号","type": "赛事类型编号"},
+        "games": {
+          "name": "大赛名称",
+          "no": "期号",
+          "type": "赛事类型编号"
+        },
         "projectId": "项目ID",
         "worksName": "作品名称",
         "createdAt": "提交时间",
@@ -457,7 +462,14 @@
         "worksRate": "作品得分",
         "worksRateCount": "评分人数",
         "reward": "获奖情况",
-        "projects":{"users": {"userinfos": {"name": "提交人姓名", "school": "学校/机构"}}},
+        "projects": {
+          "users": {
+            "userinfos": {
+              "name": "提交人姓名",
+              "school": "学校/机构"
+            }
+          }
+        },
         "extra": {
           "projects": "备份情况"
         },
@@ -506,8 +518,8 @@
     },
     "Messages": {
       "attr": {
-        "id":"序号",
-        "createdAt":"创建日期",
+        "id": "序号",
+        "createdAt": "创建日期",
         "sender": "发送者",
         "type": "消息类型",
         "msg": {
@@ -536,6 +548,10 @@
       "attr": {
         "id": "ID",
         "name": "名称",
+        "extra": {
+          "enName": "英文名称",
+          "fileName": "文件名"
+        },
         "filetype": "类型",
         "pBlockClassifies": "分类",
         "size": "尺寸",
