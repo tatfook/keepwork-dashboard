@@ -6,6 +6,12 @@ import store from '@/store'
 const model = resourceCRUD('paracraftVisitors')
 
 const _rewrite = {
+  list(params) {
+    if (params.order.length === 0) {
+      params.order.push(['createdAt', 'desc'])
+    }
+    return model.list(params)
+  },
   update(data) {
     return model.update({
       ...data,
