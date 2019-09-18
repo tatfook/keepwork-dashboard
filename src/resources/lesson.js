@@ -1,11 +1,28 @@
-// import { resourceCRUD } from '@/api/lesson'
 import lessonsModel from '@/models/lesson'
 import { getUserToken } from '@/api/getToken'
 import BaseResource from './base'
+import _ from 'lodash'
 
 const model = lessonsModel()
 
 const ENV = process.env.NODE_ENV
+
+const toPreview = async(row, that, type = '') => {
+  const { userId, id } = row
+  const token = await getUserToken(userId)
+  if (token) {
+    if (ENV === 'development') {
+      const url = 'http://127.0.0.1:7001'
+      return window.open(`${url}/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
+    }
+    if (['release', 'stage'].includes(ENV)) {
+      const env = ENV === 'stage' ? 'dev' : 'rls'
+      const url = `http://${env}.kp/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`
+      return window.open(url, '_blank')
+    }
+    window.open(`https://keepwork.com/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
+  }
+}
 export default class Lesson extends BaseResource {
   static attributes() {
     return [
@@ -85,18 +102,44 @@ export default class Lesson extends BaseResource {
         {
           name: 'view',
           title() {
-            return '预览'
+            return '教案'
           },
           async func(row, that) {
-            const { userId, id } = row
-            const token = await getUserToken(userId)
-            if (token) {
-              if (ENV === 'stage' || ENV === 'release') {
-                const env = ENV === 'stage' ? 'dev' : 'rls'
-                const url = `http://${env}.keepwork.com/l/preview/lesson/${id}?token=${token}`
-                return window.open(url, '_blank')
-              }
-              window.open(`https://keepwork.com/l/preview/lesson/${id}?token=${token}`, '_blank')
+            toPreview(row, that)
+          }
+        },
+        {
+          name: 'courseware',
+          title() {
+            return '课件'
+          },
+          async func(row, that) {
+            toPreview(row, that, 'courseware')
+          }
+        },
+        {
+          name: 'teacherVideo',
+          title(row) {
+            const flag = _.get(row, 'extra.teacherVideoUrl', '')
+            return flag ? '教师视频' : false
+          },
+          async func(row, that) {
+            const teacherVideo = _.get(row, 'extra.teacherVideoUrl', '')
+            if (teacherVideo) {
+              window.open(teacherVideo, '_blank')
+            }
+          }
+        },
+        {
+          name: 'studentVideo',
+          title(row) {
+            const flag = _.get(row, 'extra.studentVideoUrl', '')
+            return flag ? '学生视频' : false
+          },
+          async func(row, that) {
+            const studentVideo = _.get(row, 'extra.studentVideoUrl', '')
+            if (studentVideo) {
+              window.open(studentVideo, '_blank')
             }
           }
         }
