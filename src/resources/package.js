@@ -177,9 +177,13 @@ export default class Package extends BaseResource {
           const { userId, id } = row
           const token = await getUserToken(userId)
           if (token) {
-            if (ENV === 'stage' || ENV === 'release') {
+            if (ENV === 'development') {
+              const url = 'http://127.0.0.1:7001'
+              return window.open(`${url}/l/preview/package/${id}?token=${token}`, '_blank')
+            }
+            if (['release', 'stage'].includes(ENV)) {
               const env = ENV === 'stage' ? 'dev' : 'rls'
-              const url = `http://${env}.keepwork.com/l/preview/package/${id}?token=${token}`
+              const url = `http://${env}.kp/l/preview/package/${id}?token=${token}`
               return window.open(url, '_blank')
             }
             window.open(`https://keepwork.com/l/preview/package/${id}?token=${token}`, '_blank')
