@@ -103,7 +103,7 @@ export default class Lesson extends BaseResource {
           name: 'view',
           title(row) {
             const flag = _.get(row, 'url', '')
-            return flag ? '课件' : false
+            return flag ? '教案' : false
           },
           async func(row, that) {
             toPreview(row, that)
