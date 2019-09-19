@@ -13,7 +13,9 @@
           <el-button v-if="can('show')" size="mini" @click="handleAction('show', scope.row)">{{$t('show')}}</el-button>
           <el-button v-if="can('edit')" type="primary" size="mini" @click="handleAction('edit', scope.row)">{{$t('edit')}}</el-button>
           <el-button v-if="can('destroy')" type="warning" size="mini" @click="handleAction('delete', scope.row)">{{$t('delete')}}</el-button>
-          <el-button v-for="op in canActions" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.type ? op.type(scope.row) : op.button">{{op.title(scope.row)}}</el-button>
+          <template v-for="op in canActions">
+            <el-button v-if="op.title(scope.row)" :key="op.name" @click="handleAction(op.name, scope.row)" size="mini" :type="op.type ? op.type(scope.row) : op.button">{{op.title(scope.row)}}</el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -87,7 +89,10 @@ export default {
       const disabled = this.resourceClass.actions().disabled || []
       const extraLength = this.canActions.length
       const buttonWidth = 110
-      return (_.difference(defaultAction, disabled).length + extraLength) * buttonWidth
+      return (
+        (_.difference(defaultAction, disabled).length + extraLength) *
+        buttonWidth
+      )
     },
     canActions() {
       const extraAxtions = this.resourceClass.actions().extra || []
