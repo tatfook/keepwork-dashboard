@@ -101,8 +101,9 @@ export default class Lesson extends BaseResource {
       extra: [
         {
           name: 'view',
-          title() {
-            return '教案'
+          title(row) {
+            const flag = _.get(row, 'url', '')
+            return flag ? '课件' : false
           },
           async func(row, that) {
             toPreview(row, that)
@@ -110,8 +111,9 @@ export default class Lesson extends BaseResource {
         },
         {
           name: 'courseware',
-          title() {
-            return '课件'
+          title(row) {
+            const flag = _.get(row, 'coursewareUrl', '')
+            return flag ? '课件' : false
           },
           async func(row, that) {
             toPreview(row, that, 'courseware')
