@@ -1,9 +1,9 @@
-import { resourceCRUD } from '@/api/keepwork'
+import { resourceCRUD } from '@/api/lesson'
 import organizationModel from '@/models/organization'
 import BaseResource from './base'
 import _ from 'lodash'
 
-const model = { ...resourceCRUD('lessonOrganizations'), ...organizationModel }
+const model = { ...resourceCRUD('lessonOrganization'), ...organizationModel }
 const ENV = process.env.NODE_EN
 
 const visibilityMap = [{
@@ -154,19 +154,19 @@ export default class Organization extends BaseResource {
     // will include all by default, to make sure every associate works
     query.include({
       as: 'lessonOrganizationClassMembers',
-      $model$: 'lessonOrganizationClassMembers',
+      $model$: 'LessonOrganizationClassMember',
       where: { roleId: { $eq: 64 }, classId: { $eq: 0 }},
       required: false,
       include: [
         {
           as: 'users',
-          $model$: 'users'
+          $model$: 'User'
         }
       ]
     })
     query.include({
       as: 'lessonOrganizationPackages',
-      $model$: 'lessonOrganizationPackages',
+      $model$: 'LessonOrganizationPackage',
       required: false,
       where: { classId: { $eq: 0 }}
     })
