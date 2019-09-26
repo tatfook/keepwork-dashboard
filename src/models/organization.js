@@ -1,7 +1,8 @@
 import createService from '@/utils/request'
-import { resourceCRUD } from '@/api/keepwork'
-const lessonOrganizations = resourceCRUD('lessonOrganizations')
+import { resourceCRUD } from '@/api/lesson'
+const lessonOrganizations = resourceCRUD('lessonOrganization')
 const request = createService()
+const _request = createService(process.env.LESSON_API)
 import _ from 'lodash'
 
 const getMemberCount = async id => {
@@ -57,7 +58,7 @@ export default {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
     data['privilege'] = 3
-    return request({
+    return _request({
       method: 'post',
       url: 'lessonOrganizations',
       data: data
@@ -66,7 +67,7 @@ export default {
   async update(data) {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
-    return request({
+    return _request({
       method: 'PUT',
       url: `lessonOrganizations/${data.id}`,
       data: data
