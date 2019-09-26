@@ -1,7 +1,7 @@
 import { resourceCRUD } from '@/api/lesson'
 
-const packageCRUD = resourceCRUD('packages')
-const packageSortCRUD = resourceCRUD('packageSorts')
+const packageCRUD = resourceCRUD('package')
+const packageSortCRUD = resourceCRUD('packageSort')
 
 export default function hotPackageModel() {
   return {
