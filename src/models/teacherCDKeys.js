@@ -1,7 +1,7 @@
 import { resourceCRUD } from '@/api/lesson'
 import { resourceCRUD as keepwrokResourceCRUD } from '@/api/keepwork'
 
-const lessonCRUD = resourceCRUD('teacherCDKeys')
+const lessonCRUD = resourceCRUD('teacherCDKey')
 const keepworkCRUD = keepwrokResourceCRUD('users')
 
 export default function projectsManageModel() {
