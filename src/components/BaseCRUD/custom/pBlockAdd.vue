@@ -129,7 +129,7 @@ export default {
       return parents
     },
     MODEL_TYPES() {
-      return ['x', 'bmax', 'template', 'stl', 'fbx', 'blocks']
+      return ['x', 'bmax', 'stl', 'fbx', 'blocks']
     },
     modelTypes() {
       return this.MODEL_TYPES.map(type => `.${type}`).join(',')
