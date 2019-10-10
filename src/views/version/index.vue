@@ -7,6 +7,8 @@
       </el-table-column>
       <el-table-column prop="window_zip" label="window U盘免安装版">
       </el-table-column>
+      <el-table-column prop="sp3" label="window XP SP3版本">
+      </el-table-column>
       <el-table-column prop="mac" label="苹果应用商店">
       </el-table-column>
       <el-table-column prop="android_apk" label="Android版手机APK安装包">
@@ -30,6 +32,9 @@
         </el-form-item>
         <el-form-item label="window U盘免安装版">
           <el-input v-model="form.window_zip"></el-input>
+        </el-form-item>
+        <el-form-item label="window XP SP3版本">
+          <el-input v-model="form.sp3"></el-input>
         </el-form-item>
         <el-form-item label="苹果应用商店">
           <el-input v-model="form.mac"></el-input>
@@ -89,7 +94,8 @@ export default {
         'window_zip',
         'mac',
         'android_apk',
-        'android_huawei'
+        'android_huawei',
+        'sp3'
       ]
     }
   },
