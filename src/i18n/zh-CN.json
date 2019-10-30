@@ -111,7 +111,8 @@
       "ChoiceProjects": "首页精选",
       "BlockedProjects": "封停项目",
       "IssuesManage": "issues管理",
-      "SystemTags": "系统标签"
+      "SystemTags": "系统标签",
+      "ProjectsSort": "客户端项目排序"
     },
     "sidebarNPL": "大赛运营",
     "NPL": {
