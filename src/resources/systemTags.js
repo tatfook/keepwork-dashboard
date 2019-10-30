@@ -29,17 +29,29 @@ export default class SystemTags extends BaseResource {
       },
       {
         name: 'extra.enTagname',
-        type: 'Object',
+        modelName: 'enTagname',
+        isNested: true,
+        type: 'String',
         show: true,
         edit: true,
         search: false
       },
       {
         name: 'extra.username',
-        type: 'Object',
+        modelName: 'username',
+        type: 'String',
+        isNested: true,
         show: true,
         edit: false,
         search: false
+      },
+      {
+        name: 'extra.sn',
+        modelName: 'sn',
+        type: 'Number',
+        isNested: true,
+        show: true,
+        edit: true
       },
       {
         name: 'createdAt',
@@ -64,7 +76,7 @@ export default class SystemTags extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['show', 'edit']
+      disabled: ['show']
     }
   }
 }

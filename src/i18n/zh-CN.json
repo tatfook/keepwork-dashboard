@@ -386,6 +386,7 @@
         "tagname": "系统标签名称",
         "extra": {
           "enTagname": "系统标签(EN)",
+          "sn": "显示排序",
           "username": "操作者"
         },
         "createdAt": "创建日期",
