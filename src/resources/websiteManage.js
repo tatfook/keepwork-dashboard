@@ -60,4 +60,10 @@ export default class websiteManage extends BaseResource {
       ]
     }
   }
+
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.distinct(true)
+    return query
+  }
 }

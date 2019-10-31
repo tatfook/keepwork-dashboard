@@ -52,4 +52,9 @@ export default class SequelizeQuery {
     this.query.include.push(rule)
     return this
   }
+
+  distinct(flag = true) {
+    this.query.distinct = flag
+    return this
+  }
 }

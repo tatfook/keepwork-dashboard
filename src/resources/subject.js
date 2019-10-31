@@ -1,7 +1,7 @@
 import { resourceCRUD } from '@/api/lesson'
 import BaseResource from './base'
 
-const model = resourceCRUD('subjects')
+const model = resourceCRUD('subject')
 
 export default class Subject extends BaseResource {
   static attributes() {

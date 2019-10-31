@@ -1,9 +1,9 @@
 import { resourceCRUD } from '@/api/lesson'
 
-const usersCRUD = resourceCRUD('users')
-const lessonsCRUD = resourceCRUD('lessons')
-const packageLessons = resourceCRUD('packageLessons')
-const packagesCRUD = resourceCRUD('packages')
+const usersCRUD = resourceCRUD('user')
+const lessonsCRUD = resourceCRUD('lesson')
+const packageLessons = resourceCRUD('packageLesson')
+const packagesCRUD = resourceCRUD('package')
 import _ from 'lodash'
 
 export default function hotPackageModel() {

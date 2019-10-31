@@ -159,4 +159,10 @@ export default class Messages extends BaseResource {
       disabled: ['destroy', 'delete', 'edit', 'export']
     }
   }
+
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.distinct(true)
+    return query
+  }
 }
