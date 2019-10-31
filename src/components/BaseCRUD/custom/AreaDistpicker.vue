@@ -38,7 +38,7 @@ export default {
       this.$emit('input', selectedArea)
     },
     initSelected(value) {
-      const [province = '', city = '', area = ''] = value.split(',')
+      const [province = '', city = '', area = ''] = value ? value.split(',') : []
       this.defaultProvince = province
       this.defaultCity = city
       this.defaultArea = area
