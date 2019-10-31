@@ -92,7 +92,7 @@ export default {
         id: item.id,
         sn: _.get(item, 'systemTags[0].systemTagProjects.sn', '')
       }))
-      this.sortList = _.sortBy(_projects, item => item.sn)
+      this.sortList = _.sortBy(_projects, item => -item.sn)
     }
   },
   async created() {
@@ -134,8 +134,7 @@ export default {
             }
           }
         ],
-        offset: 0,
-        limit: 100
+        offset: 0
       })
       this.tagProjects = rows
       this.transferData = rows.map(item => ({
@@ -153,7 +152,7 @@ export default {
         },
         []
       )
-      sortProjects = _.sortBy(sortProjects, item => item.sn)
+      sortProjects = _.sortBy(sortProjects, item => -item.sn)
       this.sortIDs = _.map(sortProjects, p => p.id)
       return rows
     },
@@ -161,8 +160,11 @@ export default {
       try {
         this.loading = true
         await this.removeNoSortProject()
+        const sortList = _.clone(this.sortList)
         await Promise.all(
-          this.sortList.map((p, i) => this.sortProject(p.id, i + 1))
+          _.map(_.reverse(sortList), (p, i) =>
+            this.sortProject(p.id, i + 1)
+          )
         )
         this.$message.success('更新成功')
         await this.getTagProjects(this.selectedTagID)
@@ -193,7 +195,12 @@ export default {
       this.sortList = [...otherProject, sortProject]
     },
     async removeNoSortProject() {
-      await Promise.all(this.toRemoveIDs.map(id => this.sortProject(id, 0)))
+      try {
+        await Promise.all(this.toRemoveIDs.map(id => this.sortProject(id, 0)))
+        this.toRemoveSortList = []
+      } catch (error) {
+        console.error(error)
+      }
     },
     handleChange(value, direction, movedKeys) {
       if (direction === 'left') {
