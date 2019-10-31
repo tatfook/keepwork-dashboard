@@ -9,7 +9,7 @@
 import { resourceCRUD } from '@/api/lesson'
 import { cloneDeep } from 'lodash'
 
-const packagesCRUD = resourceCRUD('packages')
+const packagesCRUD = resourceCRUD('package')
 export default {
   props: {
     value: {

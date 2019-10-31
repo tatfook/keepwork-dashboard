@@ -2,7 +2,7 @@ import { resourceCRUD as lessonCRUD } from '../api/lesson'
 import { resourceCRUD as keepworkCRUD } from '../api/keepwork'
 import _ from 'lodash'
 
-const tutorCRUD = lessonCRUD('tutors')
+const tutorCRUD = lessonCRUD('tutor')
 const usersCRUD = keepworkCRUD('users')
 
 const coverCondition = (field, condition) => {

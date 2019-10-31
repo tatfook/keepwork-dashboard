@@ -7,7 +7,6 @@
           <el-option v-for="item in associateOptions[attr.name]" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
         <el-input v-else-if="attrComponent(attr, 'input')" v-model="attr.model[attr.modelKey]" />
-        <!-- <el-input v-else-if="attrComponent(attr, 'input')" v-model="attr.model[attr.modelKey]" /> -->
         <el-input v-else-if="attrComponent(attr, 'text')" v-model="attr.model[attr.modelKey]" type="textarea" />
         <el-select v-else-if="attrComponent(attr, 'select')" v-model="attr.model[attr.modelKey]">
           <el-option v-for="item in attr.options" :key="item.key" :label="item.value" :value="item.key">
@@ -200,6 +199,9 @@ export default {
     attrsWithModelPath() {
       return _.map(this.attrs, attr => {
         const self = this
+        if (attr.isNested && !self.model.extra) {
+          self.model['extra'] = {}
+        }
         return {
           ...attr,
           model: attr.isNested ? self.model.extra : self.model,
