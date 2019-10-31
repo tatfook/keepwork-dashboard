@@ -165,6 +165,7 @@ export default {
           this.sortList.map((p, i) => this.sortProject(p.id, i + 1))
         )
         this.$message.success('更新成功')
+        await this.getTagProjects()
       } catch (error) {
         console.error(error)
         this.$message.error('更新失败')
