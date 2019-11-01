@@ -170,6 +170,7 @@ export default class Organization extends BaseResource {
       required: false,
       where: { classId: { $eq: 0 }}
     })
+    query.distinct(true)
     return query
   }
 }
