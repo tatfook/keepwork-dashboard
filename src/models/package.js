@@ -3,9 +3,9 @@ import { resourceCRUD as keepwrokResourceCRUD } from '@/api/keepwork'
 import createService from '@/utils/request'
 const request = createService()
 
-const packageCRUD = resourceCRUD('packages')
+const packageCRUD = resourceCRUD('package')
 const keepworkCRUD = keepwrokResourceCRUD('users')
-const subjectsCRUD = resourceCRUD('subjects')
+const subjectsCRUD = resourceCRUD('subject')
 const tagsCRUD = keepwrokResourceCRUD('tags')
 const packageTagsCRUD = keepwrokResourceCRUD('systemTags')
 

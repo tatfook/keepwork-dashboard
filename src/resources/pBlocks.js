@@ -144,6 +144,7 @@ export default class PBlocks extends BaseResource {
       ]
     }
     )
+    query.distinct(true)
     return query
   }
 }

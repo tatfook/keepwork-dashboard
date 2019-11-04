@@ -111,7 +111,8 @@
       "ChoiceProjects": "首页精选",
       "BlockedProjects": "封停项目",
       "IssuesManage": "issues管理",
-      "SystemTags": "系统标签"
+      "SystemTags": "系统标签",
+      "ProjectsSort": "客户端项目排序"
     },
     "sidebarNPL": "大赛运营",
     "NPL": {
@@ -330,7 +331,7 @@
         "choicenessNo": "项目级别",
         "userId": "用户ID",
         "username": "用户名",
-        "classifyTags": "系统标签",
+        "systemTags": "系统标签",
         "status": "状态",
         "visibility": "项目状态"
       }
@@ -386,6 +387,7 @@
         "tagname": "系统标签名称",
         "extra": {
           "enTagname": "系统标签(EN)",
+          "sn": "显示排序",
           "username": "操作者"
         },
         "createdAt": "创建日期",

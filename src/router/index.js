@@ -290,6 +290,15 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.projects.SystemTags'
         }
+
+      },
+      {
+        path: 'projectsSort',
+        component: () => import('@/views/projects/projectsSort/index'),
+        name: 'projectsSort',
+        meta: {
+          title: 'sidebar.projects.ProjectsSort'
+        }
       }
     ]
   },

@@ -1,8 +1,10 @@
 import projectsManageModel from '@/models/projectsManage'
 import BaseResource from './base'
 import { resourceCRUD } from '@/api/keepwork'
+import createService from '@/utils/request'
 import _ from 'lodash'
 
+const request = createService()
 const systemTagsCRUD = resourceCRUD('systemTags')
 
 const projectsCRUD = projectsManageModel()
@@ -117,12 +119,12 @@ export default class ProjectsManage extends BaseResource {
         }
       },
       {
-        name: 'classifyTags',
+        name: 'systemTags',
         type: 'String',
         show: true,
         search: true,
-        filter(value) {
-          return value ? value.split('|').filter(v => v).join('|') : ''
+        filter(tags) {
+          return tags.map(item => item.tagname).join('|')
         }
       },
       {
@@ -131,7 +133,6 @@ export default class ProjectsManage extends BaseResource {
         show: true,
         search: true,
         filter(value) {
-          // FIXME: i18n
           return value > 0 ? '精选' : '一般'
         }
       }
@@ -253,10 +254,10 @@ export default class ProjectsManage extends BaseResource {
             const res = await systemTagsCRUD.list(
               { 'where': { 'classify': { '$eq': 1 }}, 'include': [{ 'all': true, 'nested': false }], 'order': [], 'limit': 300, 'offset': 0 }
             )
-            const tags = _.map(_.get(res, 'rows', []), item => item.tagname)
+            const tags = _.get(res, 'rows', [])
             const params = {
               type: 'checkbox',
-              data: tags.map(item => ({ label: item, value: item })),
+              data: tags.map(item => ({ label: item.tagname, value: item.id })),
               status: 'addSystemTags'
             }
             that.showDialog(params)
@@ -269,39 +270,45 @@ export default class ProjectsManage extends BaseResource {
           type: 'danger',
           refresh: false,
           async func(projects, that) {
-            const projectTags = _.uniq(_.reduce(projects, (arr, cur) => {
-              const _tags = _.filter(_.split(_.get(cur, 'classifyTags', ''), '|'), v => v)
-              return [...arr, ..._tags]
-            }, []))
+            const res = await systemTagsCRUD.list(
+              { 'where': { 'classify': { '$eq': 1 }}, 'include': [{ 'all': true, 'nested': false }], 'order': [], 'limit': 300, 'offset': 0 }
+            )
+            const tags = _.get(res, 'rows', [])
             const params = {
               type: 'checkbox',
-              data: projectTags.map(item => ({ label: item, value: item })),
+              data: tags.map(item => ({ label: item.tagname, value: item.id })),
               status: 'removeSystemTags'
             }
             that.showDialog(params)
             cache['projects'] = projects
-            cache['tags'] = projectTags
+            cache['tags'] = tags
           }
         }
       ],
       callback: {
-        async addSystemTags(selectedTags, that) {
+        async addSystemTags(selectedTagIDS, that) {
           const { projects } = cache
+          const tags = selectedTagIDS.map(id => ({ tagId: id }))
           await Promise.all(projects.map(item => {
-            const { classifyTags } = item
-            const currentTags = classifyTags.split('|').filter(v => v)
-            const finalTags = _.uniq([...currentTags, ...selectedTags]).join('|')
-            return projectsCRUD.update({ ...item, classifyTags: finalTags })
+            return request({
+              method: 'post',
+              url: `/admins/projects/${item.id}/systemTags`,
+              data: {
+                tags
+              }
+            })
           }))
         },
-        async removeSystemTags(selectedTags, that) {
+        async removeSystemTags(selectedTagIDS, that) {
           const { projects } = cache
-          const filterProjects = _.filter(projects, p => p.classifyTags)
-          await Promise.all(filterProjects.map(item => {
-            const { classifyTags } = item
-            const currentTags = classifyTags.split('|')
-            const finalTags = _.filter(currentTags, tag => tag && !selectedTags.includes(tag)).join('|')
-            return projectsCRUD.update({ ...item, classifyTags: finalTags })
+          await Promise.all(projects.map(item => {
+            return request({
+              method: 'DELETE',
+              url: `/admins/projects/${item.id}/systemTags`,
+              data: {
+                tagIds: selectedTagIDS
+              }
+            })
           }))
         }
       }

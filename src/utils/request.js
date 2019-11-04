@@ -29,7 +29,9 @@ export default function createService(baseUrl, timeout) {
 
   service.interceptors.response.use(
     response => {
-      const res = response.data
+      // 为了兼容旧的不规范的api
+      // lesson 的api会多个data
+      const res = response.data.data || response.data
       if (response.status >= 400) {
         Message({
           message: res.message,
@@ -38,7 +40,7 @@ export default function createService(baseUrl, timeout) {
         })
         return Promise.reject('error')
       } else {
-        return response.data
+        return res
       }
     },
     error => {
