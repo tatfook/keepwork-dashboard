@@ -16,11 +16,6 @@ const toPreview = async(row, that, type = '') => {
       const url = 'http://127.0.0.1:7001'
       return window.open(`${url}/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
     }
-    // if (['release', 'stage'].includes(ENV)) {
-    //   const env = ENV === 'stage' ? 'dev' : 'rls'
-    //   const url = `http://${env}.kp-para.cn/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`
-    //   return window.open(url, '_blank')
-    // }
     window.open(`${KEEPWORK_PREFIX}l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
   }
 }
