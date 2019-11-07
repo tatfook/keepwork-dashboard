@@ -177,7 +177,7 @@ export default class Package extends BaseResource {
           const { userId, id } = row
           const token = await getUserToken(userId)
           if (token) {
-            window.open(`${KEEPWORK_PREFIX}l/preview/package/${id}?token=${token}`, '_blank')
+            window.open(`${KEEPWORK_PREFIX}/l/preview/package/${id}?token=${token}`, '_blank')
           }
         }
       }]

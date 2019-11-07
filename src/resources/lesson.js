@@ -11,7 +11,7 @@ const toPreview = async(row, that, type = '') => {
   const { userId, id } = row
   const token = await getUserToken(userId)
   if (token) {
-    window.open(`${KEEPWORK_PREFIX}l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
+    window.open(`${KEEPWORK_PREFIX}/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
   }
 }
 export default class Lesson extends BaseResource {
