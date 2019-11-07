@@ -87,7 +87,16 @@ export default {
   async mounted() {
     const params = {
       where: { state: { $eq: 2 }},
-      include: [{ all: true, nested: true }],
+      include: [
+        {
+          as: 'packageLessons',
+          $model$: 'PackageLesson',
+          attributes: ['id', 'extra'],
+          include: [
+            { as: 'lessons', $model$: 'Lesson', attributes: ['lessonName', 'id'] }
+          ]
+        }
+      ],
       order: [],
       limit: 200,
       offset: 0
