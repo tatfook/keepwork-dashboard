@@ -183,7 +183,7 @@ export default class Package extends BaseResource {
             }
             if (['release', 'stage'].includes(ENV)) {
               const env = ENV === 'stage' ? 'dev' : 'rls'
-              const url = `http://${env}.kp/l/preview/package/${id}?token=${token}`
+              const url = `http://${env}.kp-para.cn/l/preview/package/${id}?token=${token}`
               return window.open(url, '_blank')
             }
             window.open(`https://keepwork.com/l/preview/package/${id}?token=${token}`, '_blank')
