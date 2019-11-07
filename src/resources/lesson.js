@@ -5,22 +5,13 @@ import _ from 'lodash'
 
 const model = lessonsModel()
 
-const ENV = process.env.NODE_ENV
+const KEEPWORK_PREFIX = process.env.KEEPWORK_PREFIX
 
 const toPreview = async(row, that, type = '') => {
   const { userId, id } = row
   const token = await getUserToken(userId)
   if (token) {
-    if (ENV === 'development') {
-      const url = 'http://127.0.0.1:7001'
-      return window.open(`${url}/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
-    }
-    if (['release', 'stage'].includes(ENV)) {
-      const env = ENV === 'stage' ? 'dev' : 'rls'
-      const url = `http://${env}.kp-para.cn/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`
-      return window.open(url, '_blank')
-    }
-    window.open(`https://keepwork.com/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
+    window.open(`${KEEPWORK_PREFIX}l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
   }
 }
 export default class Lesson extends BaseResource {
