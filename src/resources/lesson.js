@@ -17,7 +17,7 @@ const toPreview = async(row, that, type = '') => {
     }
     if (['release', 'stage'].includes(ENV)) {
       const env = ENV === 'stage' ? 'dev' : 'rls'
-      const url = `http://${env}.kp/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`
+      const url = `http://${env}.kp-para.cn/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`
       return window.open(url, '_blank')
     }
     window.open(`https://keepwork.com/l/preview/lesson/${id}${type ? `/${type}` : ''}?token=${token}`, '_blank')
