@@ -69,6 +69,18 @@ export default class Lesson extends BaseResource {
         show: false
       },
       {
+        name: 'teacherVideoUrl',
+        type: 'String',
+        search: false,
+        show: false
+      },
+      {
+        name: 'studentVideoUrl',
+        type: 'String',
+        search: false,
+        show: false
+      },
+      {
         name: 'createdAt',
         type: 'Date',
         edit: false
