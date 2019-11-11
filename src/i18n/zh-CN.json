@@ -307,11 +307,10 @@
         "goals": "目标",
         "userId": "用户",
         "subjectId": "学科",
-        "extra": {
-          "coverUrl": "封面链接",
-          "videoUrl": "视频链接"
-        },
-        "createdAt": "创建日期"
+        "coverUrl": "封面链接",
+        "createdAt": "创建日期",
+        "teacherVideoUrl": "教师视频",
+        "studentVideoUrl": "学生视频"
       }
     },
     "ProjectsManage": {
