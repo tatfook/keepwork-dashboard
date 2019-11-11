@@ -291,10 +291,8 @@
         "state": "状态",
         "rmb": "价钱",
         "coin": "coin币",
-        "extra": {
-          "message": "原因",
-          "coverUrl": "封面链接"
-        },
+        "refuseMsg": "原因",
+        "coverUrl": "封面链接",
         "createdAt": "创建日期",
         "tags": "课程标签",
         "tagNames": "课程标签"

@@ -108,7 +108,7 @@ export default class Package extends BaseResource {
         }
       },
       {
-        name: 'extra.message',
+        name: 'refuseMsg',
         type: 'String',
         component: 'text',
         search: false
@@ -130,7 +130,7 @@ export default class Package extends BaseResource {
         search: true
       },
       {
-        name: 'extra.coverUrl',
+        name: 'coverUrl',
         type: 'String',
         show: false,
         search: false

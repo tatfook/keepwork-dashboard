@@ -63,13 +63,7 @@ export default class Lesson extends BaseResource {
         type: 'String'
       },
       {
-        name: 'extra.coverUrl',
-        type: 'String',
-        search: false,
-        show: false
-      },
-      {
-        name: 'extra.videoUrl',
+        name: 'coverUrl',
         type: 'String',
         search: false,
         show: false
@@ -113,11 +107,11 @@ export default class Lesson extends BaseResource {
         {
           name: 'teacherVideo',
           title(row) {
-            const flag = _.get(row, 'extra.teacherVideoUrl', '')
+            const flag = _.get(row, 'teacherVideoUrl', '')
             return flag ? '教师视频' : false
           },
           async func(row, that) {
-            const teacherVideo = _.get(row, 'extra.teacherVideoUrl', '')
+            const teacherVideo = _.get(row, 'teacherVideoUrl', '')
             if (teacherVideo) {
               window.open(teacherVideo, '_blank')
             }
@@ -126,11 +120,11 @@ export default class Lesson extends BaseResource {
         {
           name: 'studentVideo',
           title(row) {
-            const flag = _.get(row, 'extra.studentVideoUrl', '')
+            const flag = _.get(row, 'studentVideoUrl', '')
             return flag ? '学生视频' : false
           },
           async func(row, that) {
-            const studentVideo = _.get(row, 'extra.studentVideoUrl', '')
+            const studentVideo = _.get(row, 'studentVideoUrl', '')
             if (studentVideo) {
               window.open(studentVideo, '_blank')
             }
