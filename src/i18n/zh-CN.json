@@ -328,7 +328,9 @@
         "updatedAt": "更新日期",
         "choicenessNo": "项目级别",
         "userId": "用户ID",
-        "username": "用户名",
+        "users": {
+          "username": "用户名"
+        },
         "systemTags": "系统标签",
         "status": "状态",
         "visibility": "项目状态"

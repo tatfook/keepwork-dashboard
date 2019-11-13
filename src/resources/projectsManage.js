@@ -1,4 +1,3 @@
-import projectsManageModel from '@/models/projectsManage'
 import BaseResource from './base'
 import { resourceCRUD } from '@/api/keepwork'
 import createService from '@/utils/request'
@@ -7,7 +6,26 @@ import _ from 'lodash'
 const request = createService()
 const systemTagsCRUD = resourceCRUD('systemTags')
 
-const projectsCRUD = projectsManageModel()
+const projectsCRUD = resourceCRUD('projects')
+const model = {
+  ...projectsCRUD,
+  list(params) {
+    const { systemTags, ...rest } = params.where
+    if (systemTags) {
+      params.include.push(
+        {
+          '$model$': 'systemTags',
+          'nest': false,
+          'where': {
+            'tagname': systemTags
+          }
+        }
+      )
+    }
+    params.where = rest
+    return projectsCRUD.list(params)
+  }
+}
 const cache = {}
 const privilegeMap = [
   {
@@ -89,7 +107,7 @@ export default class ProjectsManage extends BaseResource {
         search: true
       },
       {
-        name: 'username',
+        name: 'users.username',
         type: 'String',
         edit: false,
         show: true,
@@ -122,7 +140,7 @@ export default class ProjectsManage extends BaseResource {
         name: 'systemTags',
         type: 'String',
         show: true,
-        search: false,
+        search: true,
         filter(tags) {
           return tags.map(item => item.tagname).join('|')
         }
@@ -140,7 +158,14 @@ export default class ProjectsManage extends BaseResource {
   }
 
   static model() {
-    return projectsCRUD
+    return model
+  }
+
+  static queryFilter(query) {
+    // will include all by default, to make sure every associate works
+    query.include({ all: true })
+    query.distinct(true)
+    return query
   }
 
   static actions() {
