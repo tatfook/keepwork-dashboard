@@ -122,7 +122,7 @@ export default class ProjectsManage extends BaseResource {
         name: 'systemTags',
         type: 'String',
         show: true,
-        search: true,
+        search: false,
         filter(tags) {
           return tags.map(item => item.tagname).join('|')
         }
