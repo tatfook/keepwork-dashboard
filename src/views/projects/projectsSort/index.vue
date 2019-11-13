@@ -60,12 +60,11 @@
 
 <script>
 import draggable from 'vuedraggable'
-import systemTagsModel from '@/models/systemTags'
-import projectsManageModel from '@/models/projectsManage'
+import { resourceCRUD } from '@/api/keepwork'
 import createService from '@/utils/request'
 import _ from 'lodash'
-const systemTags = systemTagsModel()
-const projectsCRUD = projectsManageModel()
+const systemTags = resourceCRUD('systemTags')
+const projectsCRUD = resourceCRUD('projects')
 const request = createService()
 export default {
   name: 'ProjectsSort',
