@@ -31,7 +31,7 @@ const stateMap = [
   }
 ]
 
-const ENV = process.env.NODE_ENV
+const KEEPWORK_PREFIX = process.env.KEEPWORK_PREFIX
 
 export default class Package extends BaseResource {
   static attributes() {
@@ -108,7 +108,7 @@ export default class Package extends BaseResource {
         }
       },
       {
-        name: 'extra.message',
+        name: 'refuseMsg',
         type: 'String',
         component: 'text',
         search: false
@@ -130,7 +130,7 @@ export default class Package extends BaseResource {
         search: true
       },
       {
-        name: 'extra.coverUrl',
+        name: 'coverUrl',
         type: 'String',
         show: false,
         search: false
@@ -177,16 +177,7 @@ export default class Package extends BaseResource {
           const { userId, id } = row
           const token = await getUserToken(userId)
           if (token) {
-            if (ENV === 'development') {
-              const url = 'http://127.0.0.1:7001'
-              return window.open(`${url}/l/preview/package/${id}?token=${token}`, '_blank')
-            }
-            if (['release', 'stage'].includes(ENV)) {
-              const env = ENV === 'stage' ? 'dev' : 'rls'
-              const url = `http://${env}.kp/l/preview/package/${id}?token=${token}`
-              return window.open(url, '_blank')
-            }
-            window.open(`https://keepwork.com/l/preview/package/${id}?token=${token}`, '_blank')
+            window.open(`${KEEPWORK_PREFIX}/l/preview/package/${id}?token=${token}`, '_blank')
           }
         }
       }]
