@@ -16,6 +16,7 @@ const model = {
         {
           '$model$': 'systemTags',
           'nest': false,
+          'as': 'filterTags',
           'where': {
             'tagname': systemTags
           }
