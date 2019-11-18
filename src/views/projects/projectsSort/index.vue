@@ -158,7 +158,7 @@ export default {
       let sortProjects = _.reduce(
         this.tagProjects,
         (arr, cur) => {
-          const projectSN = _.get(cur, 'systemTags[1].systemTagProjects.sn', '')
+          const projectSN = _.get(cur, 'filterTags[0].systemTagProjects.sn', '')
           if (projectSN) {
             arr.push({ id: cur.id, sn: projectSN })
           }
