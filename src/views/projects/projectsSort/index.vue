@@ -101,6 +101,7 @@ export default {
       offset: 0,
       order: [],
       where: {
+        tagname: { $ne: 'paracraft专用' },
         classify: {
           $eq: 1
         }
@@ -161,9 +162,7 @@ export default {
         await this.removeNoSortProject()
         const sortList = _.clone(this.sortList)
         await Promise.all(
-          _.map(_.reverse(sortList), (p, i) =>
-            this.sortProject(p.id, i + 1)
-          )
+          _.map(_.reverse(sortList), (p, i) => this.sortProject(p.id, i + 1))
         )
         this.$message.success('更新成功')
         await this.getTagProjects(this.selectedTagID)
