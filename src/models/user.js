@@ -7,6 +7,20 @@ const illegalsCRUD = resourceCRUD('illegals')
 export default function userinfoModel() {
   return {
     async list(params) {
+      if (params.where['tLevel']) {
+        _.forEach(params.where['tLevel'], (value, key) => {
+          params.where['tLevel'][key] = `${value}`.match(/\d/)[0]
+        })
+      }
+
+      if (params.where['vip']) {
+        _.forEach(params.where['vip'], (value, key) => {
+          value = _.lowerCase(value)
+          value = value === 'vip' ? 1 : 0
+          params.where['vip'][key] = value
+        })
+      }
+
       const originList = await usersCRUD.list(params)
 
       if (!originList || !originList.count || !originList.rows) {

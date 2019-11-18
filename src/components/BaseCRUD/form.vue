@@ -98,7 +98,7 @@ export default {
       return comp === type
     },
     initModel() {
-      this.model = _.cloneDeep(this.formData || {})
+      this.model = _.cloneDeep(this.formData || { extra: {}})
       if (this.status === 'create') {
         this.loadDefaultValues()
       }
@@ -199,9 +199,6 @@ export default {
     attrsWithModelPath() {
       return _.map(this.attrs, attr => {
         const self = this
-        if (attr.isNested && !self.model.extra) {
-          self.model['extra'] = {}
-        }
         return {
           ...attr,
           model: attr.isNested ? self.model.extra : self.model,

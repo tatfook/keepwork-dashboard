@@ -50,7 +50,6 @@ export default {
     async getPackageTags() {
       const params = {
         where: { classify: { $eq: 2 }},
-        include: [{ all: true, nested: true }],
         order: [],
         limit: 200,
         offset: 0
