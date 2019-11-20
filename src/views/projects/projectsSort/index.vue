@@ -66,6 +66,9 @@ import _ from 'lodash'
 const systemTags = resourceCRUD('systemTags')
 const projectsCRUD = resourceCRUD('projects')
 const request = createService()
+
+const PARACRAFT_TAG = 'paracraft专用'
+
 export default {
   name: 'ProjectsSort',
   components: {
@@ -97,10 +100,10 @@ export default {
   async created() {
     const params = {
       include: [],
-      limit: 100,
       offset: 0,
       order: [],
       where: {
+        tagname: { $ne: PARACRAFT_TAG },
         classify: {
           $eq: 1
         }
@@ -127,6 +130,12 @@ export default {
         include: [
           {
             $model$: 'systemTags',
+            as: 'systemTags',
+            nest: false
+          },
+          {
+            $model$: 'systemTags',
+            as: 'filterTags',
             nest: false,
             where: {
               id
@@ -135,15 +144,21 @@ export default {
         ],
         offset: 0
       })
-      this.tagProjects = rows
-      this.transferData = rows.map(item => ({
+
+      this.tagProjects = _.filter(rows, item => {
+        if (_.some(item.systemTags, tag => tag.tagname === PARACRAFT_TAG)) {
+          return item
+        }
+      })
+
+      this.transferData = this.tagProjects.map(item => ({
         label: `id:${item.id} - ${item.name}`,
         key: item.id
       }))
       let sortProjects = _.reduce(
-        rows,
+        this.tagProjects,
         (arr, cur) => {
-          const projectSN = _.get(cur, 'systemTags[0].systemTagProjects.sn', '')
+          const projectSN = _.get(cur, 'filterTags[0].systemTagProjects.sn', '')
           if (projectSN) {
             arr.push({ id: cur.id, sn: projectSN })
           }
@@ -161,9 +176,7 @@ export default {
         await this.removeNoSortProject()
         const sortList = _.clone(this.sortList)
         await Promise.all(
-          _.map(_.reverse(sortList), (p, i) =>
-            this.sortProject(p.id, i + 1)
-          )
+          _.map(_.reverse(sortList), (p, i) => this.sortProject(p.id, i + 1))
         )
         this.$message.success('更新成功')
         await this.getTagProjects(this.selectedTagID)
@@ -244,7 +257,7 @@ export default {
 
     &-transfer {
       text-align: left;
-      margin-right: 160px;
+      margin-right: 100px;
     }
     &-right {
       min-width: 300px;
