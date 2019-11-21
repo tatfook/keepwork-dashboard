@@ -91,7 +91,7 @@ export default {
         {
           as: 'packageLessons',
           $model$: 'PackageLesson',
-          attributes: ['id', 'extra'],
+          attributes: ['id', 'lessonNo'],
           include: [
             { as: 'lessons', $model$: 'Lesson', attributes: ['lessonName', 'id'] }
           ]
@@ -111,7 +111,7 @@ export default {
         .map(l => ({
           id: `${packageId}-${l.lessons.id}`,
           label: l.lessons.lessonName,
-          lessonNo: l.extra.lessonNo
+          lessonNo: l.lessonNo
         }))
       return {
         id: packageId,
@@ -126,14 +126,13 @@ export default {
         .filter(i => i.lessons)
         .map(l => ({
           lessonId: `${packageId}-${l.lessons.id}`,
-          lessonNo: l.extra.lessonNo
+          lessonNo: l.lessonNo
         }))
       return {
         packageId,
         lessons: _.sortBy(lessons, item => item.lessonNo)
       }
     })
-
     this.tree = [{ id: 0, label: '全选', children: packages }]
     this.initPackageSelected(this.value)
   }

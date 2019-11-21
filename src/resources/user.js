@@ -1,6 +1,7 @@
 import BaseResource from './base'
 import userModel from '@/models/user'
 import md5 from 'blueimp-md5'
+import _ from 'lodash'
 
 const sexMap = [
   {
@@ -17,14 +18,30 @@ const sexMap = [
   }
 ]
 
-const levelMap = [
+const teacherLevel = [
   {
-    key: 'VIP',
-    value: 'VIP'
+    key: 0,
+    value: 'T0'
   },
   {
-    key: 'ordinary',
-    value: '普通'
+    key: 1,
+    value: 'T1'
+  },
+  {
+    key: 2,
+    value: 'T2'
+  },
+  {
+    key: 3,
+    value: 'T3'
+  },
+  {
+    key: 4,
+    value: 'T4'
+  },
+  {
+    key: 5,
+    value: 'T5'
   }
 ]
 
@@ -63,15 +80,15 @@ export default class User extends BaseResource {
       },
       {
         name: 'email',
-        type: 'String'
-
+        type: 'String',
+        edit: false
       },
       {
         name: 'cellphone',
         type: 'String',
         required: true,
         component: 'text',
-        edit: true,
+        edit: false,
         sort: false
       },
       {
@@ -82,23 +99,26 @@ export default class User extends BaseResource {
         sort: false
       },
       {
-        name: 'level',
-        type: 'String',
+        name: 'vip',
+        type: Number,
         required: true,
         component: 'select',
-        edit: false,
-        options: levelMap,
-        filter: (key) => {
-          for (const item of levelMap) {
-            if (item.key === key) {
-              return item.value
-            }
-          }
-
-          return key
+        filter: value => {
+          return value > 0 ? 'VIP' : '普通用户'
         },
-        search: false,
+        edit: false,
+        search: true,
         sort: false
+      },
+      {
+        name: 'tLevel',
+        type: Number,
+        options: teacherLevel,
+        component: 'select',
+        search: true,
+        filter: value => {
+          return _.find(teacherLevel, item => item.key === value).value
+        }
       },
       {
         name: 'status',
@@ -151,7 +171,7 @@ export default class User extends BaseResource {
         type: 'String',
         required: true,
         component: 'select',
-        edit: true,
+        edit: false,
         options: sexMap,
         filter: (key) => {
           for (const item of sexMap) {
@@ -174,7 +194,7 @@ export default class User extends BaseResource {
 
   static actions() {
     return {
-      disabled: ['create', 'edit', 'show', 'destroy'],
+      disabled: ['create', 'show', 'destroy'],
       extra: [{
         name: 'resetPwd',
         title() {

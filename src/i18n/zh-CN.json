@@ -152,7 +152,8 @@
         "cellphone": "绑定手机号",
         "email": "绑定邮箱",
         "realname": "实名认证手机号",
-        "level": "用户等级",
+        "vip": "用户等级",
+        "tLevel": "教师等级",
         "status": "状态",
         "balance": "余额",
         "coin": "知识币余数",
@@ -291,10 +292,8 @@
         "state": "状态",
         "rmb": "价钱",
         "coin": "coin币",
-        "extra": {
-          "message": "原因",
-          "coverUrl": "封面链接"
-        },
+        "refuseMsg": "原因",
+        "coverUrl": "封面链接",
         "createdAt": "创建日期",
         "tags": "课程标签",
         "tagNames": "课程标签"
@@ -309,11 +308,10 @@
         "goals": "目标",
         "userId": "用户",
         "subjectId": "学科",
-        "extra": {
-          "coverUrl": "封面链接",
-          "videoUrl": "视频链接"
-        },
-        "createdAt": "创建日期"
+        "coverUrl": "封面链接",
+        "createdAt": "创建日期",
+        "teacherVideoUrl": "教师视频",
+        "studentVideoUrl": "学生视频"
       }
     },
     "ProjectsManage": {
@@ -330,7 +328,9 @@
         "updatedAt": "更新日期",
         "choicenessNo": "项目级别",
         "userId": "用户ID",
-        "username": "用户名",
+        "users": {
+          "username": "用户名"
+        },
         "systemTags": "系统标签",
         "status": "状态",
         "visibility": "项目状态"
