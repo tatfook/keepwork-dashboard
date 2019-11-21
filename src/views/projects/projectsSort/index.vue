@@ -92,7 +92,7 @@ export default {
       const _projects = projects.map(item => ({
         name: item.name,
         id: item.id,
-        sn: _.get(item, 'systemTags[0].systemTagProjects.sn', '')
+        sn: _.get(item, 'filterTags[0].systemTagProjects.sn', '')
       }))
       this.sortList = _.sortBy(_projects, item => -item.sn)
     }
