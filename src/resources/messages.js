@@ -6,11 +6,11 @@ import store from '@/store'
 import { broadcast, msg } from '@/api/broadcast'
 import createService from '@/utils/request'
 
-const request = createService()
+const request = createService(process.env.LESSON_API)
 async function bulkMessages(data) {
   return request({
     method: 'post',
-    url: `/admins/userMessages/bulk`,
+    url: `/admins/userMessage/bulk`,
     data
   })
 }
