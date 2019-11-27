@@ -1,4 +1,5 @@
 import { resourceCRUD } from '@/api/keepwork'
+import { resourceCRUD as orgCRUD } from '@/api/lesson'
 import BaseResource from './base'
 import _ from 'lodash'
 import store from '@/store'
@@ -14,7 +15,7 @@ async function bulkMessages(data) {
   })
 }
 
-const model = resourceCRUD('messages')
+const model = orgCRUD('message')
 const userCRUD = resourceCRUD('users')
 const formatMessage = data => {
   const { sender = 0, type = 0, username = [] } = data
