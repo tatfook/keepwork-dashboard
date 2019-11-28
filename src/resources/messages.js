@@ -6,11 +6,11 @@ import store from '@/store'
 import { broadcast, msg } from '@/api/broadcast'
 import createService from '@/utils/request'
 
-const request = createService()
+const request = createService(process.env.LESSON_API)
 async function bulkMessages(data) {
   return request({
     method: 'post',
-    url: `/admins/userMessages/bulk`,
+    url: `/admins/userMessage/bulk`,
     data
   })
 }
@@ -51,11 +51,11 @@ const _rewrite = {
         const { id, ...reset } = msgInfo
         return {
           userId,
-          messageId: id,
+          msgId: id,
           ...reset
         }
       })
-      await bulkMessages({ resourceName: 'userMessages', datas: messageList })
+      await bulkMessages({ resourceName: 'userMessage', datas: messageList })
       msgInfo.extra = {}
       msg({ userIds, msg: msgInfo })
     }
