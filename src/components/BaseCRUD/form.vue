@@ -98,7 +98,7 @@ export default {
       return comp === type
     },
     initModel() {
-      this.model = _.cloneDeep(this.formData || {})
+      this.model = _.cloneDeep(this.formData || { extra: {}})
       if (this.status === 'create') {
         this.loadDefaultValues()
       }
