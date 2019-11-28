@@ -108,7 +108,7 @@ export default {
       _.forEach(this.resourceClass.attributes(), attr => {
         if (attr.isNested) {
           const [modelName] = attr.name.split('.')
-          this.model[modelName] = []
+          this.model[modelName] = {}
         } else if (
           (attr.required || attr.edit !== false) &&
           attr.default !== undefined
@@ -201,9 +201,8 @@ export default {
     },
     attrsWithModelPath() {
       return _.map(this.attrs, attr => {
-        const self = this
-        if (this.isNested) {
-          const [modelName, modelKey] = this.model
+        if (attr.isNested) {
+          const [modelName, modelKey] = attr.name.split('.')
           return {
             ...attr,
             model: this.model[modelName],
@@ -212,7 +211,7 @@ export default {
         }
         return {
           ...attr,
-          model: self.model,
+          model: this.model,
           modelKey: attr.name
         }
       })
