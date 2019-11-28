@@ -102,6 +102,7 @@ export default class Messages extends BaseResource {
         name: 'msg.text',
         type: 'String',
         component: 'editor',
+        isNested: true,
         edit: true,
         show: true,
         search: false,
@@ -119,6 +120,7 @@ export default class Messages extends BaseResource {
       {
         name: 'extra.receivers',
         type: 'String',
+        isNested: true,
         edit: false,
         search: false,
         filter(receivers) {
@@ -145,6 +147,7 @@ export default class Messages extends BaseResource {
       {
         name: 'extra.operator',
         type: 'String',
+        isNested: true,
         edit: false,
         search: false
       }
