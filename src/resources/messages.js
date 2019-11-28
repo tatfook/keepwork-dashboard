@@ -51,11 +51,11 @@ const _rewrite = {
         const { id, ...reset } = msgInfo
         return {
           userId,
-          messageId: id,
+          msgId: id,
           ...reset
         }
       })
-      await bulkMessages({ resourceName: 'userMessages', datas: messageList })
+      await bulkMessages({ resourceName: 'userMessage', datas: messageList })
       msgInfo.extra = {}
       msg({ userIds, msg: msgInfo })
     }
