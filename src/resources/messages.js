@@ -147,7 +147,6 @@ export default class Messages extends BaseResource {
       {
         name: 'operator',
         type: 'String',
-        isNested: true,
         edit: false,
         search: false
       }
