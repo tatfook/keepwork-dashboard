@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-select style="width:450px" v-model="value" multiple filterable remote reserve-keyword placeholder="请输入用户名" :remote-method="remoteMethod" :loading="loading">
-      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+    <el-select style="width:450px" v-model="selectedList" multiple filterable remote reserve-keyword placeholder="请输入用户名" :remote-method="remoteMethod" :loading="loading">
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item">
       </el-option>
     </el-select>
   </div>
@@ -9,6 +9,7 @@
 
 <script>
 import user from '@/models/user'
+import _ from 'lodash'
 
 const userCRUD = user()
 export default {
@@ -17,12 +18,12 @@ export default {
     return {
       loading: false,
       options: [{ label: '', value: '' }],
-      value: []
+      selectedList: []
     }
   },
   watch: {
-    value(value) {
-      this.$emit('input', value)
+    selectedList(selectedList) {
+      this.$emit('input', _.map(selectedList, item => item.value))
     }
   },
   methods: {
@@ -34,7 +35,12 @@ export default {
           limit: 100,
           offset: 0
         })
-        this.options = userList.map(item => ({ label: item.username, value: item.id }))
+
+        const _userList = userList.map(item => ({
+          label: item.username,
+          value: item.id
+        }))
+        this.options = _.uniqBy([..._userList, ...this.selectedList], 'value')
       }
     }
   }

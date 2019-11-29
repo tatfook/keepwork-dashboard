@@ -98,7 +98,7 @@ export default {
       return comp === type
     },
     initModel() {
-      this.model = _.cloneDeep(this.formData || { extra: {}})
+      this.model = _.cloneDeep(this.formData || {})
       if (this.status === 'create') {
         this.loadDefaultValues()
       }
@@ -106,7 +106,10 @@ export default {
     },
     loadDefaultValues() {
       _.forEach(this.resourceClass.attributes(), attr => {
-        if (
+        if (attr.isNested) {
+          const [modelName] = attr.name.split('.')
+          this.model[modelName] = {}
+        } else if (
           (attr.required || attr.edit !== false) &&
           attr.default !== undefined
         ) {
@@ -198,11 +201,18 @@ export default {
     },
     attrsWithModelPath() {
       return _.map(this.attrs, attr => {
-        const self = this
+        if (attr.isNested) {
+          const [modelName, modelKey] = attr.name.split('.')
+          return {
+            ...attr,
+            model: this.model[modelName],
+            modelKey
+          }
+        }
         return {
           ...attr,
-          model: attr.isNested ? self.model.extra : self.model,
-          modelKey: attr.isNested ? attr.modelName : attr.name
+          model: this.model,
+          modelKey: attr.name
         }
       })
     },
