@@ -10,7 +10,7 @@ const projectsCRUD = resourceCRUD('projects')
 const model = {
   ...projectsCRUD,
   list(params) {
-    const { systemTags, ...rest } = params.where
+    const { systemTags, 'users.username': username, ...rest } = params.where
     if (systemTags) {
       params.include.push(
         {
@@ -23,6 +23,18 @@ const model = {
         }
       )
     }
+    if (username) {
+      params.include.push(
+        {
+          '$model$': 'users',
+          'as': 'users',
+          'where': {
+            'username': username
+          }
+        }
+      )
+    }
+
     params.where = rest
     return projectsCRUD.list(params)
   }
@@ -66,6 +78,13 @@ export default class ProjectsManage extends BaseResource {
         search: true
       },
       {
+        name: 'extra.worldTagName',
+        type: 'String',
+        isNested: true,
+        edit: false,
+        search: false
+      },
+      {
         name: 'type',
         type: 'Number',
         show: true,
@@ -104,7 +123,7 @@ export default class ProjectsManage extends BaseResource {
         name: 'userId',
         type: 'Number',
         edit: false,
-        show: true,
+        show: false,
         search: true
       },
       {
@@ -112,7 +131,7 @@ export default class ProjectsManage extends BaseResource {
         type: 'String',
         edit: false,
         show: true,
-        search: false
+        search: true
       },
       {
         name: 'createdAt',
