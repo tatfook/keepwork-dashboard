@@ -333,7 +333,10 @@
         },
         "systemTags": "系统标签",
         "status": "状态",
-        "visibility": "项目状态"
+        "visibility": "项目状态",
+        "extra": {
+          "worldTagName": "项目最新名称"
+        }
       }
     },
     "ChoiceProjects": {
