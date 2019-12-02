@@ -18,9 +18,9 @@ async function bulkMessages(data) {
 const model = orgCRUD('message')
 const userCRUD = resourceCRUD('users')
 const formatMessage = data => {
-  const { sender = 0, type = 0, username = [] } = data
+  const { sender = 0, type = 0, username = [], msg: { text }} = data
   const all = username.length > 0 ? 0 : 1
-  return { sender, type, all, msg: { type: 0, text: data['msg.text'] }, extra: { senderName: 'Keepwork', senderPortrait: '', operator: store.getters.name }}
+  return { sender, type, all, msg: { type: 0, text }, operator: store.getters.name, extra: { senderName: 'Keepwork', senderPortrait: '' }}
 }
 
 const _rewrite = {
@@ -145,9 +145,8 @@ export default class Messages extends BaseResource {
         }
       },
       {
-        name: 'extra.operator',
+        name: 'operator',
         type: 'String',
-        isNested: true,
         edit: false,
         search: false
       }
