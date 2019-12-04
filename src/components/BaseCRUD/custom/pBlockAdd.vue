@@ -48,6 +48,54 @@
       <el-tree :data="classfiesListData" @check-change="checkChange" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
       </el-tree>
     </div>
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">普通用户:</span>
+      <el-radio v-model="blockData.pBlockAccesses.commonUser" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.commonUser" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.commonUser" :label="0">不可见</el-radio>
+    </div>
+
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">vip:</span>
+      <el-radio v-model="blockData.pBlockAccesses.vip" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.vip" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.vip" :label="0">不可见</el-radio>
+    </div>
+
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">t1:</span>
+      <el-radio v-model="blockData.pBlockAccesses.t1" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t1" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t1" :label="0">不可见</el-radio>
+    </div>
+
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">t2:</span>
+      <el-radio v-model="blockData.pBlockAccesses.t2" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t2" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t2" :label="0">不可见</el-radio>
+    </div>
+
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">t3:</span>
+      <el-radio v-model="blockData.pBlockAccesses.t3" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t3" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t3" :label="0">不可见</el-radio>
+    </div>
+
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">t4:</span>
+      <el-radio v-model="blockData.pBlockAccesses.t4" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t4" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t4" :label="0">不可见</el-radio>
+    </div>
+
+    <div class="p-block-add-item accesses-item">
+      <span class="accesses-item-name">t5:</span>
+      <el-radio v-model="blockData.pBlockAccesses.t5" :label="2">可用</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t5" :label="1">可见</el-radio>
+      <el-radio v-model="blockData.pBlockAccesses.t5" :label="0">不可见</el-radio>
+    </div>
   </div>
 </template>
 <script>
@@ -60,12 +108,13 @@ const pClassifiesCRUD = resourceCRUD('pClassifies')
 export default {
   name: 'pBlockAdd',
   props: {
-    value: Object
+    value: Object,
+    status: String
   },
   async created() {
     this.classfiesList = await pClassifiesCRUD.list()
     this.isLoading = false
-    if (this.value) {
+    if (this.status === 'update') {
       this.blockData.id = this.value.id
       this.blockData.name = this.value.name
       this.blockData.enName = _.get(this.value, 'extra.enName', '')
@@ -77,6 +126,11 @@ export default {
       this.blockData.pBlockClassifies = this.value.pBlockClassifies
       this.blockData.size = this.value.size
       this.blockData.contributor = this.value.contributor
+      delete this.value.pBlockAccesses.createdAt
+      delete this.value.pBlockAccesses.updatedAt
+      delete this.value.pBlockAccesses.id
+      delete this.value.pBlockAccesses.pBlockId
+      this.blockData.pBlockAccesses = this.value.pBlockAccesses
       this.initTreeSelected(this.value)
     }
   },
@@ -97,7 +151,16 @@ export default {
         gifUrl: '',
         pBlockClassifies: [],
         size: '',
-        contributor: ''
+        contributor: '',
+        pBlockAccesses: {
+          commonUser: 2,
+          vip: 2,
+          t1: 2,
+          t2: 2,
+          t3: 2,
+          t4: 2,
+          t5: 2
+        }
       },
       defaultProps: {
         children: 'children',
@@ -197,6 +260,7 @@ export default {
         size: val.size,
         contributor: val.contributor,
         pClassifies: this.getCheckedKeys(),
+        pBlockAccesses: val.pBlockAccesses,
         extra: {
           enName: _.get(val, 'enName', ''),
           fileName: _.get(val, 'fileName', '')
@@ -260,6 +324,13 @@ export default {
     }
     /deep/ .el-tree {
       padding-left: 120px;
+    }
+  }
+  .accesses-item {
+    margin-left: 110px;
+    &-name {
+      display: inline-block;
+      width: 80px;
     }
   }
 }
