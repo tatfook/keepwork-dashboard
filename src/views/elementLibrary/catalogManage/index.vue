@@ -2,6 +2,47 @@
   <div class="catalogMange">
     <el-tree :data="treeData" :show-checkbox="false" node-key="id" default-expand-all :expand-on-click-node="false" :render-content="renderContent">
     </el-tree>
+    <el-dialog :title="isUpdate ? '更新分类' : '新增分类' " :visible.sync=" dialogFormVisible">
+      <el-form ref="form" :model="form" :rules="rules">
+        <el-form-item label="分类名称" prop="name">
+
+          <el-input placeholder="请输入名称" v-model="form.name" :autofocus="true" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="普通用户" prop="pClassifyAccesses.commonUser" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.commonUser" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.commonUser" :label="0">不可见</el-radio>
+        </el-form-item>
+        <el-form-item label="vip" prop="pClassifyAccesses.vip" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.vip" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.vip" :label="0">不可见</el-radio>
+        </el-form-item>
+        <el-form-item label="t1" prop="pClassifyAccesses.t1" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.t1" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.t1" :label="0">不可见</el-radio>
+        </el-form-item>
+        <el-form-item label="t2" prop="pClassifyAccesses.t2" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.t2" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.t2" :label="0">不可见</el-radio>
+        </el-form-item>
+        <el-form-item label="t3" prop="pClassifyAccesses.t3" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.t3" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.t3" :label="0">不可见</el-radio>
+        </el-form-item>
+        <el-form-item label="t4" prop="pClassifyAccesses.t4" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.t4" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.t4" :label="0">不可见</el-radio>
+        </el-form-item>
+        <el-form-item label="t5" prop="pClassifyAccesses.t5" :label-width="formLabelWidth">
+          <el-radio v-model="form.pClassifyAccesses.t5" :label="1">可见</el-radio>
+          <el-radio v-model="form.pClassifyAccesses.t5" :label="0">不可见</el-radio>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="() => dialogFormVisible = false">取消</el-button>
+        <el-button v-if="isUpdate" @click="updateCatalog" :loading="loading" type="primary">更新</el-button>
+        <el-button v-else @click="addCatalog" :loading="loading" type="primary">保存</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -13,7 +54,82 @@ const model = resourceCRUD('pClassifies')
 export default {
   data() {
     return {
-      treeData: []
+      treeData: [],
+      dialogFormVisible: false,
+      loading: false,
+      isUpdate: false,
+      formLabelWidth: '100px',
+      form: {
+        parentId: 0,
+        name: '',
+        pClassifyAccesses: {
+          commonUser: 1,
+          vip: 1,
+          t1: 1,
+          t2: 1,
+          t3: 1,
+          t4: 1,
+          t5: 1
+        }
+      },
+      rules: {
+        name: [
+          {
+            required: true,
+            message: '请输入分类名称',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.commonUser': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.vip': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.t1': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.t2': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.t3': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.t4': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ],
+        'pClassifyAccesses.t5': [
+          {
+            required: true,
+            message: '必选',
+            trigger: 'blur'
+          }
+        ]
+      }
     }
   },
   async mounted() {
@@ -21,7 +137,17 @@ export default {
   },
   methods: {
     async initTreeData(res) {
-      const { rows = [] } = await model.list()
+      const { rows = [] } = await model.list({
+        where: {},
+        include: [
+          {
+            $model$: 'pClassifyAccesses',
+            as: 'pClassifyAccesses'
+          }
+        ],
+        order: [],
+        distinct: true
+      })
       const list = _.map(rows, item => ({ ...item, label: item.name }))
       const parents = _.filter(list, item => item.parentId === 0)
       const children = _.filter(list, item => item.parentId)
@@ -66,41 +192,68 @@ export default {
       await Promise.all(fetchDelete)
       this.initTreeData()
     },
-    async udpateClassify(payload) {
+    async updateClassify(payload) {
       await model.update(payload)
       this.initTreeData()
     },
     appendPrompt(data) {
-      this.$prompt('请输入名称', '添加分类', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputPattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
-        inputErrorMessage: '请输入名称'
+      delete this.form.id
+      this.form.parentId = data.id
+      this.form.name = ''
+      this.form.pClassifyAccesses = {
+        commonUser: 1,
+        vip: 1,
+        t1: 1,
+        t2: 1,
+        t3: 1,
+        t4: 1,
+        t5: 1
+      }
+      this.isUpdate = false
+      this.dialogFormVisible = true
+    },
+    async addCatalog(data) {
+      this.$refs.form.validate(async valid => {
+        if (valid) {
+          try {
+            this.loading = true
+            await this.createClassify(this.form)
+            this.dialogFormVisible = false
+          } catch (error) {
+            console.error(error)
+          } finally {
+            this.loading = false
+          }
+        }
       })
-        .then(({ value }) => {
-          this.createClassify({ parentId: data.id, name: value })
-        })
-        .catch(e => {
-          console.error(e)
-        })
+    },
+    updateCatalog() {
+      this.$refs.form.validate(async valid => {
+        if (valid) {
+          try {
+            this.loading = true
+            await this.updateClassify(this.form)
+            this.dialogFormVisible = false
+          } catch (error) {
+            console.error(error)
+          } finally {
+            this.loading = false
+            this.form.name = ''
+            this.form.parentId = 0
+          }
+        }
+      })
     },
     updatePrompt(node, data) {
-      this.$prompt('请输入名称', '更新分类', {
-        confirmButtonText: '更新',
-        cancelButtonText: '取消',
-        inputPattern: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
-        inputErrorMessage: '请输入名称',
-        inputValue: data.label || ''
-      })
-        .then(async({ value }) => {
-          this.udpateClassify({
-            ...data,
-            name: value
-          })
-        })
-        .catch(e => {
-          console.error(e)
-        })
+      this.isUpdate = true
+      const { id, parentId, name, pClassifyAccesses } = data
+      this.form = {
+        id,
+        parentId,
+        name,
+        pClassifyAccesses
+      }
+      this.dialogFormVisible = true
     },
     removeConfirm(node, data) {
       this.$confirm(`确定删除 ${data.label}?`, '提示', {
