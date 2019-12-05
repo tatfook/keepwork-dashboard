@@ -62,11 +62,13 @@ export default class PBlocks extends BaseResource {
       },
       {
         name: 'extra.enName',
+        isNested: true,
         edit: false,
         type: 'String'
       },
       {
         name: 'extra.fileName',
+        isNested: true,
         edit: false,
         type: 'String'
       },
@@ -144,6 +146,10 @@ export default class PBlocks extends BaseResource {
       ]
     }
     )
+    query.include({
+      '$model$': 'pBlockAccesses',
+      'as': 'pBlockAccesses'
+    })
     query.distinct(true)
     return query
   }

@@ -333,7 +333,10 @@
         },
         "systemTags": "系统标签",
         "status": "状态",
-        "visibility": "项目状态"
+        "visibility": "项目状态",
+        "extra": {
+          "worldTagName": "项目最新名称"
+        }
       }
     },
     "ChoiceProjects": {
@@ -530,9 +533,7 @@
         "username": "接收人",
         "all": "发送方式",
         "operator": "操作者",
-        "extra": {
-          "receivers": "接收者"
-        }
+        "receivers": "接收者"
       }
     },
     "Feedback": {

@@ -45,6 +45,14 @@ const teacherLevel = [
   }
 ]
 
+const vipSelected = [{
+  key: 0,
+  value: '普通用户'
+}, {
+  key: 1,
+  value: 'VIP'
+}]
+
 const statusMap = [
   {
     key: 0,
@@ -101,12 +109,12 @@ export default class User extends BaseResource {
       {
         name: 'vip',
         type: Number,
-        required: true,
+        options: vipSelected,
         component: 'select',
         filter: value => {
           return value > 0 ? 'VIP' : '普通用户'
         },
-        edit: false,
+        edit: true,
         search: true,
         sort: false
       },
