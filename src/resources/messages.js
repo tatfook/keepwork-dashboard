@@ -134,7 +134,7 @@ export default class Messages extends BaseResource {
         options: typesMap,
         component: 'select',
         default: 0,
-        search: true,
+        search: false,
         filter(value) {
           const item = _.find(typesMap, item => item.key === value)
           return _.get(item, 'value', typesMap[0].value)
