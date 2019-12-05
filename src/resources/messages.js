@@ -26,6 +26,7 @@ const formatMessage = data => {
 const _rewrite = {
   async list(params) {
     const defaultOrder = ['createdAt', 'desc']
+    params.where['type'] = { $eq: '0' }
     if (params.order.length === 0) {
       params.order.push(defaultOrder)
     }
@@ -44,8 +45,7 @@ const _rewrite = {
     } else {
       const userList = await userCRUD.list({ where: { id: { $in: userIds }}})
       const usernameList = _.map(_.get(userList, 'rows', []), item => item.username)
-      _data['extra']['receivers'] = usernameList
-      _data['extra']['receiverIDs'] = userIds
+      _data['receivers'] = usernameList.join(',')
       const msgInfo = await model.create(_data)
       const messageList = _.map(userIds, userId => {
         const { id, ...reset } = msgInfo
@@ -118,16 +118,12 @@ export default class Messages extends BaseResource {
         }
       },
       {
-        name: 'extra.receivers',
+        name: 'receivers',
         type: 'String',
-        isNested: true,
         edit: false,
         search: false,
         filter(receivers) {
-          if (_.isArray(receivers)) {
-            return receivers.join(',')
-          }
-          return '所有人'
+          return receivers || '所有人'
         }
       },
       {
