@@ -533,9 +533,7 @@
         "username": "接收人",
         "all": "发送方式",
         "operator": "操作者",
-        "extra": {
-          "receivers": "接收者"
-        }
+        "receivers": "接收者"
       }
     },
     "Feedback": {
