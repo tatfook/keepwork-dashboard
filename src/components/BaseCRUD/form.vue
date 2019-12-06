@@ -22,7 +22,7 @@
         <editor v-else-if="attrComponent(attr, 'editor')" :status="status" v-model="attr.model[attr.modelKey]"></editor>
         <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="attr.model[attr.modelKey]"></message-user-select>
         <work-add v-else-if="attrComponent(attr, 'workAdd')" v-model="model"></work-add>
-        <p-block-add v-else-if="attrComponent(attr, 'pBlockAdd')" v-model="model"></p-block-add>
+        <p-block-add v-else-if="attrComponent(attr, 'pBlockAdd')" :status="status" v-model="model"></p-block-add>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
