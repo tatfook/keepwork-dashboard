@@ -15,14 +15,12 @@ export default {
       url: ''
     }
   },
-  mounted() {
-    if (this.value) {
-      this.url = this.value
-    }
-  },
   watch: {
-    value(value) {
-      this.url = value
+    value: {
+      handler(value) {
+        this.url = value
+      },
+      immediate: true
     }
   },
   methods: {
