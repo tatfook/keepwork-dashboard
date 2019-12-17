@@ -15,13 +15,8 @@ export default {
       url: ''
     }
   },
-  watch: {
-    value: {
-      handler(value) {
-        this.url = value
-      },
-      immediate: true
-    }
+  mounted() {
+    this.url = this.value
   },
   methods: {
     handleInput(value) {
