@@ -13,7 +13,8 @@
       </el-table-column>
       <el-table-column prop="android_apk" label="Android版手机APK安装包">
       </el-table-column>
-      <el-table-column prop="android_huawei" label="Android版华为应用商城">
+      <!-- 名字改了，key没改 -->
+      <el-table-column prop="android_huawei" label="Android版小米应用商城">
       </el-table-column>
       <el-table-column label="操作" width="80">
         <template slot-scope="scope">
@@ -42,7 +43,8 @@
         <el-form-item label="Android版手机APK安装包">
           <el-input v-model="form.android_apk"></el-input>
         </el-form-item>
-        <el-form-item label="Android版华为应用商城">
+        <el-form-item label="Android版小米应用商城">
+          <!-- 名字改了，key没改 -->
           <el-input v-model="form.android_huawei"></el-input>
         </el-form-item>
       </el-form>
