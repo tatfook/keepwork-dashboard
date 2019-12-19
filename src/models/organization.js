@@ -14,10 +14,10 @@ export default {
           temp['admin'].push(_.get(cur, 'users.username', ''))
         }
         if (cur.roleId & 2) {
-          temp['teacherCount'] = temp['teacherCount'] + 1
+          temp['teacherList'].push(cur)
         }
         return temp
-      }, { admin: [], teacherCount: 0 })
+      }, { admin: [], teacherList: [] })
 
       const activateCodeUsed = _.reduce(item.lessonOrganizationActivateCode, (temp, cur) => {
         if (cur.type === null) {
@@ -31,11 +31,12 @@ export default {
       const startTimestamp = +new Date(startDate)
       const endTimestamp = +new Date(endDate)
       const status = now >= startTimestamp && now <= endTimestamp ? '开启' : '结束'
+      const teacherCount = _.uniqBy(memberObj.teacherList, item => item.memberId).length
       return {
         ...item,
         status,
         usernames: memberObj.admin.filter(v => v).join(','),
-        teacherCount: memberObj.teacherCount,
+        teacherCount,
         activateCodeUsed
       }
     })
