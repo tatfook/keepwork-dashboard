@@ -93,7 +93,11 @@ export default {
           $model$: 'PackageLesson',
           attributes: ['id', 'lessonNo'],
           include: [
-            { as: 'lessons', $model$: 'Lesson', attributes: ['lessonName', 'id'] }
+            {
+              as: 'lessons',
+              $model$: 'Lesson',
+              attributes: ['lessonName', 'id']
+            }
           ]
         }
       ],
