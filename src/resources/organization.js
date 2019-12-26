@@ -185,17 +185,6 @@ export default class Organization extends BaseResource {
       where: { classId: { $eq: 0 }}
     })
 
-    query.include({
-      'as': 'lessonOrganizationActivateCode',
-      '$model$': 'LessonOrganizationActivateCode',
-      'attributes': ['id', 'type'],
-      'required': false,
-      'where': {
-        'state': {
-          '$eq': 1
-        }
-      }
-    })
     query.distinct(true)
     return query
   }

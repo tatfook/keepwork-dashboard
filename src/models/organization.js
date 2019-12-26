@@ -7,6 +7,20 @@ import _ from 'lodash'
 export default {
   async list(params) {
     const res = await lessonOrganizations.list(params)
+    const orgIDs = _.map(res.rows, item => item.id)
+    const activateCodeUsedList = await _request({
+      url: 'lessonOrganizations/activateCodeUseStatus',
+      params: {
+        organizationIds: orgIDs.join(',')
+      }
+    })
+    const orgActiveCode = _.reduce(activateCodeUsedList, (temp, cur) => {
+      temp[cur.organizationId] = {
+        ...temp[cur.organizationId],
+        [cur.type]: cur.usedCount
+      }
+      return temp
+    }, {})
     const now = Date.now()
     res.rows = res.rows.map(item => {
       const memberObj = _.reduce(item.lessonOrganizationClassMembers, (temp, cur) => {
@@ -19,14 +33,7 @@ export default {
         return temp
       }, { admin: [], teacherList: [] })
 
-      const activateCodeUsed = _.reduce(item.lessonOrganizationActivateCode, (temp, cur) => {
-        if (cur.type === null) {
-          temp['old'] = temp['old'] + 1
-        } else {
-          temp[cur.type] = (temp[cur.type] || 0) + 1
-        }
-        return temp
-      }, { 'old': 0 })
+      const activateCodeUsed = _.get(orgActiveCode, [item.id], {})
       const { startDate, endDate } = item
       const startTimestamp = +new Date(startDate)
       const endTimestamp = +new Date(endDate)
