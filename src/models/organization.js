@@ -15,9 +15,8 @@ export default {
       }
     })
     const orgActiveCode = _.reduce(activateCodeUsedList, (temp, cur) => {
-      const orgInfo = temp[cur.organizationId]
       temp[cur.organizationId] = {
-        ...orgInfo,
+        ...temp[cur.organizationId],
         [cur.type]: cur.usedCount
       }
       return temp
