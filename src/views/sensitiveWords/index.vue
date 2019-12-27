@@ -1,14 +1,13 @@
 <template>
-  <sensitive-words-crud resource="SensitiveWords"></sensitive-words-crud>
+  <base-crud resource="SensitiveWords"> </base-crud>
 </template>
 
 <script>
-import SensitiveWords from './sensitiveWords'
+import BaseCRUD from '@/components/BaseCRUD'
 
 export default {
   components: {
-    'sensitive-words-crud': SensitiveWords
+    'base-crud': BaseCRUD
   }
 }
 </script>
-
