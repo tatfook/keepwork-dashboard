@@ -11,6 +11,26 @@ const model = {
   ...projectsCRUD,
   list(params) {
     const { systemTags, 'users.username': username, ...rest } = params.where
+    if (_.get(params.order, [0, 0]) === 'systemTags') {
+      params.order = [[
+        {
+          '$model$': 'systemTags'
+        },
+        'tagname',
+        _.get(params.order, [0, 1])
+      ]]
+    }
+
+    if (_.get(params.order, [0, 0]) === 'users.username') {
+      params.order = [[
+        {
+          '$model$': 'users'
+        },
+        'username',
+        _.get(params.order, [0, 1])
+      ]]
+    }
+
     if (systemTags) {
       params.include.push(
         {
@@ -36,6 +56,7 @@ const model = {
     }
 
     params.where = rest
+    // params.order = orderRest || []
     return projectsCRUD.list(params)
   }
 }
