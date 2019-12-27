@@ -28,7 +28,8 @@ export default class Organization extends BaseResource {
         type: 'String',
         show: true,
         search: false,
-        required: true
+        required: true,
+        sortable: false
       },
       {
         name: 'location',
@@ -120,6 +121,7 @@ export default class Organization extends BaseResource {
         search: false,
         type: 'Object',
         edit: false,
+        sortable: false,
         filter(obj) {
           return `3个月(${obj[5] || 0}个),
                   半年(${obj[6] || 0}个),
@@ -131,12 +133,14 @@ export default class Organization extends BaseResource {
         name: 'teacherCount',
         type: 'Array',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'status',
         type: 'String',
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'visibility',
