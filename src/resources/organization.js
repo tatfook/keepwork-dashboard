@@ -2,6 +2,7 @@ import { resourceCRUD } from '@/api/lesson'
 import organizationModel from '@/models/organization'
 import BaseResource from './base'
 import _ from 'lodash'
+const cache = {}
 
 const model = { ...resourceCRUD('lessonOrganization'), ...organizationModel }
 const ENV = process.env.NODE_EN
@@ -157,6 +158,33 @@ export default class Organization extends BaseResource {
   static actions() {
     return {
       disabled: ['show', 'delete', 'destroy']
+    }
+  }
+
+  static buttons() {
+    return {
+      append: [
+        {
+          name: '批量设置课程包',
+          type: 'warning',
+          refresh: false,
+          async func(organizations, that) {
+            const organizationIDs = organizations.map(item => item.id)
+            that.showCustomDialog({
+              type: 'packageSelect',
+              data: organizationIDs
+            })
+            cache['organizationIDs'] = organizationIDs
+          }
+        }
+      ],
+      callback: {
+        async batchAddPackage(packageList, that) {
+          const organizationIDs = cache['organizationIDs']
+          console.log(packageList)
+          console.log(organizationIDs)
+        }
+      }
     }
   }
 

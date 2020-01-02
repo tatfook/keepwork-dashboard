@@ -38,7 +38,7 @@ export default {
         return this.$emit('input', [])
       }
       if (checkedKeys.includes(0)) {
-        return this.$emit('input', this.converLessonId(this.packages))
+        return this.$emit('input', this.convertLessonId(this.packages))
       }
       const checkedPackages = []
       const halfCheckedPackages = []
@@ -57,7 +57,7 @@ export default {
         )
       })
       const finalCheckPackages = [...checkedPackages, ..._halfCheckedPackages]
-      this.$emit('input', this.converLessonId(finalCheckPackages))
+      this.$emit('input', this.convertLessonId(finalCheckPackages))
     },
     initPackageSelected(packages) {
       const keys = packages.reduce((arr, cur) => {
@@ -70,7 +70,7 @@ export default {
       }, [])
       this.$refs.packagesTree.setCheckedKeys(keys)
     },
-    converLessonId(packages) {
+    convertLessonId(packages) {
       const _packages = _.cloneDeep(packages)
       return _packages.map(item => {
         item.lessons = item.lessons.map(l => {

@@ -20,6 +20,7 @@ import CRUDFilter from './filter'
 import CRUDCheckbox from './checkbox'
 import CRUDInput from './input'
 import Unbind from './custom/Unbind.vue'
+import DialogPackageSelect from './custom/DialogPackageSelect.vue'
 
 const DEFAULT_ACTIONS = ['create', 'show', 'edit', 'delete', 'export']
 const FORMAT = {
@@ -47,6 +48,12 @@ export default {
       dialogCheckboxVisible: false,
       dialogInputVisible: false,
       dialogUnbindVisible: false,
+      dialogCustomVisible: false,
+      dialogCustomType: '',
+      dialogCustomStatus: '',
+      dialogCustomTitle: 'custom dialog',
+      dialogCustomData: '',
+      dialogCustomLoading: false,
       customRowData: {},
       checkboxData: [],
       inputData: [],
@@ -384,6 +391,20 @@ export default {
       this[`dialog${_.upperFirst(type)}Status`] = status
       this.dialogTitle = title
       this[`${type}Data`] = data
+    },
+    showCustomDialog(params) {
+      const { type = '', status = '', title = '', data } = params
+      this.dialogCustomVisible = true
+      this.dialogCustomStatus = status
+      this.dialogCustomType = type
+      this.dialogCustomTitle = title
+      this.dialogCustomData = data
+    },
+    async handlePackageSelectCallback(organizationIDS) {
+      this.dialogCustomLoading = true
+      await this.appendButtonCallback['batchAddPackage'](organizationIDS)
+      this.dialogCustomLoading = false
+      this.dialogCustomVisible = false
     }
   },
   computed: {
@@ -429,6 +450,7 @@ export default {
     'crud-filter': CRUDFilter,
     'crud-checkbox': CRUDCheckbox,
     'crud-input': CRUDInput,
-    'crud-unbind': Unbind
+    'crud-unbind': Unbind,
+    DialogPackageSelect
   }
 }
