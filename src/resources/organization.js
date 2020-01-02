@@ -165,7 +165,7 @@ export default class Organization extends BaseResource {
     return {
       append: [
         {
-          name: '批量设置课程包',
+          name: '配置课程包',
           type: 'warning',
           refresh: false,
           async func(organizations, that) {
