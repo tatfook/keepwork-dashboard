@@ -23,6 +23,7 @@
         <message-user-select v-else-if="attrComponent(attr, 'messageUserSelect')" v-model="attr.model[attr.modelKey]"></message-user-select>
         <work-add v-else-if="attrComponent(attr, 'workAdd')" v-model="model"></work-add>
         <p-block-add v-else-if="attrComponent(attr, 'pBlockAdd')" :status="status" v-model="model"></p-block-add>
+        <activate-code-limit v-else-if="attrComponent(attr, 'ActivateCodeLimit')" :status="status" v-model="attr.model[attr.modelKey]"></activate-code-limit>
       </el-form-item>
     </el-form>
     <div slot="footer" class="form-footer">
@@ -48,6 +49,7 @@ import Editor from './custom/Editor'
 import MessageUserSelect from './custom/MessageUserSelect'
 import WorkAdd from './custom/WorkAdd'
 import pBlockAdd from './custom/pBlockAdd'
+import ActivateCodeLimit from './custom/ActivateCodeLimit'
 
 export default {
   name: 'CRUDFrom',
@@ -65,7 +67,8 @@ export default {
     Editor,
     MessageUserSelect,
     WorkAdd,
-    pBlockAdd
+    pBlockAdd,
+    ActivateCodeLimit
   },
   data() {
     return {

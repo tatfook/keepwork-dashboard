@@ -11,12 +11,14 @@ export default class SensitiveWords extends BaseResource {
         type: 'Number',
         show: false,
         create: false,
-        search: false
+        search: false,
+        edit: false
       },
       {
         name: 'word',
         type: 'String',
-        required: true
+        required: true,
+        requiredMessage: '敏感词不能为空'
       }
     ]
   }

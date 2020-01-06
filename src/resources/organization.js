@@ -25,17 +25,15 @@ export default class Organization extends BaseResource {
       },
       {
         name: 'usernames',
-        type: 'Array',
+        type: 'String',
         show: true,
         search: false,
-        filter(names) {
-          return Array.isArray(names) ? names.join(',') : names
-        },
-        required: true
+        required: true,
+        sortable: false
       },
       {
         name: 'location',
-        type: 'Array',
+        type: 'String',
         show: true,
         component: 'areaDistpicker',
         search: true,
@@ -66,6 +64,7 @@ export default class Organization extends BaseResource {
         component: 'org',
         search: false,
         required: true,
+        requiredTrigger: 'blur',
         filter(url) {
           if (ENV === 'stage' || ENV === 'release') {
             return `${ENV}.keepwork.com/org/${url}`
@@ -106,31 +105,46 @@ export default class Organization extends BaseResource {
         required: true
       },
       {
-        name: 'count',
-        type: 'Number',
+        name: 'activateCodeLimit',
+        type: 'Object',
         search: false,
-        default: 100
+        component: 'ActivateCodeLimit',
+        filter(obj) {
+          return `3个月(${obj['type5'] || 0}个),
+          半年(${obj['type6'] || 0}个),
+          一年送3个月(${obj['type7'] || 0}个)
+  `
+        }
+      },
+      {
+        name: 'activateCodeUsed',
+        search: false,
+        type: 'Object',
+        edit: false,
+        sortable: false,
+        filter(obj) {
+          return `3个月(${obj[5] || 0}个),
+                  半年(${obj[6] || 0}个),
+                  一年送3个月(${obj[7] || 0}个)
+          `
+        }
       },
       {
         name: 'teacherCount',
-        type: 'Number',
+        type: 'Array',
         search: false,
-        edit: false
-      },
-      {
-        name: 'studentCount',
-        type: 'Number',
-        search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'status',
         type: 'String',
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'visibility',
-        type: 'Number',
+        type: 'Array',
         options: visibilityMap,
         component: 'select',
         filter(value) {
@@ -155,7 +169,11 @@ export default class Organization extends BaseResource {
     query.include({
       as: 'lessonOrganizationClassMembers',
       $model$: 'LessonOrganizationClassMember',
-      where: { roleId: { $eq: 64 }, classId: { $eq: 0 }},
+      where: {
+        roleId: {
+          '$in': [2, 3, 66, 67, 65, 64]
+        }
+      },
       required: false,
       include: [
         {
@@ -170,6 +188,7 @@ export default class Organization extends BaseResource {
       required: false,
       where: { classId: { $eq: 0 }}
     })
+
     query.distinct(true)
     return query
   }

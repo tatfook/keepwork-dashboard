@@ -1,55 +1,50 @@
 import createService from '@/utils/request'
 import { resourceCRUD } from '@/api/lesson'
 const lessonOrganizations = resourceCRUD('lessonOrganization')
-const request = createService()
 const _request = createService(process.env.LESSON_API)
 import _ from 'lodash'
-
-const getMemberCount = async id => {
-  const res = await request({
-    method: 'post',
-    url: 'graphql',
-    data: {
-      query:
-				'query($id: Int, $name: String) {organization(id: $id, name: $name) {id, studentCount, teacherCount, count }}',
-      variables: {
-        id: id
-      }
-    }
-  })
-  return res
-}
 
 export default {
   async list(params) {
     const res = await lessonOrganizations.list(params)
+    const orgIDs = _.map(res.rows, item => item.id)
+    const activateCodeUsedList = await _request({
+      url: 'lessonOrganizations/activateCodeUseStatus',
+      params: {
+        organizationIds: orgIDs.join(',')
+      }
+    })
+    const orgActiveCode = _.reduce(activateCodeUsedList, (temp, cur) => {
+      temp[cur.organizationId] = {
+        ...temp[cur.organizationId],
+        [cur.type]: cur.usedCount
+      }
+      return temp
+    }, {})
     const now = Date.now()
-    const memberRequests = _.map(_.map(res.rows, item => item.id), getMemberCount)
-    const memberCountList = await Promise.all(memberRequests)
-    const orgMemberCount = _.reduce(
-      memberCountList,
-      (obj, cur) => {
-        const org = _.get(cur, 'data.organization', {})
-        const orgId = _.get(org, 'id')
-        obj[orgId] = org
-        return obj
-      },
-      {}
-    )
     res.rows = res.rows.map(item => {
-      const usernames = item.lessonOrganizationClassMembers.map(u => _.get(u, 'users.username', ''))
+      const memberObj = _.reduce(item.lessonOrganizationClassMembers, (temp, cur) => {
+        if (cur.roleId & 64) {
+          temp['admin'].push(_.get(cur, 'users.username', ''))
+        }
+        if (cur.roleId & 2) {
+          temp['teacherList'].push(cur)
+        }
+        return temp
+      }, { admin: [], teacherList: [] })
+
+      const activateCodeUsed = _.get(orgActiveCode, [item.id], {})
       const { startDate, endDate } = item
       const startTimestamp = +new Date(startDate)
       const endTimestamp = +new Date(endDate)
       const status = now >= startTimestamp && now <= endTimestamp ? '开启' : '结束'
-      const memberCount = _.get(orgMemberCount, item.id, {})
+      const teacherCount = _.uniqBy(memberObj.teacherList, item => item.memberId).length
       return {
         ...item,
-        // location: item.location.split(','),
         status,
-        usernames: _.isArray(usernames) ? usernames.join(',') : usernames,
-        studentCount: _.get(memberCount, 'studentCount', 0),
-        teacherCount: _.get(memberCount, 'teacherCount', 0)
+        usernames: memberObj.admin.filter(v => v).join(','),
+        teacherCount,
+        activateCodeUsed
       }
     })
     return res

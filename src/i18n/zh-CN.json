@@ -496,6 +496,8 @@
         "endDate": "结束时间",
         "count": "学生数上限",
         "studentCount": "已添加学生数",
+        "activateCodeLimit": "正式邀请码上限",
+        "activateCodeUsed": "正式邀请码使用情况",
         "teacherCount": "已添加教师数",
         "status": "状态",
         "lessonOrganizationPackages": "课程包",

@@ -16,14 +16,7 @@ export default {
     }
   },
   mounted() {
-    if (this.value) {
-      this.url = this.value
-    }
-  },
-  watch: {
-    value(value) {
-      this.url = value
-    }
+    this.url = this.value
   },
   methods: {
     handleInput(value) {
