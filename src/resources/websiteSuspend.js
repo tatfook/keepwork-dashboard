@@ -10,7 +10,8 @@ export default class websiteSuspend extends BaseResource {
         name: 'illegalSites.username',
         type: 'String',
         search: true,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'objectId',
@@ -43,7 +44,7 @@ export default class websiteSuspend extends BaseResource {
         type: 'String',
         required: true,
         search: false,
-        sort: false,
+        sortable: false,
         edit: false
       }
     ]

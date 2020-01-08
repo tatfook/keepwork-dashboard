@@ -96,15 +96,6 @@ export const asyncRouterMap = [
         meta: {
           title: 'sidebar.user.blockedUser'
         }
-      },
-      {
-        path: 'tutor',
-        component: () => import('@/views/user/tutor/index'),
-        name: 'Tutor',
-        resource: 'Tutor',
-        meta: {
-          title: 'sidebar.user.tutor'
-        }
       }
     ]
   },
@@ -164,15 +155,6 @@ export const asyncRouterMap = [
       icon: 'lesson'
     },
     children: [
-      {
-        path: 'teacherCdkey',
-        component: () => import('@/views/lesson/teacherCdkey/index'),
-        name: 'Teacher CDKeys',
-        resource: 'TeacherCDKey',
-        meta: {
-          title: 'sidebar.lesson.teacherCDKeys'
-        }
-      },
       {
         path: 'packageTags',
         component: () => import('@/views/lesson/packageTags/index'),

@@ -22,19 +22,21 @@ export default class IssuesManage extends BaseResource {
       {
         name: 'issueUrl',
         edit: false,
-        sort: false,
+        sortable: false,
         search: false
       },
       {
         name: 'issuesUserName',
         type: 'String',
         show: true,
-        search: false
+        search: false,
+        sortable: false
       },
       {
         name: 'userName',
         type: 'String',
-        show: true
+        show: true,
+        sortable: false
       },
       {
         name: 'createdAt',

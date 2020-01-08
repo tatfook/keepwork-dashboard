@@ -68,7 +68,8 @@ export default class Package extends BaseResource {
         name: 'username',
         type: 'String',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'subjectId',
@@ -82,7 +83,8 @@ export default class Package extends BaseResource {
         name: 'subjectName',
         type: 'String',
         edit: false,
-        search: false
+        search: false,
+        sortable: false
       },
       {
         name: 'minAge',
@@ -156,7 +158,8 @@ export default class Package extends BaseResource {
         show: true,
         filter(value) {
           return value.join(',')
-        }
+        },
+        sortable: false
       }
     ]
   }

@@ -32,13 +32,15 @@ export default class PackageLesson extends BaseResource {
         name: 'lessonId',
         type: 'Number',
         required: true,
-        associate: 'Lesson'
+        associate: 'Lesson',
+        sortable: false
       },
       {
         name: 'lessonName',
         type: 'String',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'userId',
@@ -52,7 +54,8 @@ export default class PackageLesson extends BaseResource {
         name: 'username',
         type: 'String',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'createdAt',

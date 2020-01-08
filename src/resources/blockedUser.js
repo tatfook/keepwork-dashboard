@@ -74,7 +74,7 @@ export default class BlockedUser extends BaseResource {
 
           return key
         },
-        sort: false
+        sortable: false
       },
       {
         name: 'description',
@@ -93,7 +93,7 @@ export default class BlockedUser extends BaseResource {
         create: false,
         edit: false,
         search: false,
-        sort: false
+        sortable: false
       }
     ]
   }
