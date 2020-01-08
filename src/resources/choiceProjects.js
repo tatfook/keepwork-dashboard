@@ -32,7 +32,8 @@ export default class ChoiceProjects extends BaseResource {
         type: 'number',
         show: true,
         edit: false,
-        search: false
+        search: false,
+        sortable: false
       },
       {
         name: 'choicenessNo',

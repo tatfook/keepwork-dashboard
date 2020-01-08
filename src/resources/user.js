@@ -77,8 +77,7 @@ export default class User extends BaseResource {
       {
         name: 'username',
         title: true,
-        edit: false,
-        sort: false
+        edit: false
       },
       {
         name: 'createdAt',
@@ -96,15 +95,13 @@ export default class User extends BaseResource {
         type: 'String',
         required: true,
         component: 'text',
-        edit: false,
-        sort: false
+        edit: false
       },
       {
         name: 'realname',
         type: 'String',
         edit: false,
-        search: false,
-        sort: false
+        search: false
       },
       {
         name: 'vip',
@@ -115,8 +112,7 @@ export default class User extends BaseResource {
           return value > 0 ? 'VIP' : '普通用户'
         },
         edit: true,
-        search: true,
-        sort: false
+        search: true
       },
       {
         name: 'tLevel',
@@ -144,7 +140,7 @@ export default class User extends BaseResource {
           return key
         },
         search: false,
-        sort: false
+        sortable: false
       },
       {
         name: 'balance',
@@ -153,8 +149,7 @@ export default class User extends BaseResource {
         component: 'text',
         title: true,
         edit: false,
-        search: false,
-        sort: false
+        search: false
       },
       {
         name: 'coin',
@@ -162,8 +157,7 @@ export default class User extends BaseResource {
         required: true,
         component: 'text',
         edit: false,
-        search: false,
-        sort: false
+        search: false
       },
       {
         name: 'bean',
@@ -171,8 +165,7 @@ export default class User extends BaseResource {
         required: true,
         component: 'text',
         edit: false,
-        search: false,
-        sort: false
+        search: false
       },
       {
         name: 'sex',
@@ -190,8 +183,7 @@ export default class User extends BaseResource {
 
           return sexMap.N.value
         },
-        search: false,
-        sort: false
+        search: false
       }
     ]
   }

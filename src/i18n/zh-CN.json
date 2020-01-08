@@ -235,24 +235,6 @@
         "operateMiss": "操作失误！"
       }
     },
-    "TeacherCDKey": {
-      "attr": {
-        "key": "激活码",
-        "state": "状态",
-        "createdAt": "创建日期",
-        "updatedAt": "更新日期",
-        "userId": "用户ID",
-        "username": "用户名",
-        "teachers": {
-          "createdAt": "激活日期",
-          "school": "学校/机构"
-        },
-        "extra": {
-          "remark": "备注"
-        },
-        "generateCode": "批量生产激活码"
-      }
-    },
     "Subject": {
       "attr": {
         "id": "序号",

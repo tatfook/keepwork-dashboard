@@ -3,7 +3,6 @@ import Admin from './admin'
 import User from './user'
 import BlockedUser from './blockedUser'
 import Role from './role'
-import TeacherCDKey from './teacherCDKey'
 import Subject from './subject'
 import Skill from './skill'
 import Package from './package'
@@ -34,7 +33,6 @@ export const resources = {
   User,
   BlockedUser,
   Role,
-  TeacherCDKey,
   Subject,
   Skill,
   Package,

@@ -16,7 +16,7 @@ export default class websiteManage extends BaseResource {
       {
         name: 'siteUrl',
         edit: false,
-        sort: false,
+        sortable: false,
         search: false
       },
       {
