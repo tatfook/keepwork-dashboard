@@ -97,15 +97,6 @@ export const asyncRouterMap = [
           title: 'sidebar.user.blockedUser'
         }
       }
-      // {
-      //   path: 'tutor',
-      //   component: () => import('@/views/user/tutor/index'),
-      //   name: 'Tutor',
-      //   resource: 'Tutor',
-      //   meta: {
-      //     title: 'sidebar.user.tutor'
-      //   }
-      // }
     ]
   },
   {

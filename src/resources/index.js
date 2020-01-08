@@ -10,7 +10,6 @@ import Lesson from './lesson'
 import PackageLesson from './packageLesson'
 import HotPackage from './hotPackage'
 import SensitiveWords from './sensitiveWords'
-import Tutor from './tutor'
 import ProjectsManage from './projectsManage'
 import BlockedProjects from './blockedProjects'
 import WebsiteManage from './websiteManage'
@@ -40,7 +39,6 @@ export const resources = {
   PackageLesson,
   HotPackage,
   SensitiveWords,
-  Tutor,
   ProjectsManage,
   BlockedProjects,
   WebsiteManage,
