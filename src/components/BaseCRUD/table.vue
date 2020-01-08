@@ -2,7 +2,7 @@
   <div class="table-container" v-loading="listLoading">
     <el-table ref="multipleTable" :data="list" element-loading-text="Loading..." border fit highlight-current-row style="width: 100%" @sort-change="handleSort" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column align="center" v-for="col in attrs" :key="col.alias || col.name" :prop="col.name" :label="i18n(col.alias || col.name)" :width="col.width" sortable="custom">
+      <el-table-column align="center" v-for="col in attrs" :key="col.alias || col.name" :prop="col.name" :label="i18n(col.alias || col.name)" :width="col.width" :sortable="col.sortable === undefined ? 'custom' : col.sortable">
         <template slot-scope="scope">
           <span> {{filter(col, scope.row)}} </span>
         </template>
