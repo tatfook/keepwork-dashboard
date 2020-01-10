@@ -50,22 +50,69 @@ export default {
     return res
   },
   async create(data) {
-    data['usernames'] = [...data['usernames'].split(',')]
+    data['usernames'] = [...data['usernames'].toString().split(',')]
     data['packages'] = data['lessonOrganizationPackages']
     data['privilege'] = 3
+    const {
+      activateCodeLimit,
+      usernames,
+      name,
+      loginUrl,
+      startDate,
+      endDate,
+      visibility,
+      privilege,
+      packages,
+      type
+    } = data
+
     return _request({
       method: 'post',
       url: 'lessonOrganizations',
-      data: data
+      data: {
+        activateCodeLimit,
+        usernames,
+        name,
+        loginUrl,
+        startDate,
+        endDate,
+        visibility,
+        privilege,
+        packages,
+        type
+      }
     })
   },
   async update(data) {
     data['usernames'] = [...data['usernames'].split(',')]
     data['packages'] = data['lessonOrganizationPackages']
+    const {
+      activateCodeLimit,
+      usernames,
+      name,
+      loginUrl,
+      startDate,
+      endDate,
+      visibility,
+      privilege,
+      packages,
+      type
+    } = data
     return _request({
       method: 'PUT',
       url: `lessonOrganizations/${data.id}`,
-      data: data
+      data: {
+        activateCodeLimit,
+        usernames,
+        name,
+        loginUrl,
+        startDate,
+        endDate,
+        visibility,
+        privilege,
+        packages,
+        type
+      }
     })
   }
 }

@@ -22,6 +22,13 @@ export function generateTeacherCDKeys(count) {
     }
   })
 }
+export function packagesToOrg(data) {
+  return request({
+    method: 'post',
+    url: '/lessonOrganizations/packagesToOrg',
+    data
+  })
+}
 
 export function resourceCRUD(resource) {
   const base = '/admins/' + resource

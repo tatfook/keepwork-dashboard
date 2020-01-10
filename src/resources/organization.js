@@ -1,4 +1,4 @@
-import { resourceCRUD } from '@/api/lesson'
+import { resourceCRUD, packagesToOrg } from '@/api/lesson'
 import organizationModel from '@/models/organization'
 import BaseResource from './base'
 import _ from 'lodash'
@@ -14,6 +14,14 @@ const visibilityMap = [{
   key: 1,
   value: '不公开'
 }]
+
+const typeMap = [{
+  key: 1,
+  value: '试用'
+}, {
+  key: 2,
+  value: '正式'
+}]
 export default class Organization extends BaseResource {
   static attributes() {
     return [
@@ -26,7 +34,7 @@ export default class Organization extends BaseResource {
       },
       {
         name: 'usernames',
-        type: 'String',
+        type: 'Array',
         show: true,
         search: false,
         required: true
@@ -135,6 +143,18 @@ export default class Organization extends BaseResource {
         edit: false
       },
       {
+        name: 'type',
+        type: 'String',
+        search: true,
+        edit: true,
+        options: typeMap,
+        component: 'select',
+        required: true,
+        filter(value) {
+          return _.get(_.find(typeMap, item => item.key === value), 'value', typeMap[1].value)
+        }
+      },
+      {
         name: 'status',
         type: 'String',
         edit: false
@@ -143,6 +163,7 @@ export default class Organization extends BaseResource {
         name: 'visibility',
         type: 'Array',
         options: visibilityMap,
+        required: true,
         component: 'select',
         filter(value) {
           return _.get(_.find(visibilityMap, item => item.key === value), 'value', visibilityMap[1].value)
@@ -181,8 +202,10 @@ export default class Organization extends BaseResource {
       callback: {
         async batchAddPackage(packageList, that) {
           const organizationIDs = cache['organizationIDs']
-          console.log(packageList)
-          console.log(organizationIDs)
+          await packagesToOrg({
+            'packages': packageList,
+            'organizationIds': organizationIDs
+          })
         }
       }
     }

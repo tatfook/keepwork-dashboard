@@ -405,6 +405,7 @@ export default {
       await this.appendButtonCallback['batchAddPackage'](organizationIDS)
       this.dialogCustomLoading = false
       this.dialogCustomVisible = false
+      this.getList()
     }
   },
   computed: {
