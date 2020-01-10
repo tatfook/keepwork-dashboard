@@ -6,5 +6,5 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   BASE_API: '"http://api-dev.kp-para.cn/core/v0"',
   LESSON_API: '"http://api-dev.kp-para.cn/lessonapi/v0"',
-  KEEPWORK_PREFIX : '"http://api-dev.kp-para.cn/"',
+  KEEPWORK_PREFIX : '"http://dev.kp-para.cn/"',
 })
