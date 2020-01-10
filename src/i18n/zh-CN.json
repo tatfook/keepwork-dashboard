@@ -471,6 +471,7 @@
         "activateCodeUsed": "正式邀请码使用情况",
         "teacherCount": "已添加教师数",
         "status": "状态",
+        "type": "机构类型",
         "lessonOrganizationPackages": "课程包",
         "visibility": "是否公开"
       }
