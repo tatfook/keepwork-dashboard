@@ -85,8 +85,7 @@
     "user": {
       "userManager": "用户管理",
       "userInfo": "用户信息",
-      "blockedUser": "封停用户",
-      "tutor": "导师服务学员管理"
+      "blockedUser": "封停用户"
     },
     "sidebarSensitiveWords": "敏感词管理",
     "sidebarWebsite": "网站",
@@ -175,16 +174,6 @@
         "handlerName": "操作者"
       }
     },
-    "Tutor": {
-      "attr": {
-        "studentName": "学生用户名",
-        "cellphone": "绑定手机号",
-        "teacherName": "导师用户名",
-        "endTime": "到期时间",
-        "status": "状态",
-        "comment": "备注"
-      }
-    },
     "SensitiveWords": {
       "attr": {
         "id": "序号",
@@ -233,24 +222,6 @@
       "tips": {
         "createError": "封停网站失败！",
         "operateMiss": "操作失误！"
-      }
-    },
-    "TeacherCDKey": {
-      "attr": {
-        "key": "激活码",
-        "state": "状态",
-        "createdAt": "创建日期",
-        "updatedAt": "更新日期",
-        "userId": "用户ID",
-        "username": "用户名",
-        "teachers": {
-          "createdAt": "激活日期",
-          "school": "学校/机构"
-        },
-        "extra": {
-          "remark": "备注"
-        },
-        "generateCode": "批量生产激活码"
       }
     },
     "Subject": {
@@ -500,6 +471,7 @@
         "activateCodeUsed": "正式邀请码使用情况",
         "teacherCount": "已添加教师数",
         "status": "状态",
+        "type": "机构类型",
         "lessonOrganizationPackages": "课程包",
         "visibility": "是否公开"
       }

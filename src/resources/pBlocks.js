@@ -82,12 +82,14 @@ export default class PBlocks extends BaseResource {
         name: 'tags',
         edit: false,
         show: true,
-        type: 'Array'
+        type: 'Array',
+        sortable: false
       },
       {
         name: 'size',
         type: 'Number',
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'contributor',

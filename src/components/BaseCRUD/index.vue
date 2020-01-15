@@ -41,9 +41,13 @@
       <crud-input :list="inputData" :stats="dialogInputStatus" @cancel="dialogInputVisible = false" @callback="handleInputCallback"></crud-input>
     </el-dialog>
 
-  <!-- 用户解绑 -->
+    <el-dialog v-if="dialogCustomVisible" :visible.sync="dialogCustomVisible" :title="dialogCustomTitle">
+      <dialog-package-select :loading="dialogCustomLoading" v-if="dialogCustomType === 'packageSelect'" :stats="dialogCustomStatus" @cancel="dialogCustomVisible = false" @callback="handlePackageSelectCallback"></dialog-package-select>
+    </el-dialog>
+
+    <!-- 用户解绑 -->
     <el-dialog v-if="dialogUnbindVisible" :visible.sync="dialogUnbindVisible" :title="dialogTitle">
-      <crud-unbind :list="inputData" :customRowData="customRowData" :stats="dialogUnbindStatus" @cancel="dialogUnbindVisible = false"  @close="handleUnbindCallback" @callback="handleUnbindCallback"></crud-unbind>
+      <crud-unbind :list="inputData" :customRowData="customRowData" :stats="dialogUnbindStatus" @cancel="dialogUnbindVisible = false" @close="handleUnbindCallback" @callback="handleUnbindCallback"></crud-unbind>
     </el-dialog>
 
   </div>

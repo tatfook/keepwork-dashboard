@@ -47,7 +47,6 @@ export default {
   watch: {
     activateCodeLimit: {
       handler(value) {
-        console.log(value)
         this.$emit('input', value)
       },
       immediate: true

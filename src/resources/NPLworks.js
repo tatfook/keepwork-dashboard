@@ -41,12 +41,14 @@ export default class NPLwork extends BaseResource {
       {
         name: 'games.name',
         type: 'String',
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'games.no',
         type: 'Number',
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'projectId',
@@ -83,13 +85,15 @@ export default class NPLwork extends BaseResource {
       {
         name: 'projects.users.userinfos.name',
         type: 'String',
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'projects.users.userinfos.school',
         type: 'String',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'reward',
