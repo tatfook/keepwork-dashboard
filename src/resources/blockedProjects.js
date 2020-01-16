@@ -37,7 +37,8 @@ export default class BlockedProjects extends BaseResource {
         name: 'illegalProjects.name',
         show: true,
         edit: false,
-        search: false
+        search: false,
+        sortable: false
       },
       {
         name: 'createdAt',
@@ -56,7 +57,7 @@ export default class BlockedProjects extends BaseResource {
         component: 'text',
         create: false,
         edit: false,
-        sort: false
+        sortable: false
       },
       {
         name: 'description',

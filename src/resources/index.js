@@ -3,7 +3,6 @@ import Admin from './admin'
 import User from './user'
 import BlockedUser from './blockedUser'
 import Role from './role'
-import TeacherCDKey from './teacherCDKey'
 import Subject from './subject'
 import Skill from './skill'
 import Package from './package'
@@ -11,7 +10,6 @@ import Lesson from './lesson'
 import PackageLesson from './packageLesson'
 import HotPackage from './hotPackage'
 import SensitiveWords from './sensitiveWords'
-import Tutor from './tutor'
 import ProjectsManage from './projectsManage'
 import BlockedProjects from './blockedProjects'
 import WebsiteManage from './websiteManage'
@@ -34,7 +32,6 @@ export const resources = {
   User,
   BlockedUser,
   Role,
-  TeacherCDKey,
   Subject,
   Skill,
   Package,
@@ -42,7 +39,6 @@ export const resources = {
   PackageLesson,
   HotPackage,
   SensitiveWords,
-  Tutor,
   ProjectsManage,
   BlockedProjects,
   WebsiteManage,

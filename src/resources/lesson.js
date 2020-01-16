@@ -33,7 +33,8 @@ export default class Lesson extends BaseResource {
         name: 'username',
         type: 'String',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'userId',
@@ -50,13 +51,15 @@ export default class Lesson extends BaseResource {
         required: true,
         component: 'select',
         associate: 'Subject',
-        show: false
+        show: false,
+        sortable: false
       },
       {
         name: 'subjectName',
         type: 'String',
         search: false,
-        edit: false
+        edit: false,
+        sortable: false
       },
       {
         name: 'goals',

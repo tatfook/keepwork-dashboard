@@ -152,7 +152,8 @@ export default class ProjectsManage extends BaseResource {
         type: 'String',
         edit: false,
         show: true,
-        search: true
+        search: true,
+        sortable: false
       },
       {
         name: 'createdAt',
@@ -184,7 +185,8 @@ export default class ProjectsManage extends BaseResource {
         search: true,
         filter(tags) {
           return tags.map(item => item.tagname).join('|')
-        }
+        },
+        sortable: false
       },
       {
         name: 'choicenessNo',

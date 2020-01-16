@@ -20,7 +20,8 @@ export default class HotPackage extends BaseResource {
       },
       {
         name: 'packageName',
-        type: 'String'
+        type: 'String',
+        sortable: false
       },
       {
         name: 'hotNo',

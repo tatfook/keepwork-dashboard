@@ -189,13 +189,6 @@
         "operateMiss": "Operate miss!"
       }
     },
-    "TeacherCDKey": {
-      "attr": {
-        "key": "key",
-        "state": "state",
-        "createdAt": "created at"
-      }
-    },
     "Subject": {
       "attr": {
         "id": "id",
